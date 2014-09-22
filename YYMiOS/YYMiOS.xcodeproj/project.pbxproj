@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0435235919D04D6C00F67B8E /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0435235819D04D6C00F67B8E /* BaseViewController.m */; };
+		0435236C19D0502C00F67B8E /* LPObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 0435236B19D0502C00F67B8E /* LPObject.m */; };
+		0435236F19D0510400F67B8E /* TabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0435236E19D0510400F67B8E /* TabViewController.m */; };
+		0435237219D053A600F67B8E /* DynamicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0435237119D053A600F67B8E /* DynamicViewController.m */; };
+		0435237519D053B800F67B8E /* WeatherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0435237419D053B800F67B8E /* WeatherViewController.m */; };
+		0435237819D053C500F67B8E /* NearbyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0435237719D053C500F67B8E /* NearbyViewController.m */; };
+		0435237B19D053D300F67B8E /* MineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0435237A19D053D300F67B8E /* MineViewController.m */; };
+		0435237F19D0574900F67B8E /* HomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0435237E19D0574900F67B8E /* HomeCell.m */; };
 		0456057F19CB381800BF5933 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0456057E19CB381800BF5933 /* main.m */; };
 		0456058219CB381800BF5933 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0456058119CB381800BF5933 /* AppDelegate.m */; };
 		0456058A19CB381800BF5933 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0456058919CB381800BF5933 /* Images.xcassets */; };
@@ -27,6 +35,23 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0435235719D04D6C00F67B8E /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
+		0435235819D04D6C00F67B8E /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
+		0435235B19D04E4200F67B8E /* YYMiOS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "YYMiOS-Prefix.pch"; sourceTree = "<group>"; };
+		0435236A19D0502C00F67B8E /* LPObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPObject.h; sourceTree = "<group>"; };
+		0435236B19D0502C00F67B8E /* LPObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPObject.m; sourceTree = "<group>"; };
+		0435236D19D0510400F67B8E /* TabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabViewController.h; sourceTree = "<group>"; };
+		0435236E19D0510400F67B8E /* TabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabViewController.m; sourceTree = "<group>"; };
+		0435237019D053A600F67B8E /* DynamicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicViewController.h; sourceTree = "<group>"; };
+		0435237119D053A600F67B8E /* DynamicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DynamicViewController.m; sourceTree = "<group>"; };
+		0435237319D053B800F67B8E /* WeatherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherViewController.h; sourceTree = "<group>"; };
+		0435237419D053B800F67B8E /* WeatherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherViewController.m; sourceTree = "<group>"; };
+		0435237619D053C500F67B8E /* NearbyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NearbyViewController.h; sourceTree = "<group>"; };
+		0435237719D053C500F67B8E /* NearbyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NearbyViewController.m; sourceTree = "<group>"; };
+		0435237919D053D300F67B8E /* MineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineViewController.h; sourceTree = "<group>"; };
+		0435237A19D053D300F67B8E /* MineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineViewController.m; sourceTree = "<group>"; };
+		0435237D19D0574900F67B8E /* HomeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeCell.h; sourceTree = "<group>"; };
+		0435237E19D0574900F67B8E /* HomeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeCell.m; sourceTree = "<group>"; };
 		0456057919CB381800BF5933 /* YYMiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YYMiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0456057D19CB381800BF5933 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0456057E19CB381800BF5933 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -60,6 +85,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0435236919D0502C00F67B8E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0435236A19D0502C00F67B8E /* LPObject.h */,
+				0435236B19D0502C00F67B8E /* LPObject.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		0435237C19D0573200F67B8E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0435237D19D0574900F67B8E /* HomeCell.h */,
+				0435237E19D0574900F67B8E /* HomeCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		0456057019CB381800BF5933 = {
 			isa = PBXGroup;
 			children = (
@@ -81,8 +124,8 @@
 		0456057B19CB381800BF5933 /* YYMiOS */ = {
 			isa = PBXGroup;
 			children = (
-				045605A419CB38CE00BF5933 /* Model */,
-				045605A319CB38CE00BF5933 /* View */,
+				0435237C19D0573200F67B8E /* View */,
+				0435236919D0502C00F67B8E /* Model */,
 				045605A619CB396B00BF5933 /* Controller */,
 				0456058019CB381800BF5933 /* AppDelegate.h */,
 				0456058119CB381800BF5933 /* AppDelegate.m */,
@@ -99,6 +142,7 @@
 			children = (
 				0456057D19CB381800BF5933 /* Info.plist */,
 				0456057E19CB381800BF5933 /* main.m */,
+				0435235B19D04E4200F67B8E /* YYMiOS-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -120,25 +164,23 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		045605A319CB38CE00BF5933 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		045605A419CB38CE00BF5933 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		045605A619CB396B00BF5933 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				0435235719D04D6C00F67B8E /* BaseViewController.h */,
+				0435235819D04D6C00F67B8E /* BaseViewController.m */,
+				0435236D19D0510400F67B8E /* TabViewController.h */,
+				0435236E19D0510400F67B8E /* TabViewController.m */,
 				045605A719CB398B00BF5933 /* HomeViewController.h */,
 				045605A819CB398B00BF5933 /* HomeViewController.m */,
+				0435237019D053A600F67B8E /* DynamicViewController.h */,
+				0435237119D053A600F67B8E /* DynamicViewController.m */,
+				0435237319D053B800F67B8E /* WeatherViewController.h */,
+				0435237419D053B800F67B8E /* WeatherViewController.m */,
+				0435237619D053C500F67B8E /* NearbyViewController.h */,
+				0435237719D053C500F67B8E /* NearbyViewController.m */,
+				0435237919D053D300F67B8E /* MineViewController.h */,
+				0435237A19D053D300F67B8E /* MineViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -243,9 +285,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0435236F19D0510400F67B8E /* TabViewController.m in Sources */,
+				0435237519D053B800F67B8E /* WeatherViewController.m in Sources */,
+				0435237F19D0574900F67B8E /* HomeCell.m in Sources */,
+				0435236C19D0502C00F67B8E /* LPObject.m in Sources */,
 				0456058219CB381800BF5933 /* AppDelegate.m in Sources */,
+				0435235919D04D6C00F67B8E /* BaseViewController.m in Sources */,
 				0456057F19CB381800BF5933 /* main.m in Sources */,
+				0435237819D053C500F67B8E /* NearbyViewController.m in Sources */,
+				0435237B19D053D300F67B8E /* MineViewController.m in Sources */,
 				045605A919CB398B00BF5933 /* HomeViewController.m in Sources */,
+				0435237219D053A600F67B8E /* DynamicViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -349,6 +399,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = NO;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "YYMiOS/YYMiOS-Prefix.pch";
 				INFOPLIST_FILE = YYMiOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -361,6 +414,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = NO;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "YYMiOS/YYMiOS-Prefix.pch";
 				INFOPLIST_FILE = YYMiOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -421,6 +477,7 @@
 				0456059E19CB381800BF5933 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0456059F19CB381800BF5933 /* Build configuration list for PBXNativeTarget "YYMiOSTests" */ = {
 			isa = XCConfigurationList;
@@ -429,6 +486,7 @@
 				045605A119CB381800BF5933 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

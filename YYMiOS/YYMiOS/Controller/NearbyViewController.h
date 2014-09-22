@@ -1,8 +1,8 @@
 //
-//  HomeViewController.h
+//  NearbyViewController.h
 //  YYMiOS
 //
-//  Created by lide on 14-9-19.
+//  Created by lide on 14-9-22.
 //  Copyright (c) 2014年 Lide. All rights reserved.
 //
 
@@ -10,12 +10,9 @@
 
 @class TabViewController;
 
-@interface HomeViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate>
+@interface NearbyViewController : BaseViewController
 {
     TabViewController   *_tabVC;
-    
-    UITableView     *_tableView;
-    NSMutableArray  *_homeArray;
 }
 
 @property (assign, nonatomic) TabViewController *tabVC;
