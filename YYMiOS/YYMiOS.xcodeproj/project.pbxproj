@@ -22,6 +22,8 @@
 		0435238D19D05D0100F67B8E /* btn_back_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 0435238919D05D0100F67B8E /* btn_back_highlighted.png */; };
 		0435238E19D05D0100F67B8E /* btn_back_highlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0435238A19D05D0100F67B8E /* btn_back_highlighted@2x.png */; };
 		0435239119D05E3200F67B8E /* DynamicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0435239019D05E3200F67B8E /* DynamicCell.m */; };
+		0435239419D0632D00F67B8E /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0435239319D0632D00F67B8E /* LoginViewController.m */; };
+		0435239719D0633E00F67B8E /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0435239619D0633E00F67B8E /* RegisterViewController.m */; };
 		0456057F19CB381800BF5933 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0456057E19CB381800BF5933 /* main.m */; };
 		0456058219CB381800BF5933 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0456058119CB381800BF5933 /* AppDelegate.m */; };
 		0456058A19CB381800BF5933 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0456058919CB381800BF5933 /* Images.xcassets */; };
@@ -69,6 +71,10 @@
 		0435238A19D05D0100F67B8E /* btn_back_highlighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_back_highlighted@2x.png"; sourceTree = "<group>"; };
 		0435238F19D05E3200F67B8E /* DynamicCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicCell.h; sourceTree = "<group>"; };
 		0435239019D05E3200F67B8E /* DynamicCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DynamicCell.m; sourceTree = "<group>"; };
+		0435239219D0632D00F67B8E /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		0435239319D0632D00F67B8E /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		0435239519D0633E00F67B8E /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
+		0435239619D0633E00F67B8E /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		0456057919CB381800BF5933 /* YYMiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YYMiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0456057D19CB381800BF5933 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0456057E19CB381800BF5933 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -198,6 +204,10 @@
 		045605A619CB396B00BF5933 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				0435239219D0632D00F67B8E /* LoginViewController.h */,
+				0435239319D0632D00F67B8E /* LoginViewController.m */,
+				0435239519D0633E00F67B8E /* RegisterViewController.h */,
+				0435239619D0633E00F67B8E /* RegisterViewController.m */,
 				0435235719D04D6C00F67B8E /* BaseViewController.h */,
 				0435235819D04D6C00F67B8E /* BaseViewController.m */,
 				0435236D19D0510400F67B8E /* TabViewController.h */,
@@ -331,6 +341,7 @@
 				0435236C19D0502C00F67B8E /* LPObject.m in Sources */,
 				0456058219CB381800BF5933 /* AppDelegate.m in Sources */,
 				0435235919D04D6C00F67B8E /* BaseViewController.m in Sources */,
+				0435239719D0633E00F67B8E /* RegisterViewController.m in Sources */,
 				0435238219D05C6500F67B8E /* TipsViewController.m in Sources */,
 				0456057F19CB381800BF5933 /* main.m in Sources */,
 				0435239119D05E3200F67B8E /* DynamicCell.m in Sources */,
@@ -338,6 +349,7 @@
 				0435237B19D053D300F67B8E /* MineViewController.m in Sources */,
 				045605A919CB398B00BF5933 /* HomeViewController.m in Sources */,
 				0435237219D053A600F67B8E /* DynamicViewController.m in Sources */,
+				0435239419D0632D00F67B8E /* LoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

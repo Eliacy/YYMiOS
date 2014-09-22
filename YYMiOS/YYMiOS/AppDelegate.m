@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "LoginViewController.h"
 #import "TabViewController.h"
 
 @interface AppDelegate ()
@@ -19,8 +20,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    TabViewController *tabVC = [[[TabViewController alloc] init] autorelease];
-    UINavigationController *navigationController = [[[UINavigationController alloc] initWithRootViewController:tabVC] autorelease];
+    LoginViewController *loginVC = [[[LoginViewController alloc] init] autorelease];
+    UINavigationController *navigationController = [[[UINavigationController alloc] initWithRootViewController:loginVC] autorelease];
     navigationController.navigationBarHidden = YES;
     self.window.rootViewController = navigationController;
     
@@ -47,6 +48,16 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+#pragma mark - public
+
+- (void)lanuchTabViewContrller
+{
+    TabViewController *tabVC = [[[TabViewController alloc] init] autorelease];
+    UINavigationController *navigationController = [[[UINavigationController alloc] initWithRootViewController:tabVC] autorelease];
+    navigationController.navigationBarHidden = YES;
+    self.window.rootViewController = navigationController;
 }
 
 @end

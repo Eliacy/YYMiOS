@@ -19,6 +19,7 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
+#import "AppDelegate.h"
 
 #define LP_SAFE_RELEASE(X)  [X release]; X = nil;
 #define LP_VIEW_RELEASE(X)  [X removeFromSuperview]; [X release]; X = nil;
