@@ -7,7 +7,11 @@
 //
 
 #import "HomeViewController.h"
+#import "TabViewController.h"
 #import "HomeCell.h"
+
+#import "TipsViewController.h"
+#import "MessageViewController.h"
 
 @interface HomeViewController ()
 
@@ -16,6 +20,22 @@
 @implementation HomeViewController
 
 @synthesize tabVC = _tabVC;
+
+#pragma mark - private
+
+- (void)clickTipsButton:(id)sender
+{
+    TipsViewController *tipsVC = [[[TipsViewController alloc] init] autorelease];
+    [self.tabVC.navigationController pushViewController:tipsVC animated:YES];
+}
+
+- (void)clickMessageButton:(id)sender
+{
+    MessageViewController *messageVC = [[[MessageViewController alloc] init] autorelease];
+    [self.tabVC.navigationController pushViewController:messageVC animated:YES];
+}
+
+#pragma mark - super
 
 - (id)init
 {
@@ -38,18 +58,34 @@
     _titleLabel.text = @"首页";
     _backButton.hidden = YES;
     
+    _tipsButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    _tipsButton.frame = CGRectMake(2, 2, 40, 40);
+    _tipsButton.backgroundColor = [UIColor clearColor];
+    [_tipsButton setTitle:@"Tips" forState:UIControlStateNormal];
+    [_tipsButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _tipsButton.titleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
+    [_tipsButton addTarget:self action:@selector(clickTipsButton:) forControlEvents:UIControlEventTouchUpInside];
+    [_headerView addSubview:_tipsButton];
+    
+    _messageButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    _messageButton.frame = CGRectMake(_headerView.frame.size.width - 2 - 40, 2, 40, 40);
+    _messageButton.backgroundColor = [UIColor clearColor];
+    [_messageButton setTitle:@"消息" forState:UIControlStateNormal];
+    [_messageButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _messageButton.titleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
+    [_messageButton addTarget:self action:@selector(clickMessageButton:) forControlEvents:UIControlEventTouchUpInside];
+    [_headerView addSubview:_messageButton];
+    
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, _adjustView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - _adjustView.frame.size.height) style:UITableViewStylePlain];
+    _tableView.backgroundColor = [UIColor clearColor];
     _tableView.dataSource = self;
     _tableView.delegate = self;
+    _tableView.separatorColor = [UIColor clearColor];
     [self.view addSubview:_tableView];
     
     UIView *tableHeaderView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 10)] autorelease];
     tableHeaderView.backgroundColor = [UIColor clearColor];
     _tableView.tableHeaderView = tableHeaderView;
-    
-    UIView *tableFooterView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 1)] autorelease];
-    tableFooterView.backgroundColor = [UIColor clearColor];
-    _tableView.tableFooterView = tableFooterView;
 }
 
 - (void)viewDidLoad {

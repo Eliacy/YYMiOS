@@ -15,6 +15,8 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if(self != nil)
     {
+        self.backgroundColor = [UIColor clearColor];
+        
         _backImageView = [[UIImageView alloc] initWithFrame:CGRectMake(5, 0, 310, 130)];
         _backImageView.backgroundColor = [UIColor lightGrayColor];
         [self.contentView addSubview:_backImageView];

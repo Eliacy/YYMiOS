@@ -16,6 +16,9 @@
     
     UITableView     *_tableView;
     NSMutableArray  *_homeArray;
+    
+    UIButton        *_tipsButton;
+    UIButton        *_messageButton;
 }
 
 @property (assign, nonatomic) TabViewController *tabVC;

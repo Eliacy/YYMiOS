@@ -10,9 +10,12 @@
 
 @class TabViewController;
 
-@interface DynamicViewController : BaseViewController
+@interface DynamicViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate>
 {
     TabViewController   *_tabVC;
+    
+    UITableView     *_tableView;
+    NSMutableArray  *_dynamicArray;
 }
 
 @property (assign, nonatomic) TabViewController *tabVC;
