@@ -8,7 +8,11 @@
 
 #import "MineViewController.h"
 #import "TabViewController.h"
+#import "UserInfoViewController.h"
 #import "SettingViewController.h"
+
+#import "FeedbackViewController.h"
+#import "AboutViewController.h"
 
 @interface MineViewController ()
 
@@ -103,7 +107,12 @@
     
     _avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 10, 60, 60)];
     _avatarImageView.backgroundColor = [UIColor brownColor];
+    _avatarImageView.userInteractionEnabled = YES;
     [_backView addSubview:_avatarImageView];
+    
+    UITapGestureRecognizer *oneFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAvaterView:)];
+    [_avatarImageView addGestureRecognizer:oneFingerTap];
+    [oneFingerTap release];
     
     _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(_avatarImageView.frame.origin.x + _avatarImageView.frame.size.width + 10, _avatarImageView.frame.origin.y, _backView.frame.size.width - 20 * 2 - 10 - _avatarImageView.frame.size.width, 20)];
     _nameLabel.backgroundColor = [UIColor clearColor];
@@ -362,12 +371,14 @@
             switch (indexPath.row) {
                 case 0:
                 {
-                
+                    FeedbackViewController *feedbackVC = [[[FeedbackViewController alloc] init] autorelease];
+                    [self.tabVC.navigationController pushViewController:feedbackVC animated:YES];
                 }
                     break;
                 case 1:
                 {
-                
+                    AboutViewController *aboutVC = [[[AboutViewController alloc] init] autorelease];
+                    [self.tabVC.navigationController pushViewController:aboutVC animated:YES];
                 }
                     break;
                 default:
@@ -380,6 +391,17 @@
     }
     
     return nil;
+}
+
+#pragma mark - UIGestureRecognizer
+
+- (void)tapAvaterView:(UITapGestureRecognizer *)gestureRecognizer
+{
+    if(gestureRecognizer.state == UIGestureRecognizerStateEnded)
+    {
+        UserInfoViewController *userInfoVC = [[[UserInfoViewController alloc] init] autorelease];
+        [self.tabVC.navigationController pushViewController:userInfoVC animated:YES];
+    }
 }
 
 @end

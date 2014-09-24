@@ -33,6 +33,9 @@
 		045605AD19CB3AFB00BF5933 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 045605AB19CB3AFB00BF5933 /* Main.storyboard */; };
 		048355A519D31BDB005ECAD6 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048355A419D31BDB005ECAD6 /* SettingViewController.m */; };
 		048355A819D31F3F005ECAD6 /* NearbyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 048355A719D31F3F005ECAD6 /* NearbyCell.m */; };
+		048355AB19D320C7005ECAD6 /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048355AA19D320C7005ECAD6 /* FeedbackViewController.m */; };
+		048355AE19D320D2005ECAD6 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048355AD19D320D2005ECAD6 /* AboutViewController.m */; };
+		048355B119D322DA005ECAD6 /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048355B019D322DA005ECAD6 /* UserInfoViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,6 +97,12 @@
 		048355A419D31BDB005ECAD6 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		048355A619D31F3F005ECAD6 /* NearbyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NearbyCell.h; sourceTree = "<group>"; };
 		048355A719D31F3F005ECAD6 /* NearbyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NearbyCell.m; sourceTree = "<group>"; };
+		048355A919D320C7005ECAD6 /* FeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController.h; sourceTree = "<group>"; };
+		048355AA19D320C7005ECAD6 /* FeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackViewController.m; sourceTree = "<group>"; };
+		048355AC19D320D2005ECAD6 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		048355AD19D320D2005ECAD6 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		048355AF19D322DA005ECAD6 /* UserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoViewController.h; sourceTree = "<group>"; };
+		048355B019D322DA005ECAD6 /* UserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,8 +243,14 @@
 				0435238119D05C6500F67B8E /* TipsViewController.m */,
 				0435238319D05C7200F67B8E /* MessageViewController.h */,
 				0435238419D05C7200F67B8E /* MessageViewController.m */,
+				048355AF19D322DA005ECAD6 /* UserInfoViewController.h */,
+				048355B019D322DA005ECAD6 /* UserInfoViewController.m */,
 				048355A319D31BDB005ECAD6 /* SettingViewController.h */,
 				048355A419D31BDB005ECAD6 /* SettingViewController.m */,
+				048355A919D320C7005ECAD6 /* FeedbackViewController.h */,
+				048355AA19D320C7005ECAD6 /* FeedbackViewController.m */,
+				048355AC19D320D2005ECAD6 /* AboutViewController.h */,
+				048355AD19D320D2005ECAD6 /* AboutViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -345,10 +360,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				0435236F19D0510400F67B8E /* TabViewController.m in Sources */,
+				048355AB19D320C7005ECAD6 /* FeedbackViewController.m in Sources */,
 				0435237519D053B800F67B8E /* WeatherViewController.m in Sources */,
 				048355A519D31BDB005ECAD6 /* SettingViewController.m in Sources */,
 				0435238519D05C7200F67B8E /* MessageViewController.m in Sources */,
+				048355B119D322DA005ECAD6 /* UserInfoViewController.m in Sources */,
 				0435237F19D0574900F67B8E /* HomeCell.m in Sources */,
+				048355AE19D320D2005ECAD6 /* AboutViewController.m in Sources */,
 				0435236C19D0502C00F67B8E /* LPObject.m in Sources */,
 				0456058219CB381800BF5933 /* AppDelegate.m in Sources */,
 				0435235919D04D6C00F67B8E /* BaseViewController.m in Sources */,
