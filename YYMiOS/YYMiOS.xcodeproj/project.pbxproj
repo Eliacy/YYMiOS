@@ -31,6 +31,8 @@
 		045605A919CB398B00BF5933 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 045605A819CB398B00BF5933 /* HomeViewController.m */; };
 		045605AC19CB3AFB00BF5933 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 045605AA19CB3AFB00BF5933 /* LaunchScreen.xib */; };
 		045605AD19CB3AFB00BF5933 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 045605AB19CB3AFB00BF5933 /* Main.storyboard */; };
+		048355A519D31BDB005ECAD6 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048355A419D31BDB005ECAD6 /* SettingViewController.m */; };
+		048355A819D31F3F005ECAD6 /* NearbyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 048355A719D31F3F005ECAD6 /* NearbyCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +90,10 @@
 		045605A819CB398B00BF5933 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		045605AA19CB3AFB00BF5933 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		045605AB19CB3AFB00BF5933 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		048355A319D31BDB005ECAD6 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
+		048355A419D31BDB005ECAD6 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
+		048355A619D31F3F005ECAD6 /* NearbyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NearbyCell.h; sourceTree = "<group>"; };
+		048355A719D31F3F005ECAD6 /* NearbyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NearbyCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +130,8 @@
 				0435237E19D0574900F67B8E /* HomeCell.m */,
 				0435238F19D05E3200F67B8E /* DynamicCell.h */,
 				0435239019D05E3200F67B8E /* DynamicCell.m */,
+				048355A619D31F3F005ECAD6 /* NearbyCell.h */,
+				048355A719D31F3F005ECAD6 /* NearbyCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -226,6 +234,8 @@
 				0435238119D05C6500F67B8E /* TipsViewController.m */,
 				0435238319D05C7200F67B8E /* MessageViewController.h */,
 				0435238419D05C7200F67B8E /* MessageViewController.m */,
+				048355A319D31BDB005ECAD6 /* SettingViewController.h */,
+				048355A419D31BDB005ECAD6 /* SettingViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -336,6 +346,7 @@
 			files = (
 				0435236F19D0510400F67B8E /* TabViewController.m in Sources */,
 				0435237519D053B800F67B8E /* WeatherViewController.m in Sources */,
+				048355A519D31BDB005ECAD6 /* SettingViewController.m in Sources */,
 				0435238519D05C7200F67B8E /* MessageViewController.m in Sources */,
 				0435237F19D0574900F67B8E /* HomeCell.m in Sources */,
 				0435236C19D0502C00F67B8E /* LPObject.m in Sources */,
@@ -343,6 +354,7 @@
 				0435235919D04D6C00F67B8E /* BaseViewController.m in Sources */,
 				0435239719D0633E00F67B8E /* RegisterViewController.m in Sources */,
 				0435238219D05C6500F67B8E /* TipsViewController.m in Sources */,
+				048355A819D31F3F005ECAD6 /* NearbyCell.m in Sources */,
 				0456057F19CB381800BF5933 /* main.m in Sources */,
 				0435239119D05E3200F67B8E /* DynamicCell.m in Sources */,
 				0435237819D053C500F67B8E /* NearbyViewController.m in Sources */,

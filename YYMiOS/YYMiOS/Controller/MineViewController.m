@@ -7,6 +7,8 @@
 //
 
 #import "MineViewController.h"
+#import "TabViewController.h"
+#import "SettingViewController.h"
 
 @interface MineViewController ()
 
@@ -20,7 +22,8 @@
 
 - (void)clickSettingButton:(id)sender
 {
-
+    SettingViewController *settingVC = [[[SettingViewController alloc] init] autorelease];
+    [self.tabVC.navigationController pushViewController:settingVC animated:YES];
 }
 
 - (void)clickFollowingButton:(id)sender

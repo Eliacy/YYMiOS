@@ -16,6 +16,9 @@
     
     UITableView     *_tableView;
     NSMutableArray  *_dynamicArray;
+    
+    UIButton        *_bestButton;
+    UIButton        *_addButton;
 }
 
 @property (assign, nonatomic) TabViewController *tabVC;

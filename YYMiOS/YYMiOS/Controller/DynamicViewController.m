@@ -18,6 +18,20 @@
 
 @synthesize tabVC = _tabVC;
 
+#pragma mark - private
+
+- (void)clickBestButton:(id)sender
+{
+
+}
+
+- (void)clickAddButton:(id)sender
+{
+
+}
+
+#pragma mark - super
+
 - (id)init
 {
     self = [super init];
@@ -38,6 +52,24 @@
     self.view.frame = CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width, self.view.frame.size.height - 49);
     _titleLabel.text = @"动态";
     _backButton.hidden = YES;
+    
+    _bestButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    _bestButton.frame = CGRectMake(2, 2, 40, 40);
+    _bestButton.backgroundColor = [UIColor clearColor];
+    [_bestButton setTitle:@"精选" forState:UIControlStateNormal];
+    [_bestButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _bestButton.titleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
+    [_bestButton addTarget:self action:@selector(clickBestButton:) forControlEvents:UIControlEventTouchUpInside];
+    [_headerView addSubview:_bestButton];
+    
+    _addButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    _addButton.frame = CGRectMake(_headerView.frame.size.width - 2 - 40, 2, 40, 40);
+    _addButton.backgroundColor = [UIColor clearColor];
+    [_addButton setTitle:@"添加" forState:UIControlStateNormal];
+    [_addButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _addButton.titleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
+    [_addButton addTarget:self action:@selector(clickAddButton:) forControlEvents:UIControlEventTouchUpInside];
+    [_headerView addSubview:_addButton];
     
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, _adjustView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - _adjustView.frame.size.height) style:UITableViewStylePlain];
     _tableView.backgroundColor = [UIColor clearColor];

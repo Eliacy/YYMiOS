@@ -10,9 +10,12 @@
 
 @class TabViewController;
 
-@interface NearbyViewController : BaseViewController
+@interface NearbyViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate>
 {
     TabViewController   *_tabVC;
+    
+    UITableView     *_tableView;
+    NSMutableArray  *_nearbyArray;
 }
 
 @property (assign, nonatomic) TabViewController *tabVC;
