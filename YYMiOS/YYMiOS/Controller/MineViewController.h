@@ -10,9 +10,25 @@
 
 @class TabViewController;
 
-@interface MineViewController : BaseViewController
+@interface MineViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate>
 {
     TabViewController   *_tabVC;
+    
+    UITableView     *_tableView;
+    
+    UIView          *_tableHeaderView;
+    UIView          *_backView;
+    UIImageView     *_avatarImageView;
+    UILabel         *_nameLabel;
+    UIButton        *_followingButton;
+    UIButton        *_followerButton;
+    
+    UIButton        *_likeButton;
+    UIButton        *_shareButton;
+    UIButton        *_commentButton;
+    UIButton        *_favouriteButton;
+    
+    UIButton        *_settingButton;
 }
 
 @property (assign, nonatomic) TabViewController *tabVC;
