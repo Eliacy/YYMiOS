@@ -7,8 +7,9 @@
 //
 
 #import "UserInfoViewController.h"
+#import "PhotoSelectView.h"
 
-@interface UserInfoViewController ()
+@interface UserInfoViewController () <PhotoSelectViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @end
 
@@ -112,7 +113,98 @@
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    switch (indexPath.row)
+    {
+        case 0:
+        {
+            PhotoSelectView *photoSelectView = [[[PhotoSelectView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)] autorelease];
+            photoSelectView.backgroundColor = [UIColor clearColor];
+            photoSelectView.delegate = self;
+            [photoSelectView show];
+        }
+            break;
+        case 1:
+        {
+            
+        }
+            break;
+        case 2:
+        {
+            
+        }
+            break;
+        case 3:
+        {
+            
+        }
+            break;
+        case 4:
+        {
+            
+        }
+            break;
+        default:
+            break;
+    }
+    
     return nil;
 }
+
+#pragma mark - PhotoSelectViewDelegate
+
+- (void)photoSelectViewDidClickCameraButton:(PhotoSelectView *)photoSelectView
+{
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+    {
+        UIImagePickerController *picker = [[[UIImagePickerController alloc] init] autorelease];
+        picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        picker.delegate = self;
+        picker.allowsEditing = YES;
+        [self presentViewController:picker animated:YES completion:^{
+            
+        }];
+    }
+    else
+    {
+        NSLog(@"不能使用照相机");
+    }
+}
+
+- (void)photoSelectViewDidClickLibraryButton:(PhotoSelectView *)photoSelectView
+{
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary])
+    {
+        UIImagePickerController *picker = [[[UIImagePickerController alloc] init] autorelease];
+        picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        picker.delegate = self;
+        picker.allowsEditing = YES;
+        [self presentViewController:picker animated:YES completion:^{
+            
+        }];
+    }
+    else
+    {
+        NSLog(@"不能访问图片库");
+    }
+}
+
+#pragma mark - UIImagePickerControllerDelegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+//    UIImage *image = [info valueForKey:UIImagePickerControllerEditedImage];
+    
+    [picker dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [picker dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+}
+
 
 @end

@@ -37,6 +37,7 @@
 		04788D6119D7FD4500BE283B /* Dynamic.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D6019D7FD4500BE283B /* Dynamic.m */; };
 		04788D6419D7FD5600BE283B /* Nearby.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D6319D7FD5600BE283B /* Nearby.m */; };
 		04788D6719D7FD6100BE283B /* Draft.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D6619D7FD6100BE283B /* Draft.m */; };
+		04788D6A19D8008E00BE283B /* PhotoSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D6919D8008E00BE283B /* PhotoSelectView.m */; };
 		048355A519D31BDB005ECAD6 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048355A419D31BDB005ECAD6 /* SettingViewController.m */; };
 		048355A819D31F3F005ECAD6 /* NearbyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 048355A719D31F3F005ECAD6 /* NearbyCell.m */; };
 		048355AB19D320C7005ECAD6 /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048355AA19D320C7005ECAD6 /* FeedbackViewController.m */; };
@@ -111,6 +112,8 @@
 		04788D6319D7FD5600BE283B /* Nearby.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Nearby.m; sourceTree = "<group>"; };
 		04788D6519D7FD6100BE283B /* Draft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Draft.h; sourceTree = "<group>"; };
 		04788D6619D7FD6100BE283B /* Draft.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Draft.m; sourceTree = "<group>"; };
+		04788D6819D8008E00BE283B /* PhotoSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoSelectView.h; sourceTree = "<group>"; };
+		04788D6919D8008E00BE283B /* PhotoSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoSelectView.m; sourceTree = "<group>"; };
 		048355A319D31BDB005ECAD6 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		048355A419D31BDB005ECAD6 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		048355A619D31F3F005ECAD6 /* NearbyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NearbyCell.h; sourceTree = "<group>"; };
@@ -169,6 +172,8 @@
 				048355A719D31F3F005ECAD6 /* NearbyCell.m */,
 				04788D5919D7FAF000BE283B /* DraftCell.h */,
 				04788D5A19D7FAF000BE283B /* DraftCell.m */,
+				04788D6819D8008E00BE283B /* PhotoSelectView.h */,
+				04788D6919D8008E00BE283B /* PhotoSelectView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -406,6 +411,7 @@
 				0435239719D0633E00F67B8E /* RegisterViewController.m in Sources */,
 				04788D5B19D7FAF000BE283B /* DraftCell.m in Sources */,
 				0435238219D05C6500F67B8E /* TipsViewController.m in Sources */,
+				04788D6A19D8008E00BE283B /* PhotoSelectView.m in Sources */,
 				048355A819D31F3F005ECAD6 /* NearbyCell.m in Sources */,
 				0456057F19CB381800BF5933 /* main.m in Sources */,
 				0435239119D05E3200F67B8E /* DynamicCell.m in Sources */,
