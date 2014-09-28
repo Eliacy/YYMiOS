@@ -16,6 +16,8 @@
     
     UITableView     *_tableView;
     NSMutableArray  *_nearbyArray;
+    
+    UIButton        *_mapButton;
 }
 
 @property (assign, nonatomic) TabViewController *tabVC;

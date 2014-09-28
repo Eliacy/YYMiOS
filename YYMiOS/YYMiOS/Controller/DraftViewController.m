@@ -1,40 +1,28 @@
 //
-//  NearbyViewController.m
+//  DraftViewController.m
 //  YYMiOS
 //
-//  Created by lide on 14-9-22.
+//  Created by lide on 14-9-28.
 //  Copyright (c) 2014年 Lide. All rights reserved.
 //
 
-#import "NearbyViewController.h"
-#import "TabViewController.h"
-#import "NearbyCell.h"
+#import "DraftViewController.h"
+#import "DraftCell.h"
 
-@interface NearbyViewController ()
+@interface DraftViewController ()
 
 @end
 
-@implementation NearbyViewController
-
-@synthesize tabVC = _tabVC;
-
-#pragma mark - private
-
-- (void)clickMapButton:(id)sender
-{
-
-}
-
-#pragma mark - super
+@implementation DraftViewController
 
 - (id)init
 {
     self = [super init];
     if(self != nil)
     {
-        _nearbyArray = [[NSMutableArray alloc] initWithCapacity:0];
+        _draftArray = [[NSMutableArray alloc] initWithCapacity:0];
         
-        [_nearbyArray addObjectsFromArray:[NSArray arrayWithObjects:@"1", @"2", @"3", @"4", @"5", @"6", @"7", nil]];
+        [_draftArray addObjectsFromArray:[NSArray arrayWithObjects:@"1", @"2", @"3", @"4", nil]];
     }
     
     return self;
@@ -44,29 +32,21 @@
 {
     [super loadView];
     
-    self.view.frame = CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width, self.view.frame.size.height - 49);
-    _titleLabel.text = @"附近";
-    _backButton.hidden = YES;
-    
-    _mapButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-    _mapButton.frame = CGRectMake(_headerView.frame.size.width - 2 - 40, 2, 40, 40);
-    _mapButton.backgroundColor = [UIColor clearColor];
-    [_mapButton setTitle:@"地图" forState:UIControlStateNormal];
-    [_mapButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    _mapButton.titleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
-    [_mapButton addTarget:self action:@selector(clickMapButton:) forControlEvents:UIControlEventTouchUpInside];
-    [_headerView addSubview:_mapButton];
+    _titleLabel.text = @"草稿列表";
     
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, _adjustView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - _adjustView.frame.size.height) style:UITableViewStylePlain];
     _tableView.backgroundColor = [UIColor clearColor];
     _tableView.dataSource = self;
     _tableView.delegate = self;
-    _tableView.separatorColor = [UIColor clearColor];
     [self.view addSubview:_tableView];
     
     UIView *tableHeaderView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 15)] autorelease];
     tableHeaderView.backgroundColor = [UIColor clearColor];
     _tableView.tableHeaderView = tableHeaderView;
+    
+    UIView *tableFooterView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 1)] autorelease];
+    tableFooterView.backgroundColor = [UIColor clearColor];
+    _tableView.tableFooterView = tableFooterView;
 }
 
 - (void)viewDidLoad {
@@ -93,20 +73,20 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 155;
+    return 90.0f;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [_nearbyArray count];
+    return [_draftArray count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NearbyCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NearbyViewControllerIdentifier"];
+    DraftCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DraftViewControllerIdentifier"];
     if(cell == nil)
     {
-        cell = [[[NearbyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NearbyViewControllerIdentifier"] autorelease];
+        cell = [[[DraftCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"DraftViewControllerIdentifier"] autorelease];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     

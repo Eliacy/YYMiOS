@@ -31,6 +31,12 @@
 		045605A919CB398B00BF5933 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 045605A819CB398B00BF5933 /* HomeViewController.m */; };
 		045605AC19CB3AFB00BF5933 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 045605AA19CB3AFB00BF5933 /* LaunchScreen.xib */; };
 		045605AD19CB3AFB00BF5933 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 045605AB19CB3AFB00BF5933 /* Main.storyboard */; };
+		04788D5819D7F2FB00BE283B /* DraftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D5719D7F2FB00BE283B /* DraftViewController.m */; };
+		04788D5B19D7FAF000BE283B /* DraftCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D5A19D7FAF000BE283B /* DraftCell.m */; };
+		04788D5E19D7FD2F00BE283B /* Home.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D5D19D7FD2F00BE283B /* Home.m */; };
+		04788D6119D7FD4500BE283B /* Dynamic.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D6019D7FD4500BE283B /* Dynamic.m */; };
+		04788D6419D7FD5600BE283B /* Nearby.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D6319D7FD5600BE283B /* Nearby.m */; };
+		04788D6719D7FD6100BE283B /* Draft.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D6619D7FD6100BE283B /* Draft.m */; };
 		048355A519D31BDB005ECAD6 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048355A419D31BDB005ECAD6 /* SettingViewController.m */; };
 		048355A819D31F3F005ECAD6 /* NearbyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 048355A719D31F3F005ECAD6 /* NearbyCell.m */; };
 		048355AB19D320C7005ECAD6 /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048355AA19D320C7005ECAD6 /* FeedbackViewController.m */; };
@@ -93,6 +99,18 @@
 		045605A819CB398B00BF5933 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		045605AA19CB3AFB00BF5933 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		045605AB19CB3AFB00BF5933 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		04788D5619D7F2FB00BE283B /* DraftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DraftViewController.h; sourceTree = "<group>"; };
+		04788D5719D7F2FB00BE283B /* DraftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DraftViewController.m; sourceTree = "<group>"; };
+		04788D5919D7FAF000BE283B /* DraftCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DraftCell.h; sourceTree = "<group>"; };
+		04788D5A19D7FAF000BE283B /* DraftCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DraftCell.m; sourceTree = "<group>"; };
+		04788D5C19D7FD2F00BE283B /* Home.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Home.h; sourceTree = "<group>"; };
+		04788D5D19D7FD2F00BE283B /* Home.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Home.m; sourceTree = "<group>"; };
+		04788D5F19D7FD4500BE283B /* Dynamic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dynamic.h; sourceTree = "<group>"; };
+		04788D6019D7FD4500BE283B /* Dynamic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dynamic.m; sourceTree = "<group>"; };
+		04788D6219D7FD5600BE283B /* Nearby.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Nearby.h; sourceTree = "<group>"; };
+		04788D6319D7FD5600BE283B /* Nearby.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Nearby.m; sourceTree = "<group>"; };
+		04788D6519D7FD6100BE283B /* Draft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Draft.h; sourceTree = "<group>"; };
+		04788D6619D7FD6100BE283B /* Draft.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Draft.m; sourceTree = "<group>"; };
 		048355A319D31BDB005ECAD6 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		048355A419D31BDB005ECAD6 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		048355A619D31F3F005ECAD6 /* NearbyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NearbyCell.h; sourceTree = "<group>"; };
@@ -128,6 +146,14 @@
 			children = (
 				0435236A19D0502C00F67B8E /* LPObject.h */,
 				0435236B19D0502C00F67B8E /* LPObject.m */,
+				04788D5C19D7FD2F00BE283B /* Home.h */,
+				04788D5D19D7FD2F00BE283B /* Home.m */,
+				04788D5F19D7FD4500BE283B /* Dynamic.h */,
+				04788D6019D7FD4500BE283B /* Dynamic.m */,
+				04788D6219D7FD5600BE283B /* Nearby.h */,
+				04788D6319D7FD5600BE283B /* Nearby.m */,
+				04788D6519D7FD6100BE283B /* Draft.h */,
+				04788D6619D7FD6100BE283B /* Draft.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -141,6 +167,8 @@
 				0435239019D05E3200F67B8E /* DynamicCell.m */,
 				048355A619D31F3F005ECAD6 /* NearbyCell.h */,
 				048355A719D31F3F005ECAD6 /* NearbyCell.m */,
+				04788D5919D7FAF000BE283B /* DraftCell.h */,
+				04788D5A19D7FAF000BE283B /* DraftCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -239,6 +267,8 @@
 				0435237719D053C500F67B8E /* NearbyViewController.m */,
 				0435237919D053D300F67B8E /* MineViewController.h */,
 				0435237A19D053D300F67B8E /* MineViewController.m */,
+				04788D5619D7F2FB00BE283B /* DraftViewController.h */,
+				04788D5719D7F2FB00BE283B /* DraftViewController.m */,
 				0435238019D05C6500F67B8E /* TipsViewController.h */,
 				0435238119D05C6500F67B8E /* TipsViewController.m */,
 				0435238319D05C7200F67B8E /* MessageViewController.h */,
@@ -361,7 +391,10 @@
 			files = (
 				0435236F19D0510400F67B8E /* TabViewController.m in Sources */,
 				048355AB19D320C7005ECAD6 /* FeedbackViewController.m in Sources */,
+				04788D5E19D7FD2F00BE283B /* Home.m in Sources */,
+				04788D5819D7F2FB00BE283B /* DraftViewController.m in Sources */,
 				0435237519D053B800F67B8E /* WeatherViewController.m in Sources */,
+				04788D6119D7FD4500BE283B /* Dynamic.m in Sources */,
 				048355A519D31BDB005ECAD6 /* SettingViewController.m in Sources */,
 				0435238519D05C7200F67B8E /* MessageViewController.m in Sources */,
 				048355B119D322DA005ECAD6 /* UserInfoViewController.m in Sources */,
@@ -371,6 +404,7 @@
 				0456058219CB381800BF5933 /* AppDelegate.m in Sources */,
 				0435235919D04D6C00F67B8E /* BaseViewController.m in Sources */,
 				0435239719D0633E00F67B8E /* RegisterViewController.m in Sources */,
+				04788D5B19D7FAF000BE283B /* DraftCell.m in Sources */,
 				0435238219D05C6500F67B8E /* TipsViewController.m in Sources */,
 				048355A819D31F3F005ECAD6 /* NearbyCell.m in Sources */,
 				0456057F19CB381800BF5933 /* main.m in Sources */,
@@ -379,6 +413,8 @@
 				0435237B19D053D300F67B8E /* MineViewController.m in Sources */,
 				045605A919CB398B00BF5933 /* HomeViewController.m in Sources */,
 				0435237219D053A600F67B8E /* DynamicViewController.m in Sources */,
+				04788D6719D7FD6100BE283B /* Draft.m in Sources */,
+				04788D6419D7FD5600BE283B /* Nearby.m in Sources */,
 				0435239419D0632D00F67B8E /* LoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -17,9 +17,20 @@
     {
         self.backgroundColor = [UIColor clearColor];
         
-        _backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 240)];
+        _backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 145)];
         _backView.backgroundColor = [UIColor whiteColor];
         [self.contentView addSubview:_backView];
+        
+        _avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(5, 5, 60, 60)];
+        _avatarImageView.backgroundColor = [UIColor brownColor];
+        [_backView addSubview:_avatarImageView];
+        
+        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(_avatarImageView.frame.origin.x + _avatarImageView.frame.size.width + 10, _avatarImageView.frame.origin.y, 230, 15)];
+        _titleLabel.backgroundColor = [UIColor clearColor];
+        _titleLabel.textColor = [UIColor darkGrayColor];
+        _titleLabel.font = [UIFont systemFontOfSize:15.0f];
+        _titleLabel.text = @"利贝尔王国";
+        [_backView addSubview:_titleLabel];
     }
     
     return self;

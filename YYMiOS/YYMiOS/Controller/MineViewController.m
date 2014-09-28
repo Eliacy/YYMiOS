@@ -11,6 +11,8 @@
 #import "UserInfoViewController.h"
 #import "SettingViewController.h"
 
+#import "DraftViewController.h"
+
 #import "FeedbackViewController.h"
 #import "AboutViewController.h"
 
@@ -343,7 +345,8 @@
             switch (indexPath.row) {
                 case 0:
                 {
-                
+                    DraftViewController *draftVC = [[[DraftViewController alloc] init] autorelease];
+                    [self.tabVC.navigationController pushViewController:draftVC animated:YES];
                 }
                     break;
                 case 1:
