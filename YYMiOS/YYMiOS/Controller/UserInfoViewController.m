@@ -8,12 +8,24 @@
 
 #import "UserInfoViewController.h"
 #import "PhotoSelectView.h"
+#import "NicknameViewController.h"
+#import "GenderViewController.h"
+#import "ModifyPasswordViewController.h"
 
 @interface UserInfoViewController () <PhotoSelectViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @end
 
 @implementation UserInfoViewController
+
+#pragma mark - private
+
+- (void)clickLogoutButton:(id)sender
+{
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] lanuchLoginViewController];
+}
+
+#pragma mark - super
 
 - (id)init
 {
@@ -38,6 +50,18 @@
     _tableView.delegate = self;
     _tableView.separatorColor = [UIColor clearColor];
     [self.view addSubview:_tableView];
+    
+    _tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 60)];
+    _tableFooterView.backgroundColor = [UIColor clearColor];
+    _tableView.tableFooterView = _tableFooterView;
+    
+    _logoutButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    _logoutButton.frame = CGRectMake(20, _tableFooterView.frame.size.height - 45, _tableFooterView.frame.size.width - 20 * 2, 45);
+    _logoutButton.backgroundColor = [UIColor grayColor];
+    [_logoutButton setTitle:@"退出当前登录" forState:UIControlStateNormal];
+    [_logoutButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_logoutButton addTarget:self action:@selector(clickLogoutButton:) forControlEvents:UIControlEventTouchUpInside];
+    [_tableFooterView addSubview:_logoutButton];
 }
 
 - (void)viewDidLoad {
@@ -125,12 +149,14 @@
             break;
         case 1:
         {
-            
+            NicknameViewController *nicknameVC = [[[NicknameViewController alloc] init] autorelease];
+            [self.navigationController pushViewController:nicknameVC animated:YES];
         }
             break;
         case 2:
         {
-            
+            GenderViewController *genderVC = [[[GenderViewController alloc] init] autorelease];
+            [self.navigationController pushViewController:genderVC animated:YES];
         }
             break;
         case 3:
@@ -140,7 +166,8 @@
             break;
         case 4:
         {
-            
+            ModifyPasswordViewController *modifyPasswordVC = [[[ModifyPasswordViewController alloc] init] autorelease];
+            [self.navigationController pushViewController:modifyPasswordVC animated:YES];
         }
             break;
         default:

@@ -11,6 +11,9 @@
 @interface UserInfoViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate>
 {
     UITableView     *_tableView;
+    
+    UIView          *_tableFooterView;
+    UIButton        *_logoutButton;
 }
 
 @end

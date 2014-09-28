@@ -38,6 +38,9 @@
 		04788D6419D7FD5600BE283B /* Nearby.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D6319D7FD5600BE283B /* Nearby.m */; };
 		04788D6719D7FD6100BE283B /* Draft.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D6619D7FD6100BE283B /* Draft.m */; };
 		04788D6A19D8008E00BE283B /* PhotoSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D6919D8008E00BE283B /* PhotoSelectView.m */; };
+		04788D6D19D8098700BE283B /* NicknameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D6C19D8098700BE283B /* NicknameViewController.m */; };
+		04788D7019D809AF00BE283B /* GenderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D6F19D809AF00BE283B /* GenderViewController.m */; };
+		04788D7319D80AA500BE283B /* ModifyPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D7219D80AA500BE283B /* ModifyPasswordViewController.m */; };
 		048355A519D31BDB005ECAD6 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048355A419D31BDB005ECAD6 /* SettingViewController.m */; };
 		048355A819D31F3F005ECAD6 /* NearbyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 048355A719D31F3F005ECAD6 /* NearbyCell.m */; };
 		048355AB19D320C7005ECAD6 /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048355AA19D320C7005ECAD6 /* FeedbackViewController.m */; };
@@ -114,6 +117,12 @@
 		04788D6619D7FD6100BE283B /* Draft.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Draft.m; sourceTree = "<group>"; };
 		04788D6819D8008E00BE283B /* PhotoSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoSelectView.h; sourceTree = "<group>"; };
 		04788D6919D8008E00BE283B /* PhotoSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoSelectView.m; sourceTree = "<group>"; };
+		04788D6B19D8098700BE283B /* NicknameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NicknameViewController.h; sourceTree = "<group>"; };
+		04788D6C19D8098700BE283B /* NicknameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NicknameViewController.m; sourceTree = "<group>"; };
+		04788D6E19D809AF00BE283B /* GenderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenderViewController.h; sourceTree = "<group>"; };
+		04788D6F19D809AF00BE283B /* GenderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenderViewController.m; sourceTree = "<group>"; };
+		04788D7119D80AA500BE283B /* ModifyPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModifyPasswordViewController.h; sourceTree = "<group>"; };
+		04788D7219D80AA500BE283B /* ModifyPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModifyPasswordViewController.m; sourceTree = "<group>"; };
 		048355A319D31BDB005ECAD6 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		048355A419D31BDB005ECAD6 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		048355A619D31F3F005ECAD6 /* NearbyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NearbyCell.h; sourceTree = "<group>"; };
@@ -280,6 +289,12 @@
 				0435238419D05C7200F67B8E /* MessageViewController.m */,
 				048355AF19D322DA005ECAD6 /* UserInfoViewController.h */,
 				048355B019D322DA005ECAD6 /* UserInfoViewController.m */,
+				04788D6B19D8098700BE283B /* NicknameViewController.h */,
+				04788D6C19D8098700BE283B /* NicknameViewController.m */,
+				04788D6E19D809AF00BE283B /* GenderViewController.h */,
+				04788D6F19D809AF00BE283B /* GenderViewController.m */,
+				04788D7119D80AA500BE283B /* ModifyPasswordViewController.h */,
+				04788D7219D80AA500BE283B /* ModifyPasswordViewController.m */,
 				048355A319D31BDB005ECAD6 /* SettingViewController.h */,
 				048355A419D31BDB005ECAD6 /* SettingViewController.m */,
 				048355A919D320C7005ECAD6 /* FeedbackViewController.h */,
@@ -411,16 +426,19 @@
 				0435239719D0633E00F67B8E /* RegisterViewController.m in Sources */,
 				04788D5B19D7FAF000BE283B /* DraftCell.m in Sources */,
 				0435238219D05C6500F67B8E /* TipsViewController.m in Sources */,
+				04788D7019D809AF00BE283B /* GenderViewController.m in Sources */,
 				04788D6A19D8008E00BE283B /* PhotoSelectView.m in Sources */,
 				048355A819D31F3F005ECAD6 /* NearbyCell.m in Sources */,
 				0456057F19CB381800BF5933 /* main.m in Sources */,
 				0435239119D05E3200F67B8E /* DynamicCell.m in Sources */,
 				0435237819D053C500F67B8E /* NearbyViewController.m in Sources */,
 				0435237B19D053D300F67B8E /* MineViewController.m in Sources */,
+				04788D6D19D8098700BE283B /* NicknameViewController.m in Sources */,
 				045605A919CB398B00BF5933 /* HomeViewController.m in Sources */,
 				0435237219D053A600F67B8E /* DynamicViewController.m in Sources */,
 				04788D6719D7FD6100BE283B /* Draft.m in Sources */,
 				04788D6419D7FD5600BE283B /* Nearby.m in Sources */,
+				04788D7319D80AA500BE283B /* ModifyPasswordViewController.m in Sources */,
 				0435239419D0632D00F67B8E /* LoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

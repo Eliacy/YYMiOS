@@ -20,10 +20,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    LoginViewController *loginVC = [[[LoginViewController alloc] init] autorelease];
-    UINavigationController *navigationController = [[[UINavigationController alloc] initWithRootViewController:loginVC] autorelease];
-    navigationController.navigationBarHidden = YES;
-    self.window.rootViewController = navigationController;
+    [self lanuchLoginViewController];
     
     return YES;
 }
@@ -51,6 +48,14 @@
 }
 
 #pragma mark - public
+
+- (void)lanuchLoginViewController
+{
+    LoginViewController *loginVC = [[[LoginViewController alloc] init] autorelease];
+    UINavigationController *navigationController = [[[UINavigationController alloc] initWithRootViewController:loginVC] autorelease];
+    navigationController.navigationBarHidden = YES;
+    self.window.rootViewController = navigationController;
+}
 
 - (void)lanuchTabViewContrller
 {
