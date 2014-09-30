@@ -9,6 +9,7 @@
 #import "HomeViewController.h"
 #import "TabViewController.h"
 #import "HomeCell.h"
+#import "ArticleViewController.h"
 
 #import "TipsViewController.h"
 #import "MessageViewController.h"
@@ -136,6 +137,9 @@
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    ArticleViewController *articleVC = [[[ArticleViewController alloc] init] autorelease];
+    [self.tabVC.navigationController pushViewController:articleVC animated:YES];
+    
     return nil;
 }
 

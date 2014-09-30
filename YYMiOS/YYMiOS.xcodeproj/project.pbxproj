@@ -56,6 +56,7 @@
 		04B0D06519DA7C3000289F78 /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B0D05819DA7C3000289F78 /* libWeiboSDK.a */; };
 		04B0D06619DA7C3000289F78 /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 04B0D05919DA7C3000289F78 /* WeiboSDK.bundle */; };
 		04B0D06719DA7C3000289F78 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B0D05C19DA7C3000289F78 /* libWeChatSDK.a */; };
+		04B0D07419DA839500289F78 /* ArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B0D07319DA839500289F78 /* ArticleViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -167,6 +168,8 @@
 		04B0D05C19DA7C3000289F78 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
 		04B0D05D19DA7C3000289F78 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		04B0D05E19DA7C3000289F78 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
+		04B0D07219DA839500289F78 /* ArticleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleViewController.h; sourceTree = "<group>"; };
+		04B0D07319DA839500289F78 /* ArticleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -319,6 +322,8 @@
 				0435237719D053C500F67B8E /* NearbyViewController.m */,
 				0435237919D053D300F67B8E /* MineViewController.h */,
 				0435237A19D053D300F67B8E /* MineViewController.m */,
+				04B0D07219DA839500289F78 /* ArticleViewController.h */,
+				04B0D07319DA839500289F78 /* ArticleViewController.m */,
 				04788D5619D7F2FB00BE283B /* DraftViewController.h */,
 				04788D5719D7F2FB00BE283B /* DraftViewController.m */,
 				0435238019D05C6500F67B8E /* TipsViewController.h */,
@@ -527,6 +532,7 @@
 				0435236C19D0502C00F67B8E /* LPObject.m in Sources */,
 				0456058219CB381800BF5933 /* AppDelegate.m in Sources */,
 				0435235919D04D6C00F67B8E /* BaseViewController.m in Sources */,
+				04B0D07419DA839500289F78 /* ArticleViewController.m in Sources */,
 				0435239719D0633E00F67B8E /* RegisterViewController.m in Sources */,
 				04788D5B19D7FAF000BE283B /* DraftCell.m in Sources */,
 				0435238219D05C6500F67B8E /* TipsViewController.m in Sources */,

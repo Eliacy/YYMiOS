@@ -10,6 +10,7 @@
 #import "TabViewController.h"
 #import "UserInfoViewController.h"
 #import "SettingViewController.h"
+#import "MessageViewController.h"
 
 #import "DraftViewController.h"
 
@@ -30,6 +31,12 @@
 {
     SettingViewController *settingVC = [[[SettingViewController alloc] init] autorelease];
     [self.tabVC.navigationController pushViewController:settingVC animated:YES];
+}
+
+- (void)clickMessageButton:(id)sender
+{
+    MessageViewController *messageVC = [[[MessageViewController alloc] init] autorelease];
+    [self.tabVC.navigationController pushViewController:messageVC animated:YES];
 }
 
 - (void)clickFollowingButton:(id)sender
@@ -84,13 +91,22 @@
     _backButton.hidden = YES;
     
     _settingButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-    _settingButton.frame = CGRectMake(_headerView.frame.size.width - 2 - 40, 2, 40, 40);
+    _settingButton.frame = CGRectMake(2, 2, 40, 40);
     _settingButton.backgroundColor = [UIColor clearColor];
     [_settingButton setTitle:@"设置" forState:UIControlStateNormal];
     [_settingButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     _settingButton.titleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
     [_settingButton addTarget:self action:@selector(clickSettingButton:) forControlEvents:UIControlEventTouchUpInside];
     [_headerView addSubview:_settingButton];
+    
+    _messageButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    _messageButton.frame = CGRectMake(_headerView.frame.size.width - 2 - 40, 2, 40, 40);
+    _messageButton.backgroundColor = [UIColor clearColor];
+    [_messageButton setTitle:@"消息" forState:UIControlStateNormal];
+    [_messageButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _messageButton.titleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
+    [_messageButton addTarget:self action:@selector(clickMessageButton:) forControlEvents:UIControlEventTouchUpInside];
+    [_headerView addSubview:_messageButton];
     
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, _adjustView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - _adjustView.frame.size.height) style:UITableViewStylePlain];
     _tableView.backgroundColor = [UIColor clearColor];

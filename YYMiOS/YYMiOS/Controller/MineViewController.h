@@ -29,6 +29,7 @@
     UIButton        *_favouriteButton;
     
     UIButton        *_settingButton;
+    UIButton        *_messageButton;
 }
 
 @property (assign, nonatomic) TabViewController *tabVC;
