@@ -47,6 +47,15 @@
 		048355AE19D320D2005ECAD6 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048355AD19D320D2005ECAD6 /* AboutViewController.m */; };
 		048355B119D322DA005ECAD6 /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048355B019D322DA005ECAD6 /* UserInfoViewController.m */; };
 		04B0D04419DA7ABB00289F78 /* LPAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B0D04319DA7ABB00289F78 /* LPAPIClient.m */; };
+		04B0D05F19DA7C3000289F78 /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B0D04819DA7C3000289F78 /* SDImageCache.m */; };
+		04B0D06019DA7C3000289F78 /* SDWebImageDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B0D04C19DA7C3000289F78 /* SDWebImageDecoder.m */; };
+		04B0D06119DA7C3000289F78 /* SDWebImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B0D04E19DA7C3000289F78 /* SDWebImageDownloader.m */; };
+		04B0D06219DA7C3000289F78 /* SDWebImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B0D05119DA7C3000289F78 /* SDWebImageManager.m */; };
+		04B0D06319DA7C3000289F78 /* SDWebImagePrefetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B0D05419DA7C3000289F78 /* SDWebImagePrefetcher.m */; };
+		04B0D06419DA7C3000289F78 /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B0D05619DA7C3000289F78 /* UIImageView+WebCache.m */; };
+		04B0D06519DA7C3000289F78 /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B0D05819DA7C3000289F78 /* libWeiboSDK.a */; };
+		04B0D06619DA7C3000289F78 /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 04B0D05919DA7C3000289F78 /* WeiboSDK.bundle */; };
+		04B0D06719DA7C3000289F78 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B0D05C19DA7C3000289F78 /* libWeChatSDK.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -136,6 +145,28 @@
 		048355B019D322DA005ECAD6 /* UserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoViewController.m; sourceTree = "<group>"; };
 		04B0D04219DA7ABB00289F78 /* LPAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPAPIClient.h; sourceTree = "<group>"; };
 		04B0D04319DA7ABB00289F78 /* LPAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPAPIClient.m; sourceTree = "<group>"; };
+		04B0D04719DA7C3000289F78 /* SDImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDImageCache.h; sourceTree = "<group>"; };
+		04B0D04819DA7C3000289F78 /* SDImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDImageCache.m; sourceTree = "<group>"; };
+		04B0D04919DA7C3000289F78 /* SDImageCacheDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDImageCacheDelegate.h; sourceTree = "<group>"; };
+		04B0D04A19DA7C3000289F78 /* SDWebImageCompat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWebImageCompat.h; sourceTree = "<group>"; };
+		04B0D04B19DA7C3000289F78 /* SDWebImageDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWebImageDecoder.h; sourceTree = "<group>"; };
+		04B0D04C19DA7C3000289F78 /* SDWebImageDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWebImageDecoder.m; sourceTree = "<group>"; };
+		04B0D04D19DA7C3000289F78 /* SDWebImageDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWebImageDownloader.h; sourceTree = "<group>"; };
+		04B0D04E19DA7C3000289F78 /* SDWebImageDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWebImageDownloader.m; sourceTree = "<group>"; };
+		04B0D04F19DA7C3000289F78 /* SDWebImageDownloaderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWebImageDownloaderDelegate.h; sourceTree = "<group>"; };
+		04B0D05019DA7C3000289F78 /* SDWebImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWebImageManager.h; sourceTree = "<group>"; };
+		04B0D05119DA7C3000289F78 /* SDWebImageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWebImageManager.m; sourceTree = "<group>"; };
+		04B0D05219DA7C3000289F78 /* SDWebImageManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWebImageManagerDelegate.h; sourceTree = "<group>"; };
+		04B0D05319DA7C3000289F78 /* SDWebImagePrefetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWebImagePrefetcher.h; sourceTree = "<group>"; };
+		04B0D05419DA7C3000289F78 /* SDWebImagePrefetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWebImagePrefetcher.m; sourceTree = "<group>"; };
+		04B0D05519DA7C3000289F78 /* UIImageView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+WebCache.h"; sourceTree = "<group>"; };
+		04B0D05619DA7C3000289F78 /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCache.m"; sourceTree = "<group>"; };
+		04B0D05819DA7C3000289F78 /* libWeiboSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeiboSDK.a; sourceTree = "<group>"; };
+		04B0D05919DA7C3000289F78 /* WeiboSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WeiboSDK.bundle; sourceTree = "<group>"; };
+		04B0D05A19DA7C3000289F78 /* WeiboSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeiboSDK.h; sourceTree = "<group>"; };
+		04B0D05C19DA7C3000289F78 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		04B0D05D19DA7C3000289F78 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
+		04B0D05E19DA7C3000289F78 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +174,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04B0D06719DA7C3000289F78 /* libWeChatSDK.a in Frameworks */,
+				04B0D06519DA7C3000289F78 /* libWeiboSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -222,6 +255,7 @@
 		0456057B19CB381800BF5933 /* YYMiOS */ = {
 			isa = PBXGroup;
 			children = (
+				04B0D04519DA7C3000289F78 /* 3rd */,
 				0435238619D05D0100F67B8E /* Resource */,
 				04B0D04119DA7AA100289F78 /* Utility */,
 				0435237C19D0573200F67B8E /* View */,
@@ -318,6 +352,59 @@
 			path = Utility;
 			sourceTree = "<group>";
 		};
+		04B0D04519DA7C3000289F78 /* 3rd */ = {
+			isa = PBXGroup;
+			children = (
+				04B0D04619DA7C3000289F78 /* SDImgageView */,
+				04B0D05719DA7C3000289F78 /* weiboSDK */,
+				04B0D05B19DA7C3000289F78 /* weixinSDK */,
+			);
+			path = 3rd;
+			sourceTree = "<group>";
+		};
+		04B0D04619DA7C3000289F78 /* SDImgageView */ = {
+			isa = PBXGroup;
+			children = (
+				04B0D04719DA7C3000289F78 /* SDImageCache.h */,
+				04B0D04819DA7C3000289F78 /* SDImageCache.m */,
+				04B0D04919DA7C3000289F78 /* SDImageCacheDelegate.h */,
+				04B0D04A19DA7C3000289F78 /* SDWebImageCompat.h */,
+				04B0D04B19DA7C3000289F78 /* SDWebImageDecoder.h */,
+				04B0D04C19DA7C3000289F78 /* SDWebImageDecoder.m */,
+				04B0D04D19DA7C3000289F78 /* SDWebImageDownloader.h */,
+				04B0D04E19DA7C3000289F78 /* SDWebImageDownloader.m */,
+				04B0D04F19DA7C3000289F78 /* SDWebImageDownloaderDelegate.h */,
+				04B0D05019DA7C3000289F78 /* SDWebImageManager.h */,
+				04B0D05119DA7C3000289F78 /* SDWebImageManager.m */,
+				04B0D05219DA7C3000289F78 /* SDWebImageManagerDelegate.h */,
+				04B0D05319DA7C3000289F78 /* SDWebImagePrefetcher.h */,
+				04B0D05419DA7C3000289F78 /* SDWebImagePrefetcher.m */,
+				04B0D05519DA7C3000289F78 /* UIImageView+WebCache.h */,
+				04B0D05619DA7C3000289F78 /* UIImageView+WebCache.m */,
+			);
+			path = SDImgageView;
+			sourceTree = "<group>";
+		};
+		04B0D05719DA7C3000289F78 /* weiboSDK */ = {
+			isa = PBXGroup;
+			children = (
+				04B0D05819DA7C3000289F78 /* libWeiboSDK.a */,
+				04B0D05919DA7C3000289F78 /* WeiboSDK.bundle */,
+				04B0D05A19DA7C3000289F78 /* WeiboSDK.h */,
+			);
+			path = weiboSDK;
+			sourceTree = "<group>";
+		};
+		04B0D05B19DA7C3000289F78 /* weixinSDK */ = {
+			isa = PBXGroup;
+			children = (
+				04B0D05C19DA7C3000289F78 /* libWeChatSDK.a */,
+				04B0D05D19DA7C3000289F78 /* WXApi.h */,
+				04B0D05E19DA7C3000289F78 /* WXApiObject.h */,
+			);
+			path = weixinSDK;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -405,6 +492,7 @@
 				0456058A19CB381800BF5933 /* Images.xcassets in Resources */,
 				0435238B19D05D0100F67B8E /* btn_back.png in Resources */,
 				0435238D19D05D0100F67B8E /* btn_back_highlighted.png in Resources */,
+				04B0D06619DA7C3000289F78 /* WeiboSDK.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,9 +517,12 @@
 				0435237519D053B800F67B8E /* WeatherViewController.m in Sources */,
 				04788D6119D7FD4500BE283B /* Dynamic.m in Sources */,
 				048355A519D31BDB005ECAD6 /* SettingViewController.m in Sources */,
+				04B0D05F19DA7C3000289F78 /* SDImageCache.m in Sources */,
 				0435238519D05C7200F67B8E /* MessageViewController.m in Sources */,
 				048355B119D322DA005ECAD6 /* UserInfoViewController.m in Sources */,
+				04B0D06419DA7C3000289F78 /* UIImageView+WebCache.m in Sources */,
 				0435237F19D0574900F67B8E /* HomeCell.m in Sources */,
+				04B0D06319DA7C3000289F78 /* SDWebImagePrefetcher.m in Sources */,
 				048355AE19D320D2005ECAD6 /* AboutViewController.m in Sources */,
 				0435236C19D0502C00F67B8E /* LPObject.m in Sources */,
 				0456058219CB381800BF5933 /* AppDelegate.m in Sources */,
@@ -440,11 +531,14 @@
 				04788D5B19D7FAF000BE283B /* DraftCell.m in Sources */,
 				0435238219D05C6500F67B8E /* TipsViewController.m in Sources */,
 				04788D7019D809AF00BE283B /* GenderViewController.m in Sources */,
+				04B0D06119DA7C3000289F78 /* SDWebImageDownloader.m in Sources */,
 				04788D6A19D8008E00BE283B /* PhotoSelectView.m in Sources */,
+				04B0D06219DA7C3000289F78 /* SDWebImageManager.m in Sources */,
 				048355A819D31F3F005ECAD6 /* NearbyCell.m in Sources */,
 				0456057F19CB381800BF5933 /* main.m in Sources */,
 				0435239119D05E3200F67B8E /* DynamicCell.m in Sources */,
 				0435237819D053C500F67B8E /* NearbyViewController.m in Sources */,
+				04B0D06019DA7C3000289F78 /* SDWebImageDecoder.m in Sources */,
 				0435237B19D053D300F67B8E /* MineViewController.m in Sources */,
 				04788D6D19D8098700BE283B /* NicknameViewController.m in Sources */,
 				045605A919CB398B00BF5933 /* HomeViewController.m in Sources */,
@@ -557,12 +651,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "YYMiOS/YYMiOS-Prefix.pch";
 				INFOPLIST_FILE = YYMiOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/YYMiOS/3rd/weiboSDK",
+					"$(PROJECT_DIR)/YYMiOS/3rd/weixinSDK",
+				);
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -572,12 +673,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "YYMiOS/YYMiOS-Prefix.pch";
 				INFOPLIST_FILE = YYMiOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/YYMiOS/3rd/weiboSDK",
+					"$(PROJECT_DIR)/YYMiOS/3rd/weixinSDK",
+				);
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
