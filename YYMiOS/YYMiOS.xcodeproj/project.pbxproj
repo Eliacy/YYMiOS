@@ -46,6 +46,7 @@
 		048355AB19D320C7005ECAD6 /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048355AA19D320C7005ECAD6 /* FeedbackViewController.m */; };
 		048355AE19D320D2005ECAD6 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048355AD19D320D2005ECAD6 /* AboutViewController.m */; };
 		048355B119D322DA005ECAD6 /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048355B019D322DA005ECAD6 /* UserInfoViewController.m */; };
+		04B0D04419DA7ABB00289F78 /* LPAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B0D04319DA7ABB00289F78 /* LPAPIClient.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -133,6 +134,8 @@
 		048355AD19D320D2005ECAD6 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		048355AF19D322DA005ECAD6 /* UserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoViewController.h; sourceTree = "<group>"; };
 		048355B019D322DA005ECAD6 /* UserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoViewController.m; sourceTree = "<group>"; };
+		04B0D04219DA7ABB00289F78 /* LPAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPAPIClient.h; sourceTree = "<group>"; };
+		04B0D04319DA7ABB00289F78 /* LPAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPAPIClient.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -220,6 +223,7 @@
 			isa = PBXGroup;
 			children = (
 				0435238619D05D0100F67B8E /* Resource */,
+				04B0D04119DA7AA100289F78 /* Utility */,
 				0435237C19D0573200F67B8E /* View */,
 				0435236919D0502C00F67B8E /* Model */,
 				045605A619CB396B00BF5933 /* Controller */,
@@ -303,6 +307,15 @@
 				048355AD19D320D2005ECAD6 /* AboutViewController.m */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		04B0D04119DA7AA100289F78 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				04B0D04219DA7ABB00289F78 /* LPAPIClient.h */,
+				04B0D04319DA7ABB00289F78 /* LPAPIClient.m */,
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -438,6 +451,7 @@
 				0435237219D053A600F67B8E /* DynamicViewController.m in Sources */,
 				04788D6719D7FD6100BE283B /* Draft.m in Sources */,
 				04788D6419D7FD5600BE283B /* Nearby.m in Sources */,
+				04B0D04419DA7ABB00289F78 /* LPAPIClient.m in Sources */,
 				04788D7319D80AA500BE283B /* ModifyPasswordViewController.m in Sources */,
 				0435239419D0632D00F67B8E /* LoginViewController.m in Sources */,
 			);
