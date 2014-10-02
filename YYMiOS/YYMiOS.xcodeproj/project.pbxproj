@@ -57,6 +57,8 @@
 		04B0D06619DA7C3000289F78 /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 04B0D05919DA7C3000289F78 /* WeiboSDK.bundle */; };
 		04B0D06719DA7C3000289F78 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B0D05C19DA7C3000289F78 /* libWeChatSDK.a */; };
 		04B0D07419DA839500289F78 /* ArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B0D07319DA839500289F78 /* ArticleViewController.m */; };
+		04B0D07719DA9AB600289F78 /* SettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B0D07619DA9AB600289F78 /* SettingCell.m */; };
+		04B0D07A19DD1FAF00289F78 /* ShareKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B0D07919DD1FAF00289F78 /* ShareKit.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -170,6 +172,10 @@
 		04B0D05E19DA7C3000289F78 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		04B0D07219DA839500289F78 /* ArticleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleViewController.h; sourceTree = "<group>"; };
 		04B0D07319DA839500289F78 /* ArticleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleViewController.m; sourceTree = "<group>"; };
+		04B0D07519DA9AB600289F78 /* SettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingCell.h; sourceTree = "<group>"; };
+		04B0D07619DA9AB600289F78 /* SettingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingCell.m; sourceTree = "<group>"; };
+		04B0D07819DD1FAF00289F78 /* ShareKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareKit.h; sourceTree = "<group>"; };
+		04B0D07919DD1FAF00289F78 /* ShareKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareKit.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -222,6 +228,8 @@
 				04788D5A19D7FAF000BE283B /* DraftCell.m */,
 				04788D6819D8008E00BE283B /* PhotoSelectView.h */,
 				04788D6919D8008E00BE283B /* PhotoSelectView.m */,
+				04B0D07519DA9AB600289F78 /* SettingCell.h */,
+				04B0D07619DA9AB600289F78 /* SettingCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -353,6 +361,8 @@
 			children = (
 				04B0D04219DA7ABB00289F78 /* LPAPIClient.h */,
 				04B0D04319DA7ABB00289F78 /* LPAPIClient.m */,
+				04B0D07819DD1FAF00289F78 /* ShareKit.h */,
+				04B0D07919DD1FAF00289F78 /* ShareKit.m */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -516,6 +526,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0435236F19D0510400F67B8E /* TabViewController.m in Sources */,
+				04B0D07A19DD1FAF00289F78 /* ShareKit.m in Sources */,
 				048355AB19D320C7005ECAD6 /* FeedbackViewController.m in Sources */,
 				04788D5E19D7FD2F00BE283B /* Home.m in Sources */,
 				04788D5819D7F2FB00BE283B /* DraftViewController.m in Sources */,
@@ -553,6 +564,7 @@
 				04788D6419D7FD5600BE283B /* Nearby.m in Sources */,
 				04B0D04419DA7ABB00289F78 /* LPAPIClient.m in Sources */,
 				04788D7319D80AA500BE283B /* ModifyPasswordViewController.m in Sources */,
+				04B0D07719DA9AB600289F78 /* SettingCell.m in Sources */,
 				0435239419D0632D00F67B8E /* LoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

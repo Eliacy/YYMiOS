@@ -8,6 +8,13 @@
 
 #import "BaseViewController.h"
 
-@interface SettingViewController : BaseViewController
+@interface SettingViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate>
+{
+    UITableView     *_tableView;
+   
+    UIView          *_tableHeaderView;
+    UIView          *_tableBackView;
+    UILabel         *_tableHeaderLabel;
+}
 
 @end

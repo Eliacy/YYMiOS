@@ -7,6 +7,7 @@
 //
 
 #import "ArticleViewController.h"
+#import "ShareKit.h"
 
 @interface ArticleViewController () <UITextFieldDelegate>
 
@@ -18,7 +19,7 @@
 
 - (void)clickShareButton:(id)sender
 {
-
+    [[ShareKit sharedKit] show];
 }
 
 - (void)clickSendButton:(id)sender
