@@ -34,7 +34,7 @@
 		04788D5819D7F2FB00BE283B /* DraftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D5719D7F2FB00BE283B /* DraftViewController.m */; };
 		04788D5B19D7FAF000BE283B /* DraftCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D5A19D7FAF000BE283B /* DraftCell.m */; };
 		04788D5E19D7FD2F00BE283B /* Home.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D5D19D7FD2F00BE283B /* Home.m */; };
-		04788D6119D7FD4500BE283B /* Dynamic.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D6019D7FD4500BE283B /* Dynamic.m */; };
+		04788D6119D7FD4500BE283B /* Deal.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D6019D7FD4500BE283B /* Deal.m */; };
 		04788D6419D7FD5600BE283B /* Nearby.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D6319D7FD5600BE283B /* Nearby.m */; };
 		04788D6719D7FD6100BE283B /* Draft.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D6619D7FD6100BE283B /* Draft.m */; };
 		04788D6A19D8008E00BE283B /* PhotoSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D6919D8008E00BE283B /* PhotoSelectView.m */; };
@@ -46,6 +46,8 @@
 		048355AB19D320C7005ECAD6 /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048355AA19D320C7005ECAD6 /* FeedbackViewController.m */; };
 		048355AE19D320D2005ECAD6 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048355AD19D320D2005ECAD6 /* AboutViewController.m */; };
 		048355B119D322DA005ECAD6 /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048355B019D322DA005ECAD6 /* UserInfoViewController.m */; };
+		049E690D19E13C9500DA984F /* ShopDealCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 049E690C19E13C9500DA984F /* ShopDealCell.m */; };
+		049E691019E13F0400DA984F /* DealDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049E690F19E13F0400DA984F /* DealDetailViewController.m */; };
 		04B0D04419DA7ABB00289F78 /* LPAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B0D04319DA7ABB00289F78 /* LPAPIClient.m */; };
 		04B0D05F19DA7C3000289F78 /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B0D04819DA7C3000289F78 /* SDImageCache.m */; };
 		04B0D06019DA7C3000289F78 /* SDWebImageDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B0D04C19DA7C3000289F78 /* SDWebImageDecoder.m */; };
@@ -59,6 +61,9 @@
 		04B0D07419DA839500289F78 /* ArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B0D07319DA839500289F78 /* ArticleViewController.m */; };
 		04B0D07719DA9AB600289F78 /* SettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B0D07619DA9AB600289F78 /* SettingCell.m */; };
 		04B0D07A19DD1FAF00289F78 /* ShareKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B0D07919DD1FAF00289F78 /* ShareKit.m */; };
+		04B0D07D19DD23E400289F78 /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B0D07C19DD23E400289F78 /* FilterViewController.m */; };
+		04B0D08319DD25EC00289F78 /* ShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B0D08219DD25EC00289F78 /* ShopViewController.m */; };
+		04B36B0219E57BCE00FA7D3A /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B36B0119E57BCE00FA7D3A /* CommentCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -122,8 +127,8 @@
 		04788D5A19D7FAF000BE283B /* DraftCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DraftCell.m; sourceTree = "<group>"; };
 		04788D5C19D7FD2F00BE283B /* Home.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Home.h; sourceTree = "<group>"; };
 		04788D5D19D7FD2F00BE283B /* Home.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Home.m; sourceTree = "<group>"; };
-		04788D5F19D7FD4500BE283B /* Dynamic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dynamic.h; sourceTree = "<group>"; };
-		04788D6019D7FD4500BE283B /* Dynamic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dynamic.m; sourceTree = "<group>"; };
+		04788D5F19D7FD4500BE283B /* Deal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Deal.h; sourceTree = "<group>"; };
+		04788D6019D7FD4500BE283B /* Deal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Deal.m; sourceTree = "<group>"; };
 		04788D6219D7FD5600BE283B /* Nearby.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Nearby.h; sourceTree = "<group>"; };
 		04788D6319D7FD5600BE283B /* Nearby.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Nearby.m; sourceTree = "<group>"; };
 		04788D6519D7FD6100BE283B /* Draft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Draft.h; sourceTree = "<group>"; };
@@ -146,6 +151,10 @@
 		048355AD19D320D2005ECAD6 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		048355AF19D322DA005ECAD6 /* UserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoViewController.h; sourceTree = "<group>"; };
 		048355B019D322DA005ECAD6 /* UserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoViewController.m; sourceTree = "<group>"; };
+		049E690B19E13C9500DA984F /* ShopDealCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopDealCell.h; sourceTree = "<group>"; };
+		049E690C19E13C9500DA984F /* ShopDealCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopDealCell.m; sourceTree = "<group>"; };
+		049E690E19E13F0400DA984F /* DealDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DealDetailViewController.h; sourceTree = "<group>"; };
+		049E690F19E13F0400DA984F /* DealDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DealDetailViewController.m; sourceTree = "<group>"; };
 		04B0D04219DA7ABB00289F78 /* LPAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPAPIClient.h; sourceTree = "<group>"; };
 		04B0D04319DA7ABB00289F78 /* LPAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPAPIClient.m; sourceTree = "<group>"; };
 		04B0D04719DA7C3000289F78 /* SDImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDImageCache.h; sourceTree = "<group>"; };
@@ -176,6 +185,12 @@
 		04B0D07619DA9AB600289F78 /* SettingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingCell.m; sourceTree = "<group>"; };
 		04B0D07819DD1FAF00289F78 /* ShareKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareKit.h; sourceTree = "<group>"; };
 		04B0D07919DD1FAF00289F78 /* ShareKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareKit.m; sourceTree = "<group>"; };
+		04B0D07B19DD23E400289F78 /* FilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterViewController.h; sourceTree = "<group>"; };
+		04B0D07C19DD23E400289F78 /* FilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterViewController.m; sourceTree = "<group>"; };
+		04B0D08119DD25EC00289F78 /* ShopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopViewController.h; sourceTree = "<group>"; };
+		04B0D08219DD25EC00289F78 /* ShopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopViewController.m; sourceTree = "<group>"; };
+		04B36B0019E57BCE00FA7D3A /* CommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentCell.h; sourceTree = "<group>"; };
+		04B36B0119E57BCE00FA7D3A /* CommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,8 +220,8 @@
 				0435236B19D0502C00F67B8E /* LPObject.m */,
 				04788D5C19D7FD2F00BE283B /* Home.h */,
 				04788D5D19D7FD2F00BE283B /* Home.m */,
-				04788D5F19D7FD4500BE283B /* Dynamic.h */,
-				04788D6019D7FD4500BE283B /* Dynamic.m */,
+				04788D5F19D7FD4500BE283B /* Deal.h */,
+				04788D6019D7FD4500BE283B /* Deal.m */,
 				04788D6219D7FD5600BE283B /* Nearby.h */,
 				04788D6319D7FD5600BE283B /* Nearby.m */,
 				04788D6519D7FD6100BE283B /* Draft.h */,
@@ -230,6 +245,10 @@
 				04788D6919D8008E00BE283B /* PhotoSelectView.m */,
 				04B0D07519DA9AB600289F78 /* SettingCell.h */,
 				04B0D07619DA9AB600289F78 /* SettingCell.m */,
+				049E690B19E13C9500DA984F /* ShopDealCell.h */,
+				049E690C19E13C9500DA984F /* ShopDealCell.m */,
+				04B36B0019E57BCE00FA7D3A /* CommentCell.h */,
+				04B36B0119E57BCE00FA7D3A /* CommentCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -332,6 +351,12 @@
 				0435237A19D053D300F67B8E /* MineViewController.m */,
 				04B0D07219DA839500289F78 /* ArticleViewController.h */,
 				04B0D07319DA839500289F78 /* ArticleViewController.m */,
+				049E690E19E13F0400DA984F /* DealDetailViewController.h */,
+				049E690F19E13F0400DA984F /* DealDetailViewController.m */,
+				04B0D07B19DD23E400289F78 /* FilterViewController.h */,
+				04B0D07C19DD23E400289F78 /* FilterViewController.m */,
+				04B0D08119DD25EC00289F78 /* ShopViewController.h */,
+				04B0D08219DD25EC00289F78 /* ShopViewController.m */,
 				04788D5619D7F2FB00BE283B /* DraftViewController.h */,
 				04788D5719D7F2FB00BE283B /* DraftViewController.m */,
 				0435238019D05C6500F67B8E /* TipsViewController.h */,
@@ -529,17 +554,20 @@
 				04B0D07A19DD1FAF00289F78 /* ShareKit.m in Sources */,
 				048355AB19D320C7005ECAD6 /* FeedbackViewController.m in Sources */,
 				04788D5E19D7FD2F00BE283B /* Home.m in Sources */,
+				04B0D07D19DD23E400289F78 /* FilterViewController.m in Sources */,
 				04788D5819D7F2FB00BE283B /* DraftViewController.m in Sources */,
 				0435237519D053B800F67B8E /* WeatherViewController.m in Sources */,
-				04788D6119D7FD4500BE283B /* Dynamic.m in Sources */,
+				04788D6119D7FD4500BE283B /* Deal.m in Sources */,
 				048355A519D31BDB005ECAD6 /* SettingViewController.m in Sources */,
 				04B0D05F19DA7C3000289F78 /* SDImageCache.m in Sources */,
 				0435238519D05C7200F67B8E /* MessageViewController.m in Sources */,
+				049E690D19E13C9500DA984F /* ShopDealCell.m in Sources */,
 				048355B119D322DA005ECAD6 /* UserInfoViewController.m in Sources */,
 				04B0D06419DA7C3000289F78 /* UIImageView+WebCache.m in Sources */,
 				0435237F19D0574900F67B8E /* HomeCell.m in Sources */,
 				04B0D06319DA7C3000289F78 /* SDWebImagePrefetcher.m in Sources */,
 				048355AE19D320D2005ECAD6 /* AboutViewController.m in Sources */,
+				04B36B0219E57BCE00FA7D3A /* CommentCell.m in Sources */,
 				0435236C19D0502C00F67B8E /* LPObject.m in Sources */,
 				0456058219CB381800BF5933 /* AppDelegate.m in Sources */,
 				0435235919D04D6C00F67B8E /* BaseViewController.m in Sources */,
@@ -557,9 +585,11 @@
 				0435237819D053C500F67B8E /* NearbyViewController.m in Sources */,
 				04B0D06019DA7C3000289F78 /* SDWebImageDecoder.m in Sources */,
 				0435237B19D053D300F67B8E /* MineViewController.m in Sources */,
+				049E691019E13F0400DA984F /* DealDetailViewController.m in Sources */,
 				04788D6D19D8098700BE283B /* NicknameViewController.m in Sources */,
 				045605A919CB398B00BF5933 /* HomeViewController.m in Sources */,
 				0435237219D053A600F67B8E /* DynamicViewController.m in Sources */,
+				04B0D08319DD25EC00289F78 /* ShopViewController.m in Sources */,
 				04788D6719D7FD6100BE283B /* Draft.m in Sources */,
 				04788D6419D7FD5600BE283B /* Nearby.m in Sources */,
 				04B0D04419DA7ABB00289F78 /* LPAPIClient.m in Sources */,

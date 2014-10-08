@@ -10,6 +10,9 @@
 #import "TabViewController.h"
 #import "NearbyCell.h"
 
+#import "FilterViewController.h"
+#import "ShopViewController.h"
+
 @interface NearbyViewController ()
 
 @end
@@ -20,9 +23,15 @@
 
 #pragma mark - private
 
+- (void)clickFilterButton:(id)sender
+{
+    FilterViewController *filterVC = [[[FilterViewController alloc] init] autorelease];
+    [self.tabVC.navigationController pushViewController:filterVC animated:YES];
+}
+
 - (void)clickMapButton:(id)sender
 {
-
+    
 }
 
 #pragma mark - super
@@ -47,6 +56,15 @@
     self.view.frame = CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width, self.view.frame.size.height - 49);
     _titleLabel.text = @"附近";
     _backButton.hidden = YES;
+    
+    _filterButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    _filterButton.frame = CGRectMake(2, 2, 40, 40);
+    _filterButton.backgroundColor = [UIColor clearColor];
+    [_filterButton setTitle:@"筛选" forState:UIControlStateNormal];
+    [_filterButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _filterButton.titleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
+    [_filterButton addTarget:self action:@selector(clickFilterButton:) forControlEvents:UIControlEventTouchUpInside];
+    [_headerView addSubview:_filterButton];
     
     _mapButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     _mapButton.frame = CGRectMake(_headerView.frame.size.width - 2 - 40, 2, 40, 40);
@@ -117,6 +135,9 @@
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    ShopViewController *shopVC = [[[ShopViewController alloc] init] autorelease];
+    [self.tabVC.navigationController pushViewController:shopVC animated:YES];
+    
     return nil;
 }
 

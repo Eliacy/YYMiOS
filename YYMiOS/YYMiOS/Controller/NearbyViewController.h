@@ -17,6 +17,7 @@
     UITableView     *_tableView;
     NSMutableArray  *_nearbyArray;
     
+    UIButton        *_filterButton;
     UIButton        *_mapButton;
 }
 

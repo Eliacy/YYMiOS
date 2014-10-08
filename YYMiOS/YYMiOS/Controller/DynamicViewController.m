@@ -10,6 +10,8 @@
 #import "TabViewController.h"
 #import "DynamicCell.h"
 
+#import "DealDetailViewController.h"
+
 @interface DynamicViewController ()
 
 @end
@@ -131,6 +133,9 @@
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    DealDetailViewController *dealDetailVC = [[[DealDetailViewController alloc] init] autorelease];
+    [self.tabVC.navigationController pushViewController:dealDetailVC animated:YES];
+    
     return nil;
 }
 
