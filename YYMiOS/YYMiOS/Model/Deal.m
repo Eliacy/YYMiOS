@@ -10,4 +10,13 @@
 
 @implementation Deal
 
+@synthesize dealId = _dealId;
+@synthesize user = _user;
+@synthesize content = _content;
+@synthesize imageArray = _imageArray;
+@synthesize likeCount = _likeCount;
+@synthesize commentCount = _commentCount;
+@synthesize price = _price;
+@synthesize location = _location;
+
 @end

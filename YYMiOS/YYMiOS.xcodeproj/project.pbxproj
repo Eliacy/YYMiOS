@@ -64,6 +64,7 @@
 		04B0D07D19DD23E400289F78 /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B0D07C19DD23E400289F78 /* FilterViewController.m */; };
 		04B0D08319DD25EC00289F78 /* ShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B0D08219DD25EC00289F78 /* ShopViewController.m */; };
 		04B36B0219E57BCE00FA7D3A /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B36B0119E57BCE00FA7D3A /* CommentCell.m */; };
+		04B36B0519E7C88A00FA7D3A /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B36B0419E7C88A00FA7D3A /* User.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -191,6 +192,8 @@
 		04B0D08219DD25EC00289F78 /* ShopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopViewController.m; sourceTree = "<group>"; };
 		04B36B0019E57BCE00FA7D3A /* CommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentCell.h; sourceTree = "<group>"; };
 		04B36B0119E57BCE00FA7D3A /* CommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentCell.m; sourceTree = "<group>"; };
+		04B36B0319E7C88A00FA7D3A /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		04B36B0419E7C88A00FA7D3A /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -226,6 +229,8 @@
 				04788D6319D7FD5600BE283B /* Nearby.m */,
 				04788D6519D7FD6100BE283B /* Draft.h */,
 				04788D6619D7FD6100BE283B /* Draft.m */,
+				04B36B0319E7C88A00FA7D3A /* User.h */,
+				04B36B0419E7C88A00FA7D3A /* User.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -558,6 +563,7 @@
 				04788D5819D7F2FB00BE283B /* DraftViewController.m in Sources */,
 				0435237519D053B800F67B8E /* WeatherViewController.m in Sources */,
 				04788D6119D7FD4500BE283B /* Deal.m in Sources */,
+				04B36B0519E7C88A00FA7D3A /* User.m in Sources */,
 				048355A519D31BDB005ECAD6 /* SettingViewController.m in Sources */,
 				04B0D05F19DA7C3000289F78 /* SDImageCache.m in Sources */,
 				0435238519D05C7200F67B8E /* MessageViewController.m in Sources */,
