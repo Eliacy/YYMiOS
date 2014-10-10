@@ -17,5 +17,6 @@ typedef void (^LPAPIFailureBlock)(NSError *error);
 }
 
 + (id)sharedAPIClient;
+- (void)send;
 
 @end
