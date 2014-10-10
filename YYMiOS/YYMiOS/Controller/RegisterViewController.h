@@ -9,5 +9,12 @@
 #import "BaseViewController.h"
 
 @interface RegisterViewController : BaseViewController
+{
+    UITextField     *_telephoneTextField;
+    UITextField     *_passwordTextField;
+    UITextField     *_repasswordTextField;
+    
+    UIButton        *_registerButton;
+}
 
 @end

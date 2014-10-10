@@ -14,6 +14,15 @@
 
 @implementation RegisterViewController
 
+#pragma mark - private
+
+- (void)clickRegisterButton:(id)sender
+{
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] lanuchTabViewContrller];
+}
+
+#pragma mark - super
+
 - (id)init
 {
     self = [super init];
@@ -30,6 +39,29 @@
     [super loadView];
     
     _titleLabel.text = @"注册";
+    
+    _telephoneTextField = [[UITextField alloc] initWithFrame:CGRectMake(40, _adjustView.frame.size.height + 40, self.view.frame.size.width - 40 * 2, 40)];
+    _telephoneTextField.backgroundColor = [UIColor whiteColor];
+    _telephoneTextField.placeholder = @"手机号";
+    [self.view addSubview:_telephoneTextField];
+    
+    _passwordTextField = [[UITextField alloc] initWithFrame:CGRectMake(_telephoneTextField.frame.origin.x, _telephoneTextField.frame.origin.y + _telephoneTextField.frame.size.height + 10, _telephoneTextField.frame.size.width, _telephoneTextField.frame.size.height)];
+    _passwordTextField.backgroundColor = [UIColor whiteColor];
+    _passwordTextField.placeholder = @"密码";
+    [self.view addSubview:_passwordTextField];
+    
+    _repasswordTextField = [[UITextField alloc] initWithFrame:CGRectMake(_passwordTextField.frame.origin.x, _passwordTextField.frame.origin.y + _passwordTextField.frame.size.height + 10, _passwordTextField.frame.size.width, _passwordTextField.frame.size.height)];
+    _repasswordTextField.backgroundColor = [UIColor whiteColor];
+    _repasswordTextField.placeholder = @"确认密码";
+    [self.view addSubview:_repasswordTextField];
+    
+    _registerButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    _registerButton.frame = CGRectMake(_repasswordTextField.frame.origin.x, _repasswordTextField.frame.origin.y + _repasswordTextField.frame.size.height + 40, _repasswordTextField.frame.size.width, _repasswordTextField.frame.size.height);
+    _registerButton.backgroundColor = [UIColor purpleColor];
+    [_registerButton setTitle:@"注册" forState:UIControlStateNormal];
+    [_registerButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_registerButton addTarget:self action:@selector(clickRegisterButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_registerButton];
 }
 
 - (void)viewDidLoad {
