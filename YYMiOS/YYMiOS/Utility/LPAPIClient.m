@@ -10,8 +10,8 @@
 #import <CommonCrypto/CommonCrypto.h>
 #import "ASIHTTPRequest.h"
 
-#define kAPIKey     @"demo_key"//@"4nM^mLISvh"
-#define kAPISecret  @"demo_secret"//@"Yu8{Lnka%Y"
+#define kAPIKey     @"4nM_mLISvh"
+#define kAPISecret  @"Yu8{Lnka%Y"
 
 @interface LPAPIClient () <UIAlertViewDelegate>
 
@@ -26,6 +26,23 @@
 @implementation LPAPIClient
 
 #pragma mark - private
+
+NSString *hashedValue(NSString *key, NSString *data) {
+    
+    const char *cKey  = [key cStringUsingEncoding:NSUTF8StringEncoding];
+    const char *cData = [data cStringUsingEncoding:NSUTF8StringEncoding];
+    unsigned char cHMAC[CC_SHA1_DIGEST_LENGTH];
+    CCHmac(kCCHmacAlgSHA1, cKey, strlen(cKey), cData, strlen(cData), cHMAC);
+    
+    NSString *hash;
+    
+    NSMutableString* output = [NSMutableString   stringWithCapacity:CC_SHA1_DIGEST_LENGTH * 2];
+    
+    for(int i = 0; i < CC_SHA1_DIGEST_LENGTH; i++)
+        [output appendFormat:@"%02x", cHMAC[i]];
+    hash = output;
+    return hash;
+}
 
 - (NSString *)sha1:(NSString *)input
 {
@@ -84,8 +101,16 @@ static id APIClient = nil;
                 success:(LPAPISuccessBlock)successBlock
                 failure:(LPAPIFailureBlock)failureBlock
 {
-    ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://rpc.youyoumm.com/rpc/accumulator?timestamp=%i&key=%@&a=10&b=100", (int)[[NSDate date] timeIntervalSince1970], kAPIKey]]];
-    [request addRequestHeader:[self sha1:kAPISecret] value:@"X-Auth-Signature"];
+    int time = (int)[[NSDate date] timeIntervalSince1970];
+    
+    NSString *string = [NSString stringWithFormat:@"/rpc/sites?city=1&timestamp=%i&key=4nM_mLISvh", time];
+    ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:[[@"http://rpc.youyoumm.com" stringByAppendingString:string] stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding]]];
+//    [request addRequestHeader:@"Accept" value:@"application/json"];
+//    [request addRequestHeader:@"Content-Type" value:@"application/json"];
+    
+    NSLog(@"%@", hashedValue(kAPISecret, string));
+    
+    [request addRequestHeader:@"X-Auth-Signature" value:hashedValue(kAPISecret, string)];
     [request setCompletionBlock:^{
         
         NSData *data = [request responseData];
