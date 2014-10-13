@@ -13,6 +13,8 @@
 #define kAPIKey     @"4nM_mLISvh"
 #define kAPISecret  @"Yu8{Lnka%Y"
 
+#define kHTTPRequestPrefix @"http://rpc.youyoumm.com"
+
 @interface LPAPIClient () <UIAlertViewDelegate>
 
 - (void)sendRequestPath:(NSString *)path
@@ -44,21 +46,23 @@ NSString *hashedValue(NSString *key, NSString *data) {
     return hash;
 }
 
-- (NSString *)sha1:(NSString *)input
+- (NSString *)stringFromBaseURL:(NSString *)baseURL withParams:(NSDictionary *)dictionary
 {
-    const char *cstr = [input cStringUsingEncoding:NSUTF8StringEncoding];
-    NSData *data = [NSData dataWithBytes:cstr length:input.length];
+    NSString *fullString = [NSString stringWithString:[baseURL stringByAppendingFormat:@"?"]];
     
-    uint8_t digest[CC_SHA1_DIGEST_LENGTH];
+    for(id key in [_headDictionary allKeys])
+    {
+        fullString = [fullString stringByAppendingFormat:@"%@=%@&", key, [_headDictionary objectForKey:key]];
+    }
     
-    CC_SHA1(data.bytes, data.length, digest);
+    for(id key in [dictionary allKeys])
+    {
+        fullString = [fullString stringByAppendingFormat:@"%@=%@&", key, [dictionary objectForKey:key]];
+    }
     
-    NSMutableString *output = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH * 2];
+    fullString = [fullString substringToIndex:([fullString length] - 1)];
     
-    for(int i = 0; i < CC_SHA1_DIGEST_LENGTH; i++)
-        [output appendFormat:@"%02x", digest[i]];
-    
-    return output;
+    return fullString;
 }
 
 #pragma mark - public
@@ -83,6 +87,8 @@ static id APIClient = nil;
     {
         _headDictionary = [[NSMutableDictionary alloc] initWithCapacity:0];
         //设置默认参数
+        
+        [_headDictionary setObject:kAPIKey forKey:@"key"];
     }
     
     return self;
@@ -101,39 +107,194 @@ static id APIClient = nil;
                 success:(LPAPISuccessBlock)successBlock
                 failure:(LPAPIFailureBlock)failureBlock
 {
-    int time = (int)[[NSDate date] timeIntervalSince1970];
-    
-    NSString *string = [NSString stringWithFormat:@"/rpc/sites?city=1&timestamp=%i&key=4nM_mLISvh", time];
-    ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:[[@"http://rpc.youyoumm.com" stringByAppendingString:string] stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding]]];
-//    [request addRequestHeader:@"Accept" value:@"application/json"];
-//    [request addRequestHeader:@"Content-Type" value:@"application/json"];
-    
-    NSLog(@"%@", hashedValue(kAPISecret, string));
-    
-    [request addRequestHeader:@"X-Auth-Signature" value:hashedValue(kAPISecret, string)];
-    [request setCompletionBlock:^{
+    if([method isEqualToString:@"GET"])
+    {
+        int time = (int)[[NSDate date] timeIntervalSince1970];
+        [_headDictionary setObject:[NSString stringWithFormat:@"%i", time] forKey:@"timestamp"];
+        NSString *string = [self stringFromBaseURL:path withParams:params];
         
-        NSData *data = [request responseData];
-        NSDictionary *respondObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-        NSLog(@"%@", [respondObject description]);
-    }];
-    
-    [request setFailedBlock:^{
+        ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:[[kHTTPRequestPrefix stringByAppendingString:string] stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding]]];
+        [request addRequestHeader:@"X-Auth-Signature" value:hashedValue(kAPISecret, string)];
         
-        NSError *error = [request error];
-        NSLog(@"%@", [error description]);
-    }];
+        [request setCompletionBlock:^{
+            
+            NSData *data = [request responseData];
+            NSDictionary *respondObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            NSLog(@"%@", [respondObject description]);
+            
+        }];
+        
+        [request setFailedBlock:^{
+            
+            NSError *error = [request error];
+            NSLog(@"%@", [error description]);
+            
+        }];
+        
+        [request startAsynchronous];
+    }
+    else if([method isEqualToString:@"POST"])
+    {
     
-    [request startAsynchronous];
+    }
+    else
+    {
+    
+    }
 }
 
-- (void)send
+/*
+ 获取分类及子分类列表
+ */
+- (void)getCategoryListWithCategoryId:(NSInteger)categoryId
+                              success:(LPAPISuccessBlock)successBlock
+                              failure:(LPAPIFailureBlock)failureBlock
 {
-    [self sendRequestPath:nil
-                   params:nil
-                   method:nil
-                  success:nil
-                  failure:nil];
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
+    
+    if(categoryId > 0)
+    {
+        [params setObject:[NSString stringWithFormat:@"%i", (int)categoryId] forKey:@"id"];
+    }
+    
+    [self sendRequestPath:@"/rpc/categories"
+                   params:params
+                   method:@"GET"
+                  success:successBlock
+                  failure:failureBlock];
+}
+
+/*
+ 获取国家列表
+ */
+- (void)getCountryListWithCountryId:(NSInteger)countryId
+                            success:(LPAPISuccessBlock)successBlock
+                            failure:(LPAPIFailureBlock)failureBlock
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
+    
+    if(countryId > 0)
+    {
+        [params setObject:[NSString stringWithFormat:@"%i", (int)countryId] forKey:@"id"];
+    }
+    
+    [self sendRequestPath:@"/rpc/countries"
+                   params:params
+                   method:@"GET"
+                  success:successBlock
+                  failure:failureBlock];
+}
+
+/*
+ 获取城市列表
+ */
+- (void)getCityListWithCityId:(NSInteger)cityId
+                      success:(LPAPISuccessBlock)successBlock
+                      failure:(LPAPIFailureBlock)failureBlcok
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
+    
+    if(cityId > 0)
+    {
+        [params setObject:[NSString stringWithFormat:@"%i", (int)cityId] forKey:@"id"];
+    }
+    
+    [self sendRequestPath:@"/rpc/cities"
+                   params:params
+                   method:@"GET"
+                  success:successBlock
+                  failure:failureBlcok];
+}
+
+/*
+ POI列表搜索
+ */
+- (void)getPOIListWithPOIId:(NSInteger)POIId
+                      brief:(NSInteger)brief
+                     offset:(NSInteger)offset
+                      limit:(NSInteger)limit
+                    keyword:(NSString *)keyword
+                       area:(NSInteger)area
+                       city:(NSInteger)city
+                      range:(NSInteger)range
+                   category:(NSInteger)category
+                      order:(NSInteger)order
+                  longitude:(CGFloat)longitude
+                   latitude:(CGFloat)latitude
+                    success:(LPAPISuccessBlock)successBlock
+                    failure:(LPAPIFailureBlock)failureBlock
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
+    
+    if(POIId > 0)
+    {
+        [params setObject:[NSNumber numberWithInteger:POIId] forKey:@"id"];
+    }
+    
+    if(brief >= 0)
+    {
+        [params setObject:[NSNumber numberWithInteger:brief] forKey:@"brief"];
+    }
+    else
+    {
+        [params setObject:[NSNumber numberWithInteger:1] forKey:@"brief"];
+    }
+    
+    if(offset > 0)
+    {
+        [params setObject:[NSNumber numberWithInteger:offset] forKey:@"offset"];
+    }
+    
+    if(limit > 0)
+    {
+        [params setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
+    }
+    
+    if(keyword && ![keyword isEqualToString:@""])
+    {
+        [params setObject:keyword forKey:@"keywords"];
+    }
+    
+    if(area > 0)
+    {
+        [params setObject:[NSNumber numberWithInteger:area] forKey:@"area"];
+    }
+    
+    if(city > 0)
+    {
+        [params setObject:[NSNumber numberWithInteger:city] forKey:@"city"];
+    }
+    
+    if(range > 0)
+    {
+        [params setObject:[NSNumber numberWithInteger:range] forKey:@"range"];
+    }
+    
+    if(category > 0)
+    {
+        [params setObject:[NSNumber numberWithInteger:category] forKey:@"category"];
+    }
+    
+    if(order > 0)
+    {
+        [params setObject:[NSNumber numberWithInteger:order] forKey:@"order"];
+    }
+    
+    if(longitude > 0)
+    {
+        [params setObject:[NSNumber numberWithFloat:longitude] forKey:@"longitude"];
+    }
+    
+    if(latitude > 0)
+    {
+        [params setObject:[NSNumber numberWithFloat:latitude] forKey:@"latitude"];
+    }
+    
+    [self sendRequestPath:@"/rpc/sites"
+                   params:params
+                   method:@"GET"
+                  success:successBlock
+                  failure:failureBlock];
 }
 
 @end

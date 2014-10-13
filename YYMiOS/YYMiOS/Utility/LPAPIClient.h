@@ -17,6 +17,44 @@ typedef void (^LPAPIFailureBlock)(NSError *error);
 }
 
 + (id)sharedAPIClient;
-- (void)send;
+
+/*
+ 获取分类及子分类列表
+ */
+- (void)getCategoryListWithCategoryId:(NSInteger)categoryId
+                              success:(LPAPISuccessBlock)successBlock
+                              failure:(LPAPIFailureBlock)failureBlock;
+
+/*
+ 获取国家列表
+ */
+- (void)getCountryListWithCountryId:(NSInteger)countryId
+                            success:(LPAPISuccessBlock)successBlock
+                            failure:(LPAPIFailureBlock)failureBlock;
+
+/*
+ 获取城市列表
+ */
+- (void)getCityListWithCityId:(NSInteger)cityId
+                      success:(LPAPISuccessBlock)successBlock
+                      failure:(LPAPIFailureBlock)failureBlcok;
+
+/*
+ POI列表搜索
+ */
+- (void)getPOIListWithPOIId:(NSInteger)POIId
+                      brief:(NSInteger)brief
+                     offset:(NSInteger)offset
+                      limit:(NSInteger)limit
+                    keyword:(NSString *)keyword
+                       area:(NSInteger)area
+                       city:(NSInteger)city
+                      range:(NSInteger)range
+                   category:(NSInteger)category
+                      order:(NSInteger)order
+                  longitude:(CGFloat)longitude
+                   latitude:(CGFloat)latitude
+                    success:(LPAPISuccessBlock)successBlock
+                    failure:(LPAPIFailureBlock)failureBlock;
 
 @end

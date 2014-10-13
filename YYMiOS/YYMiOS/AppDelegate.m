@@ -21,7 +21,12 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    [[LPAPIClient sharedAPIClient] send];
+    [[LPAPIClient sharedAPIClient] getCategoryListWithCategoryId:0
+                                                         success:^(id respondObject) {
+                                                             
+                                                         } failure:^(NSError *error) {
+                                                             
+                                                         }];
     
     [self lanuchLoginViewController];
     
