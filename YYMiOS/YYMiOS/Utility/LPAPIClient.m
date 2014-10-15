@@ -120,14 +120,21 @@ static id APIClient = nil;
             
             NSData *data = [request responseData];
             NSDictionary *respondObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-            NSLog(@"%@", [respondObject description]);
+            if(respondObject)
+            {
+                successBlock(respondObject);
+            }
+            else
+            {
+                failureBlock(nil);
+            }
             
         }];
         
         [request setFailedBlock:^{
             
             NSError *error = [request error];
-            NSLog(@"%@", [error description]);
+            failureBlock(error);
             
         }];
         

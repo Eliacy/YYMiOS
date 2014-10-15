@@ -56,6 +56,10 @@
 		048355AB19D320C7005ECAD6 /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048355AA19D320C7005ECAD6 /* FeedbackViewController.m */; };
 		048355AE19D320D2005ECAD6 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048355AD19D320D2005ECAD6 /* AboutViewController.m */; };
 		048355B119D322DA005ECAD6 /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048355B019D322DA005ECAD6 /* UserInfoViewController.m */; };
+		0491C0B419EE57C600FF71D4 /* Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = 0491C0B319EE57C600FF71D4 /* Categories.m */; };
+		0491C0B719EE5B1C00FF71D4 /* Country.m in Sources */ = {isa = PBXBuildFile; fileRef = 0491C0B619EE5B1C00FF71D4 /* Country.m */; };
+		0491C0BA19EE5C3600FF71D4 /* City.m in Sources */ = {isa = PBXBuildFile; fileRef = 0491C0B919EE5C3600FF71D4 /* City.m */; };
+		0491C0BD19EE5D9600FF71D4 /* Area.m in Sources */ = {isa = PBXBuildFile; fileRef = 0491C0BC19EE5D9600FF71D4 /* Area.m */; };
 		049E690D19E13C9500DA984F /* ShopDealCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 049E690C19E13C9500DA984F /* ShopDealCell.m */; };
 		049E691019E13F0400DA984F /* DealDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049E690F19E13F0400DA984F /* DealDetailViewController.m */; };
 		04B0D04419DA7ABB00289F78 /* LPAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B0D04319DA7ABB00289F78 /* LPAPIClient.m */; };
@@ -185,6 +189,14 @@
 		048355AD19D320D2005ECAD6 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		048355AF19D322DA005ECAD6 /* UserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoViewController.h; sourceTree = "<group>"; };
 		048355B019D322DA005ECAD6 /* UserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoViewController.m; sourceTree = "<group>"; };
+		0491C0B219EE57C600FF71D4 /* Categories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Categories.h; sourceTree = "<group>"; };
+		0491C0B319EE57C600FF71D4 /* Categories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Categories.m; sourceTree = "<group>"; };
+		0491C0B519EE5B1C00FF71D4 /* Country.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Country.h; sourceTree = "<group>"; };
+		0491C0B619EE5B1C00FF71D4 /* Country.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Country.m; sourceTree = "<group>"; };
+		0491C0B819EE5C3600FF71D4 /* City.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = City.h; sourceTree = "<group>"; };
+		0491C0B919EE5C3600FF71D4 /* City.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = City.m; sourceTree = "<group>"; };
+		0491C0BB19EE5D9600FF71D4 /* Area.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Area.h; sourceTree = "<group>"; };
+		0491C0BC19EE5D9600FF71D4 /* Area.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Area.m; sourceTree = "<group>"; };
 		049E690B19E13C9500DA984F /* ShopDealCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopDealCell.h; sourceTree = "<group>"; };
 		049E690C19E13C9500DA984F /* ShopDealCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopDealCell.m; sourceTree = "<group>"; };
 		049E690E19E13F0400DA984F /* DealDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DealDetailViewController.h; sourceTree = "<group>"; };
@@ -265,6 +277,14 @@
 				04788D6619D7FD6100BE283B /* Draft.m */,
 				04B36B0319E7C88A00FA7D3A /* User.h */,
 				04B36B0419E7C88A00FA7D3A /* User.m */,
+				0491C0B219EE57C600FF71D4 /* Categories.h */,
+				0491C0B319EE57C600FF71D4 /* Categories.m */,
+				0491C0B519EE5B1C00FF71D4 /* Country.h */,
+				0491C0B619EE5B1C00FF71D4 /* Country.m */,
+				0491C0B819EE5C3600FF71D4 /* City.h */,
+				0491C0B919EE5C3600FF71D4 /* City.m */,
+				0491C0BB19EE5D9600FF71D4 /* Area.h */,
+				0491C0BC19EE5D9600FF71D4 /* Area.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -649,13 +669,16 @@
 				047EB62F19E7CE8000A2E081 /* ASIHTTPRequest.m in Sources */,
 				04B0D06419DA7C3000289F78 /* UIImageView+WebCache.m in Sources */,
 				047EB63119E7CE8000A2E081 /* ASINetworkQueue.m in Sources */,
+				0491C0BA19EE5C3600FF71D4 /* City.m in Sources */,
 				047EB62B19E7CE8000A2E081 /* ASIDataCompressor.m in Sources */,
+				0491C0B419EE57C600FF71D4 /* Categories.m in Sources */,
 				047EB62D19E7CE8000A2E081 /* ASIDownloadCache.m in Sources */,
 				0435237F19D0574900F67B8E /* HomeCell.m in Sources */,
 				04B0D06319DA7C3000289F78 /* SDWebImagePrefetcher.m in Sources */,
 				047EB62C19E7CE8000A2E081 /* ASIDataDecompressor.m in Sources */,
 				048355AE19D320D2005ECAD6 /* AboutViewController.m in Sources */,
 				04B36B0219E57BCE00FA7D3A /* CommentCell.m in Sources */,
+				0491C0BD19EE5D9600FF71D4 /* Area.m in Sources */,
 				0435236C19D0502C00F67B8E /* LPObject.m in Sources */,
 				0456058219CB381800BF5933 /* AppDelegate.m in Sources */,
 				0435235919D04D6C00F67B8E /* BaseViewController.m in Sources */,
@@ -667,6 +690,7 @@
 				04B0D06119DA7C3000289F78 /* SDWebImageDownloader.m in Sources */,
 				04788D6A19D8008E00BE283B /* PhotoSelectView.m in Sources */,
 				04B0D06219DA7C3000289F78 /* SDWebImageManager.m in Sources */,
+				0491C0B719EE5B1C00FF71D4 /* Country.m in Sources */,
 				048355A819D31F3F005ECAD6 /* NearbyCell.m in Sources */,
 				0456057F19CB381800BF5933 /* main.m in Sources */,
 				0435239119D05E3200F67B8E /* DynamicCell.m in Sources */,

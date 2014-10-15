@@ -9,7 +9,8 @@
 #import "AppDelegate.h"
 #import "LoginViewController.h"
 #import "TabViewController.h"
-#import "LPAPIClient.h"
+
+#import "Categories.h"
 
 @interface AppDelegate ()
 
@@ -21,12 +22,12 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    [[LPAPIClient sharedAPIClient] getCategoryListWithCategoryId:0
-                                                         success:^(id respondObject) {
-                                                             
-                                                         } failure:^(NSError *error) {
-                                                             
-                                                         }];
+    [Categories getCategoryListWithCategoryId:0
+                                      success:^(NSArray *array) {
+                                          
+                                      } failure:^(NSError *error) {
+                                          
+                                      }];
     
     [self lanuchLoginViewController];
     
