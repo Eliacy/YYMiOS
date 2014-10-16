@@ -8,6 +8,20 @@
 
 #import "BaseViewController.h"
 
-@interface FilterViewController : BaseViewController
+@interface FilterViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate>
+{
+    UIButton        *_searchButton;
+    
+    UITableView     *_tableView;
+    NSMutableArray  *_categoryArray;
+    
+    UIButton        *_scaleButton;
+    UIButton        *_categoryButton;
+    UIButton        *_orderButton;
+    
+    BOOL            _scaleExpandFlag;
+    BOOL            _categoryExpandFlag;
+    BOOL            _orderExpandFlag;
+}
 
 @end

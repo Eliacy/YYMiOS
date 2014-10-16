@@ -109,7 +109,7 @@ static id APIClient = nil;
 {
     if([method isEqualToString:@"GET"])
     {
-        int time = (int)[[NSDate date] timeIntervalSince1970];
+        int time = (int)[[NSDate date] timeIntervalSince1970] - 2;
         [_headDictionary setObject:[NSString stringWithFormat:@"%i", time] forKey:@"timestamp"];
         NSString *string = [self stringFromBaseURL:path withParams:params];
         
@@ -120,6 +120,9 @@ static id APIClient = nil;
             
             NSData *data = [request responseData];
             NSDictionary *respondObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            
+            NSLog(@"%@", respondObject);
+            
             if(respondObject)
             {
                 successBlock(respondObject);
@@ -148,6 +151,21 @@ static id APIClient = nil;
     {
     
     }
+}
+
+/*
+ 获取时间戳
+ */
+- (void)getServerTimeStampSuccess:(LPAPISuccessBlock)successBlock
+                          failure:(LPAPIFailureBlock)failureBlcok
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
+    
+    [self sendRequestPath:@"http://rpc.youyoumm.com/rpc/time"
+                   params:params
+                   method:@"GET"
+                  success:successBlock
+                  failure:failureBlcok];
 }
 
 /*

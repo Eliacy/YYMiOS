@@ -22,14 +22,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    [Categories getCategoryListWithCategoryId:0
-                                      success:^(NSArray *array) {
-                                          
-                                      } failure:^(NSError *error) {
-                                          
-                                      }];
-    
-    [self lanuchLoginViewController];
+//    [self lanuchLoginViewController];
+    [self lanuchTabViewContrller];
     
     return YES;
 }

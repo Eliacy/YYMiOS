@@ -19,6 +19,12 @@ typedef void (^LPAPIFailureBlock)(NSError *error);
 + (id)sharedAPIClient;
 
 /*
+ 获取时间戳
+ */
+- (void)getServerTimeStampSuccess:(LPAPISuccessBlock)successBlock
+                          failure:(LPAPIFailureBlock)failureBlcok;
+
+/*
  获取分类及子分类列表
  */
 - (void)getCategoryListWithCategoryId:(NSInteger)categoryId
