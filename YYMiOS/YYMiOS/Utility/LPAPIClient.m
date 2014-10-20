@@ -109,7 +109,8 @@ static id APIClient = nil;
 {
     if([method isEqualToString:@"GET"])
     {
-        int time = (int)[[NSDate date] timeIntervalSince1970] - 2;
+        NSLog(@"%lf", [[[NSUserDefaults standardUserDefaults] objectForKey:@"OffsetTimeStamp"] doubleValue]);
+        int time = (int)([[NSDate date] timeIntervalSince1970] + [[[NSUserDefaults standardUserDefaults] objectForKey:@"OffsetTimeStamp"] doubleValue]);
         [_headDictionary setObject:[NSString stringWithFormat:@"%i", time] forKey:@"timestamp"];
         NSString *string = [self stringFromBaseURL:path withParams:params];
         
@@ -147,7 +148,7 @@ static id APIClient = nil;
     {
     
     }
-    else
+    else if([method isEqualToString:@"DELETE"])
     {
     
     }
@@ -161,7 +162,22 @@ static id APIClient = nil;
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
     
-    [self sendRequestPath:@"http://rpc.youyoumm.com/rpc/time"
+    [self sendRequestPath:@"/rpc/time"
+                   params:params
+                   method:@"GET"
+                  success:successBlock
+                  failure:failureBlcok];
+}
+
+/*
+ 支持最低API协议版本
+ */
+- (void)getLowestVersionSuccess:(LPAPISuccessBlock)successBlock
+                        failure:(LPAPIFailureBlock)failureBlcok
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
+    
+    [self sendRequestPath:@"/rpc/version"
                    params:params
                    method:@"GET"
                   success:successBlock
@@ -320,6 +336,57 @@ static id APIClient = nil;
                    method:@"GET"
                   success:successBlock
                   failure:failureBlock];
+}
+
+/*
+ 获取晒单列表
+ */
+- (void)getDealDetailListWithBrief:(NSInteger)brief
+                          selected:(NSInteger)selected
+                         published:(NSInteger)published
+                            offset:(NSInteger)offset
+                             limit:(NSInteger)limit
+                              user:(NSInteger)user
+                              site:(NSInteger)site
+                              city:(NSInteger)city
+                           success:(LPAPISuccessBlock)successBlock
+                           failure:(LPAPIFailureBlock)failureBlcok
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
+    
+    [params setObject:[NSNumber numberWithInteger:brief] forKey:@"brief"];
+    [params setObject:[NSNumber numberWithInteger:selected] forKey:@"selected"];
+    [params setObject:[NSNumber numberWithInteger:published] forKey:@"published"];
+    [params setObject:[NSNumber numberWithInteger:offset] forKey:@"offset"];
+    [params setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
+    [params setObject:[NSNumber numberWithInteger:user] forKey:@"user"];
+    [params setObject:[NSNumber numberWithInteger:site] forKey:@"site"];
+    [params setObject:[NSNumber numberWithInteger:city] forKey:@"city"];
+    
+    [self sendRequestPath:@"/rpc/reviews"
+                   params:params
+                   method:@"GET"
+                  success:successBlock
+                  failure:failureBlcok];
+}
+
+
+/*
+ 删除晒单
+ */
+- (void)deleteDealDetailWithDealId:(NSInteger)dealId
+                           success:(LPAPISuccessBlock)successBlock
+                           failure:(LPAPIFailureBlock)failureBlcok
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
+    
+    [params setObject:[NSNumber numberWithInteger:dealId] forKey:@"id"];
+    
+    [self sendRequestPath:@"/rpc/reviews"
+                   params:params
+                   method:@"DELETE"
+                  success:successBlock
+                  failure:failureBlcok];
 }
 
 @end

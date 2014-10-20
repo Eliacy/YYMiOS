@@ -22,6 +22,23 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    __block double systemTimeStamp = [[NSDate date] timeIntervalSince1970];
+    
+    [[LPAPIClient sharedAPIClient] getServerTimeStampSuccess:^(id respondObject) {
+        
+        if([respondObject objectForKey:@"timestamp"] && ![[respondObject objectForKey:@"timestamp"] isEqual:[NSNull null]])
+        {
+            CGFloat serverTimeStamp = [[respondObject objectForKey:@"timestamp"] doubleValue];
+            CGFloat offsetTimpStamp = serverTimeStamp - systemTimeStamp;
+            NSLog(@"%lf", offsetTimpStamp);
+            [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithDouble:offsetTimpStamp] forKey:@"OffsetTimeStamp"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+        
+    } failure:^(NSError *error) {
+        
+    }];
+    
 //    [self lanuchLoginViewController];
     [self lanuchTabViewContrller];
     
