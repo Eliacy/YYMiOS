@@ -90,4 +90,37 @@ typedef void (^LPAPIFailureBlock)(NSError *error);
                            success:(LPAPISuccessBlock)successBlock
                            failure:(LPAPIFailureBlock)failureBlcok;
 
+/*
+ 创建晒单
+ */
+- (void)createDealDetailWithPublished:(NSInteger)published
+                               userId:(NSInteger)userId
+                               atList:(NSString *)atList
+                                 star:(float)star
+                              content:(NSString *)content
+                               images:(NSString *)images
+                             keywords:(NSString *)keywords
+                                total:(NSInteger)total
+                             currency:(NSString *)currency
+                               siteId:(NSInteger)siteId
+                              success:(LPAPISuccessBlock)successBlock
+                              failure:(LPAPIFailureBlock)failureBlcok;
+
+/*
+ 修改晒单
+ */
+- (void)updateDealDetailWithDealId:(NSInteger)dealId
+                         published:(NSInteger)published
+                            userId:(NSInteger)userId
+                            atList:(NSString *)atList
+                              star:(float)star
+                           content:(NSString *)content
+                            images:(NSString *)images
+                          keywords:(NSString *)keywords
+                             total:(NSInteger)total
+                          currency:(NSString *)currency
+                            siteId:(NSInteger)siteId
+                           success:(LPAPISuccessBlock)successBlock
+                           failure:(LPAPIFailureBlock)failureBlcok;
+
 @end

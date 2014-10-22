@@ -9,6 +9,7 @@
 #import "LPAPIClient.h"
 #import <CommonCrypto/CommonCrypto.h>
 #import "ASIHTTPRequest.h"
+#import "ASIFormDataRequest.h"
 
 #define kAPIKey     @"4nM_mLISvh"
 #define kAPISecret  @"Yu8{Lnka%Y"
@@ -146,11 +147,88 @@ static id APIClient = nil;
     }
     else if([method isEqualToString:@"POST"])
     {
-    
+        int time = (int)([[NSDate date] timeIntervalSince1970] + [[[NSUserDefaults standardUserDefaults] objectForKey:@"OffsetTimeStamp"] doubleValue]);
+        [_headDictionary setObject:[NSString stringWithFormat:@"%i", time] forKey:@"timestamp"];
+        
+        NSString *urlStr = [kHTTPRequestPrefix stringByAppendingFormat:@"%@", path];
+        ASIFormDataRequest *request  = [[[ASIFormDataRequest alloc] initWithURL:[NSURL URLWithString:[urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]] autorelease];
+        
+        NSString *charset = (NSString *)CFStringConvertEncodingToIANACharSetName(CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
+        [request addRequestHeader:@"Content-Type" value:[NSString stringWithFormat:@"application/json; charset=%@", charset]];
+        
+        for(NSString *key in _headDictionary.allKeys)
+        {
+            [params setValue:[_headDictionary objectForKey:key] forKey:key];
+        }
+        
+        NSMutableData *data = [NSMutableData dataWithData:[NSJSONSerialization dataWithJSONObject:params options:NSJSONWritingPrettyPrinted error:nil]];
+        [request setPostBody:data];
+        
+        NSString *string = [self stringFromBaseURL:path withParams:params];
+        [request addRequestHeader:@"X-Auth-Signature" value:hashedValue(kAPISecret, string)];
+        
+        [request setCompletionBlock:^{
+            
+            NSData *data = [request responseData];
+            NSDictionary *respondObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            
+            NSLog(@"%@", respondObject);
+            
+            if(respondObject)
+            {
+                successBlock(respondObject);
+            }
+            else
+            {
+                failureBlock(nil);
+            }
+            
+        }];
+        
+        [request setFailedBlock:^{
+            
+            NSError *error = [request error];
+            failureBlock(error);
+            
+        }];
+        
+        [request startAsynchronous];
     }
     else if([method isEqualToString:@"DELETE"])
     {
-    
+        int time = (int)([[NSDate date] timeIntervalSince1970] + [[[NSUserDefaults standardUserDefaults] objectForKey:@"OffsetTimeStamp"] doubleValue]);
+        [_headDictionary setObject:[NSString stringWithFormat:@"%i", time] forKey:@"timestamp"];
+        NSString *string = [self stringFromBaseURL:path withParams:params];
+        
+        ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:[[kHTTPRequestPrefix stringByAppendingString:string] stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding]]];
+        [request addRequestHeader:@"X-Auth-Signature" value:hashedValue(kAPISecret, string)];
+        [request setRequestMethod:@"DELETE"];
+        [request setCompletionBlock:^{
+            
+            NSData *data = [request responseData];
+            NSDictionary *respondObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            
+            NSLog(@"%@", respondObject);
+            
+            if(respondObject)
+            {
+                successBlock(respondObject);
+            }
+            else
+            {
+                failureBlock(nil);
+            }
+            
+        }];
+        
+        [request setFailedBlock:^{
+            
+            NSError *error = [request error];
+            failureBlock(error);
+            
+        }];
+        
+        [request startAsynchronous];
     }
 }
 
@@ -387,6 +465,86 @@ static id APIClient = nil;
                    method:@"DELETE"
                   success:successBlock
                   failure:failureBlcok];
+}
+
+/*
+ 创建晒单
+ */
+- (void)createDealDetailWithPublished:(NSInteger)published
+                               userId:(NSInteger)userId
+                               atList:(NSString *)atList
+                                 star:(float)star
+                              content:(NSString *)content
+                               images:(NSString *)images
+                             keywords:(NSString *)keywords
+                                total:(NSInteger)total
+                             currency:(NSString *)currency
+                               siteId:(NSInteger)siteId
+                              success:(LPAPISuccessBlock)successBlock
+                              failure:(LPAPIFailureBlock)failureBlcok
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
+    
+    [params setObject:[NSNumber numberWithInteger:published] forKey:@"published"];
+    [params setObject:[NSNumber numberWithInteger:userId] forKey:@"user_id"];
+    if(atList && ![atList isEqualToString:@""])
+    {
+        [params setObject:atList forKey:@"at_list"];
+    }
+    [params setObject:[NSNumber numberWithFloat:star] forKey:@"stars"];
+    if(content && ![content isEqualToString:@""])
+    {
+        [params setObject:content forKey:@"content"];
+    }
+    if(images && ![images isEqualToString:@""])
+    {
+        [params setObject:images forKey:@"images"];
+    }
+    if(keywords && ![keywords isEqualToString:@""])
+    {
+        [params setObject:keywords forKey:@"keywords"];
+    }
+    [params setObject:[NSNumber numberWithInteger:total] forKey:@"total"];
+    if(currency && ![currency isEqualToString:@""])
+    {
+        [params setObject:currency forKey:@"currency"];
+    }
+    [params setObject:[NSNumber numberWithInteger:siteId] forKey:@"site_id"];
+    
+    [self sendRequestPath:@"/rpc/reviews"
+                   params:params
+                   method:@"POST"
+                  success:successBlock
+                  failure:failureBlcok];
+}
+
+/*
+ 修改晒单
+ */
+- (void)updateDealDetailWithDealId:(NSInteger)dealId
+                         published:(NSInteger)published
+                            userId:(NSInteger)userId
+                            atList:(NSString *)atList
+                              star:(float)star
+                           content:(NSString *)content
+                            images:(NSString *)images
+                          keywords:(NSString *)keywords
+                             total:(NSInteger)total
+                          currency:(NSString *)currency
+                            siteId:(NSInteger)siteId
+                           success:(LPAPISuccessBlock)successBlock
+                           failure:(LPAPIFailureBlock)failureBlcok
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
+    
+    [params setObject:[NSNumber numberWithInteger:dealId] forKey:@"id"];
+    [params setObject:[NSNumber numberWithInteger:published] forKey:@"published"];
+    [params setObject:[NSNumber numberWithInteger:userId] forKey:@"user_id"];
+    if(atList && ![atList isEqualToString:@""])
+    {
+        [params setObject:atList forKey:@"at_list"];
+    }
+    [params setObject:[NSNumber numberWithFloat:star] forKey:@"stars"];
 }
 
 @end
