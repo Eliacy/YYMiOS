@@ -17,6 +17,11 @@
     UIButton        *_sendButton;
     
     UITableView     *_tableView;
+    
+    UIView          *_tableHeaderView;
+    UIView          *_headerBackView;
+    
+    NSMutableArray  *_commentArray;
 }
 
 @end

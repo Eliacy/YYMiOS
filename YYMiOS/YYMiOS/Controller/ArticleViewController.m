@@ -8,6 +8,7 @@
 
 #import "ArticleViewController.h"
 #import "ShareKit.h"
+#import "CommentCell.h"
 
 @interface ArticleViewController () <UITextFieldDelegate>
 
@@ -70,7 +71,9 @@
     self = [super init];
     if(self != nil)
     {
-    
+        _commentArray = [[NSMutableArray alloc] initWithCapacity:0];
+        
+        [_commentArray addObjectsFromArray:[NSArray arrayWithObjects:@"1", @"2", @"3", @"4", @"5", nil]];
     }
     
     return self;
@@ -116,6 +119,22 @@
     _tableView.dataSource = self;
     _tableView.delegate = self;
     [self.view addSubview:_tableView];
+    
+    _tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 300)];
+    _tableHeaderView.backgroundColor = [UIColor clearColor];
+    _tableView.tableHeaderView = _tableHeaderView;
+    
+    _headerBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableHeaderView.frame.size.width, _tableHeaderView.frame.size.height - 15)];
+    _headerBackView.backgroundColor = [UIColor whiteColor];
+    [_tableHeaderView addSubview:_headerBackView];
+    
+    UIView *line = [[[UIView alloc] initWithFrame:CGRectMake(0, _headerBackView.frame.size.height - 90, _headerBackView.frame.size.width, 0.5)] autorelease];
+    line.backgroundColor = [UIColor colorWithRed:221.0 / 255.0 green:221.0 / 255.0 blue:221.0 / 255.0 alpha:1.0];
+    [_headerBackView addSubview:line];
+    
+    UIView *tableFooterView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 1)] autorelease];
+    tableFooterView.backgroundColor = [UIColor clearColor];
+    _tableView.tableFooterView = tableFooterView;
 }
 
 - (void)viewDidLoad {
@@ -173,21 +192,24 @@
 
 #pragma mark - UITableViewDataSource
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 105.0f;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 20;
+    return [_commentArray count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ArticleViewControllerIdentifier"];
+    CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ArticleViewControllerIdentifier"];
     if(cell == nil)
     {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ArticleViewControllerIdentifier"] autorelease];
+        cell = [[[CommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ArticleViewControllerIdentifier"] autorelease];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    
-    cell.textLabel.text = [NSString stringWithFormat:@"%i", (int)indexPath.row];
     
     return cell;
 }
