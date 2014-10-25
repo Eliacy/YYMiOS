@@ -12,6 +12,7 @@
 {
     UIImageView     *_avatarImageView;
     UILabel         *_titleLabel;
+    UILabel         *_timeLabel;
     UILabel         *_contentLabel;
 }
 

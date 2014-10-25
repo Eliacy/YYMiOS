@@ -89,6 +89,7 @@
 		04B36B0519E7C88A00FA7D3A /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B36B0419E7C88A00FA7D3A /* User.m */; };
 		04DC527319FBBC6B00342DB6 /* Site.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DC527219FBBC6B00342DB6 /* Site.m */; };
 		04DC527619FBC01E00342DB6 /* LPImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DC527519FBC01E00342DB6 /* LPImage.m */; };
+		04DC527919FBD0F400342DB6 /* DealEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DC527819FBD0F400342DB6 /* DealEditViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -261,6 +262,8 @@
 		04DC527219FBBC6B00342DB6 /* Site.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Site.m; sourceTree = "<group>"; };
 		04DC527419FBC01E00342DB6 /* LPImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPImage.h; sourceTree = "<group>"; };
 		04DC527519FBC01E00342DB6 /* LPImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPImage.m; sourceTree = "<group>"; };
+		04DC527719FBD0F400342DB6 /* DealEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DealEditViewController.h; sourceTree = "<group>"; };
+		04DC527819FBD0F400342DB6 /* DealEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DealEditViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -437,6 +440,8 @@
 				04B0D08219DD25EC00289F78 /* ShopViewController.m */,
 				04788D5619D7F2FB00BE283B /* DraftViewController.h */,
 				04788D5719D7F2FB00BE283B /* DraftViewController.m */,
+				04DC527719FBD0F400342DB6 /* DealEditViewController.h */,
+				04DC527819FBD0F400342DB6 /* DealEditViewController.m */,
 				0435238019D05C6500F67B8E /* TipsViewController.h */,
 				0435238119D05C6500F67B8E /* TipsViewController.m */,
 				0435238319D05C7200F67B8E /* MessageViewController.h */,
@@ -685,6 +690,7 @@
 				047EB62E19E7CE8000A2E081 /* ASIFormDataRequest.m in Sources */,
 				047EB62F19E7CE8000A2E081 /* ASIHTTPRequest.m in Sources */,
 				0498E32A19F509840085E12B /* AFHTTPRequestOperationManager.m in Sources */,
+				04DC527919FBD0F400342DB6 /* DealEditViewController.m in Sources */,
 				0498E32E19F509840085E12B /* AFURLConnectionOperation.m in Sources */,
 				04B0D06419DA7C3000289F78 /* UIImageView+WebCache.m in Sources */,
 				047EB63119E7CE8000A2E081 /* ASINetworkQueue.m in Sources */,

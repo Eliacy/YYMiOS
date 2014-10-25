@@ -8,12 +8,23 @@
 
 #import "DraftViewController.h"
 #import "DraftCell.h"
+#import "DealEditViewController.h"
 
 @interface DraftViewController ()
 
 @end
 
 @implementation DraftViewController
+
+#pragma mark - private
+
+- (void)clickAddButton:(id)sender
+{
+    DealEditViewController *dealEditVC = [[[DealEditViewController alloc] init] autorelease];
+    [self.navigationController pushViewController:dealEditVC animated:YES];
+}
+
+#pragma mark - super
 
 - (id)init
 {
@@ -33,6 +44,15 @@
     [super loadView];
     
     _titleLabel.text = @"草稿列表";
+    
+    _addButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    _addButton.frame = CGRectMake(_headerView.frame.size.width - 2 - 40, 2, 40, 40);
+    _addButton.backgroundColor = [UIColor clearColor];
+    [_addButton setTitle:@"添加" forState:UIControlStateNormal];
+    [_addButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _addButton.titleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
+    [_addButton addTarget:self action:@selector(clickAddButton:) forControlEvents:UIControlEventTouchUpInside];
+    [_headerView addSubview:_addButton];
     
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, _adjustView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - _adjustView.frame.size.height) style:UITableViewStylePlain];
     _tableView.backgroundColor = [UIColor clearColor];
@@ -97,6 +117,9 @@
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    DealEditViewController *dealEditVC = [[[DealEditViewController alloc] init] autorelease];
+    [self.navigationController pushViewController:dealEditVC animated:YES];
+    
     return nil;
 }
 

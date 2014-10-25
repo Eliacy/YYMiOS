@@ -10,6 +10,8 @@
 
 @interface DraftViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate>
 {
+    UIButton        *_addButton;
+    
     UITableView     *_tableView;
     NSMutableArray  *_draftArray;
 }
