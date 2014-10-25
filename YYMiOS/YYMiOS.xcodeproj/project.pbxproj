@@ -27,7 +27,6 @@
 		0456057F19CB381800BF5933 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0456057E19CB381800BF5933 /* main.m */; };
 		0456058219CB381800BF5933 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0456058119CB381800BF5933 /* AppDelegate.m */; };
 		0456058A19CB381800BF5933 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0456058919CB381800BF5933 /* Images.xcassets */; };
-		0456059919CB381800BF5933 /* YYMiOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0456059819CB381800BF5933 /* YYMiOSTests.m */; };
 		045605A919CB398B00BF5933 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 045605A819CB398B00BF5933 /* HomeViewController.m */; };
 		045605AC19CB3AFB00BF5933 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 045605AA19CB3AFB00BF5933 /* LaunchScreen.xib */; };
 		045605AD19CB3AFB00BF5933 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 045605AB19CB3AFB00BF5933 /* Main.storyboard */; };
@@ -88,17 +87,9 @@
 		04B0D08319DD25EC00289F78 /* ShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B0D08219DD25EC00289F78 /* ShopViewController.m */; };
 		04B36B0219E57BCE00FA7D3A /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B36B0119E57BCE00FA7D3A /* CommentCell.m */; };
 		04B36B0519E7C88A00FA7D3A /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B36B0419E7C88A00FA7D3A /* User.m */; };
+		04DC527319FBBC6B00342DB6 /* Site.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DC527219FBBC6B00342DB6 /* Site.m */; };
+		04DC527619FBC01E00342DB6 /* LPImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DC527519FBC01E00342DB6 /* LPImage.m */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		0456059319CB381800BF5933 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0456057119CB381800BF5933 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 0456057819CB381800BF5933;
-			remoteInfo = YYMiOS;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		0435235719D04D6C00F67B8E /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
@@ -138,7 +129,6 @@
 		0456058019CB381800BF5933 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0456058119CB381800BF5933 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		0456058919CB381800BF5933 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		0456059219CB381800BF5933 /* YYMiOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YYMiOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0456059719CB381800BF5933 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0456059819CB381800BF5933 /* YYMiOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYMiOSTests.m; sourceTree = "<group>"; };
 		045605A719CB398B00BF5933 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
@@ -267,6 +257,10 @@
 		04B36B0119E57BCE00FA7D3A /* CommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentCell.m; sourceTree = "<group>"; };
 		04B36B0319E7C88A00FA7D3A /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		04B36B0419E7C88A00FA7D3A /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		04DC527119FBBC6B00342DB6 /* Site.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Site.h; sourceTree = "<group>"; };
+		04DC527219FBBC6B00342DB6 /* Site.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Site.m; sourceTree = "<group>"; };
+		04DC527419FBC01E00342DB6 /* LPImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPImage.h; sourceTree = "<group>"; };
+		04DC527519FBC01E00342DB6 /* LPImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPImage.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -277,13 +271,6 @@
 				047EB63719E7D11300A2E081 /* libz.dylib in Frameworks */,
 				04B0D06719DA7C3000289F78 /* libWeChatSDK.a in Frameworks */,
 				04B0D06519DA7C3000289F78 /* libWeiboSDK.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		0456058F19CB381800BF5933 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,8 +290,12 @@
 				04788D6319D7FD5600BE283B /* Nearby.m */,
 				04788D6519D7FD6100BE283B /* Draft.h */,
 				04788D6619D7FD6100BE283B /* Draft.m */,
+				04DC527119FBBC6B00342DB6 /* Site.h */,
+				04DC527219FBBC6B00342DB6 /* Site.m */,
 				04B36B0319E7C88A00FA7D3A /* User.h */,
 				04B36B0419E7C88A00FA7D3A /* User.m */,
+				04DC527419FBC01E00342DB6 /* LPImage.h */,
+				04DC527519FBC01E00342DB6 /* LPImage.m */,
 				0491C0B219EE57C600FF71D4 /* Categories.h */,
 				0491C0B319EE57C600FF71D4 /* Categories.m */,
 				0491C0B519EE5B1C00FF71D4 /* Country.h */,
@@ -365,7 +356,6 @@
 			isa = PBXGroup;
 			children = (
 				0456057919CB381800BF5933 /* YYMiOS.app */,
-				0456059219CB381800BF5933 /* YYMiOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -618,24 +608,6 @@
 			productReference = 0456057919CB381800BF5933 /* YYMiOS.app */;
 			productType = "com.apple.product-type.application";
 		};
-		0456059119CB381800BF5933 /* YYMiOSTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 0456059F19CB381800BF5933 /* Build configuration list for PBXNativeTarget "YYMiOSTests" */;
-			buildPhases = (
-				0456058E19CB381800BF5933 /* Sources */,
-				0456058F19CB381800BF5933 /* Frameworks */,
-				0456059019CB381800BF5933 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				0456059419CB381800BF5933 /* PBXTargetDependency */,
-			);
-			name = YYMiOSTests;
-			productName = YYMiOSTests;
-			productReference = 0456059219CB381800BF5933 /* YYMiOSTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -647,10 +619,6 @@
 				TargetAttributes = {
 					0456057819CB381800BF5933 = {
 						CreatedOnToolsVersion = 6.0.1;
-					};
-					0456059119CB381800BF5933 = {
-						CreatedOnToolsVersion = 6.0.1;
-						TestTargetID = 0456057819CB381800BF5933;
 					};
 				};
 			};
@@ -668,7 +636,6 @@
 			projectRoot = "";
 			targets = (
 				0456057819CB381800BF5933 /* YYMiOS */,
-				0456059119CB381800BF5933 /* YYMiOSTests */,
 			);
 		};
 /* End PBXProject section */
@@ -686,13 +653,6 @@
 				0435238B19D05D0100F67B8E /* btn_back.png in Resources */,
 				0435238D19D05D0100F67B8E /* btn_back_highlighted.png in Resources */,
 				04B0D06619DA7C3000289F78 /* WeiboSDK.bundle in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		0456059019CB381800BF5933 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -758,11 +718,13 @@
 				0435237819D053C500F67B8E /* NearbyViewController.m in Sources */,
 				04B0D06019DA7C3000289F78 /* SDWebImageDecoder.m in Sources */,
 				0435237B19D053D300F67B8E /* MineViewController.m in Sources */,
+				04DC527619FBC01E00342DB6 /* LPImage.m in Sources */,
 				049E691019E13F0400DA984F /* DealDetailViewController.m in Sources */,
 				0498E32F19F509840085E12B /* AFURLRequestSerialization.m in Sources */,
 				04788D6D19D8098700BE283B /* NicknameViewController.m in Sources */,
 				0498E32C19F509840085E12B /* AFNetworkReachabilityManager.m in Sources */,
 				045605A919CB398B00BF5933 /* HomeViewController.m in Sources */,
+				04DC527319FBBC6B00342DB6 /* Site.m in Sources */,
 				0435237219D053A600F67B8E /* DynamicViewController.m in Sources */,
 				04B0D08319DD25EC00289F78 /* ShopViewController.m in Sources */,
 				04788D6719D7FD6100BE283B /* Draft.m in Sources */,
@@ -775,23 +737,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0456058E19CB381800BF5933 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0456059919CB381800BF5933 /* YYMiOSTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		0456059419CB381800BF5933 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 0456057819CB381800BF5933 /* YYMiOS */;
-			targetProxy = 0456059319CB381800BF5933 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		0456059A19CB381800BF5933 /* Debug */ = {
@@ -922,40 +868,6 @@
 			};
 			name = Release;
 		};
-		045605A019CB381800BF5933 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = YYMiOSTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/YYMiOS.app/YYMiOS";
-			};
-			name = Debug;
-		};
-		045605A119CB381800BF5933 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = YYMiOSTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/YYMiOS.app/YYMiOS";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -973,15 +885,6 @@
 			buildConfigurations = (
 				0456059D19CB381800BF5933 /* Debug */,
 				0456059E19CB381800BF5933 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		0456059F19CB381800BF5933 /* Build configuration list for PBXNativeTarget "YYMiOSTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				045605A019CB381800BF5933 /* Debug */,
-				045605A119CB381800BF5933 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

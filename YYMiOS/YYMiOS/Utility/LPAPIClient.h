@@ -31,6 +31,12 @@ typedef void (^LPAPIFailureBlock)(NSError *error);
                         failure:(LPAPIFailureBlock)failureBlcok;
 
 /*
+ 获取服务器缓存时间
+ */
+- (void)getServerCacheTimeSuccess:(LPAPISuccessBlock)successBlock
+                          failure:(LPAPIFailureBlock)failureBlcok;
+
+/*
  获取分类及子分类列表
  */
 - (void)getCategoryListWithCategoryId:(NSInteger)categoryId

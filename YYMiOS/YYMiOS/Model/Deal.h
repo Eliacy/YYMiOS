@@ -7,27 +7,46 @@
 //
 
 #import "LPObject.h"
+#import "Site.h"
 #import "User.h"
 
 @interface Deal : LPObject
 {
-    NSInteger   _dealId;
-    User        *_user;
-    NSString    *_content;
-    NSArray     *_imageArray;
-    NSInteger   _likeCount;
+    NSArray     *_atList;
     NSInteger   _commentCount;
-    NSString    *_price;
-    NSString    *_location;
+    NSString    *_content;
+    NSString    *_currency;
+    NSInteger   _dealId;
+    NSArray     *_imageArray;
+    NSInteger   _imageCount;
+    NSArray     *_keywordArray;
+    NSInteger   _likeCount;
+    NSString    *_publishTime;
+    BOOL        _published;
+    BOOL        _selected;
+    Site        *_site;
+    NSInteger   _total;
+    NSString    *_updateTime;
+    User        *_user;
 }
 
-@property (assign, nonatomic) NSInteger dealId;
-@property (retain, nonatomic) User *user;
-@property (retain, nonatomic) NSString *content;
-@property (retain, nonatomic) NSArray *imageArray;
-@property (assign, nonatomic) NSInteger likeCount;
+@property (retain, nonatomic) NSArray *atList;
 @property (assign, nonatomic) NSInteger commentCount;
-@property (retain, nonatomic) NSString *price;
-@property (retain, nonatomic) NSString *location;
+@property (retain, nonatomic) NSString *content;
+@property (retain, nonatomic) NSString *currency;
+@property (assign, nonatomic) NSInteger dealId;
+@property (retain, nonatomic) NSArray *imageArray;
+@property (assign, nonatomic) NSInteger imageCount;
+@property (retain, nonatomic) NSArray *keywordArray;
+@property (assign, nonatomic) NSInteger likeCount;
+@property (retain, nonatomic) NSString *publishTime;
+@property (assign, nonatomic) BOOL published;
+@property (assign, nonatomic) BOOL selected;
+@property (retain, nonatomic) Site *site;
+@property (assign, nonatomic) NSInteger total;
+@property (retain, nonatomic) NSString *updateTime;
+@property (retain, nonatomic) User *user;
+
+- (id)initWithAttribute:(NSDictionary *)attribute;
 
 @end

@@ -7,7 +7,19 @@
 //
 
 #import "LPObject.h"
+#import "LPImage.h"
 
 @interface User : LPObject
+{
+    LPImage     *_userIcon;
+    NSInteger   _userId;
+    NSString    *_userName;
+}
+
+@property (retain, nonatomic) LPImage *userIcon;
+@property (assign, nonatomic) NSInteger userId;
+@property (retain, nonatomic) NSString *userName;
+
+- (id)initWithAttribute:(NSDictionary *)attribute;
 
 @end

@@ -230,6 +230,40 @@ static id APIClient = nil;
         
         [request startAsynchronous];
     }
+    else if([method isEqualToString:@"PUT"])
+    {
+        int time = (int)([[NSDate date] timeIntervalSince1970] + [[[NSUserDefaults standardUserDefaults] objectForKey:@"OffsetTimeStamp"] doubleValue]);
+        [_headDictionary setObject:[NSString stringWithFormat:@"%i", time] forKey:@"timestamp"];
+        NSString *string = [self stringFromBaseURL:path withParams:params];
+        
+        ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:[[kHTTPRequestPrefix stringByAppendingString:string] stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding]]];
+        [request addRequestHeader:@"X-Auth-Signature" value:hashedValue(kAPISecret, string)];
+        [request setRequestMethod:@"PUT"];
+        [request setCompletionBlock:^{
+            
+            NSData *data = [request responseData];
+            NSDictionary *respondObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            
+            NSLog(@"%@", respondObject);
+            
+            if(respondObject)
+            {
+                successBlock(respondObject);
+            }
+            else
+            {
+                failureBlock(nil);
+            }
+            
+        }];
+        
+        [request setFailedBlock:^{
+            
+            NSError *error = [request error];
+            failureBlock(error);
+            
+        }];
+    }
 }
 
 /*
@@ -256,6 +290,21 @@ static id APIClient = nil;
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
     
     [self sendRequestPath:@"/rpc/version"
+                   params:params
+                   method:@"GET"
+                  success:successBlock
+                  failure:failureBlcok];
+}
+
+/*
+ 获取服务器缓存时间
+ */
+- (void)getServerCacheTimeSuccess:(LPAPISuccessBlock)successBlock
+                          failure:(LPAPIFailureBlock)failureBlcok
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
+    
+    [self sendRequestPath:@"/rpc/cache_time"
                    params:params
                    method:@"GET"
                   success:successBlock
@@ -545,6 +594,30 @@ static id APIClient = nil;
         [params setObject:atList forKey:@"at_list"];
     }
     [params setObject:[NSNumber numberWithFloat:star] forKey:@"stars"];
+    if(content && ![content isEqualToString:@""])
+    {
+        [params setObject:content forKey:@"content"];
+    }
+    if(images && ![images isEqualToString:@""])
+    {
+        [params setObject:images forKey:@"images"];
+    }
+    if(keywords && ![keywords isEqualToString:@""])
+    {
+        [params setObject:keywords forKey:@"keywords"];
+    }
+    [params setObject:[NSNumber numberWithInteger:total] forKey:@"total"];
+    if(currency && ![currency isEqualToString:@""])
+    {
+        [params setObject:currency forKey:@"currency"];
+    }
+    [params setObject:[NSNumber numberWithInteger:siteId] forKey:@"site"];
+    
+    [self sendRequestPath:@"/rpc/reviews"
+                   params:params
+                   method:@"PUT"
+                  success:successBlock
+                  failure:failureBlcok];
 }
 
 @end
