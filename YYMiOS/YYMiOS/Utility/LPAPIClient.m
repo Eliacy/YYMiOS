@@ -130,7 +130,7 @@ static id APIClient = nil;
             
             if(respondObject && [respondObject isKindOfClass:[NSDictionary class]])
             {
-                if([respondObject objectForKey:@"status"] && [[respondObject objectForKey:@"status"] integerValue] == 201)
+                if([respondObject objectForKey:@"status"] && [[respondObject objectForKey:@"status"] integerValue] <= 201)
                 {
                     successBlock(respondObject);
                 }
@@ -185,7 +185,7 @@ static id APIClient = nil;
             
             if(respondObject && [respondObject isKindOfClass:[NSDictionary class]])
             {
-                if([respondObject objectForKey:@"status"] && [[respondObject objectForKey:@"status"] integerValue] == 201)
+                if([respondObject objectForKey:@"status"] && [[respondObject objectForKey:@"status"] integerValue] <= 201)
                 {
                     successBlock(respondObject);
                 }
@@ -228,7 +228,7 @@ static id APIClient = nil;
             
             if(respondObject && [respondObject isKindOfClass:[NSDictionary class]])
             {
-                if([respondObject objectForKey:@"status"] && [[respondObject objectForKey:@"status"] integerValue] == 201)
+                if([respondObject objectForKey:@"status"] && [[respondObject objectForKey:@"status"] integerValue] <= 201)
                 {
                     successBlock(respondObject);
                 }
@@ -271,7 +271,7 @@ static id APIClient = nil;
             
             if(respondObject && [respondObject isKindOfClass:[NSDictionary class]])
             {
-                if([respondObject objectForKey:@"status"] && [[respondObject objectForKey:@"status"] integerValue] == 201)
+                if([respondObject objectForKey:@"status"] && [[respondObject objectForKey:@"status"] integerValue] <= 201)
                 {
                     successBlock(respondObject);
                 }
@@ -650,6 +650,47 @@ static id APIClient = nil;
                   failure:failureBlcok];
 }
 
+- (void)getCommentListWithCommentId:(NSInteger)commentId
+                             offset:(NSInteger)offset
+                              limit:(NSInteger)limit
+                          articleId:(NSInteger)articleId
+                           reviewId:(NSInteger)reviewId
+                            success:(LPAPISuccessBlock)successBlock
+                            failure:(LPAPIFailureBlock)failureBlock
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
+    
+    [params setObject:[NSNumber numberWithInteger:commentId] forKey:@"id"];
+    [params setObject:[NSNumber numberWithInteger:offset] forKey:@"offset"];
+    [params setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
+    [params setObject:[NSNumber numberWithInteger:articleId] forKey:@"article"];
+    [params setObject:[NSNumber numberWithInteger:reviewId] forKey:@"review"];
+    
+    [self sendRequestPath:@"/rpc/comments"
+                   params:params
+                   method:@"GET"
+                  success:successBlock
+                  failure:failureBlock];
+}
+
+/*
+ 删除评论
+ */
+- (void)deleteCommentWithId:(NSInteger)commentId
+                    success:(LPAPISuccessBlock)successBlock
+                    failure:(LPAPIFailureBlock)failureBlock
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
+    
+    [params setObject:[NSNumber numberWithInteger:commentId] forKey:@"id"];
+    
+    [self sendRequestPath:@"/rpc/comments"
+                   params:params
+                   method:@"DELETE"
+                  success:successBlock
+                  failure:failureBlock];
+}
+
 /*
  创建评论
  */
@@ -680,6 +721,40 @@ static id APIClient = nil;
                    method:@"POST"
                   success:successBlock
                   failure:failureBlcok];
+}
+
+/*
+ 修改评论
+ */
+- (void)modifyCommentWithCommentId:(NSInteger)commentId
+                          reviewId:(NSInteger)reviewId
+                         articleId:(NSInteger)articleId
+                            userId:(NSInteger)userId
+                            atList:(NSString *)atList
+                           content:(NSString *)content
+                           success:(LPAPISuccessBlock)successBlock
+                           failure:(LPAPIFailureBlock)failureBlock
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
+    
+    [params setObject:[NSNumber numberWithInteger:commentId] forKey:@"id"];
+    [params setObject:[NSNumber numberWithInteger:reviewId] forKey:@"review"];
+    [params setObject:[NSNumber numberWithInteger:articleId] forKey:@"article"];
+    [params setObject:[NSNumber numberWithInteger:userId] forKey:@"user"];
+    if(atList && ![atList isEqualToString:@""])
+    {
+        [params setObject:atList forKey:@"at_list"];
+    }
+    if(content && ![content isEqualToString:@""])
+    {
+        [params setObject:content forKey:@"content"];
+    }
+    
+    [self sendRequestPath:@"/rpc/comments"
+                   params:params
+                   method:@"PUT"
+                  success:successBlock
+                  failure:failureBlock];
 }
 
 /*
@@ -762,6 +837,89 @@ static id APIClient = nil;
     [self sendRequestPath:@"/rpc/users"
                    params:params
                    method:@"POST"
+                  success:successBlock
+                  failure:failureBlcok];
+}
+
+/*
+ 获取用户信息
+ */
+- (void)getUserInfoWithUserId:(NSInteger)userId
+                       offset:(NSInteger)offset
+                        limit:(NSInteger)limit
+                     followId:(NSInteger)followId
+                        fanId:(NSInteger)fanId
+                      success:(LPAPISuccessBlock)successBlock
+                      failure:(LPAPIFailureBlock)failureBlock
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
+    
+    [params setObject:[NSNumber numberWithInteger:userId] forKey:@"id"];
+    [params setObject:[NSNumber numberWithInteger:offset] forKey:@"offset"];
+    [params setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
+    [params setObject:[NSNumber numberWithInteger:followId] forKey:@"follow"];
+    [params setObject:[NSNumber numberWithInteger:fanId] forKey:@"fan"];
+    
+    [self sendRequestPath:@"/rpc/users"
+                   params:params
+                   method:@"GET"
+                  success:successBlock
+                  failure:failureBlock];
+}
+
+/*
+ 修改用户信息
+ */
+- (void)modifyUserInfoWithUserId:(NSInteger)userId
+                          iconId:(NSInteger)iconId
+                        userName:(NSString *)userName
+                        password:(NSString *)password
+                          gender:(NSString *)gender
+                         success:(LPAPISuccessBlock)successBlock
+                         failure:(LPAPIFailureBlock)failureBlock
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
+    
+    [params setObject:[NSNumber numberWithInteger:userId] forKey:@"id"];
+    [params setObject:[NSNumber numberWithInteger:iconId] forKey:@"icon"];
+    if(userName && ![userName isEqualToString:@""])
+    {
+        [params setObject:userName forKey:@"name"];
+    }
+    if(password && ![password isEqualToString:@""])
+    {
+        [params setObject:password forKey:@"password"];
+    }
+    if(gender && ![gender isEqualToString:@""])
+    {
+        [params setObject:gender forKey:@"gender"];
+    }
+    
+    [self sendRequestPath:@"/rpc/users"
+                   params:params
+                   method:@"PUT"
+                  success:successBlock
+                  failure:failureBlock];
+}
+
+/*
+ 获取Tips
+ */
+- (void)getTipsListWithArticleId:(NSInteger)articleId
+                           brief:(NSInteger)brief
+                          cityId:(NSInteger)cityId
+                         success:(LPAPISuccessBlock)successBlock
+                         failure:(LPAPIFailureBlock)failureBlcok
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
+    
+    [params setObject:[NSNumber numberWithInteger:articleId] forKey:@"id"];
+    [params setObject:[NSNumber numberWithInteger:brief] forKey:@"bried"];
+    [params setObject:[NSNumber numberWithInteger:cityId] forKey:@"city"];
+    
+    [self sendRequestPath:@"/rpc/tips"
+                   params:params
+                   method:@"GET"
                   success:successBlock
                   failure:failureBlcok];
 }

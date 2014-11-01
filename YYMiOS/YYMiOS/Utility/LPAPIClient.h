@@ -130,6 +130,24 @@ typedef void (^LPAPIFailureBlock)(NSError *error);
                            failure:(LPAPIFailureBlock)failureBlcok;
 
 /*
+ 获取评论
+ */
+- (void)getCommentListWithCommentId:(NSInteger)commentId
+                             offset:(NSInteger)offset
+                              limit:(NSInteger)limit
+                          articleId:(NSInteger)articleId
+                           reviewId:(NSInteger)reviewId
+                            success:(LPAPISuccessBlock)successBlock
+                            failure:(LPAPIFailureBlock)failureBlock;
+
+/*
+ 删除评论
+ */
+- (void)deleteCommentWithId:(NSInteger)commentId
+                    success:(LPAPISuccessBlock)successBlock
+                    failure:(LPAPIFailureBlock)failureBlock;
+
+/*
  创建评论
  */
 - (void)createCommentWithDealId:(NSInteger)dealId
@@ -139,6 +157,18 @@ typedef void (^LPAPIFailureBlock)(NSError *error);
                         content:(NSString *)content
                         success:(LPAPISuccessBlock)successBlock
                         failure:(LPAPIFailureBlock)failureBlcok;
+
+/*
+ 修改评论
+ */
+- (void)modifyCommentWithCommentId:(NSInteger)commentId
+                          reviewId:(NSInteger)reviewId
+                         articleId:(NSInteger)articleId
+                            userId:(NSInteger)userId
+                            atList:(NSString *)atList
+                           content:(NSString *)content
+                           success:(LPAPISuccessBlock)successBlock
+                           failure:(LPAPIFailureBlock)failureBlock;
 
 /*
  登录
@@ -162,5 +192,36 @@ typedef void (^LPAPIFailureBlock)(NSError *error);
                     device:(NSString *)device
                    success:(LPAPISuccessBlock)successBlock
                    failure:(LPAPIFailureBlock)failureBlcok;
+
+/*
+ 获取用户信息
+ */
+- (void)getUserInfoWithUserId:(NSInteger)userId
+                       offset:(NSInteger)offset
+                        limit:(NSInteger)limit
+                     followId:(NSInteger)followId
+                        fanId:(NSInteger)fanId
+                      success:(LPAPISuccessBlock)successBlock
+                      failure:(LPAPIFailureBlock)failureBlock;
+
+/*
+ 修改用户信息
+ */
+- (void)modifyUserInfoWithUserId:(NSInteger)userId
+                          iconId:(NSInteger)iconId
+                        userName:(NSString *)userName
+                        password:(NSString *)password
+                          gender:(NSString *)gender
+                         success:(LPAPISuccessBlock)successBlock
+                         failure:(LPAPIFailureBlock)failureBlock;
+
+/*
+ 获取Tips
+ */
+- (void)getTipsListWithArticleId:(NSInteger)articleId
+                           brief:(NSInteger)brief
+                          cityId:(NSInteger)cityId
+                         success:(LPAPISuccessBlock)successBlock
+                         failure:(LPAPIFailureBlock)failureBlcok;
 
 @end
