@@ -39,7 +39,7 @@ NSString *hashedValue(NSString *key, NSString *data) {
     
     NSString *hash;
     
-    NSMutableString* output = [NSMutableString   stringWithCapacity:CC_SHA1_DIGEST_LENGTH * 2];
+    NSMutableString* output = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH * 2];
     
     for(int i = 0; i < CC_SHA1_DIGEST_LENGTH; i++)
         [output appendFormat:@"%02x", cHMAC[i]];
@@ -108,6 +108,9 @@ static id APIClient = nil;
                 success:(LPAPISuccessBlock)successBlock
                 failure:(LPAPIFailureBlock)failureBlock
 {
+//    NSString * result = hashedValue(kAPISecret, @"/rpc/sites?city=1中文&timestamp=1412998371&key=4nM_mLISvh");
+//    NSLog(@"%@", result);
+    
     if([method isEqualToString:@"GET"])
     {
         NSLog(@"%lf", [[[NSUserDefaults standardUserDefaults] objectForKey:@"OffsetTimeStamp"] doubleValue]);
@@ -125,9 +128,16 @@ static id APIClient = nil;
             
             NSLog(@"%@", respondObject);
             
-            if(respondObject)
+            if(respondObject && [respondObject isKindOfClass:[NSDictionary class]])
             {
-                successBlock(respondObject);
+                if([respondObject objectForKey:@"status"] && [[respondObject objectForKey:@"status"] integerValue] == 201)
+                {
+                    successBlock(respondObject);
+                }
+                else
+                {
+                    failureBlock(nil);
+                }
             }
             else
             {
@@ -150,22 +160,21 @@ static id APIClient = nil;
         int time = (int)([[NSDate date] timeIntervalSince1970] + [[[NSUserDefaults standardUserDefaults] objectForKey:@"OffsetTimeStamp"] doubleValue]);
         [_headDictionary setObject:[NSString stringWithFormat:@"%i", time] forKey:@"timestamp"];
         
-        NSString *urlStr = [kHTTPRequestPrefix stringByAppendingFormat:@"%@", path];
+        NSString *string = [self stringFromBaseURL:path withParams:nil];
+        NSString *urlStr = [kHTTPRequestPrefix stringByAppendingFormat:@"%@", string];
+        
         ASIFormDataRequest *request  = [[[ASIFormDataRequest alloc] initWithURL:[NSURL URLWithString:[urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]] autorelease];
         
         NSString *charset = (NSString *)CFStringConvertEncodingToIANACharSetName(CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
         [request addRequestHeader:@"Content-Type" value:[NSString stringWithFormat:@"application/json; charset=%@", charset]];
         
-        for(NSString *key in _headDictionary.allKeys)
-        {
-            [params setValue:[_headDictionary objectForKey:key] forKey:key];
-        }
-        
-        NSMutableData *data = [NSMutableData dataWithData:[NSJSONSerialization dataWithJSONObject:params options:NSJSONWritingPrettyPrinted error:nil]];
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:params options:NSJSONWritingPrettyPrinted error:nil];
+        NSMutableData *data = [NSMutableData dataWithData:jsonData];
         [request setPostBody:data];
         
-        NSString *string = [self stringFromBaseURL:path withParams:params];
-        [request addRequestHeader:@"X-Auth-Signature" value:hashedValue(kAPISecret, string)];
+        NSString *jsonString = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
+        NSString *hashString = hashedValue(kAPISecret, [string stringByAppendingString:jsonString]);
+        [request addRequestHeader:@"X-Auth-Signature" value:hashString];
         
         [request setCompletionBlock:^{
             
@@ -174,9 +183,16 @@ static id APIClient = nil;
             
             NSLog(@"%@", respondObject);
             
-            if(respondObject)
+            if(respondObject && [respondObject isKindOfClass:[NSDictionary class]])
             {
-                successBlock(respondObject);
+                if([respondObject objectForKey:@"status"] && [[respondObject objectForKey:@"status"] integerValue] == 201)
+                {
+                    successBlock(respondObject);
+                }
+                else
+                {
+                    failureBlock(nil);
+                }
             }
             else
             {
@@ -210,9 +226,16 @@ static id APIClient = nil;
             
             NSLog(@"%@", respondObject);
             
-            if(respondObject)
+            if(respondObject && [respondObject isKindOfClass:[NSDictionary class]])
             {
-                successBlock(respondObject);
+                if([respondObject objectForKey:@"status"] && [[respondObject objectForKey:@"status"] integerValue] == 201)
+                {
+                    successBlock(respondObject);
+                }
+                else
+                {
+                    failureBlock(nil);
+                }
             }
             else
             {
@@ -246,9 +269,16 @@ static id APIClient = nil;
             
             NSLog(@"%@", respondObject);
             
-            if(respondObject)
+            if(respondObject && [respondObject isKindOfClass:[NSDictionary class]])
             {
-                successBlock(respondObject);
+                if([respondObject objectForKey:@"status"] && [[respondObject objectForKey:@"status"] integerValue] == 201)
+                {
+                    successBlock(respondObject);
+                }
+                else
+                {
+                    failureBlock(nil);
+                }
             }
             else
             {
@@ -616,6 +646,122 @@ static id APIClient = nil;
     [self sendRequestPath:@"/rpc/reviews"
                    params:params
                    method:@"PUT"
+                  success:successBlock
+                  failure:failureBlcok];
+}
+
+/*
+ 创建评论
+ */
+- (void)createCommentWithDealId:(NSInteger)dealId
+                      articleId:(NSInteger)articleId
+                         userId:(NSInteger)userId
+                         atList:(NSString *)atList
+                        content:(NSString *)content
+                        success:(LPAPISuccessBlock)successBlock
+                        failure:(LPAPIFailureBlock)failureBlcok
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
+    
+    [params setObject:[NSNumber numberWithInteger:dealId] forKey:@"review"];
+    [params setObject:[NSNumber numberWithInteger:articleId] forKey:@"article"];
+    [params setObject:[NSNumber numberWithInteger:userId] forKey:@"user"];
+    if(atList && ![atList isEqualToString:@""])
+    {
+        [params setObject:atList forKey:@"at_list"];
+    }
+    if(content && ![content isEqualToString:@""])
+    {
+        [params setObject:content forKey:@"content"];
+    }
+    
+    [self sendRequestPath:@"/rpc/comments"
+                   params:params
+                   method:@"POST"
+                  success:successBlock
+                  failure:failureBlcok];
+}
+
+/*
+ 登录
+ */
+- (void)loginWithUserName:(NSString *)userName
+                 password:(NSString *)password
+                    token:(NSString *)token
+                   device:(NSString *)device
+                  success:(LPAPISuccessBlock)successBlock
+                  failure:(LPAPIFailureBlock)failureBlcok
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
+    
+    if(userName && ![userName isEqualToString:@""])
+    {
+        [params setObject:userName forKey:@"username"];
+    }
+    if(password && ![password isEqualToString:@""])
+    {
+        [params setObject:password forKey:@"password"];
+    }
+    if(token && ![token isEqualToString:@""])
+    {
+        [params setObject:token forKey:@"token"];
+    }
+    if(device && ![device isEqualToString:@""])
+    {
+        [params setObject:device forKey:@"device"];
+    }
+    
+    [self sendRequestPath:@"/rpc/tokens"
+                   params:params
+                   method:@"POST"
+                  success:successBlock
+                  failure:failureBlcok];
+}
+
+/*
+ 注册
+ */
+- (void)registerWithIconId:(NSInteger)iconId
+                  userName:(NSString *)userName
+                    mobile:(NSString *)mobile
+                  password:(NSString *)password
+                    gender:(NSString *)gender
+                     token:(NSString *)token
+                    device:(NSString *)device
+                   success:(LPAPISuccessBlock)successBlock
+                   failure:(LPAPIFailureBlock)failureBlcok
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
+    
+    [params setObject:[NSNumber numberWithInteger:iconId] forKey:@"icon"];
+    if(userName && ![userName isEqualToString:@""])
+    {
+        [params setObject:userName forKey:@"name"];
+    }
+    if(mobile && ![mobile isEqualToString:@""])
+    {
+        [params setObject:mobile forKey:@"mobile"];
+    }
+    if(password && ![password isEqualToString:@""])
+    {
+        [params setObject:password forKey:@"password"];
+    }
+    if(gender && ![gender isEqualToString:@""])
+    {
+        [params setObject:gender forKey:@"gender"];
+    }
+    if(token && ![token isEqualToString:@""])
+    {
+        [params setObject:token forKey:@"token"];
+    }
+    if(device && ![device isEqualToString:@""])
+    {
+        [params setObject:device forKey:@"device"];
+    }
+    
+    [self sendRequestPath:@"/rpc/users"
+                   params:params
+                   method:@"POST"
                   success:successBlock
                   failure:failureBlcok];
 }

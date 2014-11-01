@@ -33,14 +33,24 @@
             NSLog(@"%lf", offsetTimpStamp);
             [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithDouble:offsetTimpStamp] forKey:@"OffsetTimeStamp"];
             [[NSUserDefaults standardUserDefaults] synchronize];
+            
+            [[LPAPIClient sharedAPIClient] createCommentWithDealId:2995
+                                                         articleId:0
+                                                            userId:338
+                                                            atList:@"321 338"
+                                                           content:@"what's up\n奇怪"
+                                                           success:^(id respondObject) {
+                                                               
+                                                           } failure:^(NSError *error) {
+                                                               
+                                                           }];
         }
         
     } failure:^(NSError *error) {
         
     }];
     
-//    [self lanuchLoginViewController];
-    [self lanuchTabViewContrller];
+    [self lanuchLoginViewController];
     
     return YES;
 }

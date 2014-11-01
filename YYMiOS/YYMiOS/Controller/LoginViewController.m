@@ -19,7 +19,17 @@
 
 - (void)clickLoginButton:(id)sender
 {
-    [(AppDelegate *)[[UIApplication sharedApplication] delegate] lanuchTabViewContrller];
+    [[LPAPIClient sharedAPIClient] loginWithUserName:_telephoneTextField.text
+                                            password:_passwordTextField.text
+                                               token:nil
+                                              device:@"iOS"
+                                             success:^(id respondObject) {
+                                                 
+                                                 [(AppDelegate *)[[UIApplication sharedApplication] delegate] lanuchTabViewContrller];
+                                                 
+                                             } failure:^(NSError *error) {
+                                                 
+                                             }];
 }
 
 - (void)clickRegisterButton:(id)sender
@@ -55,6 +65,7 @@
     
     _passwordTextField = [[UITextField alloc] initWithFrame:CGRectMake(_telephoneTextField.frame.origin.x, _telephoneTextField.frame.origin.y + _telephoneTextField.frame.size.height + 10, _telephoneTextField.frame.size.width, _telephoneTextField.frame.size.height)];
     _passwordTextField.backgroundColor = [UIColor whiteColor];
+    _passwordTextField.secureTextEntry = YES;
     _passwordTextField.placeholder = @"密码";
     [self.view addSubview:_passwordTextField];
     

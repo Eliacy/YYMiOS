@@ -129,4 +129,38 @@ typedef void (^LPAPIFailureBlock)(NSError *error);
                            success:(LPAPISuccessBlock)successBlock
                            failure:(LPAPIFailureBlock)failureBlcok;
 
+/*
+ 创建评论
+ */
+- (void)createCommentWithDealId:(NSInteger)dealId
+                      articleId:(NSInteger)articleId
+                         userId:(NSInteger)userId
+                         atList:(NSString *)atList
+                        content:(NSString *)content
+                        success:(LPAPISuccessBlock)successBlock
+                        failure:(LPAPIFailureBlock)failureBlcok;
+
+/*
+ 登录
+ */
+- (void)loginWithUserName:(NSString *)userName
+                 password:(NSString *)password
+                    token:(NSString *)token
+                   device:(NSString *)device
+                  success:(LPAPISuccessBlock)successBlock
+                  failure:(LPAPIFailureBlock)failureBlcok;
+
+/*
+ 注册
+ */
+- (void)registerWithIconId:(NSInteger)iconId
+                  userName:(NSString *)userName
+                    mobile:(NSString *)mobile
+                  password:(NSString *)password
+                    gender:(NSString *)gender
+                     token:(NSString *)token
+                    device:(NSString *)device
+                   success:(LPAPISuccessBlock)successBlock
+                   failure:(LPAPIFailureBlock)failureBlcok;
+
 @end
