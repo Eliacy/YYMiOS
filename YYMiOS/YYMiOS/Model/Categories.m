@@ -61,9 +61,9 @@
     
     if(dictionary && [dictionary isKindOfClass:[NSDictionary class]])
     {
-        if([dictionary objectForKey:@"datas"])
+        if([dictionary objectForKey:@"data"])
         {
-            dictionary = [dictionary objectForKey:@"datas"];
+            dictionary = [dictionary objectForKey:@"data"];
         }
         
         if([dictionary isKindOfClass:[NSArray class]])

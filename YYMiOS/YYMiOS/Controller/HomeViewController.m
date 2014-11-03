@@ -92,6 +92,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [[LPAPIClient sharedAPIClient] getArticleListWithArticleId:0
+                                                         brief:1
+                                                        offset:1
+                                                         limit:10
+                                                        cityId:0
+                                                       success:^(id respondObject) {
+                                                           
+                                                       } failure:^(NSError *error) {
+                                                           
+                                                       }];
 }
 
 - (void)didReceiveMemoryWarning {

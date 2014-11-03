@@ -10,6 +10,8 @@
 
 @interface RegisterViewController : BaseViewController
 {
+    UIView          *_backView;
+    
     UITextField     *_telephoneTextField;
     UITextField     *_passwordTextField;
     UITextField     *_repasswordTextField;

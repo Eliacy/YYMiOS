@@ -26,31 +26,43 @@
     
     [[LPAPIClient sharedAPIClient] getServerTimeStampSuccess:^(id respondObject) {
         
+        if([respondObject objectForKey:@"data"])
+        {
+            respondObject = [respondObject objectForKey:@"data"];
+        }
+        
         if([respondObject objectForKey:@"timestamp"] && ![[respondObject objectForKey:@"timestamp"] isEqual:[NSNull null]])
         {
-            CGFloat serverTimeStamp = [[respondObject objectForKey:@"timestamp"] doubleValue];
-            CGFloat offsetTimpStamp = serverTimeStamp - systemTimeStamp;
+            double serverTimeStamp = [[respondObject objectForKey:@"timestamp"] doubleValue];
+            double offsetTimpStamp = serverTimeStamp - systemTimeStamp;
             NSLog(@"%lf", offsetTimpStamp);
             [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithDouble:offsetTimpStamp] forKey:@"OffsetTimeStamp"];
             [[NSUserDefaults standardUserDefaults] synchronize];
             
-            [[LPAPIClient sharedAPIClient] createCommentWithDealId:2995
-                                                         articleId:0
-                                                            userId:338
-                                                            atList:@"321 338"
-                                                           content:@"what's up\n奇怪"
-                                                           success:^(id respondObject) {
-                                                               
-                                                           } failure:^(NSError *error) {
-                                                               
-                                                           }];
+//            [[LPAPIClient sharedAPIClient] createCommentWithDealId:2995
+//                                                         articleId:0
+//                                                            userId:338
+//                                                            atList:@"321 338"
+//                                                           content:@"what's up\n奇怪"
+//                                                           success:^(id respondObject) {
+//                                                               
+//                                                           } failure:^(NSError *error) {
+//                                                               
+//                                                           }];
         }
         
     } failure:^(NSError *error) {
         
     }];
     
-    [self lanuchLoginViewController];
+    if([[NSUserDefaults standardUserDefaults] objectForKey:@"login_flag"] && [[[NSUserDefaults standardUserDefaults] objectForKey:@"login_flag"] boolValue])
+    {
+        [self lanuchTabViewContrller];
+    }
+    else
+    {
+        [self lanuchLoginViewController];
+    }
     
     return YES;
 }

@@ -22,6 +22,10 @@
 
 - (void)clickLogoutButton:(id)sender
 {
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:NO] forKey:@"login_flag"];
+    [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"user_access_token"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] lanuchLoginViewController];
 }
 

@@ -10,6 +10,8 @@
 
 @interface LoginViewController : BaseViewController
 {
+    UIView          *_backView;
+    
     UITextField     *_telephoneTextField;
     UITextField     *_passwordTextField;
     

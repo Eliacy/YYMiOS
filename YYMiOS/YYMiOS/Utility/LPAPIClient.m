@@ -116,6 +116,10 @@ static id APIClient = nil;
         NSLog(@"%lf", [[[NSUserDefaults standardUserDefaults] objectForKey:@"OffsetTimeStamp"] doubleValue]);
         int time = (int)([[NSDate date] timeIntervalSince1970] + [[[NSUserDefaults standardUserDefaults] objectForKey:@"OffsetTimeStamp"] doubleValue]);
         [_headDictionary setObject:[NSString stringWithFormat:@"%i", time] forKey:@"timestamp"];
+        if([[NSUserDefaults standardUserDefaults] objectForKey:@"user_access_token"] && ![[[NSUserDefaults standardUserDefaults] objectForKey:@"user_access_token"] isEqualToString:@""])
+        {
+            [_headDictionary setObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"user_access_token"] forKey:@"token"];
+        }
         NSString *string = [self stringFromBaseURL:path withParams:params];
         
         ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:[[kHTTPRequestPrefix stringByAppendingString:string] stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding]]];
@@ -159,6 +163,10 @@ static id APIClient = nil;
     {
         int time = (int)([[NSDate date] timeIntervalSince1970] + [[[NSUserDefaults standardUserDefaults] objectForKey:@"OffsetTimeStamp"] doubleValue]);
         [_headDictionary setObject:[NSString stringWithFormat:@"%i", time] forKey:@"timestamp"];
+        if([[NSUserDefaults standardUserDefaults] objectForKey:@"user_access_token"] && ![[[NSUserDefaults standardUserDefaults] objectForKey:@"user_access_token"] isEqualToString:@""])
+        {
+            [_headDictionary setObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"user_access_token"] forKey:@"token"];
+        }
         
         NSString *string = [self stringFromBaseURL:path withParams:nil];
         NSString *urlStr = [kHTTPRequestPrefix stringByAppendingFormat:@"%@", string];
@@ -214,6 +222,10 @@ static id APIClient = nil;
     {
         int time = (int)([[NSDate date] timeIntervalSince1970] + [[[NSUserDefaults standardUserDefaults] objectForKey:@"OffsetTimeStamp"] doubleValue]);
         [_headDictionary setObject:[NSString stringWithFormat:@"%i", time] forKey:@"timestamp"];
+        if([[NSUserDefaults standardUserDefaults] objectForKey:@"user_access_token"] && ![[[NSUserDefaults standardUserDefaults] objectForKey:@"user_access_token"] isEqualToString:@""])
+        {
+            [_headDictionary setObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"user_access_token"] forKey:@"token"];
+        }
         NSString *string = [self stringFromBaseURL:path withParams:params];
         
         ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:[[kHTTPRequestPrefix stringByAppendingString:string] stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding]]];
@@ -257,6 +269,10 @@ static id APIClient = nil;
     {
         int time = (int)([[NSDate date] timeIntervalSince1970] + [[[NSUserDefaults standardUserDefaults] objectForKey:@"OffsetTimeStamp"] doubleValue]);
         [_headDictionary setObject:[NSString stringWithFormat:@"%i", time] forKey:@"timestamp"];
+        if([[NSUserDefaults standardUserDefaults] objectForKey:@"user_access_token"] && ![[[NSUserDefaults standardUserDefaults] objectForKey:@"user_access_token"] isEqualToString:@""])
+        {
+            [_headDictionary setObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"user_access_token"] forKey:@"token"];
+        }
         NSString *string = [self stringFromBaseURL:path withParams:params];
         
         ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:[[kHTTPRequestPrefix stringByAppendingString:string] stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding]]];
@@ -920,6 +936,101 @@ static id APIClient = nil;
     [self sendRequestPath:@"/rpc/tips"
                    params:params
                    method:@"GET"
+                  success:successBlock
+                  failure:failureBlcok];
+}
+
+/*
+ 获取文章列表
+ */
+- (void)getArticleListWithArticleId:(NSInteger)articleId
+                              brief:(NSInteger)brief
+                             offset:(NSInteger)offset
+                              limit:(NSInteger)limit
+                             cityId:(NSInteger)cityId
+                            success:(LPAPISuccessBlock)successBlock
+                            failure:(LPAPIFailureBlock)failureBlcok
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
+    
+    [params setObject:[NSNumber numberWithInteger:articleId] forKey:@"id"];
+    [params setObject:[NSNumber numberWithInteger:brief] forKey:@"brief"];
+    [params setObject:[NSNumber numberWithInteger:offset] forKey:@"offset"];
+    [params setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
+    [params setObject:[NSNumber numberWithInteger:cityId] forKey:@"city"];
+    
+    [self sendRequestPath:@"/rpc/articles"
+                   params:params
+                   method:@"GET"
+                  success:successBlock
+                  failure:failureBlcok];
+}
+
+/*
+ 获取图片
+ */
+- (void)getImageListWithImageId:(NSInteger)imageId
+                         offset:(NSInteger)offset
+                          limit:(NSInteger)limit
+                         siteId:(NSInteger)siteId
+                       reviewId:(NSInteger)reviewId
+                        success:(LPAPISuccessBlock)successBlock
+                        failure:(LPAPIFailureBlock)failureBlcok
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
+    
+    [params setObject:[NSNumber numberWithInteger:imageId] forKey:@"id"];
+    [params setObject:[NSNumber numberWithInteger:offset] forKey:@"offset"];
+    [params setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
+    [params setObject:[NSNumber numberWithInteger:siteId] forKey:@"site"];
+    [params setObject:[NSNumber numberWithInteger:reviewId] forKey:@"review"];
+    
+    [self sendRequestPath:@"/rpc/images"
+                   params:params
+                   method:@"GET"
+                  success:successBlock
+                  failure:failureBlcok];
+}
+
+/*
+ 删除图片
+ */
+- (void)deleteImageWithImageId:(NSInteger)imageId
+                       success:(LPAPISuccessBlock)successBlock
+                       failure:(LPAPIFailureBlock)failureBlcok
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
+    
+    [params setObject:[NSNumber numberWithInteger:imageId] forKey:@"id"];
+    
+    [self sendRequestPath:@"/rpc/images"
+                   params:params
+                   method:@"DELETE"
+                  success:successBlock
+                  failure:failureBlcok];
+}
+
+/*
+ 创建图片
+ */
+- (void)createImageWithType:(NSInteger)type
+                       path:(NSString *)path
+                     userId:(NSInteger)userId
+                    success:(LPAPISuccessBlock)successBlock
+                    failure:(LPAPIFailureBlock)failureBlcok
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
+    
+    [params setObject:[NSNumber numberWithInteger:type] forKey:@"type"];
+    if(path && ![path isEqualToString:@""])
+    {
+        [params setObject:path forKey:@"path"];
+    }
+    [params setObject:[NSNumber numberWithInteger:userId] forKey:@"user"];
+    
+    [self sendRequestPath:@"/rpc/images"
+                   params:params
+                   method:@"POST"
                   success:successBlock
                   failure:failureBlcok];
 }

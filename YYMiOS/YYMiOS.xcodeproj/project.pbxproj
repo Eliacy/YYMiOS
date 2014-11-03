@@ -67,6 +67,7 @@
 		048355AB19D320C7005ECAD6 /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048355AA19D320C7005ECAD6 /* FeedbackViewController.m */; };
 		048355AE19D320D2005ECAD6 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048355AD19D320D2005ECAD6 /* AboutViewController.m */; };
 		048355B119D322DA005ECAD6 /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048355B019D322DA005ECAD6 /* UserInfoViewController.m */; };
+		0486F4641A07F057002E8CFC /* Tip.m in Sources */ = {isa = PBXBuildFile; fileRef = 0486F4631A07F057002E8CFC /* Tip.m */; };
 		0491C0B419EE57C600FF71D4 /* Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = 0491C0B319EE57C600FF71D4 /* Categories.m */; };
 		0491C0B719EE5B1C00FF71D4 /* Country.m in Sources */ = {isa = PBXBuildFile; fileRef = 0491C0B619EE5B1C00FF71D4 /* Country.m */; };
 		0491C0BA19EE5C3600FF71D4 /* City.m in Sources */ = {isa = PBXBuildFile; fileRef = 0491C0B919EE5C3600FF71D4 /* City.m */; };
@@ -229,6 +230,8 @@
 		048355AD19D320D2005ECAD6 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		048355AF19D322DA005ECAD6 /* UserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoViewController.h; sourceTree = "<group>"; };
 		048355B019D322DA005ECAD6 /* UserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoViewController.m; sourceTree = "<group>"; };
+		0486F4621A07F057002E8CFC /* Tip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tip.h; sourceTree = "<group>"; };
+		0486F4631A07F057002E8CFC /* Tip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tip.m; sourceTree = "<group>"; };
 		0491C0B219EE57C600FF71D4 /* Categories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Categories.h; sourceTree = "<group>"; };
 		0491C0B319EE57C600FF71D4 /* Categories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Categories.m; sourceTree = "<group>"; };
 		0491C0B519EE5B1C00FF71D4 /* Country.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Country.h; sourceTree = "<group>"; };
@@ -347,6 +350,8 @@
 				0491C0B919EE5C3600FF71D4 /* City.m */,
 				0491C0BB19EE5D9600FF71D4 /* Area.h */,
 				0491C0BC19EE5D9600FF71D4 /* Area.m */,
+				0486F4621A07F057002E8CFC /* Tip.h */,
+				0486F4631A07F057002E8CFC /* Tip.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -785,6 +790,7 @@
 				04B0D07D19DD23E400289F78 /* FilterViewController.m in Sources */,
 				04788D5819D7F2FB00BE283B /* DraftViewController.m in Sources */,
 				0498E32919F509840085E12B /* AFHTTPRequestOperation.m in Sources */,
+				0486F4641A07F057002E8CFC /* Tip.m in Sources */,
 				0435237519D053B800F67B8E /* WeatherViewController.m in Sources */,
 				04788D6119D7FD4500BE283B /* Deal.m in Sources */,
 				045EF5621A04CD2D00A85776 /* QNAsyncRun.m in Sources */,

@@ -224,4 +224,42 @@ typedef void (^LPAPIFailureBlock)(NSError *error);
                          success:(LPAPISuccessBlock)successBlock
                          failure:(LPAPIFailureBlock)failureBlcok;
 
+/*
+ 获取文章列表
+ */
+- (void)getArticleListWithArticleId:(NSInteger)articleId
+                              brief:(NSInteger)brief
+                             offset:(NSInteger)offset
+                              limit:(NSInteger)limit
+                             cityId:(NSInteger)cityId
+                            success:(LPAPISuccessBlock)successBlock
+                            failure:(LPAPIFailureBlock)failureBlcok;
+
+/*
+ 获取图片
+ */
+- (void)getImageListWithImageId:(NSInteger)imageId
+                         offset:(NSInteger)offset
+                          limit:(NSInteger)limit
+                         siteId:(NSInteger)siteId
+                       reviewId:(NSInteger)reviewId
+                        success:(LPAPISuccessBlock)successBlock
+                        failure:(LPAPIFailureBlock)failureBlcok;
+
+/*
+ 删除图片
+ */
+- (void)deleteImageWithImageId:(NSInteger)imageId
+                       success:(LPAPISuccessBlock)successBlock
+                       failure:(LPAPIFailureBlock)failureBlcok;
+
+/*
+ 创建图片
+ */
+- (void)createImageWithType:(NSInteger)type
+                       path:(NSString *)path
+                     userId:(NSInteger)userId
+                    success:(LPAPISuccessBlock)successBlock
+                    failure:(LPAPIFailureBlock)failureBlcok;
+
 @end
