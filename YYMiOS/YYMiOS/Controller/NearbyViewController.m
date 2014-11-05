@@ -9,6 +9,7 @@
 #import "NearbyViewController.h"
 #import "TabViewController.h"
 #import "NearbyCell.h"
+#import "POI.h"
 
 #import "FilterViewController.h"
 #import "ShopViewController.h"
@@ -42,8 +43,6 @@
     if(self != nil)
     {
         _nearbyArray = [[NSMutableArray alloc] initWithCapacity:0];
-        
-        [_nearbyArray addObjectsFromArray:[NSArray arrayWithObjects:@"1", @"2", @"3", @"4", @"5", @"6", @"7", nil]];
     }
     
     return self;
@@ -90,6 +89,43 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+//    [[LPAPIClient sharedAPIClient] getPOIListWithPOIId:0
+//                                                 brief:0
+//                                                offset:0
+//                                                 limit:20
+//                                               keyword:@"A"
+//                                                  area:0
+//                                                  city:1
+//                                                 range:-1
+//                                              category:0
+//                                                 order:0
+//                                             longitude:0
+//                                              latitude:0
+//                                               success:^(id respondObject) {
+//                                                   
+//                                               } failure:^(NSError *error) {
+//                                                   
+//                                               }];
+    [POI getPOIListWithOffset:0
+                        limit:20
+                      keyword:@""
+                         area:0
+                         city:1
+                        range:-1
+                     category:0
+                        order:0
+                    longitude:0
+                     latitude:0
+                      success:^(NSArray *array) {
+                          
+                          [_nearbyArray removeAllObjects];
+                          [_nearbyArray addObjectsFromArray:array];
+                          [_tableView reloadData];
+                          
+                      } failure:^(NSError *error) {
+                          
+                      }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -127,6 +163,8 @@
         cell = [[[NearbyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NearbyViewControllerIdentifier"] autorelease];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
+    
+    cell.poi = [_nearbyArray objectAtIndex:indexPath.row];
     
     return cell;
 }

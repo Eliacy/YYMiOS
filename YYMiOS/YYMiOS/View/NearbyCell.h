@@ -7,13 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "POI.h"
 
 @interface NearbyCell : UITableViewCell
 {
+    POI             *_poi;
+    
     UIView          *_backView;
     
     UIImageView     *_avatarImageView;
     UILabel         *_titleLabel;
 }
+
+@property (retain, nonatomic) POI *poi;
 
 @end

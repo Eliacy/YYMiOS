@@ -921,15 +921,15 @@ static id APIClient = nil;
 /*
  获取Tips
  */
-- (void)getTipsListWithArticleId:(NSInteger)articleId
-                           brief:(NSInteger)brief
-                          cityId:(NSInteger)cityId
-                         success:(LPAPISuccessBlock)successBlock
-                         failure:(LPAPIFailureBlock)failureBlcok
+- (void)getTipsListWithTipsId:(NSInteger)tipsId
+                        brief:(NSInteger)brief
+                       cityId:(NSInteger)cityId
+                      success:(LPAPISuccessBlock)successBlock
+                      failure:(LPAPIFailureBlock)failureBlcok
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
     
-    [params setObject:[NSNumber numberWithInteger:articleId] forKey:@"id"];
+    [params setObject:[NSNumber numberWithInteger:tipsId] forKey:@"id"];
     [params setObject:[NSNumber numberWithInteger:brief] forKey:@"bried"];
     [params setObject:[NSNumber numberWithInteger:cityId] forKey:@"city"];
     

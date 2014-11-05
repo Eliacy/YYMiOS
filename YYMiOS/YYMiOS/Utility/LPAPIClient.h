@@ -218,11 +218,11 @@ typedef void (^LPAPIFailureBlock)(NSError *error);
 /*
  获取Tips
  */
-- (void)getTipsListWithArticleId:(NSInteger)articleId
-                           brief:(NSInteger)brief
-                          cityId:(NSInteger)cityId
-                         success:(LPAPISuccessBlock)successBlock
-                         failure:(LPAPIFailureBlock)failureBlcok;
+- (void)getTipsListWithTipsId:(NSInteger)tipsId
+                        brief:(NSInteger)brief
+                       cityId:(NSInteger)cityId
+                      success:(LPAPISuccessBlock)successBlock
+                      failure:(LPAPIFailureBlock)failureBlcok;
 
 /*
  获取文章列表

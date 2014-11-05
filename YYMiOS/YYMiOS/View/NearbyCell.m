@@ -10,6 +10,8 @@
 
 @implementation NearbyCell
 
+@synthesize poi = _poi;
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -38,6 +40,17 @@
 
 - (void)awakeFromNib {
     // Initialization code
+}
+
+- (void)setPoi:(POI *)poi
+{
+    if(_poi != nil)
+    {
+        LP_SAFE_RELEASE(_poi);
+    }
+    _poi = [poi retain];
+    
+    _titleLabel.text = poi.name;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

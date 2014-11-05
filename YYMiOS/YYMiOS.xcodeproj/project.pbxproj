@@ -46,7 +46,7 @@
 		04788D5B19D7FAF000BE283B /* DraftCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D5A19D7FAF000BE283B /* DraftCell.m */; };
 		04788D5E19D7FD2F00BE283B /* Home.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D5D19D7FD2F00BE283B /* Home.m */; };
 		04788D6119D7FD4500BE283B /* Deal.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D6019D7FD4500BE283B /* Deal.m */; };
-		04788D6419D7FD5600BE283B /* Nearby.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D6319D7FD5600BE283B /* Nearby.m */; };
+		04788D6419D7FD5600BE283B /* POI.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D6319D7FD5600BE283B /* POI.m */; };
 		04788D6719D7FD6100BE283B /* Draft.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D6619D7FD6100BE283B /* Draft.m */; };
 		04788D6A19D8008E00BE283B /* PhotoSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D6919D8008E00BE283B /* PhotoSelectView.m */; };
 		04788D6D19D8098700BE283B /* NicknameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D6C19D8098700BE283B /* NicknameViewController.m */; };
@@ -185,8 +185,8 @@
 		04788D5D19D7FD2F00BE283B /* Home.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Home.m; sourceTree = "<group>"; };
 		04788D5F19D7FD4500BE283B /* Deal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Deal.h; sourceTree = "<group>"; };
 		04788D6019D7FD4500BE283B /* Deal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Deal.m; sourceTree = "<group>"; };
-		04788D6219D7FD5600BE283B /* Nearby.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Nearby.h; sourceTree = "<group>"; };
-		04788D6319D7FD5600BE283B /* Nearby.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Nearby.m; sourceTree = "<group>"; };
+		04788D6219D7FD5600BE283B /* POI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POI.h; sourceTree = "<group>"; };
+		04788D6319D7FD5600BE283B /* POI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POI.m; sourceTree = "<group>"; };
 		04788D6519D7FD6100BE283B /* Draft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Draft.h; sourceTree = "<group>"; };
 		04788D6619D7FD6100BE283B /* Draft.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Draft.m; sourceTree = "<group>"; };
 		04788D6819D8008E00BE283B /* PhotoSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoSelectView.h; sourceTree = "<group>"; };
@@ -332,8 +332,8 @@
 				04788D5D19D7FD2F00BE283B /* Home.m */,
 				04788D5F19D7FD4500BE283B /* Deal.h */,
 				04788D6019D7FD4500BE283B /* Deal.m */,
-				04788D6219D7FD5600BE283B /* Nearby.h */,
-				04788D6319D7FD5600BE283B /* Nearby.m */,
+				04788D6219D7FD5600BE283B /* POI.h */,
+				04788D6319D7FD5600BE283B /* POI.m */,
 				04788D6519D7FD6100BE283B /* Draft.h */,
 				04788D6619D7FD6100BE283B /* Draft.m */,
 				04DC527119FBBC6B00342DB6 /* Site.h */,
@@ -860,7 +860,7 @@
 				0435237219D053A600F67B8E /* DynamicViewController.m in Sources */,
 				04B0D08319DD25EC00289F78 /* ShopViewController.m in Sources */,
 				04788D6719D7FD6100BE283B /* Draft.m in Sources */,
-				04788D6419D7FD5600BE283B /* Nearby.m in Sources */,
+				04788D6419D7FD5600BE283B /* POI.m in Sources */,
 				04B0D04419DA7ABB00289F78 /* LPAPIClient.m in Sources */,
 				0498E32D19F509840085E12B /* AFSecurityPolicy.m in Sources */,
 				04788D7319D80AA500BE283B /* ModifyPasswordViewController.m in Sources */,

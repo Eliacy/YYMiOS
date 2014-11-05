@@ -35,6 +35,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [[LPAPIClient sharedAPIClient] getTipsListWithTipsId:0
+                                                   brief:0
+                                                  cityId:0
+                                                 success:^(id respondObject) {
+                                                     
+                                                 } failure:^(NSError *error) {
+                                                     
+                                                 }];
 }
 
 - (void)didReceiveMemoryWarning {
