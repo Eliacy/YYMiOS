@@ -42,6 +42,7 @@
 		045EF56B1A04CD2D00A85776 /* QNResumeUpload.m in Sources */ = {isa = PBXBuildFile; fileRef = 045EF55C1A04CD2D00A85776 /* QNResumeUpload.m */; };
 		045EF56C1A04CD2D00A85776 /* QNUploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 045EF55E1A04CD2D00A85776 /* QNUploadManager.m */; };
 		045EF56D1A04CD2D00A85776 /* QNUploadOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 045EF5611A04CD2D00A85776 /* QNUploadOption.m */; };
+		046BF9F51A0BCC4F003FE419 /* LPUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 046BF9F41A0BCC4F003FE419 /* LPUtility.m */; };
 		04788D5819D7F2FB00BE283B /* DraftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D5719D7F2FB00BE283B /* DraftViewController.m */; };
 		04788D5B19D7FAF000BE283B /* DraftCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D5A19D7FAF000BE283B /* DraftCell.m */; };
 		04788D5E19D7FD2F00BE283B /* Home.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D5D19D7FD2F00BE283B /* Home.m */; };
@@ -177,6 +178,8 @@
 		045EF55F1A04CD2D00A85776 /* QNUploadOption+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "QNUploadOption+Private.h"; sourceTree = "<group>"; };
 		045EF5601A04CD2D00A85776 /* QNUploadOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QNUploadOption.h; sourceTree = "<group>"; };
 		045EF5611A04CD2D00A85776 /* QNUploadOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QNUploadOption.m; sourceTree = "<group>"; };
+		046BF9F31A0BCC4F003FE419 /* LPUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPUtility.h; sourceTree = "<group>"; };
+		046BF9F41A0BCC4F003FE419 /* LPUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPUtility.m; sourceTree = "<group>"; };
 		04788D5619D7F2FB00BE283B /* DraftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DraftViewController.h; sourceTree = "<group>"; };
 		04788D5719D7F2FB00BE283B /* DraftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DraftViewController.m; sourceTree = "<group>"; };
 		04788D5919D7FAF000BE283B /* DraftCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DraftCell.h; sourceTree = "<group>"; };
@@ -393,7 +396,7 @@
 		0456057019CB381800BF5933 = {
 			isa = PBXGroup;
 			children = (
-				047EB63619E7D11300A2E081 /* libz.dylib */,
+				046BF9F61A0C7033003FE419 /* Frameworks */,
 				0456057B19CB381800BF5933 /* YYMiOS */,
 				0456059519CB381800BF5933 /* YYMiOSTests */,
 				0456057A19CB381800BF5933 /* Products */,
@@ -576,6 +579,14 @@
 			path = Storage;
 			sourceTree = "<group>";
 		};
+		046BF9F61A0C7033003FE419 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				047EB63619E7D11300A2E081 /* libz.dylib */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		047EB61519E7CE8000A2E081 /* ASIHTTPRequest */ = {
 			isa = PBXGroup;
 			children = (
@@ -645,6 +656,8 @@
 				04B0D04319DA7ABB00289F78 /* LPAPIClient.m */,
 				04B0D07819DD1FAF00289F78 /* ShareKit.h */,
 				04B0D07919DD1FAF00289F78 /* ShareKit.m */,
+				046BF9F31A0BCC4F003FE419 /* LPUtility.h */,
+				046BF9F41A0BCC4F003FE419 /* LPUtility.m */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -847,6 +860,7 @@
 				0435237819D053C500F67B8E /* NearbyViewController.m in Sources */,
 				04B0D06019DA7C3000289F78 /* SDWebImageDecoder.m in Sources */,
 				0435237B19D053D300F67B8E /* MineViewController.m in Sources */,
+				046BF9F51A0BCC4F003FE419 /* LPUtility.m in Sources */,
 				04DC527619FBC01E00342DB6 /* LPImage.m in Sources */,
 				049E691019E13F0400DA984F /* DealDetailViewController.m in Sources */,
 				0498E32F19F509840085E12B /* AFURLRequestSerialization.m in Sources */,

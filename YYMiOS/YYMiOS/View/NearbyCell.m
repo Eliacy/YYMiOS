@@ -24,7 +24,9 @@
         [self.contentView addSubview:_backView];
         
         _avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(5, 5, 60, 60)];
-        _avatarImageView.backgroundColor = [UIColor brownColor];
+        _avatarImageView.backgroundColor = [UIColor clearColor];
+        _avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _avatarImageView.layer.masksToBounds = YES;
         [_backView addSubview:_avatarImageView];
         
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(_avatarImageView.frame.origin.x + _avatarImageView.frame.size.width + 10, _avatarImageView.frame.origin.y, 230, 15)];
@@ -51,6 +53,8 @@
     _poi = [poi retain];
     
     _titleLabel.text = poi.name;
+    
+    [_avatarImageView setImageWithURL:[NSURL URLWithString:[LPUtility getQiniuImageURLStringWithBaseString:poi.logo.imageURL imageSize:CGSizeMake(100, 100)]]];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
