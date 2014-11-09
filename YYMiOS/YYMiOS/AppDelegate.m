@@ -23,8 +23,6 @@
     // Override point for customization after application launch.
     
     __block double systemTimeStamp = [[NSDate date] timeIntervalSince1970];
-    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithDouble:systemTimeStamp] forKey:@"SystemTimeStamp"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
     
     [[LPAPIClient sharedAPIClient] getServerTimeStampSuccess:^(id respondObject) {
         
@@ -85,6 +83,20 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    if([[NSUserDefaults standardUserDefaults] objectForKey:@"SystemTimeStamp"] == nil)
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]] forKey:@"SystemTimeStamp"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    else
+    {
+        double timeStamp = [[[NSUserDefaults standardUserDefaults] objectForKey:@"SystemTimeStamp"] doubleValue];
+        if([[NSDate date] timeIntervalSince1970] - timeStamp > 86400)
+        {
+            [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]] forKey:@"SystemTimeStamp"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

@@ -86,6 +86,8 @@
 		049E691019E13F0400DA984F /* DealDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049E690F19E13F0400DA984F /* DealDetailViewController.m */; };
 		04A824B41A0FA560000B6AFF /* POIDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A824B31A0FA560000B6AFF /* POIDetail.m */; };
 		04A824B71A0FBA16000B6AFF /* MKMapView+ZoomLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A824B61A0FBA16000B6AFF /* MKMapView+ZoomLevel.m */; };
+		04A824BA1A0FD2A1000B6AFF /* POIAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A824B91A0FD2A1000B6AFF /* POIAnnotation.m */; };
+		04A824BD1A0FD682000B6AFF /* NearbyMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A824BC1A0FD682000B6AFF /* NearbyMapViewController.m */; };
 		04B0D04419DA7ABB00289F78 /* LPAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B0D04319DA7ABB00289F78 /* LPAPIClient.m */; };
 		04B0D05F19DA7C3000289F78 /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B0D04819DA7C3000289F78 /* SDImageCache.m */; };
 		04B0D06019DA7C3000289F78 /* SDWebImageDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B0D04C19DA7C3000289F78 /* SDWebImageDecoder.m */; };
@@ -272,6 +274,10 @@
 		04A824B31A0FA560000B6AFF /* POIDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POIDetail.m; sourceTree = "<group>"; };
 		04A824B51A0FBA16000B6AFF /* MKMapView+ZoomLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKMapView+ZoomLevel.h"; sourceTree = "<group>"; };
 		04A824B61A0FBA16000B6AFF /* MKMapView+ZoomLevel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKMapView+ZoomLevel.m"; sourceTree = "<group>"; };
+		04A824B81A0FD2A1000B6AFF /* POIAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POIAnnotation.h; sourceTree = "<group>"; };
+		04A824B91A0FD2A1000B6AFF /* POIAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POIAnnotation.m; sourceTree = "<group>"; };
+		04A824BB1A0FD682000B6AFF /* NearbyMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NearbyMapViewController.h; sourceTree = "<group>"; };
+		04A824BC1A0FD682000B6AFF /* NearbyMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NearbyMapViewController.m; sourceTree = "<group>"; };
 		04B0D04219DA7ABB00289F78 /* LPAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPAPIClient.h; sourceTree = "<group>"; };
 		04B0D04319DA7ABB00289F78 /* LPAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPAPIClient.m; sourceTree = "<group>"; };
 		04B0D04719DA7C3000289F78 /* SDImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDImageCache.h; sourceTree = "<group>"; };
@@ -345,6 +351,8 @@
 				04788D6319D7FD5600BE283B /* POI.m */,
 				04A824B21A0FA560000B6AFF /* POIDetail.h */,
 				04A824B31A0FA560000B6AFF /* POIDetail.m */,
+				04A824B81A0FD2A1000B6AFF /* POIAnnotation.h */,
+				04A824B91A0FD2A1000B6AFF /* POIAnnotation.m */,
 				04788D6519D7FD6100BE283B /* Draft.h */,
 				04788D6619D7FD6100BE283B /* Draft.m */,
 				04DC527119FBBC6B00342DB6 /* Site.h */,
@@ -494,6 +502,8 @@
 				049E690F19E13F0400DA984F /* DealDetailViewController.m */,
 				04B0D07B19DD23E400289F78 /* FilterViewController.h */,
 				04B0D07C19DD23E400289F78 /* FilterViewController.m */,
+				04A824BB1A0FD682000B6AFF /* NearbyMapViewController.h */,
+				04A824BC1A0FD682000B6AFF /* NearbyMapViewController.m */,
 				04B0D08119DD25EC00289F78 /* ShopViewController.h */,
 				04B0D08219DD25EC00289F78 /* ShopViewController.m */,
 				04788D5619D7F2FB00BE283B /* DraftViewController.h */,
@@ -810,6 +820,7 @@
 				04B0D07A19DD1FAF00289F78 /* ShareKit.m in Sources */,
 				048355AB19D320C7005ECAD6 /* FeedbackViewController.m in Sources */,
 				04788D5E19D7FD2F00BE283B /* Home.m in Sources */,
+				04A824BD1A0FD682000B6AFF /* NearbyMapViewController.m in Sources */,
 				04B0D07D19DD23E400289F78 /* FilterViewController.m in Sources */,
 				04788D5819D7F2FB00BE283B /* DraftViewController.m in Sources */,
 				0498E32919F509840085E12B /* AFHTTPRequestOperation.m in Sources */,
@@ -890,6 +901,7 @@
 				04B0D04419DA7ABB00289F78 /* LPAPIClient.m in Sources */,
 				0498E32D19F509840085E12B /* AFSecurityPolicy.m in Sources */,
 				04788D7319D80AA500BE283B /* ModifyPasswordViewController.m in Sources */,
+				04A824BA1A0FD2A1000B6AFF /* POIAnnotation.m in Sources */,
 				04B0D07719DA9AB600289F78 /* SettingCell.m in Sources */,
 				0435239419D0632D00F67B8E /* LoginViewController.m in Sources */,
 			);

@@ -12,6 +12,7 @@
 #import "POI.h"
 
 #import "FilterViewController.h"
+#import "NearbyMapViewController.h"
 #import "ShopViewController.h"
 
 @interface NearbyViewController ()
@@ -32,7 +33,9 @@
 
 - (void)clickMapButton:(id)sender
 {
-    
+    NearbyMapViewController *nearbyMapVC = [[[NearbyMapViewController alloc] init] autorelease];
+    nearbyMapVC.nearbyArray = _nearbyArray;
+    [self.tabVC.navigationController pushViewController:nearbyMapVC animated:YES];
 }
 
 #pragma mark - super

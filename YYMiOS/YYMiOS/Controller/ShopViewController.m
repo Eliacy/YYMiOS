@@ -11,6 +11,7 @@
 #import "DealDetailViewController.h"
 #import "MKMapView+ZoomLevel.h"
 #import "Deal.h"
+#import "POIAnnotation.h"
 
 @interface ShopViewController () <UITextFieldDelegate>
 
@@ -172,6 +173,7 @@
     [_tableHeaderView addSubview:_phoneLabel];
     
     _mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, _tableHeaderView.frame.size.height - 180, _tableHeaderView.frame.size.width, 180)];
+    _mapView.delegate = self;
     [_tableHeaderView addSubview:_mapView];
     
     _floatView = [[UIView alloc] initWithFrame:CGRectMake(0, _mapView.frame.size.height - 60, _mapView.frame.size.width, 60)];
@@ -338,6 +340,13 @@
     }
     
     [_mapView setCenterCoordinate:CLLocationCoordinate2DMake(poiDetail.latitude, poiDetail.longitude) zoomLevel:13 animated:YES];
+    
+    POIAnnotation *annotation = [[[POIAnnotation alloc] init] autorelease];
+    annotation.coordinate = CLLocationCoordinate2DMake(poiDetail.latitude, poiDetail.longitude);
+    annotation.title = poiDetail.address;
+    annotation.subtitle = poiDetail.addressOrigin;
+    
+    [_mapView addAnnotation:annotation];
     _mapLabel.text = poiDetail.address;
 }
 
@@ -398,6 +407,30 @@
     [self sendMessage];
     
     return YES;
+}
+
+#pragma mark - MKMapViewDelegate
+
+- (void)mapViewDidFinishLoadingMap:(MKMapView *)mapView
+{
+    for (id<MKAnnotation> currentAnnotation in mapView.annotations) {
+        if (currentAnnotation != mapView.userLocation) {
+            [mapView selectAnnotation:currentAnnotation animated:YES];
+            break;
+        }
+    }
+}
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
+{
+    MKPinAnnotationView *view = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"ShopViewControllerIdentifier"];
+    
+    view.pinColor = MKPinAnnotationColorRed;
+    view.animatesDrop = YES;
+    view.canShowCallout = YES;
+    view.draggable = YES;
+    
+    return view;
 }
 
 @end

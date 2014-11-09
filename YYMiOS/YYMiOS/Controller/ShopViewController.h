@@ -10,7 +10,7 @@
 #import <MapKit/MapKit.h>
 #import "POIDetail.h"
 
-@interface ShopViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate>
+@interface ShopViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate, MKMapViewDelegate>
 {
     NSInteger       _poiId;
     POIDetail       *_poiDetail;
