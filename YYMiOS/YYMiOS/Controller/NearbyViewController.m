@@ -174,6 +174,7 @@
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ShopViewController *shopVC = [[[ShopViewController alloc] init] autorelease];
+    shopVC.poiId = [[_nearbyArray objectAtIndex:indexPath.row] poiId];
     [self.tabVC.navigationController pushViewController:shopVC animated:YES];
     
     return nil;

@@ -23,6 +23,8 @@
     // Override point for customization after application launch.
     
     __block double systemTimeStamp = [[NSDate date] timeIntervalSince1970];
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithDouble:systemTimeStamp] forKey:@"SystemTimeStamp"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     
     [[LPAPIClient sharedAPIClient] getServerTimeStampSuccess:^(id respondObject) {
         

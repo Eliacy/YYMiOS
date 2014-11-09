@@ -7,8 +7,11 @@
 //
 
 #import "ShopDealCell.h"
+#import "LPImage.h"
 
 @implementation ShopDealCell
+
+@synthesize deal = _deal;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -18,7 +21,7 @@
         self.contentView.backgroundColor = [UIColor whiteColor];
         
         _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 15, 80, 80)];
-        _imageView.backgroundColor = [UIColor brownColor];
+        _imageView.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:_imageView];
         
         _contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(_imageView.frame.origin.x + _imageView.frame.size.width + 15, _imageView.frame.origin.y, 320 - _imageView.frame.size.width - 15 * 3, 50)];
@@ -26,8 +29,14 @@
         _contentLabel.textColor = [UIColor darkGrayColor];
         _contentLabel.font = [UIFont systemFontOfSize:13.0f];
         _contentLabel.numberOfLines = 0;
-        _contentLabel.text = @"适合我的风格，比在国内买要便宜多了。最关键的是此款是米国限量款，真的好便宜啊，在国内买真心不合适，而且还容易碰到假货。";
         [self.contentView addSubview:_contentLabel];
+        
+        _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(_contentLabel.frame.origin.x, _imageView.frame.origin.y + _imageView.frame.size.height - 20, _contentLabel.frame.size.width, 20)];
+        _nameLabel.backgroundColor = [UIColor clearColor];
+        _nameLabel.textColor = [UIColor grayColor];
+        _nameLabel.font = [UIFont systemFontOfSize:12.0f];
+        _nameLabel.textAlignment = NSTextAlignmentRight;
+        [self.contentView addSubview:_nameLabel];
     }
     
     return self;
@@ -35,6 +44,28 @@
 
 - (void)awakeFromNib {
     // Initialization code
+}
+
+- (void)setDeal:(Deal *)deal
+{
+    if(_deal != nil)
+    {
+        LP_SAFE_RELEASE(_deal);
+    }
+    _deal = [deal retain];
+    
+    if(deal.imageArray && [deal.imageArray count] > 0)
+    {
+        _imageView.hidden = NO;
+        [_imageView setImageWithURL:[NSURL URLWithString:[LPUtility getQiniuImageURLStringWithBaseString:[[deal.imageArray objectAtIndex:0] imageURL] imageSize:CGSizeMake(100, 100)]]];
+    }
+    else
+    {
+        _imageView.hidden = YES;
+    }
+    
+    _contentLabel.text = deal.content;
+    _nameLabel.text = deal.user.userName;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

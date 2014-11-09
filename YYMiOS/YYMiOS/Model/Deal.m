@@ -144,4 +144,76 @@
     return self;
 }
 
++ (NSArray *)parseFromeDictionary:(NSDictionary *)dictionary
+{
+    NSMutableArray *mutableArray = [NSMutableArray arrayWithCapacity:0];
+    
+    if(dictionary && [dictionary isKindOfClass:[NSDictionary class]])
+    {
+        if([dictionary objectForKey:@"data"])
+        {
+            dictionary = [dictionary objectForKey:@"data"];
+        }
+        
+        if([dictionary isKindOfClass:[NSArray class]])
+        {
+            for(NSDictionary *attribute in (NSArray *)dictionary)
+            {
+                Deal *deal = [[Deal alloc] initWithAttribute:attribute];
+                [mutableArray addObject:deal];
+                [deal release];
+            }
+        }
+        else if([dictionary isKindOfClass:[NSDictionary class]])
+        {
+            Deal *deal = [[Deal alloc] initWithAttribute:dictionary];
+            [mutableArray addObject:deal];
+            [deal release];
+        }
+    }
+    else if([dictionary isKindOfClass:[NSArray class]])
+    {
+        for(NSDictionary *attribute in (NSArray *)dictionary)
+        {
+            Deal *deal = [[Deal alloc] initWithAttribute:attribute];
+            [mutableArray addObject:deal];
+            [deal release];
+        }
+    }
+    
+    return mutableArray;
+}
+
++ (void)getDealDetailListWithBrief:(NSInteger)brief
+                          selected:(NSInteger)selected
+                         published:(NSInteger)published
+                            offset:(NSInteger)offset
+                             limit:(NSInteger)limit
+                              user:(NSInteger)user
+                              site:(NSInteger)site
+                              city:(NSInteger)city
+                           success:(LPObjectSuccessBlock)successBlock
+                           failure:(LPObjectFailureBlock)failureBlcok
+{
+    [[LPAPIClient sharedAPIClient] getDealDetailListWithBrief:brief
+                                                     selected:selected
+                                                    published:published
+                                                       offset:offset
+                                                        limit:limit
+                                                         user:user
+                                                         site:site
+                                                         city:city
+                                                      success:^(id respondObject) {
+                                                          if(successBlock)
+                                                          {
+                                                              successBlock([Deal parseFromeDictionary:respondObject]);
+                                                          }
+                                                      } failure:^(NSError *error) {
+                                                          if(failureBlcok)
+                                                          {
+                                                              failureBlcok(error);
+                                                          }
+                                                      }];
+}
+
 @end

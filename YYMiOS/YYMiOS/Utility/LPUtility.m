@@ -35,8 +35,8 @@
 
 + (NSString *)getQiniuImageURLStringWithBaseString:(NSString *)baseString imageSize:(CGSize)imageSize
 {
-    
-    NSString *downloadString = [NSString stringWithFormat:@"%@?imageView2/2/w/%i/h/%i&e=%i", baseString, (int)imageSize.width, (int)imageSize.height, (int)[[NSDate date] timeIntervalSince1970] + 30];
+    double systemTimeStamp = [[[NSUserDefaults standardUserDefaults] objectForKey:@"SystemTimeStamp"] doubleValue];
+    NSString *downloadString = [NSString stringWithFormat:@"%@?imageView2/2/w/%i/h/%i&e=%i", baseString, (int)imageSize.width, (int)imageSize.height, (int)systemTimeStamp + 86400];
     
     NSString *secretKey = [LPUtility hmacsha1:downloadString secret:kSecretKey];
     

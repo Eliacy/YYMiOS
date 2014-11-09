@@ -7,14 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Deal.h"
 
 @interface ShopDealCell : UITableViewCell
 {
+    Deal            *_deal;
+    
     UIImageView     *_imageView;
     UILabel         *_contentLabel;
     UILabel         *_likeLabel;
-    UILabel         *_commentLable;
+    UILabel         *_commentLabel;
     UILabel         *_nameLabel;
 }
+
+@property (retain, nonatomic) Deal *deal;
 
 @end

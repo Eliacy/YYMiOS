@@ -35,6 +35,10 @@
         _titleLabel.font = [UIFont systemFontOfSize:15.0f];
         _titleLabel.text = @"利贝尔王国";
         [_backView addSubview:_titleLabel];
+        
+        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, _avatarImageView.frame.origin.y + _avatarImageView.frame.size.height, self.contentView.frame.size.width, _backView.frame.size.height - _avatarImageView.frame.origin.y - _avatarImageView.frame.size.height)];
+        _scrollView.backgroundColor = [UIColor clearColor];
+        [self.contentView addSubview:_scrollView];
     }
     
     return self;
@@ -55,6 +59,21 @@
     _titleLabel.text = poi.name;
     
     [_avatarImageView setImageWithURL:[NSURL URLWithString:[LPUtility getQiniuImageURLStringWithBaseString:poi.logo.imageURL imageSize:CGSizeMake(100, 100)]]];
+    
+    for(UIView *view in _scrollView.subviews)
+    {
+        [view removeFromSuperview];
+    }
+    
+    _scrollView.contentSize = CGSizeMake([poi.topImageArray count] * 80, _scrollView.frame.size.height);
+    for(NSInteger i = 0; i < [poi.topImageArray count]; i++)
+    {
+        UIImageView *imageView = [[[UIImageView alloc] initWithFrame:CGRectMake(5 + i * 80, 5, 70, 70)] autorelease];
+        imageView.layer.borderWidth = 0.5;
+        imageView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+        [imageView setImageWithURL:[NSURL URLWithString:[LPUtility getQiniuImageURLStringWithBaseString:[[poi.topImageArray objectAtIndex:i] imageURL] imageSize:CGSizeMake(100, 100)]]];
+        [_scrollView addSubview:imageView];
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

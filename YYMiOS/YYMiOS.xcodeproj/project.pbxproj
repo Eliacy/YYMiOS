@@ -84,6 +84,8 @@
 		0498E33119F509840085E12B /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0498E32819F509840085E12B /* AFURLSessionManager.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		049E690D19E13C9500DA984F /* ShopDealCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 049E690C19E13C9500DA984F /* ShopDealCell.m */; };
 		049E691019E13F0400DA984F /* DealDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049E690F19E13F0400DA984F /* DealDetailViewController.m */; };
+		04A824B41A0FA560000B6AFF /* POIDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A824B31A0FA560000B6AFF /* POIDetail.m */; };
+		04A824B71A0FBA16000B6AFF /* MKMapView+ZoomLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A824B61A0FBA16000B6AFF /* MKMapView+ZoomLevel.m */; };
 		04B0D04419DA7ABB00289F78 /* LPAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B0D04319DA7ABB00289F78 /* LPAPIClient.m */; };
 		04B0D05F19DA7C3000289F78 /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B0D04819DA7C3000289F78 /* SDImageCache.m */; };
 		04B0D06019DA7C3000289F78 /* SDWebImageDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B0D04C19DA7C3000289F78 /* SDWebImageDecoder.m */; };
@@ -266,6 +268,10 @@
 		049E690C19E13C9500DA984F /* ShopDealCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopDealCell.m; sourceTree = "<group>"; };
 		049E690E19E13F0400DA984F /* DealDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DealDetailViewController.h; sourceTree = "<group>"; };
 		049E690F19E13F0400DA984F /* DealDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DealDetailViewController.m; sourceTree = "<group>"; };
+		04A824B21A0FA560000B6AFF /* POIDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POIDetail.h; sourceTree = "<group>"; };
+		04A824B31A0FA560000B6AFF /* POIDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POIDetail.m; sourceTree = "<group>"; };
+		04A824B51A0FBA16000B6AFF /* MKMapView+ZoomLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKMapView+ZoomLevel.h"; sourceTree = "<group>"; };
+		04A824B61A0FBA16000B6AFF /* MKMapView+ZoomLevel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKMapView+ZoomLevel.m"; sourceTree = "<group>"; };
 		04B0D04219DA7ABB00289F78 /* LPAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPAPIClient.h; sourceTree = "<group>"; };
 		04B0D04319DA7ABB00289F78 /* LPAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPAPIClient.m; sourceTree = "<group>"; };
 		04B0D04719DA7C3000289F78 /* SDImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDImageCache.h; sourceTree = "<group>"; };
@@ -337,6 +343,8 @@
 				04788D6019D7FD4500BE283B /* Deal.m */,
 				04788D6219D7FD5600BE283B /* POI.h */,
 				04788D6319D7FD5600BE283B /* POI.m */,
+				04A824B21A0FA560000B6AFF /* POIDetail.h */,
+				04A824B31A0FA560000B6AFF /* POIDetail.m */,
 				04788D6519D7FD6100BE283B /* Draft.h */,
 				04788D6619D7FD6100BE283B /* Draft.m */,
 				04DC527119FBBC6B00342DB6 /* Site.h */,
@@ -378,6 +386,8 @@
 				049E690C19E13C9500DA984F /* ShopDealCell.m */,
 				04B36B0019E57BCE00FA7D3A /* CommentCell.h */,
 				04B36B0119E57BCE00FA7D3A /* CommentCell.m */,
+				04A824B51A0FBA16000B6AFF /* MKMapView+ZoomLevel.h */,
+				04A824B61A0FBA16000B6AFF /* MKMapView+ZoomLevel.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -835,6 +845,7 @@
 				045EF56B1A04CD2D00A85776 /* QNResumeUpload.m in Sources */,
 				047EB62C19E7CE8000A2E081 /* ASIDataDecompressor.m in Sources */,
 				048355AE19D320D2005ECAD6 /* AboutViewController.m in Sources */,
+				04A824B71A0FBA16000B6AFF /* MKMapView+ZoomLevel.m in Sources */,
 				04B36B0219E57BCE00FA7D3A /* CommentCell.m in Sources */,
 				0491C0BD19EE5D9600FF71D4 /* Area.m in Sources */,
 				0435236C19D0502C00F67B8E /* LPObject.m in Sources */,
@@ -842,6 +853,7 @@
 				0435235919D04D6C00F67B8E /* BaseViewController.m in Sources */,
 				04B0D07419DA839500289F78 /* ArticleViewController.m in Sources */,
 				0435239719D0633E00F67B8E /* RegisterViewController.m in Sources */,
+				04A824B41A0FA560000B6AFF /* POIDetail.m in Sources */,
 				045EF5651A04CD2D00A85776 /* QNEtag.m in Sources */,
 				04788D5B19D7FAF000BE283B /* DraftCell.m in Sources */,
 				0435238219D05C6500F67B8E /* TipsViewController.m in Sources */,

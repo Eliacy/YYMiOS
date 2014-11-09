@@ -17,6 +17,8 @@
     
     UIImageView     *_avatarImageView;
     UILabel         *_titleLabel;
+    
+    UIScrollView    *_scrollView;
 }
 
 @property (retain, nonatomic) POI *poi;
