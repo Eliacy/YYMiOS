@@ -7,6 +7,7 @@
 //
 
 #import "BaseViewController.h"
+#import "Deal.h"
 
 @interface DealDetailViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate>
 {
@@ -27,6 +28,13 @@
     UIButton        *_followingButton;
     UIButton        *_followerButton;
     UILabel         *_contentLabel;
+    UIView          *_line;
+    
+    Deal            *_deal;
+    NSInteger       _dealId;
 }
+
+@property (retain, nonatomic) Deal *deal;
+@property (assign, nonatomic) NSInteger dealId;
 
 @end

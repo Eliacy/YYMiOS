@@ -78,16 +78,17 @@ typedef void (^LPAPIFailureBlock)(NSError *error);
 /*
  获取晒单列表
  */
-- (void)getDealDetailListWithBrief:(NSInteger)brief
-                          selected:(NSInteger)selected
-                         published:(NSInteger)published
-                            offset:(NSInteger)offset
-                             limit:(NSInteger)limit
-                              user:(NSInteger)user
-                              site:(NSInteger)site
-                              city:(NSInteger)city
-                           success:(LPAPISuccessBlock)successBlock
-                           failure:(LPAPIFailureBlock)failureBlcok;
+- (void)getDealDetailListWithDealId:(NSInteger)dealId
+                              brief:(NSInteger)brief
+                           selected:(NSInteger)selected
+                          published:(NSInteger)published
+                             offset:(NSInteger)offset
+                              limit:(NSInteger)limit
+                               user:(NSInteger)user
+                               site:(NSInteger)site
+                               city:(NSInteger)city
+                            success:(LPAPISuccessBlock)successBlock
+                            failure:(LPAPIFailureBlock)failureBlcok;
 
 /*
  删除晒单

@@ -10,6 +10,8 @@
 
 @implementation CommentCell
 
+@synthesize comment = _comment;
+
 #pragma mark - private
 
 - (void)clickReplyButton:(id)sender
@@ -27,21 +29,19 @@
         self.contentView.backgroundColor = [UIColor whiteColor];
         
         _avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 15, 50, 50)];
-        _avatarImageView.backgroundColor = [UIColor brownColor];
+        _avatarImageView.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:_avatarImageView];
         
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(_avatarImageView.frame.origin.x + _avatarImageView.frame.size.width + 15, _avatarImageView.frame.origin.y, 190, 20)];
         _nameLabel.backgroundColor = [UIColor clearColor];
         _nameLabel.textColor = [UIColor darkGrayColor];
         _nameLabel.font = [UIFont systemFontOfSize:16.0f];
-        _nameLabel.text = @"红豆包女王";
         [self.contentView addSubview:_nameLabel];
         
         _timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(_nameLabel.frame.origin.x, _nameLabel.frame.origin.y + _nameLabel.frame.size.height + 10, _nameLabel.frame.size.width, _nameLabel.frame.size.height)];
         _timeLabel.backgroundColor = [UIColor clearColor];
         _timeLabel.textColor = [UIColor grayColor];
         _timeLabel.font = [UIFont systemFontOfSize:14.0f];
-        _timeLabel.text = @"17分钟前";
         [self.contentView addSubview:_timeLabel];
         
         _replyButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
@@ -58,7 +58,6 @@
         _contentLabel.textColor = [UIColor darkGrayColor];
         _contentLabel.font = [UIFont systemFontOfSize:14.0f];
         _contentLabel.numberOfLines = 0;
-        _contentLabel.text = @"而“圣痕”除了具有宗教意义之外，也广泛地在文学作品中成为某种象征。例如世界名著《红字》，在作品末尾，男主人公由于长期的精神压力、负罪意识的折磨，竟使他的胸口真的出现一个红字的印迹。";
         [self.contentView addSubview:_contentLabel];
     }
     
@@ -67,6 +66,26 @@
 
 - (void)awakeFromNib {
     // Initialization code
+}
+
+- (void)setComment:(Comment *)comment
+{
+    if(_comment != nil)
+    {
+        LP_SAFE_RELEASE(_comment);
+    }
+    _comment = [comment retain];
+    
+    [_avatarImageView setImageWithURL:[NSURL URLWithString:[LPUtility getQiniuImageURLStringWithBaseString:comment.user.userIcon.imageURL imageSize:CGSizeMake(100, 100)]]];
+    _nameLabel.text = comment.user.userName;
+    _timeLabel.text = comment.updateTime;
+    
+    CGSize contentSize = [comment.content sizeWithFont:_contentLabel.font
+                                     constrainedToSize:CGSizeMake(_contentLabel.frame.size.width, 2000)
+                                         lineBreakMode:NSLineBreakByCharWrapping];
+    
+    _contentLabel.frame = CGRectMake(_contentLabel.frame.origin.x, _contentLabel.frame.origin.y, _contentLabel.frame.size.width, contentSize.height);
+    _contentLabel.text = comment.content;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

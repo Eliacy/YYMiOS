@@ -214,23 +214,24 @@
                                
                            }];
     
-    [Deal getDealDetailListWithBrief:1
-                            selected:0
-                           published:0
-                              offset:0
-                               limit:20
-                                user:0
-                                site:3422
-                                city:0
-                             success:^(NSArray *array) {
-                                 
-                                 [_dealArray removeAllObjects];
-                                 [_dealArray addObjectsFromArray:array];
-                                 [_tableView reloadData];
-                                 
-                             } failure:^(NSError *error) {
-                                 
-                             }];
+    [Deal getDealDetailListWithDealId:0
+                                brief:1
+                             selected:0
+                            published:0
+                               offset:0
+                                limit:20
+                                 user:0
+                                 site:3422
+                                 city:0
+                              success:^(NSArray *array) {
+                                  
+                                  [_dealArray removeAllObjects];
+                                  [_dealArray addObjectsFromArray:array];
+                                  [_tableView reloadData];
+                                  
+                              } failure:^(NSError *error) {
+                                  
+                              }];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -391,6 +392,7 @@
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     DealDetailViewController *dealDetailVC = [[[DealDetailViewController alloc] init] autorelease];
+    dealDetailVC.dealId = [[_dealArray objectAtIndex:indexPath.row] dealId];
     [self.navigationController pushViewController:dealDetailVC animated:YES];
     
     return nil;

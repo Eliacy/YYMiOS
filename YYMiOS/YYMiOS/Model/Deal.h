@@ -49,15 +49,16 @@
 
 - (id)initWithAttribute:(NSDictionary *)attribute;
 
-+ (void)getDealDetailListWithBrief:(NSInteger)brief
-                          selected:(NSInteger)selected
-                         published:(NSInteger)published
-                            offset:(NSInteger)offset
-                             limit:(NSInteger)limit
-                              user:(NSInteger)user
-                              site:(NSInteger)site
-                              city:(NSInteger)city
-                           success:(LPObjectSuccessBlock)successBlock
-                           failure:(LPObjectFailureBlock)failureBlcok;
++ (void)getDealDetailListWithDealId:(NSInteger)dealId
+                              brief:(NSInteger)brief
+                           selected:(NSInteger)selected
+                          published:(NSInteger)published
+                             offset:(NSInteger)offset
+                              limit:(NSInteger)limit
+                               user:(NSInteger)user
+                               site:(NSInteger)site
+                               city:(NSInteger)city
+                            success:(LPObjectSuccessBlock)successBlock
+                            failure:(LPObjectFailureBlock)failureBlcok;
 
 @end

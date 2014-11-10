@@ -184,36 +184,38 @@
     return mutableArray;
 }
 
-+ (void)getDealDetailListWithBrief:(NSInteger)brief
-                          selected:(NSInteger)selected
-                         published:(NSInteger)published
-                            offset:(NSInteger)offset
-                             limit:(NSInteger)limit
-                              user:(NSInteger)user
-                              site:(NSInteger)site
-                              city:(NSInteger)city
-                           success:(LPObjectSuccessBlock)successBlock
-                           failure:(LPObjectFailureBlock)failureBlcok
++ (void)getDealDetailListWithDealId:(NSInteger)dealId
+                              brief:(NSInteger)brief
+                           selected:(NSInteger)selected
+                          published:(NSInteger)published
+                             offset:(NSInteger)offset
+                              limit:(NSInteger)limit
+                               user:(NSInteger)user
+                               site:(NSInteger)site
+                               city:(NSInteger)city
+                            success:(LPObjectSuccessBlock)successBlock
+                            failure:(LPObjectFailureBlock)failureBlcok
 {
-    [[LPAPIClient sharedAPIClient] getDealDetailListWithBrief:brief
-                                                     selected:selected
-                                                    published:published
-                                                       offset:offset
-                                                        limit:limit
-                                                         user:user
-                                                         site:site
-                                                         city:city
-                                                      success:^(id respondObject) {
-                                                          if(successBlock)
-                                                          {
-                                                              successBlock([Deal parseFromeDictionary:respondObject]);
-                                                          }
-                                                      } failure:^(NSError *error) {
-                                                          if(failureBlcok)
-                                                          {
-                                                              failureBlcok(error);
-                                                          }
-                                                      }];
+    [[LPAPIClient sharedAPIClient] getDealDetailListWithDealId:dealId
+                                                         brief:brief
+                                                      selected:selected
+                                                     published:published
+                                                        offset:offset
+                                                         limit:limit
+                                                          user:user
+                                                          site:site
+                                                          city:city
+                                                       success:^(id respondObject) {
+                                                           if(successBlock)
+                                                           {
+                                                               successBlock([Deal parseFromeDictionary:respondObject]);
+                                                           }
+                                                       } failure:^(NSError *error) {
+                                                           if(failureBlcok)
+                                                           {
+                                                               failureBlcok(error);
+                                                           }
+                                                       }];
 }
 
 @end

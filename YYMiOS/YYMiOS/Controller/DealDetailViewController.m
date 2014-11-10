@@ -9,12 +9,18 @@
 #import "DealDetailViewController.h"
 #import "ShareKit.h"
 #import "CommentCell.h"
+#import "Comment.h"
+
+#define kImageViewTag 81521
 
 @interface DealDetailViewController () <UITextFieldDelegate>
 
 @end
 
 @implementation DealDetailViewController
+
+@synthesize deal = _deal;
+@synthesize dealId = _dealId;
 
 #pragma mark - private
 
@@ -87,8 +93,6 @@
     if(self != nil)
     {
         _commentArray = [[NSMutableArray alloc] initWithCapacity:0];
-        
-        [_commentArray addObjectsFromArray:[NSArray arrayWithObjects:@"1", @"2", @"3", @"4", @"5", nil]];
     }
     
     return self;
@@ -140,21 +144,19 @@
     _tableView.tableHeaderView = _tableHeaderView;
     
     _avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 15, 60, 60)];
-    _avatarImageView.backgroundColor = [UIColor brownColor];
+    _avatarImageView.backgroundColor = [UIColor clearColor];
     [_tableHeaderView addSubview:_avatarImageView];
     
     _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(_avatarImageView.frame.origin.x + _avatarImageView.frame.size.width + 10, _avatarImageView.frame.origin.y, 130, 20)];
     _nameLabel.backgroundColor = [UIColor clearColor];
     _nameLabel.textColor = [UIColor darkGrayColor];
     _nameLabel.font = [UIFont systemFontOfSize:18.0f];
-    _nameLabel.text = @"我的ID叫小花";
     [_tableHeaderView addSubview:_nameLabel];
     
-    _timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(_nameLabel.frame.origin.x, _nameLabel.frame.origin.y + _nameLabel.frame.size.height + 5, _nameLabel.frame.size.width, 15)];
+    _timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(_nameLabel.frame.origin.x, _nameLabel.frame.origin.y + _nameLabel.frame.size.height + 5, _nameLabel.frame.size.width + 30, 15)];
     _timeLabel.backgroundColor = [UIColor clearColor];
     _timeLabel.textColor = [UIColor grayColor];
     _timeLabel.font = [UIFont systemFontOfSize:14.0f];
-    _timeLabel.text = @"昨天晚上10点35分";
     [_tableHeaderView addSubview:_timeLabel];
     
     _followingButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
@@ -193,16 +195,11 @@
     _contentLabel.textColor = [UIColor darkGrayColor];
     _contentLabel.font = [UIFont systemFontOfSize:16.0f];
     _contentLabel.numberOfLines = 0;
-    _contentLabel.text = @"这个词在基督教中是很常见的词汇。根据基督教的教义，耶稣基督降临于世，是为了拯救陷身于罪恶中的世人，故甘愿以己身来代替世人赎罪。这一事件的具体表现就是，耶稣被犹太总督抓起来问罪，并最终被判钉死在十字架上（在古代，十字架是处决犯人的刑具，直到这之后才成为基督教中神圣的象征）。";
     [_tableHeaderView addSubview:_contentLabel];
     
-    UIImageView *imageView = [[[UIImageView alloc] initWithFrame:CGRectMake(_contentLabel.frame.origin.x, _contentLabel.frame.origin.y + _contentLabel.frame.size.height + 15, _tableHeaderView.frame.size.width - 15 * 2, _tableHeaderView.frame.size.height - 15 * 2 - _contentLabel.frame.origin.y - _contentLabel.frame.size.height)] autorelease];
-    imageView.backgroundColor = [UIColor redColor];
-    [_tableHeaderView addSubview:imageView];
-    
-    UIView *line = [[[UIView alloc] initWithFrame:CGRectMake(0, _tableHeaderView.frame.size.height - 0.5, _tableHeaderView.frame.size.width, 0.5)] autorelease];
-    line.backgroundColor = [UIColor colorWithRed:221.0 / 255.0 green:221.0 / 255.0 blue:221.0 / 255.0 alpha:1.0];
-    [_tableHeaderView addSubview:line];
+    _line = [[UIView alloc] initWithFrame:CGRectMake(0, _tableHeaderView.frame.size.height - 0.5, _tableHeaderView.frame.size.width, 0.5)];
+    _line.backgroundColor = [UIColor colorWithRed:221.0 / 255.0 green:221.0 / 255.0 blue:221.0 / 255.0 alpha:1.0];
+    [_tableHeaderView addSubview:_line];
     
     UIView *tableFooterView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 1)] autorelease];
     tableFooterView.backgroundColor = [UIColor clearColor];
@@ -212,6 +209,41 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [Deal getDealDetailListWithDealId:_dealId
+                                brief:0
+                             selected:0
+                            published:0
+                               offset:0
+                                limit:1
+                                 user:0
+                                 site:3422
+                                 city:0
+                              success:^(NSArray *array) {
+                                  
+                                  if([array count] > 0)
+                                  {
+                                      self.deal = [array objectAtIndex:0];
+                                  }
+                                  
+                              } failure:^(NSError *error) {
+                                  
+                              }];
+    
+    [Comment getCommentListWithCommentId:0
+                                  offset:0
+                                   limit:20
+                               articleId:0
+                                reviewId:2999
+                                 success:^(NSArray *array) {
+                                     
+                                     [_commentArray removeAllObjects];
+                                     [_commentArray addObjectsFromArray:array];
+                                     [_tableView reloadData];
+                                     
+                                 } failure:^(NSError *error) {
+                                     
+                                 }];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -252,6 +284,50 @@
 }
 */
 
+- (void)setDeal:(Deal *)deal
+{
+    if(_deal != nil)
+    {
+        LP_SAFE_RELEASE(_deal);
+    }
+    _deal = [deal retain];
+    
+    [_avatarImageView setImageWithURL:[NSURL URLWithString:[LPUtility getQiniuImageURLStringWithBaseString:deal.user.userIcon.imageURL imageSize:CGSizeMake(100, 100)]]];
+    _nameLabel.text = deal.user.userName;
+    _timeLabel.text = deal.updateTime;
+    
+    CGSize contentSize = [deal.content sizeWithFont:_contentLabel.font
+                                  constrainedToSize:CGSizeMake(_contentLabel.frame.size.width, 2000)
+                                      lineBreakMode:NSLineBreakByCharWrapping];
+    
+    _contentLabel.frame = CGRectMake(_contentLabel.frame.origin.x, _contentLabel.frame.origin.y, _contentLabel.frame.size.width, contentSize.height);
+    _contentLabel.text = deal.content;
+    
+    for(UIView *view in _tableHeaderView.subviews)
+    {
+        if(view.tag >= kImageViewTag)
+        {
+            [view removeFromSuperview];
+        }
+    }
+    
+    _tableHeaderView.frame = CGRectMake(_tableHeaderView.frame.origin.x, _tableHeaderView.frame.origin.y, _tableHeaderView.frame.size.width, _contentLabel.frame.origin.y + _contentLabel.frame.size.height + [deal.imageArray count] * 170 + 10);
+    
+    for(NSInteger i = 0; i < [deal.imageArray count]; i++)
+    {
+        UIImageView *imageView = [[[UIImageView alloc] initWithFrame:CGRectMake(10, _contentLabel.frame.origin.y + _contentLabel.frame.size.height + 10 + 170 * i, 300, 160)] autorelease];
+        imageView.tag = kImageViewTag + i;
+        imageView.contentMode = UIViewContentModeScaleAspectFill;
+        imageView.layer.masksToBounds = YES;
+        [imageView setImageWithURL:[NSURL URLWithString:[LPUtility getQiniuImageURLStringWithBaseString:[[deal.imageArray objectAtIndex:i] imageURL] imageSize:CGSizeMake(600, 320)]]];
+        [_tableHeaderView addSubview:imageView];
+    }
+    
+    _line.frame = CGRectMake(_line.frame.origin.x, _tableHeaderView.frame.size.height - 0.5, _line.frame.size.width, _line.frame.size.height);
+    
+    _tableView.tableHeaderView = _tableHeaderView;
+}
+
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
@@ -266,7 +342,13 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 105.0f;
+    CGFloat height = 0;
+    
+    height += 75;
+    
+    CGSize commentSize = [[[_commentArray objectAtIndex:indexPath.row] content] sizeWithFont:[UIFont systemFontOfSize:14.0f] constrainedToSize:CGSizeMake(290, 2000) lineBreakMode:NSLineBreakByCharWrapping];
+    
+    return height + commentSize.height;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -282,6 +364,8 @@
         cell = [[[CommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"DealDetailViewControllerIdentifier"] autorelease];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
+    
+    cell.comment = [_commentArray objectAtIndex:indexPath.row];
     
     return cell;
 }

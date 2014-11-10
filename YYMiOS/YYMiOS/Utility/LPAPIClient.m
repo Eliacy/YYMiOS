@@ -514,19 +514,21 @@ static id APIClient = nil;
 /*
  获取晒单列表
  */
-- (void)getDealDetailListWithBrief:(NSInteger)brief
-                          selected:(NSInteger)selected
-                         published:(NSInteger)published
-                            offset:(NSInteger)offset
-                             limit:(NSInteger)limit
-                              user:(NSInteger)user
-                              site:(NSInteger)site
-                              city:(NSInteger)city
-                           success:(LPAPISuccessBlock)successBlock
-                           failure:(LPAPIFailureBlock)failureBlcok
+- (void)getDealDetailListWithDealId:(NSInteger)dealId
+                              brief:(NSInteger)brief
+                           selected:(NSInteger)selected
+                          published:(NSInteger)published
+                             offset:(NSInteger)offset
+                              limit:(NSInteger)limit
+                               user:(NSInteger)user
+                               site:(NSInteger)site
+                               city:(NSInteger)city
+                            success:(LPAPISuccessBlock)successBlock
+                            failure:(LPAPIFailureBlock)failureBlcok
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
     
+    [params setObject:[NSNumber numberWithInteger:dealId] forKey:@"id"];
     [params setObject:[NSNumber numberWithInteger:brief] forKey:@"brief"];
     [params setObject:[NSNumber numberWithInteger:selected] forKey:@"selected"];
     [params setObject:[NSNumber numberWithInteger:published] forKey:@"published"];
