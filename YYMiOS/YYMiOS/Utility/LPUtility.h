@@ -11,5 +11,9 @@
 @interface LPUtility : LPObject
 
 + (NSString *)getQiniuImageURLStringWithBaseString:(NSString *)baseString imageSize:(CGSize)imageSize;
+//计算文本高度
++ (CGSize)getTextHeightWithText:(NSString *)text
+                           font:(UIFont *)font
+                           size:(CGSize)size;
 
 @end

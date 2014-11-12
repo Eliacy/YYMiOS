@@ -49,4 +49,25 @@
     return [NSString stringWithFormat:@"%@&token=%@:%@", downloadString, kAccessKey, secretKey];
 }
 
++ (CGSize)getTextHeightWithText:(NSString *)text
+                           font:(UIFont *)font
+                           size:(CGSize)size
+{
+    if([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
+    {
+        CGRect rect = [text boundingRectWithSize:size
+                                         options:NSStringDrawingUsesLineFragmentOrigin
+                                      attributes:@{NSFontAttributeName:font}
+                                         context:nil];
+        return rect.size;
+    }
+    else
+    {
+        CGSize textSize = [text sizeWithFont:font
+                           constrainedToSize:size
+                               lineBreakMode:NSLineBreakByWordWrapping];
+        return textSize;
+    }
+}
+
 @end

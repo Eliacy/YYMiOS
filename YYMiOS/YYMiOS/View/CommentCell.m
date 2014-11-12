@@ -80,9 +80,9 @@
     _nameLabel.text = comment.user.userName;
     _timeLabel.text = comment.updateTime;
     
-    CGSize contentSize = [comment.content sizeWithFont:_contentLabel.font
-                                     constrainedToSize:CGSizeMake(_contentLabel.frame.size.width, 2000)
-                                         lineBreakMode:NSLineBreakByCharWrapping];
+    CGSize contentSize = [LPUtility getTextHeightWithText:comment.content
+                                                     font:_contentLabel.font
+                                                     size:CGSizeMake(_contentLabel.frame.size.width, 2000)];
     
     _contentLabel.frame = CGRectMake(_contentLabel.frame.origin.x, _contentLabel.frame.origin.y, _contentLabel.frame.size.width, contentSize.height);
     _contentLabel.text = comment.content;

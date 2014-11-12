@@ -296,9 +296,9 @@
     _nameLabel.text = deal.user.userName;
     _timeLabel.text = deal.updateTime;
     
-    CGSize contentSize = [deal.content sizeWithFont:_contentLabel.font
-                                  constrainedToSize:CGSizeMake(_contentLabel.frame.size.width, 2000)
-                                      lineBreakMode:NSLineBreakByCharWrapping];
+    CGSize contentSize = [LPUtility getTextHeightWithText:deal.content
+                                                     font:_contentLabel.font
+                                                     size:CGSizeMake(_contentLabel.frame.size.width, 2000)];
     
     _contentLabel.frame = CGRectMake(_contentLabel.frame.origin.x, _contentLabel.frame.origin.y, _contentLabel.frame.size.width, contentSize.height);
     _contentLabel.text = deal.content;
@@ -346,7 +346,9 @@
     
     height += 75;
     
-    CGSize commentSize = [[[_commentArray objectAtIndex:indexPath.row] content] sizeWithFont:[UIFont systemFontOfSize:14.0f] constrainedToSize:CGSizeMake(290, 2000) lineBreakMode:NSLineBreakByCharWrapping];
+    CGSize commentSize = [LPUtility getTextHeightWithText:[[_commentArray objectAtIndex:indexPath.row] content]
+                                                     font:[UIFont systemFontOfSize:14.0f]
+                                                     size:CGSizeMake(290, 2000)];
     
     return height + commentSize.height;
 }

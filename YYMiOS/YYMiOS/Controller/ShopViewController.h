@@ -9,6 +9,8 @@
 #import "BaseViewController.h"
 #import <MapKit/MapKit.h>
 #import "POIDetail.h"
+#import "StarView.h"
+#import "ShopDetailView.h"
 
 @interface ShopViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate, MKMapViewDelegate>
 {
@@ -25,14 +27,15 @@
     UIView          *_tableHeaderView;
     UIImageView     *_logoImageView;
     UILabel         *_nameLabel;
-    UILabel         *_categoryLabel;
-    UILabel         *_environmentLabel;
-    UILabel         *_paymentLabel;
-    UILabel         *_menuLabel;
-    UILabel         *_ticketLabel;
-    UILabel         *_bookingLabel;
-    UILabel         *_businessHoursLabel;
-    UILabel         *_phoneLabel;
+    UIImageView     *_levelImageView;
+    StarView        *_starView;
+    UIButton        *_reviewButton;
+    ShopDetailView  *_shopDetailView;
+    
+    UIView          *_descriptionBackView;
+    UILabel         *_descriptionHeaderLabel;
+    UILabel         *_descriptionLabel;
+    
     MKMapView       *_mapView;
     UIView          *_floatView;
     UILabel         *_mapLabel;

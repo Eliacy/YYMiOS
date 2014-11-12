@@ -114,65 +114,58 @@
     _tableHeaderView.backgroundColor = [UIColor whiteColor];
     _tableView.tableHeaderView = _tableHeaderView;
     
-    _logoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 15, 65, 65)];
+    _logoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(8, 8, 68, 68)];
     _logoImageView.backgroundColor = [UIColor clearColor];
     [_tableHeaderView addSubview:_logoImageView];
     
-    _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(_logoImageView.frame.origin.x + _logoImageView.frame.size.width + 10, _logoImageView.frame.origin.y, _tableHeaderView.frame.size.width - _logoImageView.frame.origin.x - _logoImageView.frame.size.width - 15 - 10 - 15, 20)];
+    _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(_logoImageView.frame.origin.x + _logoImageView.frame.size.width + 10, _logoImageView.frame.origin.y, 230, 15)];
     _nameLabel.backgroundColor = [UIColor clearColor];
     _nameLabel.textColor = [UIColor darkGrayColor];
-    _nameLabel.font = [UIFont systemFontOfSize:18.0f];
+    _nameLabel.font = [UIFont systemFontOfSize:15.0f];
     [_tableHeaderView addSubview:_nameLabel];
     
-    _categoryLabel = [[UILabel alloc] initWithFrame:CGRectMake(_nameLabel.frame.origin.x, _nameLabel.frame.origin.y + _nameLabel.frame.size.height + 30, _nameLabel.frame.size.width, 20)];
-    _categoryLabel.backgroundColor = [UIColor clearColor];
-    _categoryLabel.textColor = [UIColor grayColor];
-    _categoryLabel.font = [UIFont systemFontOfSize:14.0f];
-    [_tableHeaderView addSubview:_categoryLabel];
+    _levelImageView = [[UIImageView alloc] initWithFrame:CGRectMake(_tableHeaderView.frame.size.width - 8 - 15, 8, 15, 15)];
+    _levelImageView.backgroundColor = [UIColor clearColor];
+    [_tableHeaderView addSubview:_levelImageView];
     
-    _environmentLabel = [[UILabel alloc] initWithFrame:CGRectMake(_categoryLabel.frame.origin.x, _categoryLabel.frame.origin.y + _categoryLabel.frame.size.height, _categoryLabel.frame.size.width, _categoryLabel.frame.size.height)];
-    _environmentLabel.backgroundColor = [UIColor clearColor];
-    _environmentLabel.textColor = [UIColor grayColor];
-    _environmentLabel.font = [UIFont systemFontOfSize:14.0f];
-    [_tableHeaderView addSubview:_environmentLabel];
+    _starView = [[StarView alloc] initWithFrame:CGRectMake(_nameLabel.frame.origin.x, _nameLabel.frame.origin.y + _nameLabel.frame.size.height + 15, 70, 10)];
+    _starView.backgroundColor = [UIColor clearColor];
+    [_tableHeaderView addSubview:_starView];
     
-    _paymentLabel = [[UILabel alloc] initWithFrame:CGRectMake(_environmentLabel.frame.origin.x, _environmentLabel.frame.origin.y + _environmentLabel.frame.size.height, _environmentLabel.frame.size.width, _environmentLabel.frame.size.height)];
-    _paymentLabel.backgroundColor = [UIColor clearColor];
-    _paymentLabel.textColor = [UIColor grayColor];
-    _paymentLabel.font = [UIFont systemFontOfSize:14.0f];
-    [_tableHeaderView addSubview:_paymentLabel];
+    _reviewButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    _reviewButton.frame = CGRectMake(_starView.frame.origin.x + _starView.frame.size.width + 10, _starView.frame.origin.y, 100, 12);
+    [_reviewButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    [_reviewButton setImage:[UIImage imageNamed:@"talk_gray.png"] forState:UIControlStateNormal];
+    [_reviewButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 10)];
+    _reviewButton.titleLabel.font = [UIFont systemFontOfSize:12.0f];
+    [_tableHeaderView addSubview:_reviewButton];
     
-    _menuLabel = [[UILabel alloc] initWithFrame:CGRectMake(_paymentLabel.frame.origin.x, _paymentLabel.frame.origin.y + _paymentLabel.frame.size.height, _paymentLabel.frame.size.width, _paymentLabel.frame.size.height)];
-    _menuLabel.backgroundColor = [UIColor clearColor];
-    _menuLabel.textColor = [UIColor grayColor];
-    _menuLabel.font = [UIFont systemFontOfSize:14.0f];
-    [_tableHeaderView addSubview:_menuLabel];
+    _shopDetailView = [[ShopDetailView alloc] initWithFrame:CGRectMake(_starView.frame.origin.x, _starView.frame.origin.y + _starView.frame.size.height + 12, _tableHeaderView.frame.size.width - _starView.frame.origin.x - 8, 20)];
+    _shopDetailView.backgroundColor = [UIColor clearColor];
+    [_tableHeaderView addSubview:_shopDetailView];
     
-    _ticketLabel = [[UILabel alloc] initWithFrame:CGRectMake(_menuLabel.frame.origin.x, _menuLabel.frame.origin.y + _menuLabel.frame.size.height, _menuLabel.frame.size.width, _menuLabel.frame.size.height)];
-    _ticketLabel.backgroundColor = [UIColor clearColor];
-    _ticketLabel.textColor = [UIColor grayColor];
-    _ticketLabel.font = [UIFont systemFontOfSize:14.0f];
-    [_tableHeaderView addSubview:_ticketLabel];
+    _descriptionBackView = [[UIView alloc] initWithFrame:CGRectMake(12, _shopDetailView.frame.origin.y + _shopDetailView.frame.size.height + 8, _tableHeaderView.frame.size.width - 12 * 2, 50)];
+    _descriptionBackView.backgroundColor = [UIColor clearColor];
+    _descriptionBackView.layer.borderWidth = 0.5;
+    _descriptionBackView.layer.borderColor = [UIColor darkGrayColor].CGColor;
+    [_tableHeaderView addSubview:_descriptionBackView];
     
-    _bookingLabel = [[UILabel alloc] initWithFrame:CGRectMake(_ticketLabel.frame.origin.x, _ticketLabel.frame.origin.y + _ticketLabel.frame.size.height, _ticketLabel.frame.size.width, _ticketLabel.frame.size.height)];
-    _bookingLabel.backgroundColor = [UIColor clearColor];
-    _bookingLabel.textColor = [UIColor grayColor];
-    _bookingLabel.font = [UIFont systemFontOfSize:14.0f];
-    [_tableHeaderView addSubview:_bookingLabel];
+    _descriptionHeaderLabel = [[UILabel alloc] initWithFrame:CGRectMake(12 + _descriptionBackView.frame.origin.x, -10 + _descriptionBackView.frame.origin.y, 45, 20)];
+    _descriptionHeaderLabel.backgroundColor = _tableHeaderView.backgroundColor;
+    _descriptionHeaderLabel.textColor = [UIColor darkGrayColor];
+    _descriptionHeaderLabel.font = [UIFont systemFontOfSize:16.0f];
+    _descriptionHeaderLabel.textAlignment = NSTextAlignmentCenter;
+    _descriptionHeaderLabel.text = @"简介";
+    [_tableHeaderView addSubview:_descriptionHeaderLabel];
     
-    _businessHoursLabel = [[UILabel alloc] initWithFrame:CGRectMake(_bookingLabel.frame.origin.x, _bookingLabel.frame.origin.y + _bookingLabel.frame.size.height, _bookingLabel.frame.size.width, _bookingLabel.frame.size.height)];
-    _businessHoursLabel.backgroundColor = [UIColor clearColor];
-    _businessHoursLabel.textColor = [UIColor grayColor];
-    _businessHoursLabel.font = [UIFont systemFontOfSize:14.0f];
-    [_tableHeaderView addSubview:_businessHoursLabel];
+    _descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(12, 12, _descriptionBackView.frame.size.width - 12 * 2, _descriptionBackView.frame.size.height - 12 * 2)];
+    _descriptionLabel.backgroundColor = [UIColor clearColor];
+    _descriptionLabel.textColor = [UIColor darkGrayColor];
+    _descriptionLabel.font = [UIFont systemFontOfSize:13.0f];
+    _descriptionLabel.numberOfLines = 0;
+    [_descriptionBackView addSubview:_descriptionLabel];
     
-    _phoneLabel = [[UILabel alloc] initWithFrame:CGRectMake(_businessHoursLabel.frame.origin.x, _businessHoursLabel.frame.origin.y + _businessHoursLabel.frame.size.height, _businessHoursLabel.frame.size.width, _businessHoursLabel.frame.size.height)];
-    _phoneLabel.backgroundColor = [UIColor clearColor];
-    _phoneLabel.textColor = [UIColor grayColor];
-    _phoneLabel.font = [UIFont systemFontOfSize:14.0f];
-    [_tableHeaderView addSubview:_phoneLabel];
-    
-    _mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, _tableHeaderView.frame.size.height - 180, _tableHeaderView.frame.size.width, 180)];
+    _mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, _tableHeaderView.frame.size.height - 140, _tableHeaderView.frame.size.width, 140)];
     _mapView.delegate = self;
     [_tableHeaderView addSubview:_mapView];
     
@@ -283,63 +276,42 @@
     [_logoImageView setImageWithURL:[NSURL URLWithString:[LPUtility getQiniuImageURLStringWithBaseString:poiDetail.logo.imageURL imageSize:CGSizeMake(100, 100)]]];
     _nameLabel.text = poiDetail.name;
     
-    if(poiDetail.categoryArray && [poiDetail.categoryArray count] > 0)
+    if(poiDetail.level && [poiDetail.level isEqualToString:@"S"])
     {
-        NSMutableString *mutableString = [NSMutableString string];
-        for(NSInteger i = 0; i < [poiDetail.categoryArray count]; i++)
-        {
-            if(i == [poiDetail.categoryArray count] - 1)
-            {
-                [mutableString appendString:[poiDetail.categoryArray objectAtIndex:i]];
-            }
-            else
-            {
-                [mutableString appendString:[NSString stringWithFormat:@"%@｜", [poiDetail.categoryArray objectAtIndex:i]]];
-            }
-        }
+        _levelImageView.frame = CGRectMake(_tableHeaderView.frame.size.width - 8 - 15, _levelImageView.frame.origin.y, 15, 15);
+        _levelImageView.image = [UIImage imageNamed:@"rank_S.png"];
     }
-    if(poiDetail.environment && ![poiDetail.environment isEqualToString:@""])
+    else if(poiDetail.level && [poiDetail.level isEqualToString:@"SS"])
     {
-        _environmentLabel.text = [NSString stringWithFormat:@"环境：%@", poiDetail.environment];
+        _levelImageView.frame = CGRectMake(_tableHeaderView.frame.size.width - 8 - 31, _levelImageView.frame.origin.y, 31, 15);
+        _levelImageView.image = [UIImage imageNamed:@"rank_SS.png"];
     }
-    if(poiDetail.paymentArray && [poiDetail.paymentArray count] > 0)
+    else if(poiDetail.level && [poiDetail.level isEqualToString:@"A+"])
     {
-        NSMutableString *mutableString = [NSMutableString string];
-        [mutableString appendString:@"付款方式："];
-        for(NSInteger i = 0; i < [poiDetail.paymentArray count]; i++)
-        {
-            if(i == [poiDetail.paymentArray count] - 1)
-            {
-                [mutableString appendString:[poiDetail.paymentArray objectAtIndex:i]];
-            }
-            else
-            {
-                [mutableString appendString:[NSString stringWithFormat:@"%@ ", [poiDetail.paymentArray objectAtIndex:i]]];
-            }
-        }
-        _paymentLabel.text = mutableString;
+        _levelImageView.frame = CGRectMake(_tableHeaderView.frame.size.width - 8 - 31, _levelImageView.frame.origin.y, 31, 15);
+        _levelImageView.image = [UIImage imageNamed:@"rank_A+.png"];
     }
-    if(poiDetail.menu && ![poiDetail.menu isEqualToString:@""])
+    else
     {
-        _menuLabel.text = [NSString stringWithFormat:@"中文菜单：%@", poiDetail.menu];
-    }
-    if(poiDetail.ticket && ![poiDetail.ticket isEqualToString:@""])
-    {
-        _ticketLabel.text = [NSString stringWithFormat:@"门票：%@", poiDetail.ticket];
-    }
-    if(poiDetail.booking && ![poiDetail.booking isEqualToString:@""])
-    {
-        _bookingLabel.text = [NSString stringWithFormat:@"提前预定：%@", poiDetail.booking];
-    }
-    if(poiDetail.businessHours && ![poiDetail.businessHours isEqualToString:@""])
-    {
-        _businessHoursLabel.text = [NSString stringWithFormat:@"营业时间：%@", poiDetail.businessHours];
-    }
-    if(poiDetail.phone && ![poiDetail.phone isEqualToString:@""])
-    {
-        _phoneLabel.text = [NSString stringWithFormat:@"电话号码：%@", poiDetail.phone];
+        _levelImageView.image = nil;
     }
     
+    [_starView setStars:poiDetail.stars];
+    [_reviewButton setTitle:[NSString stringWithFormat:@"%i", (int)poiDetail.reviewNum] forState:UIControlStateNormal];
+    
+    [_shopDetailView setPoiDetail:poiDetail];
+    
+    CGSize descriptionSize = [LPUtility getTextHeightWithText:poiDetail.description
+                                                         font:_descriptionLabel.font
+                                                         size:CGSizeMake(_descriptionLabel.frame.size.width, 2000)];
+    _descriptionBackView.frame = CGRectMake(_descriptionBackView.frame.origin.x, _shopDetailView.frame.origin.y + _shopDetailView.frame.size.height + 8, _descriptionBackView.frame.size.width, descriptionSize.height + 12 * 2);
+    _descriptionHeaderLabel.frame = CGRectMake(12 + _descriptionBackView.frame.origin.x, -10 + _descriptionBackView.frame.origin.y, 45, 20);
+    _descriptionLabel.frame = CGRectMake(_descriptionLabel.frame.origin.x, _descriptionLabel.frame.origin.y, _descriptionLabel.frame.size.width, descriptionSize.height);
+    _descriptionLabel.text = poiDetail.description;
+    
+    _tableHeaderView.frame = CGRectMake(_tableHeaderView.frame.origin.x, _tableHeaderView.frame.origin.y, _tableHeaderView.frame.size.width, _descriptionBackView.frame.origin.y + _descriptionBackView.frame.size.height + _mapView.frame.size.height + 10);
+    
+    _mapView.frame = CGRectMake(_mapView.frame.origin.x, _tableHeaderView.frame.size.height - _mapView.frame.size.height, _mapView.frame.size.width, _mapView.frame.size.height);
     [_mapView setCenterCoordinate:CLLocationCoordinate2DMake(poiDetail.latitude, poiDetail.longitude) zoomLevel:13 animated:YES];
     
     POIAnnotation *annotation = [[[POIAnnotation alloc] init] autorelease];
@@ -349,6 +321,8 @@
     
     [_mapView addAnnotation:annotation];
     _mapLabel.text = poiDetail.address;
+    
+    _tableView.tableHeaderView = _tableHeaderView;
 }
 
 #pragma mark - UIScrollViewDelegate
