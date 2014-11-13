@@ -116,6 +116,8 @@
     
     _logoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(8, 8, 68, 68)];
     _logoImageView.backgroundColor = [UIColor clearColor];
+    _logoImageView.contentMode = UIViewContentModeScaleAspectFill;
+    _logoImageView.layer.masksToBounds = YES;
     [_tableHeaderView addSubview:_logoImageView];
     
     _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(_logoImageView.frame.origin.x + _logoImageView.frame.size.width + 10, _logoImageView.frame.origin.y, 230, 15)];
@@ -367,6 +369,7 @@
 {
     DealDetailViewController *dealDetailVC = [[[DealDetailViewController alloc] init] autorelease];
     dealDetailVC.dealId = [[_dealArray objectAtIndex:indexPath.row] dealId];
+    dealDetailVC.siteId = [[[_dealArray objectAtIndex:indexPath.row] site] siteId];
     [self.navigationController pushViewController:dealDetailVC animated:YES];
     
     return nil;

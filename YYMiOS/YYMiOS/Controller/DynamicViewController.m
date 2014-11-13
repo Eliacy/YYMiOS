@@ -11,6 +11,7 @@
 #import "DynamicCell.h"
 
 #import "DealDetailViewController.h"
+#import "Deal.h"
 
 @interface DynamicViewController ()
 
@@ -40,8 +41,6 @@
     if(self != nil)
     {
         _dynamicArray = [[NSMutableArray alloc] initWithCapacity:0];
-        
-        [_dynamicArray addObjectsFromArray:[NSArray arrayWithObjects:@"1", @"2", @"3", @"4", nil]];
     }
     
     return self;
@@ -88,6 +87,25 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [Deal getDealDetailListWithDealId:0
+                                brief:1
+                             selected:0
+                            published:0
+                               offset:0
+                                limit:20
+                                 user:0
+                                 site:0
+                                 city:0
+                              success:^(NSArray *array) {
+                                
+                                  [_dynamicArray removeAllObjects];
+                                  [_dynamicArray addObjectsFromArray:array];
+                                  [_tableView reloadData];
+                                  
+                              } failure:^(NSError *error) {
+                                  
+                              }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -126,6 +144,8 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
+    cell.deal = [_dynamicArray objectAtIndex:indexPath.row];
+    
     return cell;
 }
 
@@ -134,6 +154,8 @@
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     DealDetailViewController *dealDetailVC = [[[DealDetailViewController alloc] init] autorelease];
+    dealDetailVC.dealId = [[_dynamicArray objectAtIndex:indexPath.row] dealId];
+    dealDetailVC.siteId = [[[_dynamicArray objectAtIndex:indexPath.row] site] siteId];
     [self.tabVC.navigationController pushViewController:dealDetailVC animated:YES];
     
     return nil;

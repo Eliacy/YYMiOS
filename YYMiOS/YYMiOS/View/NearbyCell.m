@@ -129,6 +129,8 @@
         UIImageView *imageView = [[[UIImageView alloc] initWithFrame:CGRectMake(8 + i * 64, 10, 48, 48)] autorelease];
         imageView.layer.borderWidth = 0.5;
         imageView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+        imageView.contentMode = UIViewContentModeScaleAspectFill;
+        imageView.layer.masksToBounds = YES;
         [imageView setImageWithURL:[NSURL URLWithString:[LPUtility getQiniuImageURLStringWithBaseString:[[poi.topImageArray objectAtIndex:i] imageURL] imageSize:CGSizeMake(60, 60)]]];
         [_scrollView addSubview:imageView];
     }

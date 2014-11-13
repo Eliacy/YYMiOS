@@ -13,6 +13,7 @@
 
 #import "TipsViewController.h"
 #import "MessageViewController.h"
+#import "Article.h"
 
 @interface HomeViewController ()
 
@@ -44,8 +45,6 @@
     if(self != nil)
     {
         _homeArray = [[NSMutableArray alloc] initWithCapacity:0];
-        //fake data
-        [_homeArray addObjectsFromArray:[NSArray arrayWithObjects:@"1", @"2", @"3", @"4", @"5", nil]];
     }
     
     return self;
@@ -93,16 +92,20 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [[LPAPIClient sharedAPIClient] getArticleListWithArticleId:0
-                                                         brief:1
-                                                        offset:1
-                                                         limit:10
-                                                        cityId:0
-                                                       success:^(id respondObject) {
-                                                           
-                                                       } failure:^(NSError *error) {
-                                                           
-                                                       }];
+    [Article getArticleListWithArticleId:0
+                                   brief:1
+                                  offset:0
+                                   limit:20
+                                  cityId:0
+                                 success:^(NSArray *array) {
+                                     
+                                     [_homeArray removeAllObjects];
+                                     [_homeArray addObjectsFromArray:array];
+                                     [_tableView reloadData];
+                                     
+                                 } failure:^(NSError *error) {
+                                     
+                                 }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -141,6 +144,8 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
+    cell.article = [_homeArray objectAtIndex:indexPath.row];
+    
     return cell;
 }
 
@@ -149,6 +154,7 @@
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ArticleViewController *articleVC = [[[ArticleViewController alloc] init] autorelease];
+    articleVC.articleId = [[_homeArray objectAtIndex:indexPath.row] articleId];
     [self.tabVC.navigationController pushViewController:articleVC animated:YES];
     
     return nil;

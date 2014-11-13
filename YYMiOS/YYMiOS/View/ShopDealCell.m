@@ -22,6 +22,8 @@
         
         _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 15, 80, 80)];
         _imageView.backgroundColor = [UIColor clearColor];
+        _imageView.contentMode = UIViewContentModeScaleAspectFill;
+        _imageView.layer.masksToBounds = YES;
         [self.contentView addSubview:_imageView];
         
         _contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(_imageView.frame.origin.x + _imageView.frame.size.width + 15, _imageView.frame.origin.y, 320 - _imageView.frame.size.width - 15 * 3, 50)];

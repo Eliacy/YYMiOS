@@ -21,6 +21,7 @@
 
 @synthesize deal = _deal;
 @synthesize dealId = _dealId;
+@synthesize siteId = _siteId;
 
 #pragma mark - private
 
@@ -145,6 +146,8 @@
     
     _avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 15, 60, 60)];
     _avatarImageView.backgroundColor = [UIColor clearColor];
+    _avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
+    _avatarImageView.layer.masksToBounds = YES;
     [_tableHeaderView addSubview:_avatarImageView];
     
     _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(_avatarImageView.frame.origin.x + _avatarImageView.frame.size.width + 10, _avatarImageView.frame.origin.y, 130, 20)];
@@ -217,7 +220,7 @@
                                offset:0
                                 limit:1
                                  user:0
-                                 site:3422
+                                 site:_siteId
                                  city:0
                               success:^(NSArray *array) {
                                   

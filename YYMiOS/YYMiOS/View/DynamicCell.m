@@ -10,6 +10,8 @@
 
 @implementation DynamicCell
 
+@synthesize deal = _deal;
+
 #pragma mark - private
 
 - (void)clickFollowButton:(id)sender
@@ -36,21 +38,21 @@
         [self.contentView addSubview:_backImageView];
         
         _avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 15, 60, 60)];
-        _avatarImageView.backgroundColor = [UIColor brownColor];
+        _avatarImageView.backgroundColor = [UIColor clearColor];
+        _avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _avatarImageView.layer.masksToBounds = YES;
         [_backImageView addSubview:_avatarImageView];
         
-        _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(_avatarImageView.frame.origin.x + _avatarImageView.frame.size.width + 10, _avatarImageView.frame.origin.y, 230, 20)];
+        _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(_avatarImageView.frame.origin.x + _avatarImageView.frame.size.width + 10, _avatarImageView.frame.origin.y, 130, 20)];
         _nameLabel.backgroundColor = [UIColor clearColor];
         _nameLabel.textColor = [UIColor darkGrayColor];
         _nameLabel.font = [UIFont systemFontOfSize:16.0f];
-        _nameLabel.text = @"我的ID叫小花";
         [_backImageView addSubview:_nameLabel];
         
         _lastTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(_nameLabel.frame.origin.x, _nameLabel.frame.origin.y + _nameLabel.frame.size.height, _nameLabel.frame.size.width, _nameLabel.frame.size.height)];
         _lastTimeLabel.backgroundColor = [UIColor clearColor];
         _lastTimeLabel.textColor = [UIColor grayColor];
         _lastTimeLabel.font = [UIFont systemFontOfSize:13.0f];
-        _lastTimeLabel.text = @"昨天晚上10点35分";
         [_backImageView addSubview:_lastTimeLabel];
         
         _followButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
@@ -73,7 +75,9 @@
         [_backImageView addSubview:_contentLabel];
         
         _goodsImageView = [[UIImageView alloc] initWithFrame:CGRectMake(_contentLabel.frame.origin.x, _contentLabel.frame.origin.y + _contentLabel.frame.size.height + 5, 290, 250)];
-        _goodsImageView.backgroundColor = [UIColor purpleColor];
+        _goodsImageView.backgroundColor = [UIColor clearColor];
+        _goodsImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _goodsImageView.layer.masksToBounds = YES;
         [_backImageView addSubview:_goodsImageView];
         
         _floatView = [[UIView alloc] initWithFrame:CGRectMake(0, _goodsImageView.frame.size.height - 25, _goodsImageView.frame.size.width, 25)];
@@ -98,7 +102,6 @@
         _numberLabel.backgroundColor = [UIColor clearColor];
         _numberLabel.textColor = [UIColor whiteColor];
         _numberLabel.font = [UIFont systemFontOfSize:12.0f];
-        _numberLabel.text = @"3张";
         _numberLabel.textAlignment = NSTextAlignmentRight;
         [_floatView addSubview:_numberLabel];
         
@@ -133,6 +136,31 @@
 
 - (void)awakeFromNib {
     // Initialization code
+}
+
+- (void)setDeal:(Deal *)deal
+{
+    if(_deal != nil)
+    {
+        LP_SAFE_RELEASE(_deal);
+    }
+    _deal = [deal retain];
+    
+    [_avatarImageView setImageWithURL:[NSURL URLWithString:[LPUtility getQiniuImageURLStringWithBaseString:deal.user.userIcon.imageURL imageSize:CGSizeMake(120, 120)]]];
+    _nameLabel.text = deal.user.userName;
+    _lastTimeLabel.text = deal.updateTime;
+    _contentLabel.text = deal.content;
+    
+    if(deal.imageArray && [deal.imageArray isKindOfClass:[NSArray class]] && [deal.imageArray count] > 0)
+    {
+        [_goodsImageView setImageWithURL:[NSURL URLWithString:[LPUtility getQiniuImageURLStringWithBaseString:[[deal.imageArray objectAtIndex:0] imageURL] imageSize:CGSizeMake(580, 500)]]];
+    }
+    else
+    {
+        _goodsImageView.image = nil;
+    }
+    
+    _numberLabel.text = [NSString stringWithFormat:@"%i张", (int)deal.imageCount];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

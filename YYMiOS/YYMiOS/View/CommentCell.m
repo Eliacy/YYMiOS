@@ -30,6 +30,8 @@
         
         _avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 15, 50, 50)];
         _avatarImageView.backgroundColor = [UIColor clearColor];
+        _avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _avatarImageView.layer.masksToBounds = YES;
         [self.contentView addSubview:_avatarImageView];
         
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(_avatarImageView.frame.origin.x + _avatarImageView.frame.size.width + 15, _avatarImageView.frame.origin.y, 190, 20)];

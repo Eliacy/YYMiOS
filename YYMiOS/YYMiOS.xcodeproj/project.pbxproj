@@ -69,7 +69,7 @@
 		046BF9F51A0BCC4F003FE419 /* LPUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 046BF9F41A0BCC4F003FE419 /* LPUtility.m */; };
 		04788D5819D7F2FB00BE283B /* DraftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D5719D7F2FB00BE283B /* DraftViewController.m */; };
 		04788D5B19D7FAF000BE283B /* DraftCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D5A19D7FAF000BE283B /* DraftCell.m */; };
-		04788D5E19D7FD2F00BE283B /* Home.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D5D19D7FD2F00BE283B /* Home.m */; };
+		04788D5E19D7FD2F00BE283B /* Article.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D5D19D7FD2F00BE283B /* Article.m */; };
 		04788D6119D7FD4500BE283B /* Deal.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D6019D7FD4500BE283B /* Deal.m */; };
 		04788D6419D7FD5600BE283B /* POI.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D6319D7FD5600BE283B /* POI.m */; };
 		04788D6719D7FD6100BE283B /* Draft.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D6619D7FD6100BE283B /* Draft.m */; };
@@ -261,8 +261,8 @@
 		04788D5719D7F2FB00BE283B /* DraftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DraftViewController.m; sourceTree = "<group>"; };
 		04788D5919D7FAF000BE283B /* DraftCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DraftCell.h; sourceTree = "<group>"; };
 		04788D5A19D7FAF000BE283B /* DraftCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DraftCell.m; sourceTree = "<group>"; };
-		04788D5C19D7FD2F00BE283B /* Home.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Home.h; sourceTree = "<group>"; };
-		04788D5D19D7FD2F00BE283B /* Home.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Home.m; sourceTree = "<group>"; };
+		04788D5C19D7FD2F00BE283B /* Article.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Article.h; sourceTree = "<group>"; };
+		04788D5D19D7FD2F00BE283B /* Article.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Article.m; sourceTree = "<group>"; };
 		04788D5F19D7FD4500BE283B /* Deal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Deal.h; sourceTree = "<group>"; };
 		04788D6019D7FD4500BE283B /* Deal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Deal.m; sourceTree = "<group>"; };
 		04788D6219D7FD5600BE283B /* POI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POI.h; sourceTree = "<group>"; };
@@ -440,8 +440,8 @@
 			children = (
 				0435236A19D0502C00F67B8E /* LPObject.h */,
 				0435236B19D0502C00F67B8E /* LPObject.m */,
-				04788D5C19D7FD2F00BE283B /* Home.h */,
-				04788D5D19D7FD2F00BE283B /* Home.m */,
+				04788D5C19D7FD2F00BE283B /* Article.h */,
+				04788D5D19D7FD2F00BE283B /* Article.m */,
 				04788D5F19D7FD4500BE283B /* Deal.h */,
 				04788D6019D7FD4500BE283B /* Deal.m */,
 				04788D6219D7FD5600BE283B /* POI.h */,
@@ -1010,7 +1010,7 @@
 				045EF5671A04CD2D00A85776 /* QNHttpManager.m in Sources */,
 				04B0D07A19DD1FAF00289F78 /* ShareKit.m in Sources */,
 				048355AB19D320C7005ECAD6 /* FeedbackViewController.m in Sources */,
-				04788D5E19D7FD2F00BE283B /* Home.m in Sources */,
+				04788D5E19D7FD2F00BE283B /* Article.m in Sources */,
 				04A824BD1A0FD682000B6AFF /* NearbyMapViewController.m in Sources */,
 				04B0D07D19DD23E400289F78 /* FilterViewController.m in Sources */,
 				04788D5819D7F2FB00BE283B /* DraftViewController.m in Sources */,

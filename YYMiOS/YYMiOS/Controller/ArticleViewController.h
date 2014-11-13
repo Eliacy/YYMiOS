@@ -7,9 +7,13 @@
 //
 
 #import "BaseViewController.h"
+#import "Article.h"
 
 @interface ArticleViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate>
 {
+    NSInteger       _articleId;
+    Article         *_article;
+    
     UIButton        *_shareButton;
     
     UIView          *_footerView;
@@ -18,10 +22,10 @@
     
     UITableView     *_tableView;
     
-    UIView          *_tableHeaderView;
-    UIView          *_headerBackView;
-    
     NSMutableArray  *_commentArray;
 }
+
+@property (assign, nonatomic) NSInteger articleId;
+@property (retain, nonatomic) Article *article;
 
 @end

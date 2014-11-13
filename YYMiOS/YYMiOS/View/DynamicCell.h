@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Deal.h"
 
 @interface DynamicCell : UITableViewCell
 {
+    Deal            *_deal;
+    
     UIImageView     *_backImageView;
     
     UIImageView     *_avatarImageView;
@@ -28,5 +31,7 @@
     UILabel         *_locationLabel;
     UIButton        *_shareButton;
 }
+
+@property (retain, nonatomic) Deal *deal;
 
 @end

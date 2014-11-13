@@ -32,9 +32,11 @@
     
     Deal            *_deal;
     NSInteger       _dealId;
+    NSInteger       _siteId;
 }
 
 @property (retain, nonatomic) Deal *deal;
 @property (assign, nonatomic) NSInteger dealId;
+@property (assign, nonatomic) NSInteger siteId;
 
 @end

@@ -16,6 +16,9 @@
 
 @implementation ArticleViewController
 
+@synthesize articleId = _articleId;
+@synthesize article = _article;
+
 #pragma mark - private
 
 - (void)clickShareButton:(id)sender
@@ -118,19 +121,8 @@
     _tableView.backgroundColor = [UIColor clearColor];
     _tableView.dataSource = self;
     _tableView.delegate = self;
+    _tableView.separatorColor = [UIColor clearColor];
     [self.view addSubview:_tableView];
-    
-    _tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 300)];
-    _tableHeaderView.backgroundColor = [UIColor clearColor];
-    _tableView.tableHeaderView = _tableHeaderView;
-    
-    _headerBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableHeaderView.frame.size.width, _tableHeaderView.frame.size.height - 15)];
-    _headerBackView.backgroundColor = [UIColor whiteColor];
-    [_tableHeaderView addSubview:_headerBackView];
-    
-    UIView *line = [[[UIView alloc] initWithFrame:CGRectMake(0, _headerBackView.frame.size.height - 90, _headerBackView.frame.size.width, 0.5)] autorelease];
-    line.backgroundColor = [UIColor colorWithRed:221.0 / 255.0 green:221.0 / 255.0 blue:221.0 / 255.0 alpha:1.0];
-    [_headerBackView addSubview:line];
     
     UIView *tableFooterView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 1)] autorelease];
     tableFooterView.backgroundColor = [UIColor clearColor];
@@ -140,6 +132,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [Article getArticleListWithArticleId:_articleId
+                                   brief:0
+                                  offset:0
+                                   limit:1
+                                  cityId:0
+                                 success:^(NSArray *array) {
+                                     
+                                     if([array count] > 0)
+                                     {
+                                         self.article = [array objectAtIndex:0];
+                                     }
+                                     
+                                 } failure:^(NSError *error) {
+                                     
+                                 }];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -180,6 +188,17 @@
 }
 */
 
+- (void)setArticle:(Article *)article
+{
+    if(_article != nil)
+    {
+        LP_SAFE_RELEASE(_article);
+    }
+    _article = [article retain];
+    
+    [_tableView reloadData];
+}
+
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
@@ -194,24 +213,195 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 105.0f;
+    switch (indexPath.section) {
+        case 0:
+        {
+            CGFloat height = 0;
+            
+            NSDictionary *dictionary = [_article.contentArray objectAtIndex:indexPath.row];
+            switch ([[dictionary objectForKey:@"type"] integerValue])
+            {
+                case 1:
+                {
+                    CGSize size = [LPUtility getTextHeightWithText:[dictionary objectForKey:@"content"]
+                                                              font:[UIFont systemFontOfSize:12.0f]
+                                                              size:CGSizeMake(_tableView.frame.size.width - 15 * 2, 2000)];
+                    height += size.height + 15;
+                }
+                    break;
+                case 2:
+                {
+                    CGSize size = [LPUtility getTextHeightWithText:[dictionary objectForKey:@"content"]
+                                                              font:[UIFont systemFontOfSize:14.0f]
+                                                              size:CGSizeMake(_tableView.frame.size.width - 15 * 2, 2000)];
+                    height += size.height + 15;
+                }
+                    break;
+                case 3:
+                {
+                    height += 165 + 15;
+                }
+                    break;
+                case 4:
+                {
+                    height += 88;
+                }
+                    break;
+                case 5:
+                {
+                    height += 1;
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+            
+            return height;
+        }
+            break;
+        case 1:
+        {
+            return 105.0f;
+        }
+        default:
+            break;
+    }
+    
+    return 0;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 15.0f;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *view = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 15)] autorelease];
+    view.backgroundColor = [UIColor clearColor];
+    return view;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [_commentArray count];
+    switch (section)
+    {
+        case 0:
+        {
+            if(_article && _article.contentArray && [_article.contentArray count] > 0)
+            {
+                return [_article.contentArray count];
+            }
+            else
+            {
+                return 0;
+            }
+        }
+            break;
+        case 1:
+        {
+            return [_commentArray count];
+        }
+            break;
+        default:
+            break;
+    }
+    
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ArticleViewControllerIdentifier"];
-    if(cell == nil)
+    if(indexPath.section == 0)
     {
-        cell = [[[CommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ArticleViewControllerIdentifier"] autorelease];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ArticleViewControllerIdentifier"];
+        if(cell == nil)
+        {
+            cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ArticleViewControllerIdentifier"] autorelease];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+        
+        for(UIView *view in cell.contentView.subviews)
+        {
+            [view removeFromSuperview];
+        }
+        
+        NSDictionary *dictionary = [_article.contentArray objectAtIndex:indexPath.row];
+        switch ([[dictionary objectForKey:@"type"] integerValue])
+        {
+            case 1:
+            {
+                CGSize size = [LPUtility getTextHeightWithText:[dictionary objectForKey:@"content"]
+                                                          font:[UIFont systemFontOfSize:12.0f]
+                                                          size:CGSizeMake(_tableView.frame.size.width - 15 * 2, 2000)];
+                UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(15, 15, _tableView.frame.size.width - 15 * 2, size.height)] autorelease];
+                label.backgroundColor = [UIColor clearColor];
+                label.textColor = [UIColor darkGrayColor];
+                label.font = [UIFont systemFontOfSize:12.0f];
+                label.numberOfLines = 0;
+                label.text = [dictionary objectForKey:@"content"];
+                [cell.contentView addSubview:label];
+            }
+                break;
+            case 2:
+            {
+                CGSize size = [LPUtility getTextHeightWithText:[dictionary objectForKey:@"content"]
+                                                          font:[UIFont systemFontOfSize:14.0f]
+                                                          size:CGSizeMake(_tableView.frame.size.width - 15 * 2, 2000)];
+                UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(15, 15, _tableView.frame.size.width - 15 * 2, size.height)] autorelease];
+                label.backgroundColor = [UIColor clearColor];
+                label.textColor = [UIColor darkGrayColor];
+                label.font = [UIFont systemFontOfSize:14.0f];
+                label.numberOfLines = 0;
+                label.textAlignment = NSTextAlignmentCenter;
+                label.text = [dictionary objectForKey:@"content"];
+                [cell.contentView addSubview:label];
+            }
+                break;
+            case 3:
+            {
+                LPImage *image = [[LPImage alloc] initWithAttribute:[dictionary objectForKey:@"content"]];
+                
+                UIImageView *imageView = [[[UIImageView alloc] initWithFrame:CGRectMake(15, 15, _tableView.frame.size.width - 15 * 2, 165)] autorelease];
+                [imageView setImageWithURL:[NSURL URLWithString:[LPUtility getQiniuImageURLStringWithBaseString:image.imageURL imageSize:CGSizeMake((_tableView.frame.size.width - 15 * 2) * 2, 165 * 2)]]];
+                imageView.contentMode = UIViewContentModeScaleAspectFill;
+                imageView.layer.masksToBounds = YES;
+                [cell.contentView addSubview:imageView];
+            }
+                break;
+            case 4:
+            {
+                
+            }
+                break;
+            case 5:
+            {
+                
+            }
+                break;
+            default:
+                break;
+        }
+        
+        return cell;
     }
-    
-    return cell;
+    else
+    {
+        CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ArticleViewControllerCommentIdentifier"];
+        if(cell == nil)
+        {
+            cell = [[[CommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ArticleViewControllerCommentIdentifier"] autorelease];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+        
+        return cell;
+    }
 }
 
 #pragma mark - UITableViewDelegate
