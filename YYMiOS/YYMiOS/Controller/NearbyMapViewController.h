@@ -8,11 +8,19 @@
 
 #import "BaseViewController.h"
 #import <MapKit/MapKit.h>
+#import "POIAnnotationView.h"
 
-@interface NearbyMapViewController : BaseViewController <MKMapViewDelegate>
+@interface NearbyMapViewController : BaseViewController <MKMapViewDelegate, POIAnnotionViewDelegate>
 {
+    NSInteger       _index;
+    
     MKMapView       *_mapView;
     NSArray         *_nearbyArray;
+    
+    UIButton        *_prevButton;
+    UIButton        *_nextButton;
+    
+    POIAnnotationView   *_poiAnnotationView;
 }
 
 @property (retain, nonatomic) NSArray *nearbyArray;

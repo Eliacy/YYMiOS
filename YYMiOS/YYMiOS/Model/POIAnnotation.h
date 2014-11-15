@@ -8,6 +8,7 @@
 
 #import "LPObject.h"
 #import <MapKit/MapKit.h>
+#import "POI.h"
 
 @interface POIAnnotation : LPObject <MKAnnotation>
 
@@ -15,5 +16,8 @@
 
 @property (copy, nonatomic) NSString *title;
 @property (copy, nonatomic) NSString *subtitle;
+
+@property (retain, nonatomic) POI *poi;
+@property (assign, nonatomic) BOOL isDetail;
 
 @end
