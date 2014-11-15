@@ -194,27 +194,15 @@
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
 {
-    if([view isKindOfClass:[POIAnnotationView class]])
-    {
-        POIAnnotation *annotation = (POIAnnotation *)view.annotation;
-        POI *poi = [_nearbyArray objectAtIndex:[_mapView.annotations indexOfObject:annotation]];
-        
-        ShopViewController *shopVC = [[[ShopViewController alloc] init] autorelease];
-        shopVC.poiId = poi.poiId;
-        [self.navigationController pushViewController:shopVC animated:YES];
-    }
-    else
-    {
-        POI *poi = [(POIAnnotation *)view.annotation poi];
-        
-        POIAnnotation *annotation = [[[POIAnnotation alloc] init] autorelease];
-        annotation.coordinate = CLLocationCoordinate2DMake(poi.latitude, poi.longitude);
-        annotation.title = poi.address;
-        annotation.subtitle = @"";
-        annotation.poi = poi;
-        annotation.isDetail = YES;
-        [_mapView addAnnotation:annotation];
-    }
+    POI *poi = [(POIAnnotation *)view.annotation poi];
+    
+    POIAnnotation *annotation = [[[POIAnnotation alloc] init] autorelease];
+    annotation.coordinate = CLLocationCoordinate2DMake(poi.latitude, poi.longitude);
+    annotation.title = poi.address;
+    annotation.subtitle = @"";
+    annotation.poi = poi;
+    annotation.isDetail = YES;
+    [_mapView addAnnotation:annotation];
 }
 
 #pragma mark - POIAnnotionViewDelegate
