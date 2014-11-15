@@ -216,7 +216,7 @@
                                offset:0
                                 limit:20
                                  user:0
-                                 site:3422
+                                 site:_poiId
                                  city:0
                               success:^(NSArray *array) {
                                   

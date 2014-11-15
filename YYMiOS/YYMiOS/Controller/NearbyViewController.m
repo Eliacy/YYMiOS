@@ -168,6 +168,14 @@
     }
     
     cell.poi = [_nearbyArray objectAtIndex:indexPath.row];
+    if(cell.poi.keywordArray && [cell.poi.keywordArray isKindOfClass:[NSArray class]] && [cell.poi.keywordArray count] > 0)
+    {
+        cell.keywordImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%i.png", (int)indexPath.row % 6 + 1]];
+    }
+    else
+    {
+        cell.keywordImageView.image = nil;
+    }
     
     return cell;
 }

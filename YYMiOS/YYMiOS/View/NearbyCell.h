@@ -24,10 +24,13 @@
     UILabel         *_distanceLabel;
     UIImageView     *_locationImageView;
     UILabel         *_locationLabel;
+    UIImageView     *_keywordImageView;
+    UILabel         *_keywordLabel;
     
     UIScrollView    *_scrollView;
 }
 
 @property (retain, nonatomic) POI *poi;
+@property (retain, nonatomic) UIImageView *keywordImageView;
 
 @end

@@ -58,7 +58,7 @@
         _contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(_avatarImageView.frame.origin.x, _avatarImageView.frame.origin.y + _avatarImageView.frame.size.height + 5, 290, 30)];
         _contentLabel.backgroundColor = [UIColor clearColor];
         _contentLabel.textColor = [UIColor darkGrayColor];
-        _contentLabel.font = [UIFont systemFontOfSize:14.0f];
+        _contentLabel.font = [UIFont systemFontOfSize:13.0f];
         _contentLabel.numberOfLines = 0;
         [self.contentView addSubview:_contentLabel];
     }

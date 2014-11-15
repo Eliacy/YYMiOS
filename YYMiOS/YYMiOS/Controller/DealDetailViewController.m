@@ -350,7 +350,7 @@
     height += 75;
     
     CGSize commentSize = [LPUtility getTextHeightWithText:[[_commentArray objectAtIndex:indexPath.row] content]
-                                                     font:[UIFont systemFontOfSize:14.0f]
+                                                     font:[UIFont systemFontOfSize:13.0f]
                                                      size:CGSizeMake(290, 2000)];
     
     return height + commentSize.height;

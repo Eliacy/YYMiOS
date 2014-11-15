@@ -11,6 +11,7 @@
 @implementation NearbyCell
 
 @synthesize poi = _poi;
+@synthesize keywordImageView = _keywordImageView;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -65,11 +66,22 @@
         _locationImageView.image = [UIImage imageNamed:@"location.png"];
         [_backView addSubview:_locationImageView];
         
-        _locationLabel = [[UILabel alloc] initWithFrame:CGRectMake(_locationImageView.frame.origin.x + _locationImageView.frame.size.width + 5, _locationImageView.frame.origin.y, _backView.frame.size.width - _locationImageView.frame.origin.x - _locationImageView.frame.size.width - 8, _locationImageView.frame.size.height)];
+        _locationLabel = [[UILabel alloc] initWithFrame:CGRectMake(_locationImageView.frame.origin.x + _locationImageView.frame.size.width + 5, _locationImageView.frame.origin.y, _backView.frame.size.width - _locationImageView.frame.origin.x - _locationImageView.frame.size.width - 64, _locationImageView.frame.size.height)];
         _locationLabel.backgroundColor = [UIColor clearColor];
         _locationLabel.textColor = [UIColor darkGrayColor];
         _locationLabel.font = [UIFont systemFontOfSize:13.0f];
         [_backView addSubview:_locationLabel];
+        
+        _keywordLabel = [[UILabel alloc] initWithFrame:CGRectMake(_locationLabel.frame.origin.x + _locationLabel.frame.size.width + 8, _locationLabel.frame.origin.y, 48, _locationLabel.frame.size.height)];
+        _keywordLabel.backgroundColor = [UIColor clearColor];
+        _keywordLabel.textColor = [UIColor whiteColor];
+        _keywordLabel.font = [UIFont systemFontOfSize:10.0f];
+        _keywordLabel.textAlignment = NSTextAlignmentCenter;
+        
+        _keywordImageView = [[UIImageView alloc] initWithFrame:CGRectMake(_keywordLabel.frame.origin.x, _keywordLabel.frame.origin.y + (_keywordLabel.frame.size.height - 14) / 3, _keywordLabel.frame.size.width, 14)];
+        _keywordImageView.backgroundColor = [UIColor clearColor];
+        [_backView addSubview:_keywordImageView];
+        [_backView addSubview:_keywordLabel];
         
         _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, _avatarImageView.frame.origin.y + _avatarImageView.frame.size.height, self.contentView.frame.size.width, _backView.frame.size.height - _avatarImageView.frame.origin.y - _avatarImageView.frame.size.height)];
         _scrollView.backgroundColor = [UIColor clearColor];
@@ -117,6 +129,20 @@
     [_starView setStars:poi.stars];
     [_reviewButton setTitle:[NSString stringWithFormat:@"%i", (int)poi.reviewNum] forState:UIControlStateNormal];
     _locationLabel.text = poi.address;
+    
+    if(poi.keywordArray && [poi.keywordArray isKindOfClass:[NSArray class]] && [poi.keywordArray count] > 0)
+    {
+        CGSize size = [LPUtility getTextHeightWithText:[poi.keywordArray objectAtIndex:0] font:_keywordLabel.font size:CGSizeMake(200, 20)];
+        _keywordLabel.frame = CGRectMake(_backView.frame.size.width - 8 - size.width - 5, _keywordLabel.frame.origin.y, size.width + 5, _keywordLabel.frame.size.height);
+        _keywordImageView.frame = CGRectMake(_keywordLabel.frame.origin.x, _keywordLabel.frame.origin.y + (_keywordLabel.frame.size.height - 14) / 3, _keywordLabel.frame.size.width, 14);
+        _locationLabel.frame = CGRectMake(_locationImageView.frame.origin.x + _locationImageView.frame.size.width + 5, _locationImageView.frame.origin.y, _backView.frame.size.width - _locationImageView.frame.origin.x - _locationImageView.frame.size.width - 16 - size.width - 5, _locationImageView.frame.size.height);
+        _keywordLabel.text = [poi.keywordArray objectAtIndex:0];
+    }
+    else
+    {
+        _keywordLabel.text = @"";
+        _locationLabel.frame = CGRectMake(_locationImageView.frame.origin.x + _locationImageView.frame.size.width + 5, _locationImageView.frame.origin.y, _backView.frame.size.width - _locationImageView.frame.origin.x - _locationImageView.frame.size.width - 8, _locationImageView.frame.size.height);
+    }
     
     for(UIView *view in _scrollView.subviews)
     {

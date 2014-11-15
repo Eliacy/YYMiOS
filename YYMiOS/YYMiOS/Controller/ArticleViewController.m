@@ -9,6 +9,7 @@
 #import "ArticleViewController.h"
 #import "ShareKit.h"
 #import "CommentCell.h"
+#import "Comment.h"
 
 @interface ArticleViewController () <UITextFieldDelegate>
 
@@ -75,8 +76,6 @@
     if(self != nil)
     {
         _commentArray = [[NSMutableArray alloc] initWithCapacity:0];
-        
-        [_commentArray addObjectsFromArray:[NSArray arrayWithObjects:@"1", @"2", @"3", @"4", @"5", nil]];
     }
     
     return self;
@@ -144,6 +143,21 @@
                                      {
                                          self.article = [array objectAtIndex:0];
                                      }
+                                     
+                                 } failure:^(NSError *error) {
+                                     
+                                 }];
+    
+    [Comment getCommentListWithCommentId:0
+                                  offset:0
+                                   limit:20
+                               articleId:_articleId
+                                reviewId:0
+                                 success:^(NSArray *array) {
+                                     
+                                     [_commentArray removeAllObjects];
+                                     [_commentArray addObjectsFromArray:array];
+                                     [_tableView reloadData];
                                      
                                  } failure:^(NSError *error) {
                                      
@@ -262,7 +276,15 @@
             break;
         case 1:
         {
-            return 105.0f;
+            CGFloat height = 0;
+            
+            height += 75;
+            
+            CGSize commentSize = [LPUtility getTextHeightWithText:[[_commentArray objectAtIndex:indexPath.row] content]
+                                                             font:[UIFont systemFontOfSize:13.0f]
+                                                             size:CGSizeMake(290, 2000)];
+            
+            return height + commentSize.height;
         }
         default:
             break;
@@ -399,6 +421,8 @@
             cell = [[[CommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ArticleViewControllerCommentIdentifier"] autorelease];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
+        
+        cell.comment = [_commentArray objectAtIndex:indexPath.row];
         
         return cell;
     }
