@@ -1,28 +1,32 @@
 //
-//  NearbyCell.m
+//  ArticlePOIView.m
 //  YYMiOS
 //
-//  Created by lide on 14-9-24.
+//  Created by Lide on 14/11/17.
 //  Copyright (c) 2014年 Lide. All rights reserved.
 //
 
-#import "NearbyCell.h"
+#import "ArticlePOIView.h"
 
-@implementation NearbyCell
+@implementation ArticlePOIView
 
 @synthesize poi = _poi;
+
 @synthesize keywordImageView = _keywordImageView;
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+- (id)initWithFrame:(CGRect)frame
 {
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if(self != nil)
-    {
-        self.backgroundColor = [UIColor clearColor];
+    self = [super initWithFrame:frame];
+    if (self) {
+        // Initialization code
         
-        _backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 145)];
+        _backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 88)];
         _backView.backgroundColor = [UIColor whiteColor];
-        [self.contentView addSubview:_backView];
+        [self addSubview:_backView];
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(oneFingerTap:)];
+        [_backView addGestureRecognizer:tap];
+        [tap release];
         
         _avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(8, 8, 68, 68)];
         _avatarImageView.backgroundColor = [UIColor clearColor];
@@ -83,18 +87,18 @@
         _keywordImageView.backgroundColor = [UIColor clearColor];
         [_backView addSubview:_keywordImageView];
         [_backView addSubview:_keywordLabel];
-        
-        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, _avatarImageView.frame.origin.y + _avatarImageView.frame.size.height, self.contentView.frame.size.width, _backView.frame.size.height - _avatarImageView.frame.origin.y - _avatarImageView.frame.size.height)];
-        _scrollView.backgroundColor = [UIColor clearColor];
-        [self.contentView addSubview:_scrollView];
     }
-    
     return self;
 }
 
-- (void)awakeFromNib {
-    // Initialization code
+/*
+// Only override drawRect: if you perform custom drawing.
+// An empty implementation adversely affects performance during animation.
+- (void)drawRect:(CGRect)rect
+{
+    // Drawing code
 }
+*/
 
 - (void)setPoi:(POI *)poi
 {
@@ -108,17 +112,17 @@
     
     if(poi.level && [poi.level isEqualToString:@"S"])
     {
-        _levelImageView.frame = CGRectMake(self.contentView.frame.size.width - 8 - 15, _levelImageView.frame.origin.y, 15, 15);
+        _levelImageView.frame = CGRectMake(self.frame.size.width - 8 - 15, _levelImageView.frame.origin.y, 15, 15);
         _levelImageView.image = [UIImage imageNamed:@"rank_S.png"];
     }
     else if(poi.level && [poi.level isEqualToString:@"SS"])
     {
-        _levelImageView.frame = CGRectMake(self.contentView.frame.size.width - 8 - 31, _levelImageView.frame.origin.y, 31, 15);
+        _levelImageView.frame = CGRectMake(self.frame.size.width - 8 - 31, _levelImageView.frame.origin.y, 31, 15);
         _levelImageView.image = [UIImage imageNamed:@"rank_SS.png"];
     }
     else if(poi.level && [poi.level isEqualToString:@"A+"])
     {
-        _levelImageView.frame = CGRectMake(self.contentView.frame.size.width - 8 - 31, _levelImageView.frame.origin.y, 31, 15);
+        _levelImageView.frame = CGRectMake(self.frame.size.width - 8 - 31, _levelImageView.frame.origin.y, 31, 15);
         _levelImageView.image = [UIImage imageNamed:@"rank_A+.png"];
     }
     else
@@ -144,29 +148,19 @@
         _keywordLabel.text = @"";
         _locationLabel.frame = CGRectMake(_locationImageView.frame.origin.x + _locationImageView.frame.size.width + 5, _locationImageView.frame.origin.y, _backView.frame.size.width - _locationImageView.frame.origin.x - _locationImageView.frame.size.width - 8, _locationImageView.frame.size.height);
     }
-    
-    for(UIView *view in _scrollView.subviews)
-    {
-        [view removeFromSuperview];
-    }
-    
-    _scrollView.contentSize = CGSizeMake([poi.topImageArray count] * 64, _scrollView.frame.size.height);
-    for(NSInteger i = 0; i < [poi.topImageArray count]; i++)
-    {
-        UIImageView *imageView = [[[UIImageView alloc] initWithFrame:CGRectMake(8 + i * 64, 10, 48, 48)] autorelease];
-        imageView.layer.borderWidth = 0.5;
-        imageView.layer.borderColor = [UIColor lightGrayColor].CGColor;
-        imageView.contentMode = UIViewContentModeScaleAspectFill;
-        imageView.layer.masksToBounds = YES;
-        [imageView setImageWithURL:[NSURL URLWithString:[LPUtility getQiniuImageURLStringWithBaseString:[[poi.topImageArray objectAtIndex:i] imageURL] imageSize:CGSizeMake(100, 100)]]];
-        [_scrollView addSubview:imageView];
-    }
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
+#pragma mark - UIGestureRecognizer
 
-    // Configure the view for the selected state
+- (void)oneFingerTap:(UITapGestureRecognizer *)gestureRecognizer
+{
+    if(gestureRecognizer.state == UIGestureRecognizerStateEnded)
+    {
+        if(_delegate && [_delegate respondsToSelector:@selector(articlePOIViewDidTap:)])
+        {
+            [_delegate articlePOIViewDidTap:self];
+        }
+    }
 }
 
 @end

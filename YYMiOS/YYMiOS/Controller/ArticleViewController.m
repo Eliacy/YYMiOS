@@ -10,8 +10,11 @@
 #import "ShareKit.h"
 #import "CommentCell.h"
 #import "Comment.h"
+#import "POI.h"
+#import "ArticlePOIView.h"
+#import "ShopViewController.h"
 
-@interface ArticleViewController () <UITextFieldDelegate>
+@interface ArticleViewController () <UITextFieldDelegate, ArticlePOIViewDelegate>
 
 @end
 
@@ -38,7 +41,21 @@
 
 - (void)sendMessage
 {
-
+    if(!_textField.text && [_textField.text isEqualToString:@""])
+    {
+        return;
+    }
+    
+    [Comment createCommentWithDealId:0
+                           articleId:_articleId
+                              userId:[[[NSUserDefaults standardUserDefaults] objectForKey:@"user_id"] integerValue]
+                              atList:@""
+                             content:_textField.text
+                             success:^(NSArray *array) {
+                                 
+                             } failure:^(NSError *error) {
+                                 
+                             }];
 }
 
 - (void)keyboardWillShown:(NSNotification *)notification
@@ -100,16 +117,30 @@
     _footerView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_footerView];
     
-    _textField = [[UITextField alloc] initWithFrame:CGRectMake(15, 10, 240, 30)];
-    _textField.backgroundColor = [UIColor blueColor];
+    UIView *line = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, _footerView.frame.size.width, 0.5)] autorelease];
+    line.backgroundColor = [UIColor lightGrayColor];
+    [_footerView addSubview:line];
+    
+    _textBackView = [[UIView alloc] initWithFrame:CGRectMake(15, 10, 240, 30)];
+    _textBackView.backgroundColor = [UIColor colorWithRed:245.0 / 255.0 green:245.0 / 255.0 blue:245.0 / 255.0 alpha:1.0];
+    _textBackView.layer.borderWidth = 0.5;
+    _textBackView.layer.borderColor = [UIColor colorWithRed:200.0 / 255.0 green:200.0 / 255.0 blue:200.0 / 255.0 alpha:1.0].CGColor;
+    _textBackView.layer.cornerRadius = 3.0;
+    _textBackView.layer.masksToBounds = YES;
+    [_footerView addSubview:_textBackView];
+    
+    _textField = [[UITextField alloc] initWithFrame:CGRectMake(6, 4, 228, 24)];
+    _textField.backgroundColor = [UIColor clearColor];
     _textField.placeholder = @"说点啥吧";
     _textField.delegate = self;
     _textField.returnKeyType = UIReturnKeySend;
-    [_footerView addSubview:_textField];
+    [_textBackView addSubview:_textField];
     
     _sendButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     _sendButton.frame = CGRectMake(_footerView.frame.size.width - 15 - 40, 10, 40, 30);
-    _sendButton.backgroundColor = [UIColor brownColor];
+    _sendButton.backgroundColor = [UIColor colorWithRed:252.0 / 255.0 green:107.0 / 255.0 blue:135.0 / 255.0 alpha:1.0];
+    _sendButton.layer.cornerRadius = 3.0;
+    _sendButton.layer.masksToBounds = YES;
     [_sendButton setTitle:@"发送" forState:UIControlStateNormal];
     [_sendButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     _sendButton.titleLabel.font = [UIFont systemFontOfSize:13.0f];
@@ -362,7 +393,7 @@
                 CGSize size = [LPUtility getTextHeightWithText:[dictionary objectForKey:@"content"]
                                                           font:[UIFont systemFontOfSize:12.0f]
                                                           size:CGSizeMake(_tableView.frame.size.width - 15 * 2, 2000)];
-                UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(15, 15, _tableView.frame.size.width - 15 * 2, size.height)] autorelease];
+                UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(15, 7.5, _tableView.frame.size.width - 15 * 2, size.height)] autorelease];
                 label.backgroundColor = [UIColor clearColor];
                 label.textColor = [UIColor darkGrayColor];
                 label.font = [UIFont systemFontOfSize:12.0f];
@@ -376,7 +407,7 @@
                 CGSize size = [LPUtility getTextHeightWithText:[dictionary objectForKey:@"content"]
                                                           font:[UIFont systemFontOfSize:14.0f]
                                                           size:CGSizeMake(_tableView.frame.size.width - 15 * 2, 2000)];
-                UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(15, 15, _tableView.frame.size.width - 15 * 2, size.height)] autorelease];
+                UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(15, 7.5, _tableView.frame.size.width - 15 * 2, size.height)] autorelease];
                 label.backgroundColor = [UIColor clearColor];
                 label.textColor = [UIColor darkGrayColor];
                 label.font = [UIFont systemFontOfSize:14.0f];
@@ -390,7 +421,7 @@
             {
                 LPImage *image = [[LPImage alloc] initWithAttribute:[dictionary objectForKey:@"content"]];
                 
-                UIImageView *imageView = [[[UIImageView alloc] initWithFrame:CGRectMake(15, 15, _tableView.frame.size.width - 15 * 2, 165)] autorelease];
+                UIImageView *imageView = [[[UIImageView alloc] initWithFrame:CGRectMake(15, 7.5, _tableView.frame.size.width - 15 * 2, 165)] autorelease];
                 [imageView setImageWithURL:[NSURL URLWithString:[LPUtility getQiniuImageURLStringWithBaseString:image.imageURL imageSize:CGSizeMake((_tableView.frame.size.width - 15 * 2) * 2, 165 * 2)]]];
                 imageView.contentMode = UIViewContentModeScaleAspectFill;
                 imageView.layer.masksToBounds = YES;
@@ -399,12 +430,35 @@
                 break;
             case 4:
             {
-                
+                dictionary = [dictionary objectForKey:@"content"];
+                if(dictionary && [dictionary isKindOfClass:[NSDictionary class]])
+                {
+                    POI *poi = [[[POI alloc] initWithAttribute:dictionary] autorelease];
+                    ArticlePOIView *articlePOIView = [[[ArticlePOIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 88)] autorelease];
+                    articlePOIView.delegate = self;
+                    [cell.contentView addSubview:articlePOIView];
+                    [articlePOIView setPoi:poi];
+                    
+                    if(poi.keywordArray && [poi.keywordArray isKindOfClass:[NSArray class]] && [poi.keywordArray count] > 0)
+                    {
+                        articlePOIView.keywordImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%i.png", (int)indexPath.row % 6 + 1]];
+                    }
+                    else
+                    {
+                        articlePOIView.keywordImageView.image = nil;
+                    }
+                    
+                    UIView *view = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 0.5)] autorelease];
+                    view.backgroundColor = [UIColor lightGrayColor];
+                    [cell.contentView addSubview:view];
+                }
             }
                 break;
             case 5:
             {
-                
+                UIView *view = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 0.5)] autorelease];
+                view.backgroundColor = [UIColor lightGrayColor];
+                [cell.contentView addSubview:view];
             }
                 break;
             default:
@@ -446,6 +500,15 @@
     [self sendMessage];
     
     return YES;
+}
+
+#pragma mark - ArticlePOIViewDelegate
+
+- (void)articlePOIViewDidTap:(ArticlePOIView *)articlePOIView
+{
+    ShopViewController *shopVC = [[[ShopViewController alloc] init] autorelease];
+    shopVC.poiId = articlePOIView.poi.poiId;
+    [self.navigationController pushViewController:shopVC animated:YES];
 }
 
 @end

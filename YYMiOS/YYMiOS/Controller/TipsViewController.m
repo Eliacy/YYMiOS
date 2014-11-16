@@ -7,6 +7,8 @@
 //
 
 #import "TipsViewController.h"
+#import "Tip.h"
+#import "TipsDetailViewController.h"
 
 @interface TipsViewController ()
 
@@ -19,7 +21,7 @@
     self = [super init];
     if(self != nil)
     {
-    
+        _tipsArray = [[NSMutableArray alloc] initWithCapacity:0];
     }
     
     return self;
@@ -30,20 +32,34 @@
     [super loadView];
     
     _titleLabel.text = @"Tips";
+    
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, _adjustView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - _adjustView.frame.size.height) style:UITableViewStylePlain];
+    _tableView.backgroundColor = [UIColor clearColor];
+    _tableView.dataSource = self;
+    _tableView.delegate = self;
+    [self.view addSubview:_tableView];
+    
+    UIView *tableFooterView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 1)] autorelease];
+    tableFooterView.backgroundColor = [UIColor clearColor];
+    _tableView.tableFooterView = tableFooterView;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [[LPAPIClient sharedAPIClient] getTipsListWithTipsId:0
-                                                   brief:0
-                                                  cityId:0
-                                                 success:^(id respondObject) {
-                                                     
-                                                 } failure:^(NSError *error) {
-                                                     
-                                                 }];
+    [Tip getTipsListWithTipsId:0
+                         brief:1
+                        cityId:0
+                       success:^(NSArray *array) {
+                           
+                           [_tipsArray removeAllObjects];
+                           [_tipsArray addObjectsFromArray:array];
+                           [_tableView reloadData];
+                           
+                       } failure:^(NSError *error) {
+                           
+                       }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -60,5 +76,37 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [_tipsArray count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TipsViewControllerIdentifier"];
+    if(cell == nil)
+    {
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TipsViewControllerIdentifier"] autorelease];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    
+    cell.textLabel.text = [[_tipsArray objectAtIndex:indexPath.row] title];
+    
+    return cell;
+}
+
+#pragma mark - UITableViewDelegate
+
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    TipsDetailViewController *tipsDetailVC = [[[TipsDetailViewController alloc] init] autorelease];
+    tipsDetailVC.tipsId = [[_tipsArray objectAtIndex:indexPath.row] tipId];
+    [self.navigationController pushViewController:tipsDetailVC animated:YES];
+    
+    return nil;
+}
 
 @end

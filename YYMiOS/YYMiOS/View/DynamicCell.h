@@ -23,8 +23,8 @@
     
     UIImageView     *_goodsImageView;
     UIView          *_floatView;
-    UILabel         *_likeLabel;
-    UILabel         *_commentLabel;
+    UIButton        *_likeButton;
+    UIButton        *_commentButton;
     UILabel         *_numberLabel;
     
     UILabel         *_priceLabel;

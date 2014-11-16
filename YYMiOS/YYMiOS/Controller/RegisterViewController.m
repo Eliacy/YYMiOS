@@ -33,6 +33,7 @@
                                                       if([respondObject objectForKey:@"token"] && ![[respondObject objectForKey:@"token"] isEqual:[NSNull null]])
                                                       {
                                                           [[NSUserDefaults standardUserDefaults] setObject:[respondObject objectForKey:@"token"] forKey:@"user_access_token"];
+                                                          [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:[[respondObject objectForKey:@"user_id"] integerValue]] forKey:@"user_id"];
                                                           [[NSUserDefaults standardUserDefaults] synchronize];
                                                       }
                                                   }

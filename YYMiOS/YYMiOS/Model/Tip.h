@@ -10,7 +10,7 @@
 
 @interface Tip : LPObject
 {
-    NSString    *_content;
+    NSArray     *_contentArray;
     NSString    *_createTime;
     BOOL        _defaultFlag;
     NSInteger   _tipId;
@@ -18,11 +18,19 @@
     NSString    *_updateTime;
 }
 
-@property (retain, nonatomic) NSString *content;
+@property (retain, nonatomic) NSArray *contentArray;
 @property (retain, nonatomic) NSString *createTime;
 @property (assign, nonatomic) BOOL defaultFlag;
 @property (assign, nonatomic) NSInteger tipId;
 @property (retain, nonatomic) NSString *title;
 @property (retain, nonatomic) NSString *updateTime;
+
+- (id)initWithAttribute:(NSDictionary *)attribute;
+
++ (void)getTipsListWithTipsId:(NSInteger)tipsId
+                        brief:(NSInteger)brief
+                       cityId:(NSInteger)cityId
+                      success:(LPObjectSuccessBlock)successBlock
+                      failure:(LPObjectFailureBlock)failureBlcok;
 
 @end

@@ -8,6 +8,10 @@
 
 #import "BaseViewController.h"
 
-@interface TipsViewController : BaseViewController
+@interface TipsViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate>
+{
+    UITableView     *_tableView;
+    NSMutableArray  *_tipsArray;
+}
 
 @end

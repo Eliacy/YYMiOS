@@ -88,16 +88,30 @@
     _footerView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_footerView];
     
-    _textField = [[UITextField alloc] initWithFrame:CGRectMake(15, 10, 240, 30)];
-    _textField.backgroundColor = [UIColor blueColor];
-    _textField.placeholder = @"说点啥吧";
+    UIView *line = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, _footerView.frame.size.width, 0.5)] autorelease];
+    line.backgroundColor = [UIColor lightGrayColor];
+    [_footerView addSubview:line];
+    
+    _textBackView = [[UIView alloc] initWithFrame:CGRectMake(15, 10, 240, 30)];
+    _textBackView.backgroundColor = [UIColor colorWithRed:245.0 / 255.0 green:245.0 / 255.0 blue:245.0 / 255.0 alpha:1.0];
+    _textBackView.layer.borderWidth = 0.5;
+    _textBackView.layer.borderColor = [UIColor colorWithRed:200.0 / 255.0 green:200.0 / 255.0 blue:200.0 / 255.0 alpha:1.0].CGColor;
+    _textBackView.layer.cornerRadius = 3.0;
+    _textBackView.layer.masksToBounds = YES;
+    [_footerView addSubview:_textBackView];
+    
+    _textField = [[UITextField alloc] initWithFrame:CGRectMake(6, 4, 228, 24)];
+    _textField.backgroundColor = [UIColor clearColor];
+    _textField.placeholder = @"点评晒单";
     _textField.delegate = self;
     _textField.returnKeyType = UIReturnKeySend;
-    [_footerView addSubview:_textField];
+    [_textBackView addSubview:_textField];
     
     _sendButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     _sendButton.frame = CGRectMake(_footerView.frame.size.width - 15 - 40, 10, 40, 30);
-    _sendButton.backgroundColor = [UIColor brownColor];
+    _sendButton.backgroundColor = [UIColor colorWithRed:252.0 / 255.0 green:107.0 / 255.0 blue:135.0 / 255.0 alpha:1.0];
+    _sendButton.layer.cornerRadius = 3.0;
+    _sendButton.layer.masksToBounds = YES;
     [_sendButton setTitle:@"发送" forState:UIControlStateNormal];
     [_sendButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     _sendButton.titleLabel.font = [UIFont systemFontOfSize:13.0f];
@@ -142,7 +156,7 @@
     _reviewButton.titleLabel.font = [UIFont systemFontOfSize:12.0f];
     [_tableHeaderView addSubview:_reviewButton];
     
-    _shopDetailView = [[ShopDetailView alloc] initWithFrame:CGRectMake(_starView.frame.origin.x, _starView.frame.origin.y + _starView.frame.size.height + 12, _tableHeaderView.frame.size.width - _starView.frame.origin.x - 8, 20)];
+    _shopDetailView = [[ShopDetailView alloc] initWithFrame:CGRectMake(_starView.frame.origin.x, _starView.frame.origin.y + _starView.frame.size.height + 12, _tableHeaderView.frame.size.width - _starView.frame.origin.x - 8, 160)];
     _shopDetailView.backgroundColor = [UIColor clearColor];
     [_tableHeaderView addSubview:_shopDetailView];
     
@@ -301,6 +315,8 @@
     [_starView setStars:poiDetail.stars];
     [_reviewButton setTitle:[NSString stringWithFormat:@"%i", (int)poiDetail.reviewNum] forState:UIControlStateNormal];
     
+    CGFloat height = [ShopDetailView getShopDetailViewHeightWithPOIDetail:poiDetail];
+    _shopDetailView.frame = CGRectMake(_shopDetailView.frame.origin.x, _shopDetailView.frame.origin.y, _shopDetailView.frame.size.width, height);
     [_shopDetailView setPoiDetail:poiDetail];
     
     CGSize descriptionSize = [LPUtility getTextHeightWithText:poiDetail.description

@@ -24,42 +24,42 @@
 
 - (void)clickPrevButton:(id)sender
 {
-    if(_index > 0)
-    {
-        _index--;
-        POI *poi = [_nearbyArray objectAtIndex:_index];
-        [_mapView setCenterCoordinate:CLLocationCoordinate2DMake(poi.latitude, poi.longitude) zoomLevel:14 animated:YES];
-        
-        POIAnnotation *annotation = [[[POIAnnotation alloc] init] autorelease];
-        annotation.coordinate = CLLocationCoordinate2DMake(poi.latitude, poi.longitude);
-        annotation.title = poi.address;
-        annotation.subtitle = @"";
-        annotation.poi = poi;
-        annotation.isDetail = NO;
-        [_mapView removeAnnotations:_mapView.annotations];
-        [_mapView addAnnotation:annotation];
-        [_mapView selectAnnotation:annotation animated:YES];
-    }
+//    if(_index > 0)
+//    {
+//        _index--;
+//        POI *poi = [_nearbyArray objectAtIndex:_index];
+//        [_mapView setCenterCoordinate:CLLocationCoordinate2DMake(poi.latitude, poi.longitude) zoomLevel:14 animated:YES];
+//        
+//        POIAnnotation *annotation = [[[POIAnnotation alloc] init] autorelease];
+//        annotation.coordinate = CLLocationCoordinate2DMake(poi.latitude, poi.longitude);
+//        annotation.title = poi.address;
+//        annotation.subtitle = @"";
+//        annotation.poi = poi;
+//        annotation.isDetail = NO;
+//        [_mapView removeAnnotations:_mapView.annotations];
+//        [_mapView addAnnotation:annotation];
+//        [_mapView selectAnnotation:annotation animated:YES];
+//    }
 }
 
 - (void)clickNextButton:(id)sender
 {
-    if(_index < [_nearbyArray count] - 1)
-    {
-        _index++;
-        POI *poi = [_nearbyArray objectAtIndex:_index];
-        [_mapView setCenterCoordinate:CLLocationCoordinate2DMake(poi.latitude, poi.longitude) zoomLevel:14 animated:YES];
-        
-        POIAnnotation *annotation = [[[POIAnnotation alloc] init] autorelease];
-        annotation.coordinate = CLLocationCoordinate2DMake(poi.latitude, poi.longitude);
-        annotation.title = poi.address;
-        annotation.subtitle = @"";
-        annotation.poi = poi;
-        annotation.isDetail = NO;
-        [_mapView removeAnnotations:_mapView.annotations];
-        [_mapView addAnnotation:annotation];
-        [_mapView selectAnnotation:annotation animated:YES];
-    }
+//    if(_index < [_nearbyArray count] - 1)
+//    {
+//        _index++;
+//        POI *poi = [_nearbyArray objectAtIndex:_index];
+//        [_mapView setCenterCoordinate:CLLocationCoordinate2DMake(poi.latitude, poi.longitude) zoomLevel:14 animated:YES];
+//        
+//        POIAnnotation *annotation = [[[POIAnnotation alloc] init] autorelease];
+//        annotation.coordinate = CLLocationCoordinate2DMake(poi.latitude, poi.longitude);
+//        annotation.title = poi.address;
+//        annotation.subtitle = @"";
+//        annotation.poi = poi;
+//        annotation.isDetail = NO;
+//        [_mapView removeAnnotations:_mapView.annotations];
+//        [_mapView addAnnotation:annotation];
+//        [_mapView selectAnnotation:annotation animated:YES];
+//    }
 }
 
 #pragma mark - super
@@ -87,17 +87,18 @@
     
     if(_nearbyArray && [_nearbyArray count] > 0)
     {
-        POI *poi = [_nearbyArray objectAtIndex:_index];
-        [_mapView setCenterCoordinate:CLLocationCoordinate2DMake(poi.latitude, poi.longitude) zoomLevel:14 animated:YES];
-        
-        POIAnnotation *annotation = [[[POIAnnotation alloc] init] autorelease];
-        annotation.coordinate = CLLocationCoordinate2DMake(poi.latitude, poi.longitude);
-        annotation.title = poi.address;
-        annotation.subtitle = @"";
-        annotation.poi = poi;
-        annotation.isDetail = NO;
-        [_mapView addAnnotation:annotation];
-        [_mapView selectAnnotation:annotation animated:YES];
+        for(POI *poi in _nearbyArray)
+        {
+            [_mapView setCenterCoordinate:CLLocationCoordinate2DMake(poi.latitude, poi.longitude) zoomLevel:14 animated:YES];
+            
+            POIAnnotation *annotation = [[[POIAnnotation alloc] init] autorelease];
+            annotation.coordinate = CLLocationCoordinate2DMake(poi.latitude, poi.longitude);
+            annotation.title = poi.address;
+            annotation.subtitle = @"";
+            annotation.poi = poi;
+            annotation.isDetail = NO;
+            [_mapView addAnnotation:annotation];
+        }
     }
     
     _prevButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
@@ -107,7 +108,7 @@
     [_prevButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     _prevButton.titleLabel.font = [UIFont systemFontOfSize:13.0f];
     [_prevButton addTarget:self action:@selector(clickPrevButton:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_prevButton];
+//    [self.view addSubview:_prevButton];
     
     _nextButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     _nextButton.frame = CGRectMake(self.view.frame.size.width / 2, self.view.frame.size.height - 75 - 30, 50, 30);
@@ -116,7 +117,7 @@
     [_nextButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     _nextButton.titleLabel.font = [UIFont systemFontOfSize:13.0f];
     [_nextButton addTarget:self action:@selector(clickNextButton:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_nextButton];
+//    [self.view addSubview:_nextButton];
 }
 
 - (void)viewDidLoad {
@@ -128,10 +129,10 @@
 {
     [super viewWillAppear:animated];
     
-    if([_mapView.annotations count] > 0)
-    {
-        [_mapView selectAnnotation:[_mapView.annotations lastObject] animated:YES];
-    }
+//    if([_mapView.annotations count] > 0)
+//    {
+//        [_mapView selectAnnotation:[_mapView.annotations lastObject] animated:YES];
+//    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -164,6 +165,15 @@
         [_poiAnnotationView setPoi:[(POIAnnotation *)annotation poi]];
         _poiAnnotationView.transform = CGAffineTransformMake(1, 0, 0, 1, 0, -_poiAnnotationView.frame.size.height / 2 - 20);
         
+        if(_poiAnnotationView.poi.keywordArray && [_poiAnnotationView.poi.keywordArray isKindOfClass:[NSArray class]] && [_poiAnnotationView.poi.keywordArray count] > 0)
+        {
+            _poiAnnotationView.keywordImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%i.png", (int)_index % 6 + 1]];
+        }
+        else
+        {
+            _poiAnnotationView.keywordImageView.image = nil;
+        }
+        
         return _poiAnnotationView;
     }
     else
@@ -195,6 +205,8 @@
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
 {
     POI *poi = [(POIAnnotation *)view.annotation poi];
+    
+    [_mapView setCenterCoordinate:CLLocationCoordinate2DMake(poi.latitude, poi.longitude) zoomLevel:14 animated:YES];
     
     POIAnnotation *annotation = [[[POIAnnotation alloc] init] autorelease];
     annotation.coordinate = CLLocationCoordinate2DMake(poi.latitude, poi.longitude);

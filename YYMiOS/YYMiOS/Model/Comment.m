@@ -145,4 +145,30 @@
                                                        }];
 }
 
++ (void)createCommentWithDealId:(NSInteger)dealId
+                      articleId:(NSInteger)articleId
+                         userId:(NSInteger)userId
+                         atList:(NSString *)atList
+                        content:(NSString *)content
+                        success:(LPObjectSuccessBlock)successBlock
+                        failure:(LPObjectFailureBlock)failureBlcok
+{
+    [[LPAPIClient sharedAPIClient] createCommentWithDealId:dealId
+                                                 articleId:articleId
+                                                    userId:userId
+                                                    atList:atList
+                                                   content:content
+                                                   success:^(id respondObject) {
+                                                       if(successBlock)
+                                                       {
+                                                           successBlock([Comment parseFromeDictionary:respondObject]);
+                                                       }
+                                                   } failure:^(NSError *error) {
+                                                       if(failureBlcok)
+                                                       {
+                                                           failureBlcok(error);
+                                                       }
+                                                   }];
+}
+
 @end

@@ -17,6 +17,7 @@
     UIButton        *_shareButton;
     
     UIView          *_footerView;
+    UIView          *_textBackView;
     UITextField     *_textField;
     UIButton        *_sendButton;
     

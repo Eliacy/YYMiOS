@@ -40,4 +40,12 @@
                             success:(LPObjectSuccessBlock)successBlock
                             failure:(LPObjectFailureBlock)failureBlock;
 
++ (void)createCommentWithDealId:(NSInteger)dealId
+                      articleId:(NSInteger)articleId
+                         userId:(NSInteger)userId
+                         atList:(NSString *)atList
+                        content:(NSString *)content
+                        success:(LPObjectSuccessBlock)successBlock
+                        failure:(LPObjectFailureBlock)failureBlcok;
+
 @end

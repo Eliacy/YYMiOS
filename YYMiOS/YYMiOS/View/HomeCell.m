@@ -54,7 +54,14 @@
     }
     _article = [article retain];
     
-    [_backImageView setImageWithURL:[NSURL URLWithString:[LPUtility getQiniuImageURLStringWithBaseString:article.caption.imageURL imageSize:CGSizeMake(620, 260)]]];
+    if(article.caption.imageURL && ![article.caption.imageURL isEqualToString:@""])
+    {
+        [_backImageView setImageWithURL:[NSURL URLWithString:[LPUtility getQiniuImageURLStringWithBaseString:article.caption.imageURL imageSize:CGSizeMake(620, 260)]]];
+    }
+    else
+    {
+        _backImageView.image = nil;
+    }
     
     CGSize titleSize = [LPUtility getTextHeightWithText:article.title
                                                    font:_titleLabel.font

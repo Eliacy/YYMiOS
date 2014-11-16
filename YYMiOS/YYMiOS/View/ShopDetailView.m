@@ -7,6 +7,7 @@
 //
 
 #import "ShopDetailView.h"
+#import "ShopDetailCell.h"
 
 @implementation ShopDetailView
 
@@ -47,8 +48,7 @@
     _poiDetail = [poiDetail retain];
     
     CGFloat height = [ShopDetailView getShopDetailViewHeightWithPOIDetail:poiDetail];
-    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, height);
-    _tableView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+    _tableView.frame = CGRectMake(0, 0, _tableView.frame.size.width, height);
     [_tableView reloadData];
 }
 
@@ -135,16 +135,19 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailViewIdentifier"];
+    ShopDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailViewIdentifier"];
     if(cell == nil)
     {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ShopDetailViewIdentifier"] autorelease];
+        cell = [[[ShopDetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ShopDetailViewIdentifier"] autorelease];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
     for(UIView *view in cell.contentView.subviews)
     {
-        [view removeFromSuperview];
+        if([view isKindOfClass:[UIImageView class]])
+        {
+            [view removeFromSuperview];
+        }
     }
     
     switch (indexPath.row) {
@@ -152,12 +155,6 @@
         {
             if(_poiDetail.categoryArray && [_poiDetail.categoryArray count] > 0)
             {
-                UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 20)] autorelease];
-                label.backgroundColor = [UIColor clearColor];
-                label.textColor = [UIColor darkGrayColor];
-                label.font = [UIFont systemFontOfSize:13.0f];
-                [cell.contentView addSubview:label];
-                
                 NSMutableString *string = [NSMutableString stringWithCapacity:0];
                 for(NSInteger i = 0; i < [_poiDetail.categoryArray count]; i++)
                 {
@@ -170,7 +167,7 @@
                         [string appendFormat:@"%@｜", [_poiDetail.categoryArray objectAtIndex:i]];
                     }
                 }
-                label.text = string;
+                cell.titleLabel.text = string;
             }
         }
             break;
@@ -178,12 +175,7 @@
         {
             if(_poiDetail.environment && ![_poiDetail.environment isEqualToString:@""])
             {
-                UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 20)] autorelease];
-                label.backgroundColor = [UIColor clearColor];
-                label.textColor = [UIColor darkGrayColor];
-                label.font = [UIFont systemFontOfSize:13.0f];
-                label.text = [NSString stringWithFormat:@"环境：%@", _poiDetail.environment];
-                [cell.contentView addSubview:label];
+                cell.titleLabel.text = [NSString stringWithFormat:@"环境：%@", _poiDetail.environment];
             }
         }
             break;
@@ -191,15 +183,10 @@
         {
             if(_poiDetail.paymentArray && [_poiDetail.paymentArray count] > 0)
             {
-                UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 20)] autorelease];
-                label.backgroundColor = [UIColor clearColor];
-                label.textColor = [UIColor darkGrayColor];
-                label.font = [UIFont systemFontOfSize:13.0f];
-                label.text = @"付款方式：";
-                [cell.contentView addSubview:label];
+                cell.titleLabel.text = @"付款方式：";
                 
-                CGSize size = [LPUtility getTextHeightWithText:label.text
-                                                          font:label.font
+                CGSize size = [LPUtility getTextHeightWithText:cell.titleLabel.text
+                                                          font:cell.titleLabel.font
                                                           size:CGSizeMake(200, 200)];
                 
                 for(NSInteger i = 0; i < [_poiDetail.paymentArray count]; i++)
@@ -227,12 +214,7 @@
         {
             if(_poiDetail.menu && ![_poiDetail.menu isEqualToString:@""])
             {
-                UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 20)];
-                label.backgroundColor = [UIColor clearColor];
-                label.textColor = [UIColor darkGrayColor];
-                label.font = [UIFont systemFontOfSize:13.0f];
-                label.text = [NSString stringWithFormat:@"中文菜单：%@", _poiDetail.menu];
-                [cell.contentView addSubview:label];
+                cell.titleLabel.text = [NSString stringWithFormat:@"中文菜单：%@", _poiDetail.menu];
             }
         }
             break;
@@ -240,25 +222,14 @@
         {
             if(_poiDetail.ticket && ![_poiDetail.ticket isEqualToString:@""])
             {
-                UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 20)];
-                label.backgroundColor = [UIColor clearColor];
-                label.textColor = [UIColor darkGrayColor];
-                label.font = [UIFont systemFontOfSize:13.0f];
-                label.text = [NSString stringWithFormat:@"门票：%@", _poiDetail.ticket];
-                [cell.contentView addSubview:label];
-            }
+                cell.titleLabel.text = [NSString stringWithFormat:@"门票：%@", _poiDetail.ticket];            }
         }
             break;
         case 5:
         {
             if(_poiDetail.booking && ![_poiDetail.booking isEqualToString:@""])
             {
-                UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 20)];
-                label.backgroundColor = [UIColor clearColor];
-                label.textColor = [UIColor darkGrayColor];
-                label.font = [UIFont systemFontOfSize:13.0f];
-                label.text = [NSString stringWithFormat:@"提前预定：%@", _poiDetail.booking];
-                [cell.contentView addSubview:label];
+                cell.titleLabel.text = [NSString stringWithFormat:@"提前预定：%@", _poiDetail.booking];
             }
         }
             break;
@@ -266,12 +237,7 @@
         {
             if(_poiDetail.businessHours && ![_poiDetail.businessHours isEqualToString:@""])
             {
-                UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 20)];
-                label.backgroundColor = [UIColor clearColor];
-                label.textColor = [UIColor darkGrayColor];
-                label.font = [UIFont systemFontOfSize:13.0f];
-                label.text = [NSString stringWithFormat:@"营业时间：%@", _poiDetail.businessHours];
-                [cell.contentView addSubview:label];
+                cell.titleLabel.text = [NSString stringWithFormat:@"营业时间：%@", _poiDetail.businessHours];
             }
         }
             break;
@@ -279,16 +245,14 @@
         {
             if(_poiDetail.phone && ![_poiDetail.phone isEqualToString:@""])
             {
-                UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 20)];
-                label.backgroundColor = [UIColor clearColor];
-                label.textColor = [UIColor darkGrayColor];
-                label.font = [UIFont systemFontOfSize:13.0f];
-                [cell.contentView addSubview:label];
+                NSString *origin = [NSString stringWithFormat:@"电话号码：%@", _poiDetail.phone];
+                origin = [origin stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
                 
-                NSMutableAttributedString *string = [[[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"电话号码：%@", _poiDetail.phone]] autorelease];
+                NSMutableAttributedString *string = [[[NSMutableAttributedString alloc] initWithString:origin] autorelease];
+                [string addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:12.0f] range:NSMakeRange(0, string.length)];
                 [string addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:2.0 / 255.0 green:102.0 / 255.0 blue:237.0 / 255.0 alpha:1.0] range:NSMakeRange(string.length - _poiDetail.phone.length, _poiDetail.phone.length)];
                 
-                label.attributedText = string;
+                cell.titleLabel.attributedText = string;
             }
         }
             break;

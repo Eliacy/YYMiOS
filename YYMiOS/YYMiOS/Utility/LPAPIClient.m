@@ -722,8 +722,14 @@ static id APIClient = nil;
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
     
-    [params setObject:[NSNumber numberWithInteger:dealId] forKey:@"review"];
-    [params setObject:[NSNumber numberWithInteger:articleId] forKey:@"article"];
+    if(dealId > 0)
+    {
+        [params setObject:[NSNumber numberWithInteger:dealId] forKey:@"review"];
+    }
+    if(articleId > 0)
+    {
+        [params setObject:[NSNumber numberWithInteger:articleId] forKey:@"article"];
+    }
     [params setObject:[NSNumber numberWithInteger:userId] forKey:@"user"];
     if(atList && ![atList isEqualToString:@""])
     {
@@ -932,7 +938,7 @@ static id APIClient = nil;
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
     
     [params setObject:[NSNumber numberWithInteger:tipsId] forKey:@"id"];
-    [params setObject:[NSNumber numberWithInteger:brief] forKey:@"bried"];
+    [params setObject:[NSNumber numberWithInteger:brief] forKey:@"brief"];
     [params setObject:[NSNumber numberWithInteger:cityId] forKey:@"city"];
     
     [self sendRequestPath:@"/rpc/tips"

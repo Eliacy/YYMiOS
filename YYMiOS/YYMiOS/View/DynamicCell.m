@@ -84,19 +84,37 @@
         _floatView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2];
         [_goodsImageView addSubview:_floatView];
         
-        _likeLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, 50, _floatView.frame.size.height)];
-        _likeLabel.backgroundColor = [UIColor clearColor];
-        _likeLabel.textColor = [UIColor whiteColor];
-        _likeLabel.font = [UIFont systemFontOfSize:12.0f];
-        _likeLabel.text = @"赞7";
-        [_floatView addSubview:_likeLabel];
+//        _likeLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, 50, _floatView.frame.size.height)];
+//        _likeLabel.backgroundColor = [UIColor clearColor];
+//        _likeLabel.textColor = [UIColor whiteColor];
+//        _likeLabel.font = [UIFont systemFontOfSize:12.0f];
+//        _likeLabel.text = @"赞7";
+//        [_floatView addSubview:_likeLabel];
         
-        _commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(_likeLabel.frame.origin.x + _likeLabel.frame.size.width, 0, 50, _floatView.frame.size.height)];
-        _commentLabel.backgroundColor = [UIColor clearColor];
-        _commentLabel.textColor = [UIColor whiteColor];
-        _commentLabel.font = [UIFont systemFontOfSize:12.0f];
-        _commentLabel.text = @"评论3";
-        [_floatView addSubview:_commentLabel];
+        _likeButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+        _likeButton.frame = CGRectMake(5, 0, 50, _floatView.frame.size.height);
+        _likeButton.backgroundColor = [UIColor clearColor];
+        [_likeButton setTitleColor:[UIColor colorWithRed:233.0 / 255.0 green:233.0 / 255.0 blue:233.0 / 255.0 alpha:1.0] forState:UIControlStateNormal];
+        _likeButton.titleLabel.font = [UIFont systemFontOfSize:12.0f];
+        _likeButton.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 0);
+        [_likeButton setImage:[UIImage imageNamed:@"like_white.png"] forState:UIControlStateNormal];
+        [_floatView addSubview:_likeButton];
+        
+//        _commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(_likeLabel.frame.origin.x + _likeLabel.frame.size.width, 0, 50, _floatView.frame.size.height)];
+//        _commentLabel.backgroundColor = [UIColor clearColor];
+//        _commentLabel.textColor = [UIColor whiteColor];
+//        _commentLabel.font = [UIFont systemFontOfSize:12.0f];
+//        _commentLabel.text = @"评论3";
+//        [_floatView addSubview:_commentLabel];
+        
+        _commentButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+        _commentButton.frame = CGRectMake(_likeButton.frame.origin.x + _likeButton.frame.size.width, 0, 50, _floatView.frame.size.height);
+        _commentButton.backgroundColor = [UIColor clearColor];
+        [_commentButton setTitleColor:[UIColor colorWithRed:233.0 / 255.0 green:233.0 / 255.0 blue:233.0 / 255.0 alpha:1.0] forState:UIControlStateNormal];
+        _commentButton.titleLabel.font = [UIFont systemFontOfSize:12.0f];
+        _commentButton.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 0);
+        [_commentButton setImage:[UIImage imageNamed:@"comment_white.png"] forState:UIControlStateNormal];
+        [_floatView addSubview:_commentButton];
         
         _numberLabel = [[UILabel alloc] initWithFrame:CGRectMake(_floatView.frame.size.width - 55, 0, 50, _floatView.frame.size.height)];
         _numberLabel.backgroundColor = [UIColor clearColor];
@@ -160,6 +178,12 @@
         _goodsImageView.image = nil;
     }
     
+    CGSize size = [LPUtility getTextHeightWithText:[NSString stringWithFormat:@"%i", (int)deal.likeCount]
+                                              font:[UIFont systemFontOfSize:12.0f]
+                                              size:CGSizeMake(200, 100)];
+    _likeButton.frame = CGRectMake(_likeButton.frame.origin.x, _likeButton.frame.origin.y, size.width + 20, _likeButton.frame.size.height);
+    [_likeButton setTitle:[NSString stringWithFormat:@"%i", (int)deal.likeCount] forState:UIControlStateNormal];
+    [_commentButton setTitle:[NSString stringWithFormat:@"%i", (int)deal.commentCount] forState:UIControlStateNormal];
     _numberLabel.text = [NSString stringWithFormat:@"%i张", (int)deal.imageCount];
 }
 

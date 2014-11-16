@@ -1,21 +1,21 @@
 //
-//  POIAnnotationView.h
+//  ArticlePOIView.h
 //  YYMiOS
 //
-//  Created by Lide on 14/11/16.
+//  Created by Lide on 14/11/17.
 //  Copyright (c) 2014年 Lide. All rights reserved.
 //
 
-#import <MapKit/MapKit.h>
+#import <UIKit/UIKit.h>
 #import "POI.h"
 #import "StarView.h"
 
-@protocol POIAnnotionViewDelegate;
+@protocol ArticlePOIViewDelegate;
 
-@interface POIAnnotationView : MKAnnotationView
+@interface ArticlePOIView : UIView
 {
     POI             *_poi;
-    id<POIAnnotionViewDelegate> _delegate;
+    id<ArticlePOIViewDelegate>  _delegate;
     
     UIView          *_backView;
     UIImageView     *_avatarImageView;
@@ -28,19 +28,17 @@
     UILabel         *_locationLabel;
     UIImageView     *_keywordImageView;
     UILabel         *_keywordLabel;
-    
-    UIScrollView    *_scrollView;
 }
 
 @property (retain, nonatomic) POI *poi;
-@property (assign, nonatomic) id<POIAnnotionViewDelegate> delegate;
+@property (assign, nonatomic) id<ArticlePOIViewDelegate> delegate;
 
 @property (retain, nonatomic) UIImageView *keywordImageView;
 
 @end
 
-@protocol POIAnnotionViewDelegate <NSObject>
+@protocol ArticlePOIViewDelegate <NSObject>
 
-- (void)poiAnnotionViewDidTapBackView:(POIAnnotationView *)poiAnnotionView;
+- (void)articlePOIViewDidTap:(ArticlePOIView *)articlePOIView;
 
 @end

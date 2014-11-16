@@ -56,7 +56,21 @@
 
 - (void)sendMessage
 {
+    if(!_textField.text && [_textField.text isEqualToString:@""])
+    {
+        return;
+    }
     
+    [Comment createCommentWithDealId:_dealId
+                           articleId:0
+                              userId:[[[NSUserDefaults standardUserDefaults] objectForKey:@"user_id"] integerValue]
+                              atList:@""
+                             content:_textField.text
+                             success:^(NSArray *array) {
+                                 
+                             } failure:^(NSError *error) {
+                                 
+                             }];
 }
 
 - (void)keyboardWillShown:(NSNotification *)notification
@@ -118,16 +132,30 @@
     _footerView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_footerView];
     
-    _textField = [[UITextField alloc] initWithFrame:CGRectMake(15, 10, 240, 30)];
-    _textField.backgroundColor = [UIColor blueColor];
+    UIView *line = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, _footerView.frame.size.width, 0.5)] autorelease];
+    line.backgroundColor = [UIColor lightGrayColor];
+    [_footerView addSubview:line];
+    
+    _textBackView = [[UIView alloc] initWithFrame:CGRectMake(15, 10, 240, 30)];
+    _textBackView.backgroundColor = [UIColor colorWithRed:245.0 / 255.0 green:245.0 / 255.0 blue:245.0 / 255.0 alpha:1.0];
+    _textBackView.layer.borderWidth = 0.5;
+    _textBackView.layer.borderColor = [UIColor colorWithRed:200.0 / 255.0 green:200.0 / 255.0 blue:200.0 / 255.0 alpha:1.0].CGColor;
+    _textBackView.layer.cornerRadius = 3.0;
+    _textBackView.layer.masksToBounds = YES;
+    [_footerView addSubview:_textBackView];
+    
+    _textField = [[UITextField alloc] initWithFrame:CGRectMake(6, 4, 228, 24)];
+    _textField.backgroundColor = [UIColor clearColor];
     _textField.placeholder = @"点评晒单";
     _textField.delegate = self;
     _textField.returnKeyType = UIReturnKeySend;
-    [_footerView addSubview:_textField];
+    [_textBackView addSubview:_textField];
     
     _sendButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     _sendButton.frame = CGRectMake(_footerView.frame.size.width - 15 - 40, 10, 40, 30);
-    _sendButton.backgroundColor = [UIColor brownColor];
+    _sendButton.backgroundColor = [UIColor colorWithRed:252.0 / 255.0 green:107.0 / 255.0 blue:135.0 / 255.0 alpha:1.0];
+    _sendButton.layer.cornerRadius = 3.0;
+    _sendButton.layer.masksToBounds = YES;
     [_sendButton setTitle:@"发送" forState:UIControlStateNormal];
     [_sendButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     _sendButton.titleLabel.font = [UIFont systemFontOfSize:13.0f];
@@ -237,7 +265,7 @@
                                   offset:0
                                    limit:20
                                articleId:0
-                                reviewId:2999
+                                reviewId:_dealId
                                  success:^(NSArray *array) {
                                      
                                      [_commentArray removeAllObjects];
