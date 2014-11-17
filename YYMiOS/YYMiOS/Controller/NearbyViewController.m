@@ -92,32 +92,26 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     
-//    [[LPAPIClient sharedAPIClient] getPOIListWithPOIId:0
-//                                                 brief:0
-//                                                offset:0
-//                                                 limit:20
-//                                               keyword:@"A"
-//                                                  area:0
-//                                                  city:1
-//                                                 range:-1
-//                                              category:0
-//                                                 order:0
-//                                             longitude:0
-//                                              latitude:0
-//                                               success:^(id respondObject) {
-//                                                   
-//                                               } failure:^(NSError *error) {
-//                                                   
-//                                               }];
+    if(_isAppear)
+    {
+        return;
+    }
+    _isAppear = YES;
+    
     [POI getPOIListWithOffset:0
                         limit:20
                       keyword:@""
-                         area:0
-                         city:1
+                         area:_areaId
+                         city:[[[NSUserDefaults standardUserDefaults] objectForKey:@"city_id"] integerValue]
                         range:-1
-                     category:0
-                        order:0
+                     category:_categoryId
+                        order:_order
                     longitude:0
                      latitude:0
                       success:^(NSArray *array) {
@@ -129,6 +123,17 @@
                       } failure:^(NSError *error) {
                           
                       }];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    if(!_isAppear)
+    {
+        return;
+    }
+    _isAppear = NO;
 }
 
 - (void)didReceiveMemoryWarning {

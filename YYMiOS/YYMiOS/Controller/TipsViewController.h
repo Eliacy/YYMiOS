@@ -7,11 +7,16 @@
 //
 
 #import "BaseViewController.h"
+#import "Tip.h"
 
 @interface TipsViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate>
 {
+    Tip             *_tip;
+    NSMutableArray  *_tipArray;
+    
     UITableView     *_tableView;
-    NSMutableArray  *_tipsArray;
 }
+
+@property (retain, nonatomic) Tip *tip;
 
 @end

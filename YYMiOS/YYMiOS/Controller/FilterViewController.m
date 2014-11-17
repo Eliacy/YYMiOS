@@ -8,6 +8,8 @@
 
 #import "FilterViewController.h"
 #import "Categories.h"
+#import "City.h"
+#import "Area.h"
 
 @interface FilterViewController ()
 
@@ -47,11 +49,15 @@
     self = [super init];
     if(self != nil)
     {
+        _rangeArray = [[NSMutableArray alloc] initWithCapacity:0];
+        [_rangeArray addObjectsFromArray:[NSArray arrayWithObjects:@"智能范围", @"1公里", @"2公里", @"5公里", @"20公里", @"50公里", @"全城", nil]];
+        
+        _areaArray = [[NSMutableArray alloc] initWithCapacity:0];
         _categoryArray = [[NSMutableArray alloc] initWithCapacity:0];
         
-        _scaleExpandFlag = NO;
-        _categoryExpandFlag = NO;
-        _orderExpandFlag = NO;
+        _scaleExpandFlag = YES;
+        _categoryExpandFlag = YES;
+        _orderExpandFlag = YES;
     }
     
     return self;
@@ -108,6 +114,20 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    [City getCityListWithCityId:[[[NSUserDefaults standardUserDefaults] objectForKey:@"city_id"] integerValue]
+                        success:^(NSArray *array) {
+                            
+                           if([array count] > 0)
+                           {
+                               [_areaArray removeAllObjects];
+                               [_areaArray addObjectsFromArray:[[array objectAtIndex:0] areaArray]];
+                               [_tableView reloadData];
+                           }
+                            
+                        } failure:^(NSError *error) {
+                            
+                        }];
+    
     [Categories getCategoryListWithCategoryId:0
                                       success:^(NSArray *array) {
                                           
@@ -150,7 +170,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *view = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 40)] autorelease];
-    view.backgroundColor = [UIColor clearColor];
+    view.backgroundColor = [UIColor colorWithRed:221.0 / 255.0 green:221.0 / 255.0 blue:221.0 / 255.0 alpha:1.0];
     
     switch (section) {
         case 0:
@@ -182,7 +202,7 @@
         {
             if(_scaleExpandFlag)
             {
-                return 10;
+                return [_rangeArray count] + [_areaArray count];
             }
             else
             {
@@ -233,59 +253,13 @@
     switch (indexPath.section) {
         case 0:
         {
-            switch (indexPath.row) {
-                case 0:
-                {
-                    cell.textLabel.text = @"智能范围";
-                }
-                    break;
-                case 1:
-                {
-                    cell.textLabel.text = @"1公里";
-                }
-                    break;
-                case 2:
-                {
-                    cell.textLabel.text = @"2公里";
-                }
-                    break;
-                case 3:
-                {
-                    cell.textLabel.text = @"5公里";
-                }
-                    break;
-                case 4:
-                {
-                    cell.textLabel.text = @"20公里";
-                }
-                    break;
-                case 5:
-                {
-                    cell.textLabel.text = @"50公里";
-                }
-                    break;
-                case 6:
-                {
-                    cell.textLabel.text = @"全城";
-                }
-                    break;
-                case 7:
-                {
-                    cell.textLabel.text = @"第五大道";
-                }
-                    break;
-                case 8:
-                {
-                    cell.textLabel.text = @"麦迪逊大道";
-                }
-                    break;
-                case 9:
-                {
-                    cell.textLabel.text = @"纽约下城区";
-                }
-                    break;
-                default:
-                    break;
+            if(indexPath.row < [_rangeArray count])
+            {
+                cell.textLabel.text = [_rangeArray objectAtIndex:indexPath.row];
+            }
+            else
+            {
+                cell.textLabel.text = [[_areaArray objectAtIndex:(indexPath.row - [_rangeArray count])] areaName];
             }
         }
             break;

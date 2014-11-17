@@ -123,18 +123,26 @@
         _numberLabel.textAlignment = NSTextAlignmentRight;
         [_floatView addSubview:_numberLabel];
         
-        _priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(_goodsImageView.frame.origin.x, _goodsImageView.frame.origin.y + _goodsImageView.frame.size.height + 10, 290, 15)];
+        _priceIcon = [[UIImageView alloc] initWithFrame:CGRectMake(_goodsImageView.frame.origin.x, _goodsImageView.frame.origin.y + _goodsImageView.frame.size.height + 10, 13, 14)];
+        _priceIcon.backgroundColor = [UIColor clearColor];
+        _priceIcon.image = [UIImage imageNamed:@"dynamic_price.png"];
+        [_backImageView addSubview:_priceIcon];
+        
+        _priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(_goodsImageView.frame.origin.x + _priceIcon.frame.size.width + 10, _goodsImageView.frame.origin.y + _goodsImageView.frame.size.height + 10, 290, 15)];
         _priceLabel.backgroundColor = [UIColor clearColor];
         _priceLabel.textColor = [UIColor grayColor];
         _priceLabel.font = [UIFont systemFontOfSize:13.0f];
-        _priceLabel.text = @"3000美元";
         [_backImageView addSubview:_priceLabel];
+        
+        _locationIcon = [[UIImageView alloc] initWithFrame:CGRectMake(_priceIcon.frame.origin.x, _priceIcon.frame.origin.y + _priceIcon.frame.size.height + 10, 12, 16)];
+        _locationIcon.backgroundColor = [UIColor clearColor];
+        _locationIcon.image = [UIImage imageNamed:@"dynamic_location.png"];
+        [_backImageView addSubview:_locationIcon];
         
         _locationLabel = [[UILabel alloc] initWithFrame:CGRectMake(_priceLabel.frame.origin.x, _priceLabel.frame.origin.y + _priceLabel.frame.size.height + 10, 290, 15)];
         _locationLabel.backgroundColor = [UIColor clearColor];
         _locationLabel.textColor = [UIColor grayColor];
         _locationLabel.font = [UIFont systemFontOfSize:13.0f];
-        _locationLabel.text = @"纽约，二马仕第五大道酒店";
         [_backImageView addSubview:_locationLabel];
         
         _shareButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
@@ -185,6 +193,9 @@
     [_likeButton setTitle:[NSString stringWithFormat:@"%i", (int)deal.likeCount] forState:UIControlStateNormal];
     [_commentButton setTitle:[NSString stringWithFormat:@"%i", (int)deal.commentCount] forState:UIControlStateNormal];
     _numberLabel.text = [NSString stringWithFormat:@"%i张", (int)deal.imageCount];
+    
+    _priceLabel.text = [NSString stringWithFormat:@"%i%@", (int)deal.total, deal.currency];
+    _locationLabel.text = [deal.site siteName];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

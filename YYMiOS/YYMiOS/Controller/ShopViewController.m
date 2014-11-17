@@ -312,6 +312,9 @@
         _levelImageView.image = nil;
     }
     
+    
+    _nameLabel.frame = CGRectMake(_nameLabel.frame.origin.x, _nameLabel.frame.origin.y, _tableHeaderView.frame.size.width - _logoImageView.frame.origin.x - _logoImageView.frame.size.width - 15 - _levelImageView.frame.size.width, _nameLabel.frame.size.height);
+    
     [_starView setStars:poiDetail.stars];
     [_reviewButton setTitle:[NSString stringWithFormat:@"%i", (int)poiDetail.reviewNum] forState:UIControlStateNormal];
     

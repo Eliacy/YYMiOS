@@ -722,14 +722,8 @@ static id APIClient = nil;
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
     
-    if(dealId > 0)
-    {
-        [params setObject:[NSNumber numberWithInteger:dealId] forKey:@"review"];
-    }
-    if(articleId > 0)
-    {
-        [params setObject:[NSNumber numberWithInteger:articleId] forKey:@"article"];
-    }
+    [params setObject:[NSNumber numberWithInteger:dealId] forKey:@"review"];
+    [params setObject:[NSNumber numberWithInteger:articleId] forKey:@"article"];
     [params setObject:[NSNumber numberWithInteger:userId] forKey:@"user"];
     if(atList && ![atList isEqualToString:@""])
     {

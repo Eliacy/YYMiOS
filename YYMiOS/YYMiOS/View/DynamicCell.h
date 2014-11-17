@@ -27,7 +27,9 @@
     UIButton        *_commentButton;
     UILabel         *_numberLabel;
     
+    UIImageView     *_priceIcon;
     UILabel         *_priceLabel;
+    UIImageView     *_locationIcon;
     UILabel         *_locationLabel;
     UIButton        *_shareButton;
 }

@@ -17,8 +17,10 @@
     UIButton    *_backButton;
     
     BOOL        _isLoading;
+    BOOL        _isAppear;
 }
 
 - (void)clickBackButton:(id)sender;
+- (void)tapTitleLabel:(UITapGestureRecognizer *)gestureRecognizer;
 
 @end

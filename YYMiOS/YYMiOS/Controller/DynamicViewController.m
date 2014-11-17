@@ -87,6 +87,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    if(_isAppear)
+    {
+        return;
+    }
+    _isAppear = YES;
     
     [Deal getDealDetailListWithDealId:0
                                 brief:1
@@ -96,9 +107,9 @@
                                 limit:20
                                  user:0
                                  site:0
-                                 city:0
+                                 city:[[[NSUserDefaults standardUserDefaults] objectForKey:@"city_id"] integerValue]
                               success:^(NSArray *array) {
-                                
+                                  
                                   [_dynamicArray removeAllObjects];
                                   [_dynamicArray addObjectsFromArray:array];
                                   [_tableView reloadData];
@@ -106,6 +117,17 @@
                               } failure:^(NSError *error) {
                                   
                               }];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    if(!_isAppear)
+    {
+        return;
+    }
+    _isAppear = NO;
 }
 
 - (void)didReceiveMemoryWarning {

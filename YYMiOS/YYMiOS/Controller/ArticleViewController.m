@@ -53,6 +53,8 @@
                              content:_textField.text
                              success:^(NSArray *array) {
                                  
+                                 _textField.text = @"";
+                                 
                              } failure:^(NSError *error) {
                                  
                              }];

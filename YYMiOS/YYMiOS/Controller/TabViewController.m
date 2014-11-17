@@ -28,12 +28,17 @@
     [_nearbyButton setSelected:NO];
     [_mineButton setSelected:NO];
     
+    [_currentVC viewWillDisappear:YES];
+    
     if(_homeVC == nil)
     {
         _homeVC = [[HomeViewController alloc] init];
         _homeVC.tabVC = self;
     }
     [self.view addSubview:_homeVC.view];
+    
+    _currentVC = _homeVC;
+    [_currentVC viewWillAppear:YES];
 }
 
 - (void)clickDynamicButton:(id)sender
@@ -48,12 +53,17 @@
     [_nearbyButton setSelected:NO];
     [_mineButton setSelected:NO];
     
+    [_currentVC viewWillDisappear:YES];
+    
     if(_dynamicVC == nil)
     {
         _dynamicVC = [[DynamicViewController alloc] init];
         _dynamicVC.tabVC = self;
     }
     [self.view addSubview:_dynamicVC.view];
+    
+    _currentVC = _dynamicVC;
+    [_currentVC viewWillAppear:YES];
 }
 
 - (void)clickWeatherButton:(id)sender
@@ -68,12 +78,17 @@
     [_nearbyButton setSelected:NO];
     [_mineButton setSelected:NO];
     
+    [_currentVC viewWillDisappear:YES];
+    
     if(_weatherVC == nil)
     {
         _weatherVC = [[WeatherViewController alloc] init];
         _weatherVC.tabVC = self;
     }
     [self.view addSubview:_weatherVC.view];
+    
+    _currentVC = _weatherVC;
+    [_currentVC viewWillAppear:YES];
 }
 
 - (void)clickNearbyButton:(id)sender
@@ -88,12 +103,17 @@
     [_nearbyButton setSelected:YES];
     [_mineButton setSelected:NO];
     
+    [_currentVC viewWillDisappear:YES];
+    
     if(_nearbyVC == nil)
     {
         _nearbyVC = [[NearbyViewController alloc] init];
         _nearbyVC.tabVC = self;
     }
     [self.view addSubview:_nearbyVC.view];
+    
+    _currentVC = _nearbyVC;
+    [_currentVC viewWillAppear:YES];
 }
 
 - (void)clickMineButton:(id)sender
@@ -108,12 +128,17 @@
     [_nearbyButton setSelected:NO];
     [_mineButton setSelected:YES];
     
+    [_currentVC viewWillDisappear:YES];
+    
     if(_mineVC == nil)
     {
         _mineVC = [[MineViewController alloc] init];
         _mineVC.tabVC = self;
     }
     [self.view addSubview:_mineVC.view];
+    
+    _currentVC = _mineVC;
+    [_currentVC viewWillAppear:YES];
 }
 
 #pragma mark - super
@@ -180,12 +205,19 @@
     [_mineButton addTarget:self action:@selector(clickMineButton:) forControlEvents:UIControlEventTouchUpInside];
     [_footerView addSubview:_mineButton];
     
+    UIView *line = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, _footerView.frame.size.width, 0.5)] autorelease];
+    line.backgroundColor = [UIColor colorWithRed:221.0 / 255.0 green:221.0 / 255.0 blue:221.0 / 255.0 alpha:1.0];
+    [_footerView addSubview:line];
+    
     if(_homeVC == nil)
     {
         _homeVC = [[HomeViewController alloc] init];
         _homeVC.tabVC = self;
     }
     [self.view addSubview:_homeVC.view];
+    
+    _currentVC = _homeVC;
+    [_currentVC viewWillAppear:YES];
 }
 
 - (void)viewDidLoad {

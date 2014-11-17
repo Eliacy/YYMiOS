@@ -19,6 +19,11 @@
     
     UIButton        *_filterButton;
     UIButton        *_mapButton;
+    
+    NSInteger       _areaId;
+    NSInteger       _cityId;
+    NSInteger       _categoryId;
+    NSInteger       _order;
 }
 
 @property (assign, nonatomic) TabViewController *tabVC;

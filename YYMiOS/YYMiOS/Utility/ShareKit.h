@@ -31,6 +31,4 @@
 
 @protocol ShareKitDelegate <NSObject>
 
-
-
 @end

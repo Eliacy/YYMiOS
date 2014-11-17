@@ -13,6 +13,8 @@
     UIButton        *_searchButton;
     
     UITableView     *_tableView;
+    NSMutableArray  *_rangeArray;
+    NSMutableArray  *_areaArray;
     NSMutableArray  *_categoryArray;
     
     UIButton        *_scaleButton;

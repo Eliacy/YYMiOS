@@ -16,6 +16,7 @@
     NSString        *_cityName;
     NSInteger       _cityOrder;
     NSArray         *_areaArray;
+    NSString        *_title;
 }
 
 @property (assign, nonatomic) NSInteger cityId;
@@ -24,7 +25,12 @@
 @property (retain, nonatomic) NSString *cityName;
 @property (assign, nonatomic) NSInteger cityOrder;
 @property (retain, nonatomic) NSArray *areaArray;
+@property (retain, nonatomic) NSString *title;
 
 - (id)initWithAttribute:(NSDictionary *)attribute;
+
++ (void)getCityListWithCityId:(NSInteger)cityId
+                      success:(LPObjectSuccessBlock)successBlock
+                      failure:(LPObjectFailureBlock)failureBlcok;
 
 @end

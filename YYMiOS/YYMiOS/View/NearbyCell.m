@@ -31,7 +31,7 @@
         _avatarImageView.layer.cornerRadius = 7;
         [_backView addSubview:_avatarImageView];
         
-        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(_avatarImageView.frame.origin.x + _avatarImageView.frame.size.width + 10, _avatarImageView.frame.origin.y, 230, 15)];
+        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(_avatarImageView.frame.origin.x + _avatarImageView.frame.size.width + 10, _avatarImageView.frame.origin.y, self.contentView.frame.size.width - _avatarImageView.frame.origin.x - _avatarImageView.frame.size.width - 30, 15)];
         _titleLabel.backgroundColor = [UIColor clearColor];
         _titleLabel.textColor = [UIColor darkGrayColor];
         _titleLabel.font = [UIFont systemFontOfSize:14.0f];
@@ -125,6 +125,8 @@
     {
         _levelImageView.image = nil;
     }
+    
+    _titleLabel.frame = CGRectMake(_titleLabel.frame.origin.x, _titleLabel.frame.origin.y, self.contentView.frame.size.width - _avatarImageView.frame.origin.x - _avatarImageView.frame.size.width - 15 - _levelImageView.frame.size.width, _titleLabel.frame.size.height);
     
     [_avatarImageView setImageWithURL:[NSURL URLWithString:[LPUtility getQiniuImageURLStringWithBaseString:poi.logo.imageURL imageSize:CGSizeMake(150, 150)]]];
     [_starView setStars:poi.stars];

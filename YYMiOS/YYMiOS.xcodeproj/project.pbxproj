@@ -85,7 +85,6 @@
 		045EF56D1A04CD2D00A85776 /* QNUploadOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 045EF5611A04CD2D00A85776 /* QNUploadOption.m */; };
 		046BF9F51A0BCC4F003FE419 /* LPUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 046BF9F41A0BCC4F003FE419 /* LPUtility.m */; };
 		0475C8A51A19026200958E71 /* ArticlePOIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0475C8A41A19026200958E71 /* ArticlePOIView.m */; };
-		0475C8AB1A19163F00958E71 /* TipsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0475C8AA1A19163F00958E71 /* TipsDetailViewController.m */; };
 		0475C8B01A19198200958E71 /* like_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0475C8AC1A19198200958E71 /* like_white@2x.png */; };
 		0475C8B11A19198200958E71 /* comment_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0475C8AD1A19198200958E71 /* comment_white@2x.png */; };
 		0475C8B21A19198200958E71 /* comment_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 0475C8AE1A19198200958E71 /* comment_white.png */; };
@@ -178,6 +177,11 @@
 		04DC527319FBBC6B00342DB6 /* Site.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DC527219FBBC6B00342DB6 /* Site.m */; };
 		04DC527619FBC01E00342DB6 /* LPImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DC527519FBC01E00342DB6 /* LPImage.m */; };
 		04DC527919FBD0F400342DB6 /* DealEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DC527819FBD0F400342DB6 /* DealEditViewController.m */; };
+		04E0EADB1A1A3B11000B7055 /* TitleExpandKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E0EADA1A1A3B11000B7055 /* TitleExpandKit.m */; };
+		04E0EAE01A1A5088000B7055 /* dynamic_price@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04E0EADC1A1A5088000B7055 /* dynamic_price@2x.png */; };
+		04E0EAE11A1A5088000B7055 /* dynamic_location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04E0EADD1A1A5088000B7055 /* dynamic_location@2x.png */; };
+		04E0EAE21A1A5088000B7055 /* dynamic_price.png in Resources */ = {isa = PBXBuildFile; fileRef = 04E0EADE1A1A5088000B7055 /* dynamic_price.png */; };
+		04E0EAE31A1A5088000B7055 /* dynamic_location.png in Resources */ = {isa = PBXBuildFile; fileRef = 04E0EADF1A1A5088000B7055 /* dynamic_location.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -302,8 +306,6 @@
 		046BF9F41A0BCC4F003FE419 /* LPUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPUtility.m; sourceTree = "<group>"; };
 		0475C8A31A19026200958E71 /* ArticlePOIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticlePOIView.h; sourceTree = "<group>"; };
 		0475C8A41A19026200958E71 /* ArticlePOIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticlePOIView.m; sourceTree = "<group>"; };
-		0475C8A91A19163F00958E71 /* TipsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TipsDetailViewController.h; sourceTree = "<group>"; };
-		0475C8AA1A19163F00958E71 /* TipsDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TipsDetailViewController.m; sourceTree = "<group>"; };
 		0475C8AC1A19198200958E71 /* like_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "like_white@2x.png"; sourceTree = "<group>"; };
 		0475C8AD1A19198200958E71 /* comment_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comment_white@2x.png"; sourceTree = "<group>"; };
 		0475C8AE1A19198200958E71 /* comment_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comment_white.png; sourceTree = "<group>"; };
@@ -470,6 +472,12 @@
 		04DC527519FBC01E00342DB6 /* LPImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPImage.m; sourceTree = "<group>"; };
 		04DC527719FBD0F400342DB6 /* DealEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DealEditViewController.h; sourceTree = "<group>"; };
 		04DC527819FBD0F400342DB6 /* DealEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DealEditViewController.m; sourceTree = "<group>"; };
+		04E0EAD91A1A3B11000B7055 /* TitleExpandKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleExpandKit.h; sourceTree = "<group>"; };
+		04E0EADA1A1A3B11000B7055 /* TitleExpandKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleExpandKit.m; sourceTree = "<group>"; };
+		04E0EADC1A1A5088000B7055 /* dynamic_price@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dynamic_price@2x.png"; sourceTree = "<group>"; };
+		04E0EADD1A1A5088000B7055 /* dynamic_location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dynamic_location@2x.png"; sourceTree = "<group>"; };
+		04E0EADE1A1A5088000B7055 /* dynamic_price.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dynamic_price.png; sourceTree = "<group>"; };
+		04E0EADF1A1A5088000B7055 /* dynamic_location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dynamic_location.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -563,6 +571,10 @@
 		0435238619D05D0100F67B8E /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				04E0EADE1A1A5088000B7055 /* dynamic_price.png */,
+				04E0EADC1A1A5088000B7055 /* dynamic_price@2x.png */,
+				04E0EADF1A1A5088000B7055 /* dynamic_location.png */,
+				04E0EADD1A1A5088000B7055 /* dynamic_location@2x.png */,
 				0475C8AF1A19198200958E71 /* like_white.png */,
 				0475C8AC1A19198200958E71 /* like_white@2x.png */,
 				0475C8AE1A19198200958E71 /* comment_white.png */,
@@ -736,8 +748,6 @@
 				04DC527819FBD0F400342DB6 /* DealEditViewController.m */,
 				0435238019D05C6500F67B8E /* TipsViewController.h */,
 				0435238119D05C6500F67B8E /* TipsViewController.m */,
-				0475C8A91A19163F00958E71 /* TipsDetailViewController.h */,
-				0475C8AA1A19163F00958E71 /* TipsDetailViewController.m */,
 				0435238319D05C7200F67B8E /* MessageViewController.h */,
 				0435238419D05C7200F67B8E /* MessageViewController.m */,
 				048355AF19D322DA005ECAD6 /* UserInfoViewController.h */,
@@ -902,6 +912,8 @@
 				04B0D04319DA7ABB00289F78 /* LPAPIClient.m */,
 				04B0D07819DD1FAF00289F78 /* ShareKit.h */,
 				04B0D07919DD1FAF00289F78 /* ShareKit.m */,
+				04E0EAD91A1A3B11000B7055 /* TitleExpandKit.h */,
+				04E0EADA1A1A3B11000B7055 /* TitleExpandKit.m */,
 				046BF9F31A0BCC4F003FE419 /* LPUtility.h */,
 				046BF9F41A0BCC4F003FE419 /* LPUtility.m */,
 			);
@@ -1023,6 +1035,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				04482AB61A17AF7E00BC950E /* 3.png in Resources */,
+				04E0EAE11A1A5088000B7055 /* dynamic_location@2x.png in Resources */,
 				04482AB71A17AF7E00BC950E /* 4@2x.png in Resources */,
 				044274111A13DF7500DD99CD /* icon_bank.png in Resources */,
 				044273EA1A13C21600DD99CD /* rank_SS@2x.png in Resources */,
@@ -1055,6 +1068,7 @@
 				04482ABE1A17AF7E00BC950E /* 1.png in Resources */,
 				04AFF1A51A148B0F000CE6FF /* tab_news_show@2x.png in Resources */,
 				04482ABA1A17AF7E00BC950E /* 5@2x.png in Resources */,
+				04E0EAE01A1A5088000B7055 /* dynamic_price@2x.png in Resources */,
 				04AFF1981A148B0F000CE6FF /* tab_home_show.png in Resources */,
 				04AFF19E1A148B0F000CE6FF /* tab_nearby_hide.png in Resources */,
 				044273EC1A13C21600DD99CD /* rank_A+.png in Resources */,
@@ -1070,12 +1084,14 @@
 				044274011A13CD2500DD99CD /* talk_gray@2x.png in Resources */,
 				044273F61A13C50700DD99CD /* star_half.png in Resources */,
 				04AFF1961A148B0F000CE6FF /* tab_home_hide.png in Resources */,
+				04E0EAE31A1A5088000B7055 /* dynamic_location.png in Resources */,
 				0475C8B31A19198200958E71 /* like_white.png in Resources */,
 				044274131A13DF7500DD99CD /* icon_bank@2x.png in Resources */,
 				044274151A13DF7500DD99CD /* icon_visa@2x.png in Resources */,
 				044273EF1A13C21600DD99CD /* rank_S.png in Resources */,
 				044274021A13CD2500DD99CD /* talk_gray.png in Resources */,
 				04482AC21A17B4FA00BC950E /* map_location.png in Resources */,
+				04E0EAE21A1A5088000B7055 /* dynamic_price.png in Resources */,
 				04482AB51A17AF7E00BC950E /* 2.png in Resources */,
 				04AFF19A1A148B0F000CE6FF /* tab_my_hide.png in Resources */,
 				04AFF1A01A148B0F000CE6FF /* tab_nearby_show.png in Resources */,
@@ -1171,7 +1187,6 @@
 				04B0D06219DA7C3000289F78 /* SDWebImageManager.m in Sources */,
 				0498E33019F509840085E12B /* AFURLResponseSerialization.m in Sources */,
 				0491C0B719EE5B1C00FF71D4 /* Country.m in Sources */,
-				0475C8AB1A19163F00958E71 /* TipsDetailViewController.m in Sources */,
 				048355A819D31F3F005ECAD6 /* NearbyCell.m in Sources */,
 				0456057F19CB381800BF5933 /* main.m in Sources */,
 				0435239119D05E3200F67B8E /* DynamicCell.m in Sources */,
@@ -1188,6 +1203,7 @@
 				045EF5631A04CD2D00A85776 /* QNConfig.m in Sources */,
 				045605A919CB398B00BF5933 /* HomeViewController.m in Sources */,
 				045EF56A1A04CD2D00A85776 /* QNFileRecorder.m in Sources */,
+				04E0EADB1A1A3B11000B7055 /* TitleExpandKit.m in Sources */,
 				04DC527319FBBC6B00342DB6 /* Site.m in Sources */,
 				0435237219D053A600F67B8E /* DynamicViewController.m in Sources */,
 				04B0D08319DD25EC00289F78 /* ShopViewController.m in Sources */,
@@ -1290,7 +1306,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_OBJC_ARC = NO;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Lide Ma (W823WB6T4G)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Lide Ma (C87W5P53R8)";
 				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1305,7 +1321,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9e3c0f0a-ca1b-4e3d-8a78-8dd51a2c9491";
+				PROVISIONING_PROFILE = "25009be7-1db5-4157-a01e-5a378112b28b";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Debug;
@@ -1316,7 +1332,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_OBJC_ARC = NO;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Lide Ma (W823WB6T4G)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Lide Ma (C87W5P53R8)";
 				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1331,7 +1347,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9e3c0f0a-ca1b-4e3d-8a78-8dd51a2c9491";
+				PROVISIONING_PROFILE = "25009be7-1db5-4157-a01e-5a378112b28b";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Release;

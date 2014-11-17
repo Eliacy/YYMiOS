@@ -17,6 +17,7 @@
 @synthesize cityName = _cityName;
 @synthesize cityOrder = _cityOrder;
 @synthesize areaArray = _areaArray;
+@synthesize title = _title;
 
 - (id)initWithAttribute:(NSDictionary *)attribute
 {
@@ -60,10 +61,72 @@
                 }
                 self.areaArray = mutableArray;
             }
+            if([attribute objectForKey:@"name"] && ![[attribute objectForKey:@"name"] isEqual:[NSNull null]])
+            {
+                self.title = [attribute objectForKey:@"name"];
+            }
         }
     }
     
     return self;
+}
+
++ (NSArray *)parseFromeDictionary:(NSDictionary *)dictionary
+{
+    NSMutableArray *mutableArray = [NSMutableArray arrayWithCapacity:0];
+    
+    if(dictionary && [dictionary isKindOfClass:[NSDictionary class]])
+    {
+        if([dictionary objectForKey:@"data"])
+        {
+            dictionary = [dictionary objectForKey:@"data"];
+        }
+        
+        if([dictionary isKindOfClass:[NSArray class]])
+        {
+            for(NSDictionary *attribute in (NSArray *)dictionary)
+            {
+                City *city = [[City alloc] initWithAttribute:attribute];
+                [mutableArray addObject:city];
+                [city release];
+            }
+        }
+        else if([dictionary isKindOfClass:[NSDictionary class]])
+        {
+            City *city = [[City alloc] initWithAttribute:dictionary];
+            [mutableArray addObject:city];
+            [city release];
+        }
+    }
+    else if([dictionary isKindOfClass:[NSArray class]])
+    {
+        for(NSDictionary *attribute in (NSArray *)dictionary)
+        {
+            City *city = [[City alloc] initWithAttribute:attribute];
+            [mutableArray addObject:city];
+            [city release];
+        }
+    }
+    
+    return mutableArray;
+}
+
++ (void)getCityListWithCityId:(NSInteger)cityId
+                      success:(LPObjectSuccessBlock)successBlock
+                      failure:(LPObjectFailureBlock)failureBlcok
+{
+    [[LPAPIClient sharedAPIClient] getCityListWithCityId:cityId
+                                                 success:^(id respondObject) {
+                                                     if(successBlock)
+                                                     {
+                                                         successBlock([City parseFromeDictionary:respondObject]);
+                                                     }
+                                                 } failure:^(NSError *error) {
+                                                     if(failureBlcok)
+                                                     {
+                                                         failureBlcok(error);
+                                                     }
+                                                 }];
 }
 
 @end

@@ -64,6 +64,11 @@
     _titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:18];
     _titleLabel.textColor = [UIColor whiteColor];
     [_headerView addSubview:_titleLabel];
+    _titleLabel.userInteractionEnabled = YES;
+    
+    UITapGestureRecognizer *titleLabelTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapTitleLabel:)];
+    [_titleLabel addGestureRecognizer:titleLabelTap];
+    [titleLabelTap release];
     
     _backButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     _backButton.frame = CGRectMake(2, 2, 40, 40);
@@ -116,5 +121,12 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+#pragma mark - UIGestureRecognizer
+
+- (void)tapTitleLabel:(UITapGestureRecognizer *)gestureRecognizer
+{
+
+}
 
 @end

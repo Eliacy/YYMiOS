@@ -13,6 +13,7 @@
 @interface HomeViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate>
 {
     TabViewController   *_tabVC;
+    NSMutableArray  *_cityArray;
     
     UITableView     *_tableView;
     NSMutableArray  *_homeArray;

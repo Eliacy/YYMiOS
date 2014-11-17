@@ -14,8 +14,10 @@
 #import "TipsViewController.h"
 #import "MessageViewController.h"
 #import "Article.h"
+#import "City.h"
+#import "TitleExpandKit.h"
 
-@interface HomeViewController ()
+@interface HomeViewController () <TitleExpandKitDelegate>
 
 @end
 
@@ -44,6 +46,8 @@
     self = [super init];
     if(self != nil)
     {
+        _cityArray = [[NSMutableArray alloc] initWithCapacity:0];
+        
         _homeArray = [[NSMutableArray alloc] initWithCapacity:0];
     }
     
@@ -55,7 +59,6 @@
     [super loadView];
     
     self.view.frame = CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width, self.view.frame.size.height - 49);
-    _titleLabel.text = @"首页";
     _backButton.hidden = YES;
     
     _tipsButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
@@ -92,20 +95,61 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [Article getArticleListWithArticleId:0
-                                   brief:1
-                                  offset:0
-                                   limit:20
-                                  cityId:0
-                                 success:^(NSArray *array) {
-                                     
-                                     [_homeArray removeAllObjects];
-                                     [_homeArray addObjectsFromArray:array];
-                                     [_tableView reloadData];
-                                     
-                                 } failure:^(NSError *error) {
-                                     
-                                 }];
+    [City getCityListWithCityId:0
+                        success:^(NSArray *array) {
+                            
+                            [_cityArray removeAllObjects];
+                            [_cityArray addObjectsFromArray:array];
+                            
+                            if([_cityArray count] > 0)
+                            {
+                                _titleLabel.text = [[_cityArray objectAtIndex:0] cityName];
+                                
+                                [[NSUserDefaults standardUserDefaults] setObject:[[_cityArray objectAtIndex:0] cityName] forKey:@"city_name"];
+                                [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:[[_cityArray objectAtIndex:0] cityId]] forKey:@"city_id"];
+                                [[NSUserDefaults standardUserDefaults] synchronize];
+                                
+                                [Article getArticleListWithArticleId:0
+                                                               brief:1
+                                                              offset:0
+                                                               limit:20
+                                                              cityId:[[_cityArray objectAtIndex:0] cityId]
+                                                             success:^(NSArray *array) {
+                                                                 
+                                                                 [_homeArray removeAllObjects];
+                                                                 [_homeArray addObjectsFromArray:array];
+                                                                 [_tableView reloadData];
+                                                                 
+                                                             } failure:^(NSError *error) {
+                                                                 
+                                                             }];
+                            }
+                            
+                        } failure:^(NSError *error) {
+                            
+                        }];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    if(_isAppear)
+    {
+        return;
+    }
+    _isAppear = YES;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    if(!_isAppear)
+    {
+        return;
+    }
+    _isAppear = NO;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -159,5 +203,42 @@
     
     return nil;
 }
+
+- (void)tapTitleLabel:(UITapGestureRecognizer *)gestureRecognizer
+{
+    if(gestureRecognizer.state == UIGestureRecognizerStateEnded)
+    {
+        [[TitleExpandKit sharedKit] setItemArray:_cityArray];
+        [[TitleExpandKit sharedKit] setDelegate:self];
+        [[TitleExpandKit sharedKit] show];
+    }
+}
+
+#pragma mark - TitleExpandKitDelegate
+
+- (void)titleExpandKitDidSelectWithIndex:(NSIndexPath *)indexPath
+{
+    _titleLabel.text = [[_cityArray objectAtIndex:indexPath.row] cityName];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:[[_cityArray objectAtIndex:indexPath.row] cityName] forKey:@"city_name"];
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:[[_cityArray objectAtIndex:indexPath.row] cityId]] forKey:@"city_id"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    [Article getArticleListWithArticleId:0
+                                   brief:1
+                                  offset:0
+                                   limit:20
+                                  cityId:[[_cityArray objectAtIndex:indexPath.row] cityId]
+                                 success:^(NSArray *array) {
+                                     
+                                     [_homeArray removeAllObjects];
+                                     [_homeArray addObjectsFromArray:array];
+                                     [_tableView reloadData];
+                                     
+                                 } failure:^(NSError *error) {
+                                     
+                                 }];
+}
+
 
 @end

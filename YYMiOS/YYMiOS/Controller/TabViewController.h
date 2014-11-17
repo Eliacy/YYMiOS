@@ -28,6 +28,8 @@
     WeatherViewController   *_weatherVC;
     NearbyViewController    *_nearbyVC;
     MineViewController      *_mineVC;
+    
+    UIViewController        *_currentVC;
 }
 
 @end
