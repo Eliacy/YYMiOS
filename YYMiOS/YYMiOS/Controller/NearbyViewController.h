@@ -21,11 +21,14 @@
     UIButton        *_mapButton;
     
     NSInteger       _areaId;
-    NSInteger       _cityId;
     NSInteger       _categoryId;
     NSInteger       _order;
 }
 
 @property (assign, nonatomic) TabViewController *tabVC;
+
+@property (assign, nonatomic) NSInteger areaId;
+@property (assign, nonatomic) NSInteger categoryId;
+@property (assign, nonatomic) NSInteger order;
 
 @end

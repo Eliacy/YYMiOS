@@ -23,11 +23,21 @@
 
 @synthesize tabVC = _tabVC;
 
+@synthesize areaId = _areaId;
+@synthesize categoryId = _categoryId;
+@synthesize order = _order;
+
 #pragma mark - private
 
 - (void)clickFilterButton:(id)sender
 {
     FilterViewController *filterVC = [[[FilterViewController alloc] init] autorelease];
+    
+    filterVC.areaId = _areaId;
+    filterVC.categoryId = _categoryId;
+    filterVC.order = _order;
+    filterVC.nearbyVC = self;
+    
     [self.tabVC.navigationController pushViewController:filterVC animated:YES];
 }
 

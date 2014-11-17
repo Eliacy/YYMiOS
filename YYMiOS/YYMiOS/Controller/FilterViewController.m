@@ -17,11 +17,24 @@
 
 @implementation FilterViewController
 
+@synthesize areaId = _areaId;
+@synthesize categoryId = _categoryId;
+@synthesize order = _order;
+
+@synthesize nearbyVC = _nearbyVC;
+
 #pragma mark - private
 
 - (void)clickSearchButton:(id)sender
 {
-
+    if(_nearbyVC != nil)
+    {
+        _nearbyVC.areaId = _areaId;
+        _nearbyVC.categoryId = _categoryId;
+        _nearbyVC.order = _order;
+    }
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)clickScaleButton:(id)sender
@@ -132,6 +145,11 @@
                                       success:^(NSArray *array) {
                                           
                                           [_categoryArray removeAllObjects];
+                                          
+                                          Categories *category = [[[Categories alloc] init] autorelease];
+                                          category.categoryId = 0;
+                                          category.categoryName = @"全部分类";
+                                          [_categoryArray addObject:category];
                                           [_categoryArray addObjectsFromArray:array];
                                           [_tableView reloadData];
                                           
@@ -256,16 +274,43 @@
             if(indexPath.row < [_rangeArray count])
             {
                 cell.textLabel.text = [_rangeArray objectAtIndex:indexPath.row];
+                if(indexPath.row == [_rangeArray count] - 1)
+                {
+                    if(_areaId == 0)
+                    {
+                        cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"confirm.png"]] autorelease];
+                    }
+                    else
+                    {
+                        cell.accessoryView = nil;
+                    }
+                }
             }
             else
             {
                 cell.textLabel.text = [[_areaArray objectAtIndex:(indexPath.row - [_rangeArray count])] areaName];
+                if(_areaId == [[_areaArray objectAtIndex:(indexPath.row - [_rangeArray count])] areaId])
+                {
+                    cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"confirm.png"]] autorelease];
+                }
+                else
+                {
+                    cell.accessoryView = nil;
+                }
             }
         }
             break;
         case 1:
         {
             cell.textLabel.text = [[_categoryArray objectAtIndex:indexPath.row] categoryName];
+            if(_categoryId == [[_categoryArray objectAtIndex:indexPath.row] categoryId])
+            {
+                cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"confirm.png"]] autorelease];
+            }
+            else
+            {
+                cell.accessoryView = nil;
+            }
         }
             break;
         case 2:
@@ -274,21 +319,53 @@
                 case 0:
                 {
                     cell.textLabel.text = @"智能排序";
+                    if(_order == 0)
+                    {
+                        cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"confirm.png"]] autorelease];
+                    }
+                    else
+                    {
+                        cell.accessoryView = nil;
+                    }
                 }
                     break;
                 case 1:
                 {
                     cell.textLabel.text = @"离我最近";
+                    if(_order == 1)
+                    {
+                        cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"confirm.png"]] autorelease];
+                    }
+                    else
+                    {
+                        cell.accessoryView = nil;
+                    }
                 }
                     break;
                 case 2:
                 {
                     cell.textLabel.text = @"人气最高";
+                    if(_order == 2)
+                    {
+                        cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"confirm.png"]] autorelease];
+                    }
+                    else
+                    {
+                        cell.accessoryView = nil;
+                    }
                 }
                     break;
                 case 3:
                 {
                     cell.textLabel.text = @"评价最好";
+                    if(_order == 3)
+                    {
+                        cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"confirm.png"]] autorelease];
+                    }
+                    else
+                    {
+                        cell.accessoryView = nil;
+                    }
                 }
                     break;
                 default:
@@ -307,6 +384,36 @@
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    switch (indexPath.section)
+    {
+        case 0:
+        {
+            if(indexPath.row == [_rangeArray count] - 1)
+            {
+                _areaId = 0;
+            }
+            else if(indexPath.row >= [_rangeArray count])
+            {
+                _areaId = [[_areaArray objectAtIndex:(indexPath.row - [_rangeArray count])] areaId];
+            }
+        }
+            break;
+        case 1:
+        {
+            _categoryId = [[_categoryArray objectAtIndex:indexPath.row] categoryId];
+        }
+            break;
+        case 2:
+        {
+            _order = indexPath.row;
+        }
+            break;
+        default:
+            break;
+    }
+    
+    [_tableView reloadData];
+    
     return nil;
 }
 

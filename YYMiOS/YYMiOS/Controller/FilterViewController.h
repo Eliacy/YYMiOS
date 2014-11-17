@@ -7,6 +7,7 @@
 //
 
 #import "BaseViewController.h"
+#import "NearbyViewController.h"
 
 @interface FilterViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate>
 {
@@ -24,6 +25,18 @@
     BOOL            _scaleExpandFlag;
     BOOL            _categoryExpandFlag;
     BOOL            _orderExpandFlag;
+    
+    NSInteger       _areaId;
+    NSInteger       _categoryId;
+    NSInteger       _order;
+    
+    NearbyViewController    *_nearbyVC;
 }
+
+@property (assign, nonatomic) NSInteger areaId;
+@property (assign, nonatomic) NSInteger categoryId;
+@property (assign, nonatomic) NSInteger order;
+
+@property (assign, nonatomic) NearbyViewController *nearbyVC;
 
 @end
