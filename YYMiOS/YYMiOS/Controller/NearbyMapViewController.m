@@ -167,7 +167,7 @@
         
         if(_poiAnnotationView.poi.keywordArray && [_poiAnnotationView.poi.keywordArray isKindOfClass:[NSArray class]] && [_poiAnnotationView.poi.keywordArray count] > 0)
         {
-            _poiAnnotationView.keywordImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%i.png", (int)_index % 6 + 1]];
+            _poiAnnotationView.keywordImageView.image = [[UIImage imageNamed:[NSString stringWithFormat:@"%i.png", (int)_index % 6 + 1]] stretchableImageWithLeftCapWidth:5 topCapHeight:0];
         }
         else
         {

@@ -12,6 +12,7 @@
 #import "MKMapView+ZoomLevel.h"
 #import "Deal.h"
 #import "POIAnnotation.h"
+#import "ShopPictureViewController.h"
 
 @interface ShopViewController () <UITextFieldDelegate>
 
@@ -194,6 +195,22 @@
     _mapLabel.textColor = [UIColor darkGrayColor];
     _mapLabel.font = [UIFont systemFontOfSize:16.0f];
     [_floatView addSubview:_mapLabel];
+    
+    _keywordView = [[UIView alloc] initWithFrame:CGRectMake(0, _mapView.frame.origin.y + _mapView.frame.size.height, _tableHeaderView.frame.size.width, 20)];
+    _keywordView.backgroundColor = [UIColor clearColor];
+    [_tableHeaderView addSubview:_keywordView];
+    
+    _topImageView = [[UIView alloc] initWithFrame:CGRectMake(0, _keywordView.frame.origin.y + _keywordView.frame.size.height, _tableHeaderView.frame.size.width, 100)];
+    _topImageView.backgroundColor = [UIColor clearColor];
+    [_tableHeaderView addSubview:_topImageView];
+    
+    UITapGestureRecognizer *topImageViewTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapTopImageView:)];
+    [_topImageView addGestureRecognizer:topImageViewTap];
+    [topImageViewTap release];
+    
+    UIView *tableFooterView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 1)] autorelease];
+    tableFooterView.backgroundColor = [UIColor clearColor];
+    _tableView.tableFooterView = tableFooterView;
 }
 
 - (void)viewDidLoad {
@@ -330,9 +347,7 @@
     _descriptionLabel.frame = CGRectMake(_descriptionLabel.frame.origin.x, _descriptionLabel.frame.origin.y, _descriptionLabel.frame.size.width, descriptionSize.height);
     _descriptionLabel.text = poiDetail.description;
     
-    _tableHeaderView.frame = CGRectMake(_tableHeaderView.frame.origin.x, _tableHeaderView.frame.origin.y, _tableHeaderView.frame.size.width, _descriptionBackView.frame.origin.y + _descriptionBackView.frame.size.height + _mapView.frame.size.height + 10);
-    
-    _mapView.frame = CGRectMake(_mapView.frame.origin.x, _tableHeaderView.frame.size.height - _mapView.frame.size.height, _mapView.frame.size.width, _mapView.frame.size.height);
+    _mapView.frame = CGRectMake(_mapView.frame.origin.x, _descriptionBackView.frame.origin.y + _descriptionBackView.frame.size.height + 10, _mapView.frame.size.width, _mapView.frame.size.height);
     [_mapView setCenterCoordinate:CLLocationCoordinate2DMake(poiDetail.latitude, poiDetail.longitude) zoomLevel:13 animated:YES];
     
     POIAnnotation *annotation = [[[POIAnnotation alloc] init] autorelease];
@@ -342,6 +357,105 @@
     
     [_mapView addAnnotation:annotation];
     _mapLabel.text = poiDetail.address;
+    
+    for(UIView *view in _keywordView.subviews)
+    {
+        [view removeFromSuperview];
+    }
+    
+    if(poiDetail.keywordArray && [poiDetail.keywordArray count] > 0)
+    {
+        UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(15, 10, _keywordView.frame.size.width - 15 * 2, 15)] autorelease];
+        label.backgroundColor = [UIColor clearColor];
+        label.textColor = [UIColor darkGrayColor];
+        label.font = [UIFont systemFontOfSize:12.0f];
+        label.text = @"大家觉得：";
+        [_keywordView addSubview:label];
+        
+        CGSize textSize = [LPUtility getTextHeightWithText:label.text
+                                                      font:label.font
+                                                      size:CGSizeMake(200, 100)];
+        CGFloat offsetX = textSize.width + 15;
+        CGFloat offsetY = 10;
+        
+        for(NSInteger i = 0; i < [poiDetail.keywordArray count]; i++)
+        {
+            NSString *keyword = [poiDetail.keywordArray objectAtIndex:i];
+            CGSize keywordSize = [LPUtility getTextHeightWithText:keyword
+                                                             font:[UIFont systemFontOfSize:10.0f]
+                                                             size:CGSizeMake(200, 100)];
+            if(offsetX + keywordSize.width + 5 + 10 > _keywordView.frame.size.width - 15)
+            {
+                offsetX = textSize.width + 15;
+                offsetY += 25;
+            }
+            
+            UIImageView *imageView = [[[UIImageView alloc] initWithFrame:CGRectMake(offsetX, offsetY + 1, keywordSize.width + 5, 14)] autorelease];
+            imageView.backgroundColor = [UIColor clearColor];
+            imageView.image = [[UIImage imageNamed:[NSString stringWithFormat:@"%i.png", (int)(i % 6 + 1)]] stretchableImageWithLeftCapWidth:5 topCapHeight:0];
+            [_keywordView addSubview:imageView];
+            
+            UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(0, 1, imageView.frame.size.width, 12)] autorelease];
+            label.backgroundColor = [UIColor clearColor];
+            label.textColor = [UIColor whiteColor];
+            label.font = [UIFont systemFontOfSize:10.0f];
+            label.textAlignment = NSTextAlignmentCenter;
+            label.text = keyword;
+            [imageView addSubview:label];
+            
+            offsetX += keywordSize.width + 5 + 10;
+        }
+        
+        _keywordView.frame = CGRectMake(_keywordView.frame.origin.x, _mapView.frame.origin.y + _mapView.frame.size.height, _keywordView.frame.size.width, offsetY + 15);
+    }
+    else
+    {
+        _keywordView.frame = CGRectMake(_keywordView.frame.origin.x, _mapView.frame.origin.y + _mapView.frame.size.height, _keywordView.frame.size.width, 0);
+    }
+    
+    for(UIView *view in _topImageView.subviews)
+    {
+        [view removeFromSuperview];
+    }
+    
+    if(poiDetail.topImageArray && [poiDetail.topImageArray count] > 0)
+    {
+        _topImageView.frame = CGRectMake(_topImageView.frame.origin.x, _keywordView.frame.origin.y + _keywordView.frame.size.height, _topImageView.frame.size.width, 110);
+        for(NSInteger i = 0; i < [poiDetail.topImageArray count]; i++)
+        {
+            if(i == 3)
+            {
+                break;
+            }
+            
+            UIImageView *imageView = [[[UIImageView alloc] initWithFrame:CGRectMake(25 + 93 * i, 10, 80, 80)] autorelease];
+            imageView.backgroundColor = [UIColor clearColor];
+            imageView.layer.borderWidth = 0.5;
+            imageView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+            imageView.contentMode = UIViewContentModeScaleAspectFill;
+            imageView.layer.masksToBounds = YES;
+            [imageView setImageWithURL:[NSURL URLWithString:[LPUtility getQiniuImageURLStringWithBaseString:[[poiDetail.topImageArray objectAtIndex:i] imageURL] imageSize:CGSizeMake(160, 160)]]];
+            [_topImageView addSubview:imageView];
+        }
+        
+        UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(15, 90, _topImageView.frame.size.width - 15 * 2, 20)] autorelease];
+        label.backgroundColor = [UIColor clearColor];
+        label.textColor = [UIColor colorWithRed:251.0 / 255.0 green:123.0 / 255.0 blue:147.0 / 255.0 alpha:1.0];
+        label.font = [UIFont systemFontOfSize:12.0f];
+        label.textAlignment = NSTextAlignmentRight;
+        label.text = [NSString stringWithFormat:@"查看所有%i张照片", (int)[poiDetail.topImageArray count]];
+        [_topImageView addSubview:label];
+        
+        UIView *line = [[[UIView alloc] initWithFrame:CGRectMake(15, _topImageView.frame.size.height - 0.5, _topImageView.frame.size.width - 15, 0.5)] autorelease];
+        line.backgroundColor = [UIColor colorWithRed:221.0 / 255.0 green:221.0 / 255.0 blue:221.0 / 255.0 alpha:1.0];
+        [_topImageView addSubview:line];
+    }
+    else
+    {
+        _topImageView.frame = CGRectMake(_topImageView.frame.origin.x, _keywordView.frame.origin.y + _keywordView.frame.size.height, _topImageView.frame.size.width, 0);
+    }
+    
+    _tableHeaderView.frame = CGRectMake(_tableHeaderView.frame.origin.x, _tableHeaderView.frame.origin.y, _tableHeaderView.frame.size.width, _descriptionBackView.frame.origin.y + _descriptionBackView.frame.size.height + _mapView.frame.size.height + 10 + _keywordView.frame.size.height + _topImageView.frame.size.height);
     
     _tableView.tableHeaderView = _tableHeaderView;
 }
@@ -426,9 +540,20 @@
     view.pinColor = MKPinAnnotationColorRed;
     view.animatesDrop = YES;
     view.canShowCallout = YES;
-    view.draggable = YES;
+    view.draggable = NO;
     
     return view;
+}
+
+#pragma mark - UIGestureRecognizer
+
+- (void)tapTopImageView:(UITapGestureRecognizer *)gestureRecognizer
+{
+    if(gestureRecognizer.state == UIGestureRecognizerStateEnded)
+    {
+        ShopPictureViewController *shopPictureVC = [[[ShopPictureViewController alloc] init] autorelease];
+        [self.navigationController pushViewController:shopPictureVC animated:YES];
+    }
 }
 
 @end

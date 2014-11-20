@@ -115,6 +115,7 @@
 		048355AE19D320D2005ECAD6 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048355AD19D320D2005ECAD6 /* AboutViewController.m */; };
 		048355B119D322DA005ECAD6 /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048355B019D322DA005ECAD6 /* UserInfoViewController.m */; };
 		0486F4641A07F057002E8CFC /* Tip.m in Sources */ = {isa = PBXBuildFile; fileRef = 0486F4631A07F057002E8CFC /* Tip.m */; };
+		048F48F71A1CD1EA00C1AD8B /* ShopPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048F48F61A1CD1EA00C1AD8B /* ShopPictureViewController.m */; };
 		0491C0B419EE57C600FF71D4 /* Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = 0491C0B319EE57C600FF71D4 /* Categories.m */; };
 		0491C0B719EE5B1C00FF71D4 /* Country.m in Sources */ = {isa = PBXBuildFile; fileRef = 0491C0B619EE5B1C00FF71D4 /* Country.m */; };
 		0491C0BA19EE5C3600FF71D4 /* City.m in Sources */ = {isa = PBXBuildFile; fileRef = 0491C0B919EE5C3600FF71D4 /* City.m */; };
@@ -367,6 +368,8 @@
 		048355B019D322DA005ECAD6 /* UserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoViewController.m; sourceTree = "<group>"; };
 		0486F4621A07F057002E8CFC /* Tip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tip.h; sourceTree = "<group>"; };
 		0486F4631A07F057002E8CFC /* Tip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tip.m; sourceTree = "<group>"; };
+		048F48F51A1CD1EA00C1AD8B /* ShopPictureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopPictureViewController.h; sourceTree = "<group>"; };
+		048F48F61A1CD1EA00C1AD8B /* ShopPictureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopPictureViewController.m; sourceTree = "<group>"; };
 		0491C0B219EE57C600FF71D4 /* Categories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Categories.h; sourceTree = "<group>"; };
 		0491C0B319EE57C600FF71D4 /* Categories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Categories.m; sourceTree = "<group>"; };
 		0491C0B519EE5B1C00FF71D4 /* Country.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Country.h; sourceTree = "<group>"; };
@@ -748,6 +751,8 @@
 				04A824BC1A0FD682000B6AFF /* NearbyMapViewController.m */,
 				04B0D08119DD25EC00289F78 /* ShopViewController.h */,
 				04B0D08219DD25EC00289F78 /* ShopViewController.m */,
+				048F48F51A1CD1EA00C1AD8B /* ShopPictureViewController.h */,
+				048F48F61A1CD1EA00C1AD8B /* ShopPictureViewController.m */,
 				04788D5619D7F2FB00BE283B /* DraftViewController.h */,
 				04788D5719D7F2FB00BE283B /* DraftViewController.m */,
 				04DC527719FBD0F400342DB6 /* DealEditViewController.h */,
@@ -1205,6 +1210,7 @@
 				04DC527619FBC01E00342DB6 /* LPImage.m in Sources */,
 				049E691019E13F0400DA984F /* DealDetailViewController.m in Sources */,
 				0498E32F19F509840085E12B /* AFURLRequestSerialization.m in Sources */,
+				048F48F71A1CD1EA00C1AD8B /* ShopPictureViewController.m in Sources */,
 				04788D6D19D8098700BE283B /* NicknameViewController.m in Sources */,
 				045EF56C1A04CD2D00A85776 /* QNUploadManager.m in Sources */,
 				0498E32C19F509840085E12B /* AFNetworkReachabilityManager.m in Sources */,

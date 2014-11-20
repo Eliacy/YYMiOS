@@ -40,6 +40,9 @@
     MKMapView       *_mapView;
     UIView          *_floatView;
     UILabel         *_mapLabel;
+    
+    UIView          *_keywordView;
+    UIView          *_topImageView;
 }
 
 @property (assign, nonatomic) NSInteger poiId;
