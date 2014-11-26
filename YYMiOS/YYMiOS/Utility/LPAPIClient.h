@@ -263,4 +263,52 @@ typedef void (^LPAPIFailureBlock)(NSError *error);
                     success:(LPAPISuccessBlock)successBlock
                     failure:(LPAPIFailureBlock)failureBlcok;
 
+/*
+ 关注
+ */
+- (void)followSomeoneWithUserId:(NSInteger)userId
+                     fromUserId:(NSInteger)fromUserId
+                        success:(LPAPISuccessBlock)successBlock
+                        failure:(LPAPIFailureBlock)failureBlcok;
+
+/*
+ 取消关注
+ */
+- (void)unfollowSomeoneWithUserId:(NSInteger)userId
+                       fromUserId:(NSInteger)fromUserId
+                          success:(LPAPISuccessBlock)successBlock
+                          failure:(LPAPIFailureBlock)failureBlcok;
+
+/*
+ 喜欢晒单评论
+ */
+- (void)likeReviewWithUserId:(NSInteger)userId
+                    reviewId:(NSInteger)reviewId
+                     success:(LPAPISuccessBlock)successBlock
+                     failure:(LPAPIFailureBlock)failureBlcok;
+
+/*
+ 取消喜欢晒单评论
+ */
+- (void)unlikeReviewWithUserId:(NSInteger)userId
+                      reviewId:(NSInteger)reviewId
+                       success:(LPAPISuccessBlock)successBlock
+                       failure:(LPAPIFailureBlock)failureBlcok;
+
+/*
+ 收藏POI
+ */
+- (void)collectPOIWithUserId:(NSInteger)userId
+                       POIId:(NSInteger)POIId
+                     success:(LPAPISuccessBlock)successBlock
+                     failure:(LPAPIFailureBlock)failureBlcok;
+
+/*
+ 取消收藏POI
+ */
+- (void)cancelCollectPOIWithUserId:(NSInteger)userId
+                             POIId:(NSInteger)POIId
+                           success:(LPAPISuccessBlock)successBlock
+                           failure:(LPAPIFailureBlock)failureBlcok;
+
 @end

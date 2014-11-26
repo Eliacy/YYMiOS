@@ -1037,4 +1037,124 @@ static id APIClient = nil;
                   failure:failureBlcok];
 }
 
+/*
+ 关注
+ */
+- (void)followSomeoneWithUserId:(NSInteger)userId
+                     fromUserId:(NSInteger)fromUserId
+                        success:(LPAPISuccessBlock)successBlock
+                        failure:(LPAPIFailureBlock)failureBlcok
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
+    
+    [params setObject:[NSNumber numberWithInteger:userId] forKey:@"follow"];
+    [params setObject:[NSNumber numberWithInteger:fromUserId] forKey:@"fan"];
+    
+    [self sendRequestPath:@"/rpc/follows"
+                   params:params
+                   method:@"POST"
+                  success:successBlock
+                  failure:failureBlcok];
+}
+
+/*
+ 取消关注
+ */
+- (void)unfollowSomeoneWithUserId:(NSInteger)userId
+                       fromUserId:(NSInteger)fromUserId
+                          success:(LPAPISuccessBlock)successBlock
+                          failure:(LPAPIFailureBlock)failureBlcok
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
+    
+    [params setObject:[NSNumber numberWithInteger:userId] forKey:@"follow"];
+    [params setObject:[NSNumber numberWithInteger:fromUserId] forKey:@"fan"];
+    
+    [self sendRequestPath:@"/rpc/follows"
+                   params:params
+                   method:@"DELETE"
+                  success:successBlock
+                  failure:failureBlcok];
+}
+
+/*
+ 喜欢晒单评论
+ */
+- (void)likeReviewWithUserId:(NSInteger)userId
+                    reviewId:(NSInteger)reviewId
+                     success:(LPAPISuccessBlock)successBlock
+                     failure:(LPAPIFailureBlock)failureBlcok
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
+    
+    [params setObject:[NSNumber numberWithInteger:userId] forKey:@"user"];
+    [params setObject:[NSNumber numberWithInteger:reviewId] forKey:@"review"];
+    
+    [self sendRequestPath:@"/rpc/likes"
+                   params:params
+                   method:@"POST"
+                  success:successBlock
+                  failure:failureBlcok];
+}
+
+/*
+ 取消喜欢晒单评论
+ */
+- (void)unlikeReviewWithUserId:(NSInteger)userId
+                      reviewId:(NSInteger)reviewId
+                       success:(LPAPISuccessBlock)successBlock
+                       failure:(LPAPIFailureBlock)failureBlcok
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
+    
+    [params setObject:[NSNumber numberWithInteger:userId] forKey:@"user"];
+    [params setObject:[NSNumber numberWithInteger:reviewId] forKey:@"review"];
+    
+    [self sendRequestPath:@"/rpc/likes"
+                   params:params
+                   method:@"DELETE"
+                  success:successBlock
+                  failure:failureBlcok];
+}
+
+/*
+ 收藏POI
+ */
+- (void)collectPOIWithUserId:(NSInteger)userId
+                       POIId:(NSInteger)POIId
+                     success:(LPAPISuccessBlock)successBlock
+                     failure:(LPAPIFailureBlock)failureBlcok
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
+    
+    [params setObject:[NSNumber numberWithInteger:userId] forKey:@"user"];
+    [params setObject:[NSNumber numberWithInteger:POIId] forKey:@"site"];
+    
+    [self sendRequestPath:@"/rpc/favorites"
+                   params:params
+                   method:@"POST"
+                  success:successBlock
+                  failure:failureBlcok];
+}
+
+/*
+ 取消收藏POI
+ */
+- (void)cancelCollectPOIWithUserId:(NSInteger)userId
+                             POIId:(NSInteger)POIId
+                           success:(LPAPISuccessBlock)successBlock
+                           failure:(LPAPIFailureBlock)failureBlcok
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
+    
+    [params setObject:[NSNumber numberWithInteger:userId] forKey:@"user"];
+    [params setObject:[NSNumber numberWithInteger:POIId] forKey:@"site"];
+    
+    [self sendRequestPath:@"/rpc/favorites"
+                   params:params
+                   method:@"DELETE"
+                  success:successBlock
+                  failure:failureBlcok];
+}
+
 @end

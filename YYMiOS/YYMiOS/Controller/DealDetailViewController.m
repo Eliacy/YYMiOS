@@ -63,7 +63,7 @@
     
     [Comment createCommentWithDealId:_dealId
                            articleId:0
-                              userId:[[[NSUserDefaults standardUserDefaults] objectForKey:@"user_id"] integerValue]
+                              userId:[[User sharedUser] userId]
                               atList:@""
                              content:_textField.text
                              success:^(NSArray *array) {

@@ -13,6 +13,43 @@
 @synthesize userIcon = _userIcon;
 @synthesize userId = _userId;
 @synthesize userName = _userName;
+@synthesize anonymous = _anonymous;
+@synthesize badges = _badges;
+@synthesize createTime = _createTime;
+@synthesize exp = _exp;
+@synthesize fanCount = _fanCount;
+@synthesize favouriteCount = _favouriiteCount;
+@synthesize followCount = _followCount;
+@synthesize followed = _followed;
+@synthesize gender = _gender;
+@synthesize level = _level;
+@synthesize likeCount = _likeCount;
+@synthesize mobile = _mobile;
+@synthesize reviewCount = _reviewCount;
+@synthesize shareCount = _shareCount;
+@synthesize updateTime = _updateTime;
+@synthesize loginName = _loginName;
+
+static User *sharedUser = nil;
++ (id)sharedUser
+{
+    @synchronized(sharedUser){
+        if(sharedUser == nil)
+        {
+            NSArray *array = [LPUtility unarchiveDataFromCache:@"LoginUser"];
+            if(array && [array isKindOfClass:[NSArray class]] && [array count] > 0)
+            {
+                sharedUser = [[array objectAtIndex:0] retain];
+            }
+            else
+            {
+                sharedUser = [[User alloc] init];
+            }
+        }
+    }
+
+    return sharedUser;
+}
 
 - (id)initWithAttribute:(NSDictionary *)attribute
 {
@@ -37,6 +74,70 @@
             if([attribute objectForKey:@"name"] && ![[attribute objectForKey:@"name"] isEqual:[NSNull null]])
             {
                 self.userName = [attribute objectForKey:@"name"];
+            }
+            if([attribute objectForKey:@"anonymous"] && ![[attribute objectForKey:@"anonymous"] isEqual:[NSNull null]])
+            {
+                self.anonymous = [[attribute objectForKey:@"anonymous"] boolValue];
+            }
+            if([attribute objectForKey:@"badges"] && ![[attribute objectForKey:@"badges"] isEqual:[NSNull null]])
+            {
+                self.badges = [attribute objectForKey:@"badges"];
+            }
+            if([attribute objectForKey:@"create_time"] && ![[attribute objectForKey:@"create_time"] isEqual:[NSNull null]])
+            {
+                self.createTime = [attribute objectForKey:@"create_time"];
+            }
+            if([attribute objectForKey:@"exp"] && ![[attribute objectForKey:@"exp"] isEqual:[NSNull null]])
+            {
+                self.exp = [[attribute objectForKey:@"exp"] integerValue];
+            }
+            if([attribute objectForKey:@"fans_num"] && ![[attribute objectForKey:@"fans_num"] isEqual:[NSNull null]])
+            {
+                self.fanCount = [[attribute objectForKey:@"fans_num"] integerValue];
+            }
+            if([attribute objectForKey:@"favorite_num"] && ![[attribute objectForKey:@"favorite_num"] isEqual:[NSNull null]])
+            {
+                self.favouriteCount = [[attribute objectForKey:@"favorite_num"] integerValue];
+            }
+            if([attribute objectForKey:@"follow_num"] && ![[attribute objectForKey:@"follow_num"] isEqual:[NSNull null]])
+            {
+                self.followCount = [[attribute objectForKey:@"follow_num"] integerValue];
+            }
+            if([attribute objectForKey:@"followed"] && ![[attribute objectForKey:@"followed"] isEqual:[NSNull null]])
+            {
+                self.followed = [[attribute objectForKey:@"followed"] boolValue];
+            }
+            if([attribute objectForKey:@"gender"] && ![[attribute objectForKey:@"gender"] isEqual:[NSNull null]])
+            {
+                self.gender = [attribute objectForKey:@"gender"];
+            }
+            if([attribute objectForKey:@"level"] && ![[attribute objectForKey:@"level"] isEqual:[NSNull null]])
+            {
+                self.level = [[attribute objectForKey:@"level"] integerValue];
+            }
+            if([attribute objectForKey:@"like_num"] && ![[attribute objectForKey:@"like_num"] isEqual:[NSNull null]])
+            {
+                self.likeCount = [[attribute objectForKey:@"like_num"] integerValue];
+            }
+            if([attribute objectForKey:@"mobile"] && ![[attribute objectForKey:@"mobile"] isEqual:[NSNull null]])
+            {
+                self.mobile = [attribute objectForKey:@"mobile"];
+            }
+            if([attribute objectForKey:@"review_num"] && ![[attribute objectForKey:@"review_num"] isEqual:[NSNull null]])
+            {
+                self.reviewCount = [[attribute objectForKey:@"review_num"] integerValue];
+            }
+            if([attribute objectForKey:@"share_num"] && ![[attribute objectForKey:@"share_num"] isEqual:[NSNull null]])
+            {
+                self.shareCount = [[attribute objectForKey:@"share_num"] integerValue];
+            }
+            if([attribute objectForKey:@"update_time"] && ![[attribute objectForKey:@"update_time"] isEqual:[NSNull null]])
+            {
+                self.updateTime = [attribute objectForKey:@"update_time"];
+            }
+            if([attribute objectForKey:@"username"] && ![[attribute objectForKey:@"username"] isEqual:[NSNull null]])
+            {
+                self.loginName = [attribute objectForKey:@"username"];
             }
         }
     }

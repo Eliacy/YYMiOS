@@ -17,6 +17,62 @@
 
 @implementation LPUtility
 
+//序列化写入缓存
++ (void)archiveData:(NSArray *)array IntoCache:(NSString *)path
+{
+    NSArray *myPathList = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
+    NSString *myPath    = [myPathList  objectAtIndex:0];
+    
+    myPath = [myPath stringByAppendingPathComponent:path];
+    if(![[NSFileManager defaultManager] fileExistsAtPath:myPath])
+    {
+        NSFileManager *fileManager = [NSFileManager defaultManager ];
+        [fileManager URLForDirectory:NSApplicationSupportDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:NULL];
+        [[NSFileManager defaultManager] createFileAtPath:myPath contents:nil attributes:nil];
+    }
+    
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:array];
+    
+    dispatch_queue_t queue = dispatch_queue_create("com.liepin.archive", NULL);
+    dispatch_sync(queue, ^{
+        if(![data writeToFile:myPath atomically:YES])
+        {
+            
+        }
+    });
+}
+
++ (NSArray *)unarchiveDataFromCache:(NSString *)path
+{
+    NSArray *myPathList = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
+    NSString *myPath    = [myPathList  objectAtIndex:0];
+    NSData *fData       = nil;
+    
+    myPath = [myPath stringByAppendingPathComponent:path];
+    if([[NSFileManager defaultManager] fileExistsAtPath:myPath])
+    {
+        fData = [NSData dataWithContentsOfFile:myPath];
+    }
+    else
+    {
+    }
+    if (fData == nil ) {
+        return nil;
+    }
+    return [NSKeyedUnarchiver unarchiveObjectWithData:fData];
+}
+
++ (void)deleteArchiveDataWithPath:(NSString *)path
+{
+    NSArray *myPathList = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
+    NSString *myPath    = [myPathList  objectAtIndex:0];
+    NSError *err        = nil;
+    
+    myPath = [myPath stringByAppendingPathComponent:path];
+    
+    [[NSFileManager defaultManager] removeItemAtPath:myPath error:&err];
+}
+
 + (NSString *)hmacsha1:(NSString *)data secret:(NSString *)key
 {
     const char *cKey  = [key cStringUsingEncoding:NSASCIIStringEncoding];

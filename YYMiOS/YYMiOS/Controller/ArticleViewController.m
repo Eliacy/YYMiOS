@@ -48,10 +48,18 @@
     
     [Comment createCommentWithDealId:0
                            articleId:_articleId
-                              userId:[[[NSUserDefaults standardUserDefaults] objectForKey:@"user_id"] integerValue]
+                              userId:[[User sharedUser] userId]
                               atList:@""
                              content:_textField.text
                              success:^(NSArray *array) {
+                                 
+                                 Comment *comment = [[[Comment alloc] init] autorelease];
+                                 User *user = [[[User alloc] init] autorelease];
+                                 user.userId = [[User sharedUser] userId];
+                                 comment.user = user;
+                                 comment.content = _textField.text;
+                                 [_commentArray insertObject:comment atIndex:0];
+                                 [_tableView reloadData];
                                  
                                  _textField.text = @"";
                                  
