@@ -29,6 +29,8 @@
 @synthesize shareCount = _shareCount;
 @synthesize updateTime = _updateTime;
 @synthesize loginName = _loginName;
+@synthesize emUsername = _emUsername;
+@synthesize emPassword = _emPassword;
 
 static User *sharedUser = nil;
 + (id)sharedUser
@@ -138,6 +140,14 @@ static User *sharedUser = nil;
             if([attribute objectForKey:@"username"] && ![[attribute objectForKey:@"username"] isEqual:[NSNull null]])
             {
                 self.loginName = [attribute objectForKey:@"username"];
+            }
+            if([attribute objectForKey:@"em_username"] && ![[attribute objectForKey:@"em_username"] isEqual:[NSNull null]])
+            {
+                self.emUsername = [attribute objectForKey:@"em_username"];
+            }
+            if([attribute objectForKey:@"em_password"] && ![[attribute objectForKey:@"em_password"] isEqual:[NSNull null]])
+            {
+                self.emPassword = [attribute objectForKey:@"em_password"];
             }
         }
     }

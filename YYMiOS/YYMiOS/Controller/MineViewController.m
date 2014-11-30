@@ -24,6 +24,7 @@
 @implementation MineViewController
 
 @synthesize tabVC = _tabVC;
+@synthesize user = _user;
 
 #pragma mark - private
 
@@ -136,7 +137,6 @@
     _nameLabel.backgroundColor = [UIColor clearColor];
     _nameLabel.textColor = [UIColor darkGrayColor];
     _nameLabel.font = [UIFont systemFontOfSize:16.0f];
-    _nameLabel.text = @"我的ID叫小花";
     [_backView addSubview:_nameLabel];
     
     _followingButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
@@ -201,6 +201,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.user = [User sharedUser];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -239,6 +241,17 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (void)setUser:(User *)user
+{
+    if(_user != nil)
+    {
+        LP_SAFE_RELEASE(_user);
+    }
+    _user = [user retain];
+    
+    _nameLabel.text = user.userName;
+}
 
 #pragma mark - UITableViewDataSource
 

@@ -30,6 +30,8 @@
     NSInteger   _shareCount;
     NSString    *_updateTime;
     NSString    *_loginName;
+    NSString    *_emUsername;
+    NSString    *_emPassword;
 }
 
 @property (retain, nonatomic) LPImage *userIcon;
@@ -51,6 +53,8 @@
 @property (assign, nonatomic) NSInteger shareCount;
 @property (retain, nonatomic) NSString *updateTime;
 @property (retain, nonatomic) NSString *loginName;
+@property (retain, nonatomic) NSString *emUsername;
+@property (retain, nonatomic) NSString *emPassword;
 
 + (id)sharedUser;
 

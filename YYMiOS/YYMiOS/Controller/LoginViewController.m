@@ -49,6 +49,12 @@
                                                  [[NSUserDefaults standardUserDefaults] synchronize];
                                                  [(AppDelegate *)[[UIApplication sharedApplication] delegate] lanuchTabViewContrller];
                                                  
+                                                 [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:[[User sharedUser] emUsername]
+                                                                                                     password:[[User sharedUser] emPassword]
+                                                                                                   completion:^(NSDictionary *loginInfo, EMError *error) {
+                                                                                                       
+                                                                                                   } onQueue:nil];
+                                                 
                                              } failure:^(NSError *error) {
                                                  
                                              }];

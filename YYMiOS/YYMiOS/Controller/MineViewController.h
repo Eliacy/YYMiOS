@@ -30,8 +30,11 @@
     
     UIButton        *_settingButton;
     UIButton        *_messageButton;
+    
+    User            *_user;
 }
 
 @property (assign, nonatomic) TabViewController *tabVC;
+@property (retain, nonatomic) User *user;
 
 @end
