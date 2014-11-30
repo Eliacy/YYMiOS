@@ -11,6 +11,7 @@
 @implementation DynamicCell
 
 @synthesize deal = _deal;
+@synthesize delegate = _delegate;
 
 #pragma mark - private
 
@@ -35,13 +36,19 @@
         
         _backImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 435)];
         _backImageView.backgroundColor = [UIColor whiteColor];
+        _backImageView.userInteractionEnabled = YES;
         [self.contentView addSubview:_backImageView];
         
         _avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 15, 60, 60)];
         _avatarImageView.backgroundColor = [UIColor clearColor];
         _avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
         _avatarImageView.layer.masksToBounds = YES;
+        _avatarImageView.userInteractionEnabled = YES;
         [_backImageView addSubview:_avatarImageView];
+        
+        UITapGestureRecognizer *oneFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAvatarImageView:)];
+        [_avatarImageView addGestureRecognizer:oneFingerTap];
+        [oneFingerTap release];
         
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(_avatarImageView.frame.origin.x + _avatarImageView.frame.size.width + 10, _avatarImageView.frame.origin.y, 130, 20)];
         _nameLabel.backgroundColor = [UIColor clearColor];
@@ -202,6 +209,19 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+#pragma mark - UIGestureRecognizer
+
+- (void)tapAvatarImageView:(UITapGestureRecognizer *)gestureRecognizer
+{
+    if(gestureRecognizer.state == UIGestureRecognizerStateEnded)
+    {
+        if(_delegate && [_delegate respondsToSelector:@selector(dynamicCellDidTapAvatarImageView:)])
+        {
+            [_delegate dynamicCellDidTapAvatarImageView:self];
+        }
+    }
 }
 
 @end

@@ -13,7 +13,9 @@
 #import "DealDetailViewController.h"
 #import "Deal.h"
 
-@interface DynamicViewController ()
+#import "UserDetailViewController.h"
+
+@interface DynamicViewController () <DynamicCellDelegate>
 
 @end
 
@@ -167,6 +169,7 @@
     }
     
     cell.deal = [_dynamicArray objectAtIndex:indexPath.row];
+    cell.delegate = self;
     
     return cell;
 }
@@ -181,6 +184,15 @@
     [self.tabVC.navigationController pushViewController:dealDetailVC animated:YES];
     
     return nil;
+}
+
+#pragma mark - DynamicCellDelegate
+
+- (void)dynamicCellDidTapAvatarImageView:(DynamicCell *)dynamicCell
+{
+    UserDetailViewController *userDetailVC = [[[UserDetailViewController alloc] init] autorelease];
+    userDetailVC.userId = dynamicCell.deal.user.userId;
+    [self.tabVC.navigationController pushViewController:userDetailVC animated:YES];
 }
 
 @end

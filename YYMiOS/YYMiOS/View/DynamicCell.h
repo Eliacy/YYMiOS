@@ -9,9 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "Deal.h"
 
+@protocol DynamicCellDelegate;
+
 @interface DynamicCell : UITableViewCell
 {
     Deal            *_deal;
+    id<DynamicCellDelegate> _delegate;
     
     UIImageView     *_backImageView;
     
@@ -35,5 +38,12 @@
 }
 
 @property (retain, nonatomic) Deal *deal;
+@property (assign, nonatomic) id<DynamicCellDelegate> delegate;
+
+@end
+
+@protocol DynamicCellDelegate <NSObject>
+
+- (void)dynamicCellDidTapAvatarImageView:(DynamicCell *)dynamicCell;
 
 @end

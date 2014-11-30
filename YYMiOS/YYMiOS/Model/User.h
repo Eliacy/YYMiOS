@@ -60,4 +60,12 @@
 
 - (id)initWithAttribute:(NSDictionary *)attribute;
 
++ (void)getUserInfoWithUserId:(NSInteger)userId
+                       offset:(NSInteger)offset
+                        limit:(NSInteger)limit
+                     followId:(NSInteger)followId
+                        fanId:(NSInteger)fanId
+                      success:(LPObjectSuccessBlock)successBlock
+                      failure:(LPObjectFailureBlock)failureBlock;
+
 @end

@@ -20,6 +20,7 @@
     UIView          *_backView;
     UIImageView     *_avatarImageView;
     UILabel         *_nameLabel;
+    UILabel         *_levelLabel;
     UIButton        *_followingButton;
     UIButton        *_followerButton;
     

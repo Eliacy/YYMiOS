@@ -155,4 +155,70 @@ static User *sharedUser = nil;
     return self;
 }
 
++ (NSArray *)parseFromeDictionary:(NSDictionary *)dictionary
+{
+    NSMutableArray *mutableArray = [NSMutableArray arrayWithCapacity:0];
+    
+    if(dictionary && [dictionary isKindOfClass:[NSDictionary class]])
+    {
+        if([dictionary objectForKey:@"data"])
+        {
+            dictionary = [dictionary objectForKey:@"data"];
+        }
+        
+        if([dictionary isKindOfClass:[NSArray class]])
+        {
+            for(NSDictionary *attribute in (NSArray *)dictionary)
+            {
+                User *user = [[User alloc] initWithAttribute:attribute];
+                [mutableArray addObject:user];
+                [user release];
+            }
+        }
+        else if([dictionary isKindOfClass:[NSDictionary class]])
+        {
+            User *user = [[User alloc] initWithAttribute:dictionary];
+            [mutableArray addObject:user];
+            [user release];
+        }
+    }
+    else if([dictionary isKindOfClass:[NSArray class]])
+    {
+        for(NSDictionary *attribute in (NSArray *)dictionary)
+        {
+            User *user = [[User alloc] initWithAttribute:attribute];
+            [mutableArray addObject:user];
+            [user release];
+        }
+    }
+    
+    return mutableArray;
+}
+
++ (void)getUserInfoWithUserId:(NSInteger)userId
+                       offset:(NSInteger)offset
+                        limit:(NSInteger)limit
+                     followId:(NSInteger)followId
+                        fanId:(NSInteger)fanId
+                      success:(LPObjectSuccessBlock)successBlock
+                      failure:(LPObjectFailureBlock)failureBlock
+{
+    [[LPAPIClient sharedAPIClient] getUserInfoWithUserId:userId
+                                                  offset:offset
+                                                   limit:limit
+                                                followId:followId
+                                                   fanId:fanId
+                                                 success:^(id respondObject) {
+                                                     if(successBlock)
+                                                     {
+                                                         successBlock([User parseFromeDictionary:respondObject]);
+                                                     }
+                                                 } failure:^(NSError *error) {
+                                                     if(failureBlock)
+                                                     {
+                                                         failureBlock(error);
+                                                     }
+                                                 }];
+}
+
 @end
