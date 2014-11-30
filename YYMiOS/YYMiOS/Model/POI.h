@@ -53,4 +53,20 @@
                      success:(LPObjectSuccessBlock)successBlock
                      failure:(LPObjectFailureBlock)failureBlock;
 
++ (void)collectPOIWithUserId:(NSInteger)userId
+                       POIId:(NSInteger)POIId
+                     success:(LPObjectSuccessBlock)successBlock
+                     failure:(LPObjectFailureBlock)failureBlock;
+
++ (void)cancelCollectPOIWithUserId:(NSInteger)userId
+                             POIId:(NSInteger)POIId
+                           success:(LPObjectSuccessBlock)successBlock
+                           failure:(LPObjectFailureBlock)failureBlock;
+
++ (void)getPOIFavouriteListWithOffset:(NSInteger)offset
+                                limit:(NSInteger)limit
+                               userId:(NSInteger)userId
+                              success:(LPObjectSuccessBlock)successBlock
+                              failure:(LPObjectFailureBlock)failureBlock;
+
 @end

@@ -139,7 +139,7 @@
     [_tableHeaderView addSubview:_backView];
     
     _avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 10, 60, 60)];
-    _avatarImageView.backgroundColor = [UIColor brownColor];
+    _avatarImageView.backgroundColor = [UIColor clearColor];
     _avatarImageView.userInteractionEnabled = YES;
     _avatarImageView.layer.cornerRadius = 30;
     _avatarImageView.layer.masksToBounds = YES;
@@ -244,8 +244,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    self.user = [User sharedUser];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -257,6 +255,25 @@
         return;
     }
     _isAppear = YES;
+    
+    [User getUserInfoWithUserId:[[User sharedUser] userId]
+                         offset:0
+                          limit:0
+                       followId:0
+                          fanId:0
+                        success:^(NSArray *array) {
+                            
+                            if([array count] > 0)
+                            {
+                                [User setSharedUser:[array objectAtIndex:0]];
+                                [LPUtility archiveData:array IntoCache:@"LoginUser"];
+                                
+                                [self setUser:[array objectAtIndex:0]];
+                            }
+                            
+                        } failure:^(NSError *error) {
+                            
+                        }];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

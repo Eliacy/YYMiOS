@@ -31,6 +31,6 @@
                         brief:(NSInteger)brief
                        cityId:(NSInteger)cityId
                       success:(LPObjectSuccessBlock)successBlock
-                      failure:(LPObjectFailureBlock)failureBlcok;
+                      failure:(LPObjectFailureBlock)failureBlock;
 
 @end

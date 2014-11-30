@@ -102,7 +102,7 @@
                         brief:(NSInteger)brief
                        cityId:(NSInteger)cityId
                       success:(LPObjectSuccessBlock)successBlock
-                      failure:(LPObjectFailureBlock)failureBlcok
+                      failure:(LPObjectFailureBlock)failureBlock
 {
     [[LPAPIClient sharedAPIClient] getTipsListWithTipsId:tipsId
                                                    brief:brief
@@ -113,9 +113,9 @@
                                                          successBlock([Tip parseFromeDictionary:respondObject]);
                                                      }
                                                  } failure:^(NSError *error) {
-                                                     if(failureBlcok)
+                                                     if(failureBlock)
                                                      {
-                                                         failureBlcok(error);
+                                                         failureBlock(error);
                                                      }
                                                  }];
 }

@@ -14,7 +14,12 @@
     User            *_user;
     
     UITableView     *_tableView;
-    NSMutableArray  *_dealArray;
+    NSInteger       _type;
+    
+    NSMutableArray  *_likeArray;
+    NSMutableArray  *_shareArray;
+    NSMutableArray  *_commentArray;
+    NSMutableArray  *_favouriteArray;
     
     UIView          *_tableHeaderView;
     UIView          *_backView;

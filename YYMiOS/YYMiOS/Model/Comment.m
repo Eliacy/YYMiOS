@@ -151,7 +151,7 @@
                          atList:(NSString *)atList
                         content:(NSString *)content
                         success:(LPObjectSuccessBlock)successBlock
-                        failure:(LPObjectFailureBlock)failureBlcok
+                        failure:(LPObjectFailureBlock)failureBlock
 {
     [[LPAPIClient sharedAPIClient] createCommentWithDealId:dealId
                                                  articleId:articleId
@@ -164,9 +164,9 @@
                                                            successBlock([Comment parseFromeDictionary:respondObject]);
                                                        }
                                                    } failure:^(NSError *error) {
-                                                       if(failureBlcok)
+                                                       if(failureBlock)
                                                        {
-                                                           failureBlcok(error);
+                                                           failureBlock(error);
                                                        }
                                                    }];
 }

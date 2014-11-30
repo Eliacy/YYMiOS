@@ -53,6 +53,11 @@ static User *sharedUser = nil;
     return sharedUser;
 }
 
++ (void)setSharedUser:(User *)user
+{
+    sharedUser = user;
+}
+
 - (id)initWithAttribute:(NSDictionary *)attribute
 {
     self = [super init];

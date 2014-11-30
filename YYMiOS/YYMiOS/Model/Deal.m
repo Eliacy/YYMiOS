@@ -194,7 +194,7 @@
                                site:(NSInteger)site
                                city:(NSInteger)city
                             success:(LPObjectSuccessBlock)successBlock
-                            failure:(LPObjectFailureBlock)failureBlcok
+                            failure:(LPObjectFailureBlock)failureBlock
 {
     [[LPAPIClient sharedAPIClient] getDealDetailListWithDealId:dealId
                                                          brief:brief
@@ -211,9 +211,31 @@
                                                                successBlock([Deal parseFromeDictionary:respondObject]);
                                                            }
                                                        } failure:^(NSError *error) {
-                                                           if(failureBlcok)
+                                                           if(failureBlock)
                                                            {
-                                                               failureBlcok(error);
+                                                               failureBlock(error);
+                                                           }
+                                                       }];
+}
+
++ (void)getReviewLikeListWithOffset:(NSInteger)offset
+                              limit:(NSInteger)limit
+                             userId:(NSInteger)userId
+                            success:(LPObjectSuccessBlock)successBlock
+                            failure:(LPObjectFailureBlock)failureBlock
+{
+    [[LPAPIClient sharedAPIClient] getReviewLikeListWithOffset:offset
+                                                         limit:limit
+                                                        userId:userId
+                                                       success:^(id respondObject) {
+                                                           if(successBlock)
+                                                           {
+                                                               successBlock([Deal parseFromeDictionary:respondObject]);
+                                                           }
+                                                       } failure:^(NSError *error) {
+                                                           if(failureBlock)
+                                                           {
+                                                               failureBlock(error);
                                                            }
                                                        }];
 }

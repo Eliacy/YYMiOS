@@ -17,6 +17,8 @@
     NSInteger       _poiId;
     POIDetail       *_poiDetail;
     
+    UIButton        *_favouriteButton;
+    
     UIView          *_footerView;
     UIView          *_textBackView;
     UITextField     *_textField;

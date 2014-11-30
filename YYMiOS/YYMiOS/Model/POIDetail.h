@@ -38,6 +38,7 @@
     NSString    *_ticket;
     NSArray     *_topImageArray;
     NSString    *_transport;
+    BOOL        _favorited;
 }
 
 @property (retain, nonatomic) NSString *address;
@@ -67,6 +68,7 @@
 @property (retain, nonatomic) NSString *ticket;
 @property (retain, nonatomic) NSArray *topImageArray;
 @property (retain, nonatomic) NSString *transport;
+@property (assign, nonatomic) BOOL favorited;
 
 - (id)initWithAttribute:(NSDictionary *)attribute;
 

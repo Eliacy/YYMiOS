@@ -37,6 +37,7 @@
 @synthesize ticket = _ticket;
 @synthesize topImageArray = _topImageArray;
 @synthesize transport = _transport;
+@synthesize favorited = _favorited;
 
 - (id)initWithAttribute:(NSDictionary *)attribute
 {
@@ -189,6 +190,10 @@
             if([attribute objectForKey:@"transport"] && ![[attribute objectForKey:@"transport"] isEqual:[NSNull null]])
             {
                 self.transport = [attribute objectForKey:@"transport"];
+            }
+            if([attribute objectForKey:@"favorited"] && ![[attribute objectForKey:@"favorited"] isEqual:[NSNull null]])
+            {
+                self.favorited = [[attribute objectForKey:@"favorited"] boolValue];
             }
         }
     }

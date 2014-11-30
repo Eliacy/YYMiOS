@@ -31,6 +31,6 @@
 
 + (void)getCityListWithCityId:(NSInteger)cityId
                       success:(LPObjectSuccessBlock)successBlock
-                      failure:(LPObjectFailureBlock)failureBlcok;
+                      failure:(LPObjectFailureBlock)failureBlock;
 
 @end

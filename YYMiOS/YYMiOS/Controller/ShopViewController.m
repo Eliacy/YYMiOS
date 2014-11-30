@@ -25,6 +25,50 @@
 
 #pragma mark - private
 
+- (void)clickFavouriteButton:(id)sender
+{
+    if(_isLoading)
+    {
+        return;
+    }
+    _isLoading = YES;
+    
+    if(_poiDetail.favorited)
+    {
+        [POI cancelCollectPOIWithUserId:[[User sharedUser] userId]
+                                  POIId:_poiId
+                                success:^(NSArray *array) {
+                                    
+                                    _isLoading = NO;
+                                    
+                                    _poiDetail.favorited = 0;
+                                    [_favouriteButton setTitle:@"收藏" forState:UIControlStateNormal];
+                                    
+                                } failure:^(NSError *error) {
+                                   
+                                    _isLoading = NO;
+                                    
+                                }];
+    }
+    else
+    {
+        [POI collectPOIWithUserId:[[User sharedUser] userId]
+                            POIId:_poiId
+                          success:^(NSArray *array) {
+                              
+                              _isLoading = NO;
+                              
+                              _poiDetail.favorited = 1;
+                              [_favouriteButton setTitle:@"取消" forState:UIControlStateNormal];
+                              
+                          } failure:^(NSError *error) {
+                              
+                              _isLoading = NO;
+                              
+                          }];
+    }
+}
+
 - (void)clickSendButton:(id)sender
 {
     if([_textField isFirstResponder])
@@ -84,6 +128,15 @@
     [super loadView];
     
     _titleLabel.text = @"店铺主页";
+    
+    _favouriteButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    _favouriteButton.frame = CGRectMake(_headerView.frame.size.width - 2 - 40, 2, 40, 40);
+    _favouriteButton.backgroundColor = [UIColor clearColor];
+    [_favouriteButton setTitle:@"收藏" forState:UIControlStateNormal];
+    [_favouriteButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _favouriteButton.titleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
+    [_favouriteButton addTarget:self action:@selector(clickFavouriteButton:) forControlEvents:UIControlEventTouchUpInside];
+    [_headerView addSubview:_favouriteButton];
     
     _footerView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 49, self.view.frame.size.width, 49)];
     _footerView.backgroundColor = [UIColor whiteColor];
@@ -305,6 +358,15 @@
         LP_SAFE_RELEASE(_poiDetail);
     }
     _poiDetail = [poiDetail retain];
+    
+    if(poiDetail.favorited)
+    {
+        [_favouriteButton setTitle:@"取消" forState:UIControlStateNormal];
+    }
+    else
+    {
+        [_favouriteButton setTitle:@"收藏" forState:UIControlStateNormal];
+    }
     
     [_logoImageView setImageWithURL:[NSURL URLWithString:[LPUtility getQiniuImageURLStringWithBaseString:poiDetail.logo.imageURL imageSize:CGSizeMake(100, 100)]]];
     _nameLabel.text = poiDetail.name;

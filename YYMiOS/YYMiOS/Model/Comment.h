@@ -46,6 +46,6 @@
                          atList:(NSString *)atList
                         content:(NSString *)content
                         success:(LPObjectSuccessBlock)successBlock
-                        failure:(LPObjectFailureBlock)failureBlcok;
+                        failure:(LPObjectFailureBlock)failureBlock;
 
 @end

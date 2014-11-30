@@ -57,6 +57,7 @@
 @property (retain, nonatomic) NSString *emPassword;
 
 + (id)sharedUser;
++ (void)setSharedUser:(User *)user;
 
 - (id)initWithAttribute:(NSDictionary *)attribute;
 

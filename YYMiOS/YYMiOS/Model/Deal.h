@@ -59,6 +59,12 @@
                                site:(NSInteger)site
                                city:(NSInteger)city
                             success:(LPObjectSuccessBlock)successBlock
-                            failure:(LPObjectFailureBlock)failureBlcok;
+                            failure:(LPObjectFailureBlock)failureBlock;
+
++ (void)getReviewLikeListWithOffset:(NSInteger)offset
+                              limit:(NSInteger)limit
+                             userId:(NSInteger)userId
+                            success:(LPObjectSuccessBlock)successBlock
+                            failure:(LPObjectFailureBlock)failureBlock;
 
 @end

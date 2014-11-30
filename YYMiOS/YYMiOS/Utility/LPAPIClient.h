@@ -22,19 +22,19 @@ typedef void (^LPAPIFailureBlock)(NSError *error);
  获取时间戳
  */
 - (void)getServerTimeStampSuccess:(LPAPISuccessBlock)successBlock
-                          failure:(LPAPIFailureBlock)failureBlcok;
+                          failure:(LPAPIFailureBlock)failureBlock;
 
 /*
  支持最低API协议版本
  */
 - (void)getLowestVersionSuccess:(LPAPISuccessBlock)successBlock
-                        failure:(LPAPIFailureBlock)failureBlcok;
+                        failure:(LPAPIFailureBlock)failureBlock;
 
 /*
  获取服务器缓存时间
  */
 - (void)getServerCacheTimeSuccess:(LPAPISuccessBlock)successBlock
-                          failure:(LPAPIFailureBlock)failureBlcok;
+                          failure:(LPAPIFailureBlock)failureBlock;
 
 /*
  获取分类及子分类列表
@@ -55,7 +55,7 @@ typedef void (^LPAPIFailureBlock)(NSError *error);
  */
 - (void)getCityListWithCityId:(NSInteger)cityId
                       success:(LPAPISuccessBlock)successBlock
-                      failure:(LPAPIFailureBlock)failureBlcok;
+                      failure:(LPAPIFailureBlock)failureBlock;
 
 /*
  POI列表搜索
@@ -88,14 +88,14 @@ typedef void (^LPAPIFailureBlock)(NSError *error);
                                site:(NSInteger)site
                                city:(NSInteger)city
                             success:(LPAPISuccessBlock)successBlock
-                            failure:(LPAPIFailureBlock)failureBlcok;
+                            failure:(LPAPIFailureBlock)failureBlock;
 
 /*
  删除晒单
  */
 - (void)deleteDealDetailWithDealId:(NSInteger)dealId
                            success:(LPAPISuccessBlock)successBlock
-                           failure:(LPAPIFailureBlock)failureBlcok;
+                           failure:(LPAPIFailureBlock)failureBlock;
 
 /*
  创建晒单
@@ -111,7 +111,7 @@ typedef void (^LPAPIFailureBlock)(NSError *error);
                              currency:(NSString *)currency
                                siteId:(NSInteger)siteId
                               success:(LPAPISuccessBlock)successBlock
-                              failure:(LPAPIFailureBlock)failureBlcok;
+                              failure:(LPAPIFailureBlock)failureBlock;
 
 /*
  修改晒单
@@ -128,7 +128,7 @@ typedef void (^LPAPIFailureBlock)(NSError *error);
                           currency:(NSString *)currency
                             siteId:(NSInteger)siteId
                            success:(LPAPISuccessBlock)successBlock
-                           failure:(LPAPIFailureBlock)failureBlcok;
+                           failure:(LPAPIFailureBlock)failureBlock;
 
 /*
  获取评论
@@ -157,7 +157,7 @@ typedef void (^LPAPIFailureBlock)(NSError *error);
                          atList:(NSString *)atList
                         content:(NSString *)content
                         success:(LPAPISuccessBlock)successBlock
-                        failure:(LPAPIFailureBlock)failureBlcok;
+                        failure:(LPAPIFailureBlock)failureBlock;
 
 /*
  修改评论
@@ -179,7 +179,7 @@ typedef void (^LPAPIFailureBlock)(NSError *error);
                     token:(NSString *)token
                    device:(NSString *)device
                   success:(LPAPISuccessBlock)successBlock
-                  failure:(LPAPIFailureBlock)failureBlcok;
+                  failure:(LPAPIFailureBlock)failureBlock;
 
 /*
  注册
@@ -192,7 +192,7 @@ typedef void (^LPAPIFailureBlock)(NSError *error);
                      token:(NSString *)token
                     device:(NSString *)device
                    success:(LPAPISuccessBlock)successBlock
-                   failure:(LPAPIFailureBlock)failureBlcok;
+                   failure:(LPAPIFailureBlock)failureBlock;
 
 /*
  获取用户信息
@@ -223,7 +223,7 @@ typedef void (^LPAPIFailureBlock)(NSError *error);
                         brief:(NSInteger)brief
                        cityId:(NSInteger)cityId
                       success:(LPAPISuccessBlock)successBlock
-                      failure:(LPAPIFailureBlock)failureBlcok;
+                      failure:(LPAPIFailureBlock)failureBlock;
 
 /*
  获取文章列表
@@ -234,7 +234,7 @@ typedef void (^LPAPIFailureBlock)(NSError *error);
                               limit:(NSInteger)limit
                              cityId:(NSInteger)cityId
                             success:(LPAPISuccessBlock)successBlock
-                            failure:(LPAPIFailureBlock)failureBlcok;
+                            failure:(LPAPIFailureBlock)failureBlock;
 
 /*
  获取图片
@@ -245,14 +245,14 @@ typedef void (^LPAPIFailureBlock)(NSError *error);
                          siteId:(NSInteger)siteId
                        reviewId:(NSInteger)reviewId
                         success:(LPAPISuccessBlock)successBlock
-                        failure:(LPAPIFailureBlock)failureBlcok;
+                        failure:(LPAPIFailureBlock)failureBlock;
 
 /*
  删除图片
  */
 - (void)deleteImageWithImageId:(NSInteger)imageId
                        success:(LPAPISuccessBlock)successBlock
-                       failure:(LPAPIFailureBlock)failureBlcok;
+                       failure:(LPAPIFailureBlock)failureBlock;
 
 /*
  创建图片
@@ -261,7 +261,7 @@ typedef void (^LPAPIFailureBlock)(NSError *error);
                        path:(NSString *)path
                      userId:(NSInteger)userId
                     success:(LPAPISuccessBlock)successBlock
-                    failure:(LPAPIFailureBlock)failureBlcok;
+                    failure:(LPAPIFailureBlock)failureBlock;
 
 /*
  关注
@@ -269,7 +269,7 @@ typedef void (^LPAPIFailureBlock)(NSError *error);
 - (void)followSomeoneWithUserId:(NSInteger)userId
                      fromUserId:(NSInteger)fromUserId
                         success:(LPAPISuccessBlock)successBlock
-                        failure:(LPAPIFailureBlock)failureBlcok;
+                        failure:(LPAPIFailureBlock)failureBlock;
 
 /*
  取消关注
@@ -277,7 +277,7 @@ typedef void (^LPAPIFailureBlock)(NSError *error);
 - (void)unfollowSomeoneWithUserId:(NSInteger)userId
                        fromUserId:(NSInteger)fromUserId
                           success:(LPAPISuccessBlock)successBlock
-                          failure:(LPAPIFailureBlock)failureBlcok;
+                          failure:(LPAPIFailureBlock)failureBlock;
 
 /*
  喜欢晒单评论
@@ -285,7 +285,7 @@ typedef void (^LPAPIFailureBlock)(NSError *error);
 - (void)likeReviewWithUserId:(NSInteger)userId
                     reviewId:(NSInteger)reviewId
                      success:(LPAPISuccessBlock)successBlock
-                     failure:(LPAPIFailureBlock)failureBlcok;
+                     failure:(LPAPIFailureBlock)failureBlock;
 
 /*
  取消喜欢晒单评论
@@ -293,7 +293,16 @@ typedef void (^LPAPIFailureBlock)(NSError *error);
 - (void)unlikeReviewWithUserId:(NSInteger)userId
                       reviewId:(NSInteger)reviewId
                        success:(LPAPISuccessBlock)successBlock
-                       failure:(LPAPIFailureBlock)failureBlcok;
+                       failure:(LPAPIFailureBlock)failureBlock;
+
+/*
+ 获取晒单喜欢列表
+ */
+- (void)getReviewLikeListWithOffset:(NSInteger)offset
+                              limit:(NSInteger)limit
+                             userId:(NSInteger)userId
+                            success:(LPAPISuccessBlock)successBlock
+                            failure:(LPAPIFailureBlock)failureBlock;
 
 /*
  收藏POI
@@ -301,7 +310,7 @@ typedef void (^LPAPIFailureBlock)(NSError *error);
 - (void)collectPOIWithUserId:(NSInteger)userId
                        POIId:(NSInteger)POIId
                      success:(LPAPISuccessBlock)successBlock
-                     failure:(LPAPIFailureBlock)failureBlcok;
+                     failure:(LPAPIFailureBlock)failureBlock;
 
 /*
  取消收藏POI
@@ -309,6 +318,15 @@ typedef void (^LPAPIFailureBlock)(NSError *error);
 - (void)cancelCollectPOIWithUserId:(NSInteger)userId
                              POIId:(NSInteger)POIId
                            success:(LPAPISuccessBlock)successBlock
-                           failure:(LPAPIFailureBlock)failureBlcok;
+                           failure:(LPAPIFailureBlock)failureBlock;
+
+/*
+ 获取POI收藏列表
+ */
+- (void)getPOIFavouriteListWithOffset:(NSInteger)offset
+                                limit:(NSInteger)limit
+                               userId:(NSInteger)userId
+                              success:(LPAPISuccessBlock)successBlock
+                              failure:(LPAPIFailureBlock)failureBlock;
 
 @end

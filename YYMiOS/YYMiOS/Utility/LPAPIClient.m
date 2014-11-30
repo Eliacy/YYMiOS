@@ -316,7 +316,7 @@ static id APIClient = nil;
  获取时间戳
  */
 - (void)getServerTimeStampSuccess:(LPAPISuccessBlock)successBlock
-                          failure:(LPAPIFailureBlock)failureBlcok
+                          failure:(LPAPIFailureBlock)failureBlock
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
     
@@ -324,14 +324,14 @@ static id APIClient = nil;
                    params:params
                    method:@"GET"
                   success:successBlock
-                  failure:failureBlcok];
+                  failure:failureBlock];
 }
 
 /*
  支持最低API协议版本
  */
 - (void)getLowestVersionSuccess:(LPAPISuccessBlock)successBlock
-                        failure:(LPAPIFailureBlock)failureBlcok
+                        failure:(LPAPIFailureBlock)failureBlock
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
     
@@ -339,14 +339,14 @@ static id APIClient = nil;
                    params:params
                    method:@"GET"
                   success:successBlock
-                  failure:failureBlcok];
+                  failure:failureBlock];
 }
 
 /*
  获取服务器缓存时间
  */
 - (void)getServerCacheTimeSuccess:(LPAPISuccessBlock)successBlock
-                          failure:(LPAPIFailureBlock)failureBlcok
+                          failure:(LPAPIFailureBlock)failureBlock
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
     
@@ -354,7 +354,7 @@ static id APIClient = nil;
                    params:params
                    method:@"GET"
                   success:successBlock
-                  failure:failureBlcok];
+                  failure:failureBlock];
 }
 
 /*
@@ -404,7 +404,7 @@ static id APIClient = nil;
  */
 - (void)getCityListWithCityId:(NSInteger)cityId
                       success:(LPAPISuccessBlock)successBlock
-                      failure:(LPAPIFailureBlock)failureBlcok
+                      failure:(LPAPIFailureBlock)failureBlock
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
     
@@ -417,7 +417,7 @@ static id APIClient = nil;
                    params:params
                    method:@"GET"
                   success:successBlock
-                  failure:failureBlcok];
+                  failure:failureBlock];
 }
 
 /*
@@ -524,7 +524,7 @@ static id APIClient = nil;
                                site:(NSInteger)site
                                city:(NSInteger)city
                             success:(LPAPISuccessBlock)successBlock
-                            failure:(LPAPIFailureBlock)failureBlcok
+                            failure:(LPAPIFailureBlock)failureBlock
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
     
@@ -542,7 +542,7 @@ static id APIClient = nil;
                    params:params
                    method:@"GET"
                   success:successBlock
-                  failure:failureBlcok];
+                  failure:failureBlock];
 }
 
 
@@ -551,7 +551,7 @@ static id APIClient = nil;
  */
 - (void)deleteDealDetailWithDealId:(NSInteger)dealId
                            success:(LPAPISuccessBlock)successBlock
-                           failure:(LPAPIFailureBlock)failureBlcok
+                           failure:(LPAPIFailureBlock)failureBlock
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
     
@@ -561,7 +561,7 @@ static id APIClient = nil;
                    params:params
                    method:@"DELETE"
                   success:successBlock
-                  failure:failureBlcok];
+                  failure:failureBlock];
 }
 
 /*
@@ -578,7 +578,7 @@ static id APIClient = nil;
                              currency:(NSString *)currency
                                siteId:(NSInteger)siteId
                               success:(LPAPISuccessBlock)successBlock
-                              failure:(LPAPIFailureBlock)failureBlcok
+                              failure:(LPAPIFailureBlock)failureBlock
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
     
@@ -612,7 +612,7 @@ static id APIClient = nil;
                    params:params
                    method:@"POST"
                   success:successBlock
-                  failure:failureBlcok];
+                  failure:failureBlock];
 }
 
 /*
@@ -630,7 +630,7 @@ static id APIClient = nil;
                           currency:(NSString *)currency
                             siteId:(NSInteger)siteId
                            success:(LPAPISuccessBlock)successBlock
-                           failure:(LPAPIFailureBlock)failureBlcok
+                           failure:(LPAPIFailureBlock)failureBlock
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
     
@@ -665,7 +665,7 @@ static id APIClient = nil;
                    params:params
                    method:@"PUT"
                   success:successBlock
-                  failure:failureBlcok];
+                  failure:failureBlock];
 }
 
 - (void)getCommentListWithCommentId:(NSInteger)commentId
@@ -718,7 +718,7 @@ static id APIClient = nil;
                          atList:(NSString *)atList
                         content:(NSString *)content
                         success:(LPAPISuccessBlock)successBlock
-                        failure:(LPAPIFailureBlock)failureBlcok
+                        failure:(LPAPIFailureBlock)failureBlock
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
     
@@ -738,7 +738,7 @@ static id APIClient = nil;
                    params:params
                    method:@"POST"
                   success:successBlock
-                  failure:failureBlcok];
+                  failure:failureBlock];
 }
 
 /*
@@ -783,7 +783,7 @@ static id APIClient = nil;
                     token:(NSString *)token
                    device:(NSString *)device
                   success:(LPAPISuccessBlock)successBlock
-                  failure:(LPAPIFailureBlock)failureBlcok
+                  failure:(LPAPIFailureBlock)failureBlock
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
     
@@ -808,7 +808,7 @@ static id APIClient = nil;
                    params:params
                    method:@"POST"
                   success:successBlock
-                  failure:failureBlcok];
+                  failure:failureBlock];
 }
 
 /*
@@ -822,7 +822,7 @@ static id APIClient = nil;
                      token:(NSString *)token
                     device:(NSString *)device
                    success:(LPAPISuccessBlock)successBlock
-                   failure:(LPAPIFailureBlock)failureBlcok
+                   failure:(LPAPIFailureBlock)failureBlock
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
     
@@ -856,7 +856,7 @@ static id APIClient = nil;
                    params:params
                    method:@"POST"
                   success:successBlock
-                  failure:failureBlcok];
+                  failure:failureBlock];
 }
 
 /*
@@ -927,7 +927,7 @@ static id APIClient = nil;
                         brief:(NSInteger)brief
                        cityId:(NSInteger)cityId
                       success:(LPAPISuccessBlock)successBlock
-                      failure:(LPAPIFailureBlock)failureBlcok
+                      failure:(LPAPIFailureBlock)failureBlock
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
     
@@ -939,7 +939,7 @@ static id APIClient = nil;
                    params:params
                    method:@"GET"
                   success:successBlock
-                  failure:failureBlcok];
+                  failure:failureBlock];
 }
 
 /*
@@ -951,7 +951,7 @@ static id APIClient = nil;
                               limit:(NSInteger)limit
                              cityId:(NSInteger)cityId
                             success:(LPAPISuccessBlock)successBlock
-                            failure:(LPAPIFailureBlock)failureBlcok
+                            failure:(LPAPIFailureBlock)failureBlock
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
     
@@ -965,7 +965,7 @@ static id APIClient = nil;
                    params:params
                    method:@"GET"
                   success:successBlock
-                  failure:failureBlcok];
+                  failure:failureBlock];
 }
 
 /*
@@ -977,7 +977,7 @@ static id APIClient = nil;
                          siteId:(NSInteger)siteId
                        reviewId:(NSInteger)reviewId
                         success:(LPAPISuccessBlock)successBlock
-                        failure:(LPAPIFailureBlock)failureBlcok
+                        failure:(LPAPIFailureBlock)failureBlock
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
     
@@ -991,7 +991,7 @@ static id APIClient = nil;
                    params:params
                    method:@"GET"
                   success:successBlock
-                  failure:failureBlcok];
+                  failure:failureBlock];
 }
 
 /*
@@ -999,7 +999,7 @@ static id APIClient = nil;
  */
 - (void)deleteImageWithImageId:(NSInteger)imageId
                        success:(LPAPISuccessBlock)successBlock
-                       failure:(LPAPIFailureBlock)failureBlcok
+                       failure:(LPAPIFailureBlock)failureBlock
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
     
@@ -1009,7 +1009,7 @@ static id APIClient = nil;
                    params:params
                    method:@"DELETE"
                   success:successBlock
-                  failure:failureBlcok];
+                  failure:failureBlock];
 }
 
 /*
@@ -1019,7 +1019,7 @@ static id APIClient = nil;
                        path:(NSString *)path
                      userId:(NSInteger)userId
                     success:(LPAPISuccessBlock)successBlock
-                    failure:(LPAPIFailureBlock)failureBlcok
+                    failure:(LPAPIFailureBlock)failureBlock
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
     
@@ -1034,7 +1034,7 @@ static id APIClient = nil;
                    params:params
                    method:@"POST"
                   success:successBlock
-                  failure:failureBlcok];
+                  failure:failureBlock];
 }
 
 /*
@@ -1043,7 +1043,7 @@ static id APIClient = nil;
 - (void)followSomeoneWithUserId:(NSInteger)userId
                      fromUserId:(NSInteger)fromUserId
                         success:(LPAPISuccessBlock)successBlock
-                        failure:(LPAPIFailureBlock)failureBlcok
+                        failure:(LPAPIFailureBlock)failureBlock
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
     
@@ -1054,7 +1054,7 @@ static id APIClient = nil;
                    params:params
                    method:@"POST"
                   success:successBlock
-                  failure:failureBlcok];
+                  failure:failureBlock];
 }
 
 /*
@@ -1063,7 +1063,7 @@ static id APIClient = nil;
 - (void)unfollowSomeoneWithUserId:(NSInteger)userId
                        fromUserId:(NSInteger)fromUserId
                           success:(LPAPISuccessBlock)successBlock
-                          failure:(LPAPIFailureBlock)failureBlcok
+                          failure:(LPAPIFailureBlock)failureBlock
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
     
@@ -1074,7 +1074,7 @@ static id APIClient = nil;
                    params:params
                    method:@"DELETE"
                   success:successBlock
-                  failure:failureBlcok];
+                  failure:failureBlock];
 }
 
 /*
@@ -1083,7 +1083,7 @@ static id APIClient = nil;
 - (void)likeReviewWithUserId:(NSInteger)userId
                     reviewId:(NSInteger)reviewId
                      success:(LPAPISuccessBlock)successBlock
-                     failure:(LPAPIFailureBlock)failureBlcok
+                     failure:(LPAPIFailureBlock)failureBlock
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
     
@@ -1094,7 +1094,7 @@ static id APIClient = nil;
                    params:params
                    method:@"POST"
                   success:successBlock
-                  failure:failureBlcok];
+                  failure:failureBlock];
 }
 
 /*
@@ -1103,7 +1103,7 @@ static id APIClient = nil;
 - (void)unlikeReviewWithUserId:(NSInteger)userId
                       reviewId:(NSInteger)reviewId
                        success:(LPAPISuccessBlock)successBlock
-                       failure:(LPAPIFailureBlock)failureBlcok
+                       failure:(LPAPIFailureBlock)failureBlock
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
     
@@ -1114,7 +1114,29 @@ static id APIClient = nil;
                    params:params
                    method:@"DELETE"
                   success:successBlock
-                  failure:failureBlcok];
+                  failure:failureBlock];
+}
+
+/*
+ 获取晒单喜欢列表
+ */
+- (void)getReviewLikeListWithOffset:(NSInteger)offset
+                              limit:(NSInteger)limit
+                             userId:(NSInteger)userId
+                            success:(LPAPISuccessBlock)successBlock
+                            failure:(LPAPIFailureBlock)failureBlock
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
+    
+    [params setObject:[NSNumber numberWithInteger:offset] forKey:@"offset"];
+    [params setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
+    [params setObject:[NSNumber numberWithInteger:userId] forKey:@"user"];
+    
+    [self sendRequestPath:@"/rpc/likes"
+                   params:params
+                   method:@"GET"
+                  success:successBlock
+                  failure:failureBlock];
 }
 
 /*
@@ -1123,7 +1145,7 @@ static id APIClient = nil;
 - (void)collectPOIWithUserId:(NSInteger)userId
                        POIId:(NSInteger)POIId
                      success:(LPAPISuccessBlock)successBlock
-                     failure:(LPAPIFailureBlock)failureBlcok
+                     failure:(LPAPIFailureBlock)failureBlock
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
     
@@ -1134,7 +1156,7 @@ static id APIClient = nil;
                    params:params
                    method:@"POST"
                   success:successBlock
-                  failure:failureBlcok];
+                  failure:failureBlock];
 }
 
 /*
@@ -1143,7 +1165,7 @@ static id APIClient = nil;
 - (void)cancelCollectPOIWithUserId:(NSInteger)userId
                              POIId:(NSInteger)POIId
                            success:(LPAPISuccessBlock)successBlock
-                           failure:(LPAPIFailureBlock)failureBlcok
+                           failure:(LPAPIFailureBlock)failureBlock
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
     
@@ -1154,7 +1176,29 @@ static id APIClient = nil;
                    params:params
                    method:@"DELETE"
                   success:successBlock
-                  failure:failureBlcok];
+                  failure:failureBlock];
+}
+
+/*
+ 获取POI收藏列表
+ */
+- (void)getPOIFavouriteListWithOffset:(NSInteger)offset
+                                limit:(NSInteger)limit
+                               userId:(NSInteger)userId
+                              success:(LPAPISuccessBlock)successBlock
+                              failure:(LPAPIFailureBlock)failureBlock
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
+    
+    [params setObject:[NSNumber numberWithInteger:offset] forKey:@"offset"];
+    [params setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
+    [params setObject:[NSNumber numberWithInteger:userId] forKey:@"user"];
+    
+    [self sendRequestPath:@"/rpc/favorites"
+                   params:params
+                   method:@"GET"
+                  success:successBlock
+                  failure:failureBlock];
 }
 
 @end

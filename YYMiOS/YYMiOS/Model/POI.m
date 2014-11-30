@@ -174,4 +174,66 @@
                                                }];
 }
 
++ (void)collectPOIWithUserId:(NSInteger)userId
+                       POIId:(NSInteger)POIId
+                     success:(LPObjectSuccessBlock)successBlock
+                     failure:(LPObjectFailureBlock)failureBlock
+{
+    [[LPAPIClient sharedAPIClient] collectPOIWithUserId:userId
+                                                  POIId:POIId
+                                                success:^(id respondObject) {
+                                                    if(successBlock)
+                                                    {
+                                                        successBlock([POI parseFromeDictionary:respondObject]);
+                                                    }
+                                                } failure:^(NSError *error) {
+                                                    if(failureBlock)
+                                                    {
+                                                        failureBlock(error);
+                                                    }
+                                                }];
+}
+
++ (void)cancelCollectPOIWithUserId:(NSInteger)userId
+                             POIId:(NSInteger)POIId
+                           success:(LPObjectSuccessBlock)successBlock
+                           failure:(LPObjectFailureBlock)failureBlock
+{
+    [[LPAPIClient sharedAPIClient] cancelCollectPOIWithUserId:userId
+                                                        POIId:POIId
+                                                      success:^(id respondObject) {
+                                                          if(successBlock)
+                                                          {
+                                                              successBlock([POI parseFromeDictionary:respondObject]);
+                                                          }
+                                                      } failure:^(NSError *error) {
+                                                          if(failureBlock)
+                                                          {
+                                                              failureBlock(error);
+                                                          }
+                                                      }];
+}
+
++ (void)getPOIFavouriteListWithOffset:(NSInteger)offset
+                                limit:(NSInteger)limit
+                               userId:(NSInteger)userId
+                              success:(LPObjectSuccessBlock)successBlock
+                              failure:(LPObjectFailureBlock)failureBlock
+{
+    [[LPAPIClient sharedAPIClient] getPOIFavouriteListWithOffset:offset
+                                                           limit:limit
+                                                          userId:userId
+                                                         success:^(id respondObject) {
+                                                             if(successBlock)
+                                                             {
+                                                                 successBlock([POI parseFromeDictionary:respondObject]);
+                                                             }
+                                                         } failure:^(NSError *error) {
+                                                             if(failureBlock)
+                                                             {
+                                                                 failureBlock(error);
+                                                             }
+                                                         }];
+}
+
 @end

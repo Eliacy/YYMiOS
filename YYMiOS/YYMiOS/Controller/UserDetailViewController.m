@@ -7,6 +7,12 @@
 //
 
 #import "UserDetailViewController.h"
+#import "DynamicCell.h"
+#import "NearbyCell.h"
+#import "Deal.h"
+#import "POI.h"
+#import "DealDetailViewController.h"
+#import "ShopViewController.h"
 
 @interface UserDetailViewController ()
 
@@ -31,22 +37,140 @@
 
 - (void)clickLikeButton:(id)sender
 {
+    if([_likeButton isSelected])
+    {
+        return;
+    }
     
+    [_likeButton setSelected:YES];
+    [_shareButton setSelected:NO];
+    [_commentButton setSelected:NO];
+    [_favouriteButton setSelected:NO];
+    
+    _likeButton.backgroundColor = [UIColor colorWithRed:251.0 / 255.0 green:107.0 / 255.0 blue:135.0 / 255.0 alpha:1.0];
+    _shareButton.backgroundColor = [UIColor clearColor];
+    _commentButton.backgroundColor = [UIColor clearColor];
+    _favouriteButton.backgroundColor = [UIColor clearColor];
+    
+    _type = 1;
+    [_tableView reloadData];
+    
+    if([_likeArray count] == 0)
+    {
+        [Deal getReviewLikeListWithOffset:0
+                                    limit:20
+                                   userId:_userId
+                                  success:^(NSArray *array) {
+                                      
+                                      [_likeArray removeAllObjects];
+                                      [_likeArray addObjectsFromArray:array];
+                                      [_tableView reloadData];
+                                      
+                                  } failure:^(NSError *error) {
+                                      
+                                  }];
+    }
 }
 
 - (void)clickShareButton:(id)sender
 {
+    if([_shareButton isSelected])
+    {
+        return;
+    }
     
+    [_shareButton setSelected:YES];
+    [_likeButton setSelected:NO];
+    [_commentButton setSelected:NO];
+    [_favouriteButton setSelected:NO];
+    
+    _shareButton.backgroundColor = [UIColor colorWithRed:251.0 / 255.0 green:107.0 / 255.0 blue:135.0 / 255.0 alpha:1.0];
+    _likeButton.backgroundColor = [UIColor clearColor];
+    _commentButton.backgroundColor = [UIColor clearColor];
+    _favouriteButton.backgroundColor = [UIColor clearColor];
+    
+    _type = 2;
+    [_tableView reloadData];
 }
 
 - (void)clickCommentButton:(id)sender
 {
+    if([_commentButton isSelected])
+    {
+        return;
+    }
     
+    [_commentButton setSelected:YES];
+    [_shareButton setSelected:NO];
+    [_likeButton setSelected:NO];
+    [_favouriteButton setSelected:NO];
+    
+    _commentButton.backgroundColor = [UIColor colorWithRed:251.0 / 255.0 green:107.0 / 255.0 blue:135.0 / 255.0 alpha:1.0];
+    _shareButton.backgroundColor = [UIColor clearColor];
+    _likeButton.backgroundColor = [UIColor clearColor];
+    _favouriteButton.backgroundColor = [UIColor clearColor];
+    
+    _type = 3;
+    [_tableView reloadData];
+    
+    if([_commentArray count] == 0)
+    {
+        [Deal getDealDetailListWithDealId:0
+                                    brief:1
+                                 selected:0
+                                published:0
+                                   offset:0
+                                    limit:20
+                                     user:_userId
+                                     site:0
+                                     city:0
+                                  success:^(NSArray *array) {
+                                      
+                                      [_commentArray removeAllObjects];
+                                      [_commentArray addObjectsFromArray:array];
+                                      [_tableView reloadData];
+                                      
+                                  } failure:^(NSError *error) {
+                                      
+                                  }];
+    }
 }
 
 - (void)clickFavouriteButton:(id)sender
 {
+    if([_favouriteButton isSelected])
+    {
+        return;
+    }
     
+    [_favouriteButton setSelected:YES];
+    [_shareButton setSelected:NO];
+    [_commentButton setSelected:NO];
+    [_likeButton setSelected:NO];
+    
+    _favouriteButton.backgroundColor = [UIColor colorWithRed:251.0 / 255.0 green:107.0 / 255.0 blue:135.0 / 255.0 alpha:1.0];
+    _shareButton.backgroundColor = [UIColor clearColor];
+    _commentButton.backgroundColor = [UIColor clearColor];
+    _likeButton.backgroundColor = [UIColor clearColor];
+    
+    _type = 4;
+    [_tableView reloadData];
+    
+    if([_favouriteArray count] == 0)
+    {
+        [POI getPOIFavouriteListWithOffset:0
+                                     limit:20
+                                    userId:_userId
+                                   success:^(NSArray *array) {
+                                       
+                                       [_favouriteArray removeAllObjects];
+                                       [_favouriteArray addObjectsFromArray:array];
+                                       [_tableView reloadData];
+                                       
+                                   } failure:^(NSError *error) {
+                                       
+                                   }];
+    }
 }
 
 #pragma mark - super
@@ -56,7 +180,12 @@
     self = [super init];
     if(self != nil)
     {
-        _dealArray = [[NSMutableArray alloc] initWithCapacity:0];
+        _type = 1;
+        
+        _likeArray = [[NSMutableArray alloc] initWithCapacity:0];
+        _shareArray = [[NSMutableArray alloc] initWithCapacity:0];
+        _commentArray = [[NSMutableArray alloc] initWithCapacity:0];
+        _favouriteArray = [[NSMutableArray alloc] initWithCapacity:0];
     }
     
     return self;
@@ -74,6 +203,10 @@
     _tableView.delegate = self;
     [self.view addSubview:_tableView];
     
+    UIView *tableFooterView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 1)] autorelease];
+    tableFooterView.backgroundColor = [UIColor clearColor];
+    _tableView.tableFooterView = tableFooterView;
+    
     _tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 150)];
     _tableHeaderView.backgroundColor = [UIColor clearColor];
     _tableView.tableHeaderView = _tableHeaderView;
@@ -83,15 +216,11 @@
     [_tableHeaderView addSubview:_backView];
     
     _avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 10, 60, 60)];
-    _avatarImageView.backgroundColor = [UIColor brownColor];
+    _avatarImageView.backgroundColor = [UIColor clearColor];
     _avatarImageView.userInteractionEnabled = YES;
     _avatarImageView.layer.cornerRadius = 30;
     _avatarImageView.layer.masksToBounds = YES;
     [_backView addSubview:_avatarImageView];
-    
-    UITapGestureRecognizer *oneFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAvaterView:)];
-    [_avatarImageView addGestureRecognizer:oneFingerTap];
-    [oneFingerTap release];
     
     _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(_avatarImageView.frame.origin.x + _avatarImageView.frame.size.width + 10, _avatarImageView.frame.origin.y, _backView.frame.size.width - 20 * 2 - 10 - _avatarImageView.frame.size.width, 20)];
     _nameLabel.backgroundColor = [UIColor clearColor];
@@ -141,17 +270,22 @@
     _likeButton.backgroundColor = [UIColor clearColor];
     [_likeButton setTitle:@"喜欢" forState:UIControlStateNormal];
     [_likeButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [_likeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
     _likeButton.titleLabel.font = [UIFont systemFontOfSize:12.0f];
     _likeButton.titleLabel.numberOfLines = 0;
     _likeButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     [_likeButton addTarget:self action:@selector(clickLikeButton:) forControlEvents:UIControlEventTouchUpInside];
     [_backView addSubview:_likeButton];
     
+    _likeButton.selected = YES;
+    _likeButton.backgroundColor = [UIColor colorWithRed:251.0 / 255.0 green:107.0 / 255.0 blue:135.0 / 255.0 alpha:1.0];
+    
     _shareButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     _shareButton.frame = CGRectMake(_likeButton.frame.origin.x + _likeButton.frame.size.width, _backView.frame.size.height - 35, _backView.frame.size.width / 4, 35);
     _shareButton.backgroundColor = [UIColor clearColor];
     [_shareButton setTitle:@"分享" forState:UIControlStateNormal];
     [_shareButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [_shareButton setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
     _shareButton.titleLabel.font = [UIFont systemFontOfSize:12.0f];
     _shareButton.titleLabel.numberOfLines = 0;
     _shareButton.titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -163,6 +297,7 @@
     _commentButton.backgroundColor = [UIColor clearColor];
     [_commentButton setTitle:@"评论" forState:UIControlStateNormal];
     [_commentButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [_commentButton setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
     _commentButton.titleLabel.font = [UIFont systemFontOfSize:12.0f];
     _commentButton.titleLabel.numberOfLines = 0;
     _commentButton.titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -174,6 +309,7 @@
     _favouriteButton.backgroundColor = [UIColor clearColor];
     [_favouriteButton setTitle:@"收藏" forState:UIControlStateNormal];
     [_favouriteButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [_favouriteButton setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
     _favouriteButton.titleLabel.font = [UIFont systemFontOfSize:12.0f];
     _favouriteButton.titleLabel.numberOfLines = 0;
     _favouriteButton.titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -214,6 +350,19 @@
                         } failure:^(NSError *error) {
                             
                         }];
+    
+    [Deal getReviewLikeListWithOffset:0
+                                limit:20
+                               userId:_userId
+                              success:^(NSArray *array) {
+                                  
+                                  [_likeArray removeAllObjects];
+                                  [_likeArray addObjectsFromArray:array];
+                                  [_tableView reloadData];
+                                  
+                              } failure:^(NSError *error) {
+                                  
+                              }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -247,7 +396,7 @@
     _followerButton.frame = CGRectMake(_followingButton.frame.origin.x + _followingButton.frame.size.width + 5, _followerButton.frame.origin.y, followerSize.width + 20, _followerButton.frame.size.height);
     [_followerButton setTitle:followerString forState:UIControlStateNormal];
     
-    [_likeButton setTitle:[NSString stringWithFormat:@"喜欢\n%i", user.likeCount] forState:UIControlStateNormal];
+    [_likeButton setTitle:[NSString stringWithFormat:@"喜欢\n%i", user.likeCount] forState:UIControlStateSelected];
     [_shareButton setTitle:[NSString stringWithFormat:@"分享\n%i", user.shareCount] forState:UIControlStateNormal];
     [_commentButton setTitle:[NSString stringWithFormat:@"评论\n%i", user.reviewCount] forState:UIControlStateNormal];
     [_favouriteButton setTitle:[NSString stringWithFormat:@"收藏\n%i", user.favouriteCount] forState:UIControlStateNormal];
@@ -266,13 +415,108 @@
 
 #pragma mark - UITableViewDataSource
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(_type == 4)
+    {
+        return 155.0f;
+    }
+    return 445.0f;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [_dealArray count];
+    switch (_type) {
+        case 1:
+        {
+            return [_likeArray count];
+        }
+            break;
+        case 2:
+        {
+            return [_shareArray count];
+        }
+            break;
+        case 3:
+        {
+            return [_commentArray count];
+        }
+            break;
+        case 4:
+        {
+            return [_favouriteArray count];
+        }
+            break;
+        default:
+            break;
+    }
+    
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    switch (_type) {
+        case 1:
+        {
+            DynamicCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UserDetailViewControllerDynamicIdentifier"];
+            if(cell == nil)
+            {
+                cell = [[[DynamicCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UserDetailViewControllerDynamicIdentifier"] autorelease];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            }
+            
+            cell.deal = [_likeArray objectAtIndex:indexPath.row];
+            
+            return cell;
+        }
+            break;
+        case 2:
+        {
+            DynamicCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UserDetailViewControllerDynamicIdentifier"];
+            if(cell == nil)
+            {
+                cell = [[[DynamicCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UserDetailViewControllerDynamicIdentifier"] autorelease];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            }
+            
+            cell.deal = [_shareArray objectAtIndex:indexPath.row];
+            
+            return cell;
+        }
+            break;
+        case 3:
+        {
+            DynamicCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UserDetailViewControllerDynamicIdentifier"];
+            if(cell == nil)
+            {
+                cell = [[[DynamicCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UserDetailViewControllerDynamicIdentifier"] autorelease];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            }
+            
+            cell.deal = [_commentArray objectAtIndex:indexPath.row];
+            
+            return cell;
+        }
+            break;
+        case 4:
+        {
+            NearbyCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UserDetailViewControllerNearbyIdentifier"];
+            if(cell == nil)
+            {
+                cell = [[[NearbyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UserDetailViewControllerNearbyIdentifier"] autorelease];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            }
+            
+            cell.poi = [_favouriteArray objectAtIndex:indexPath.row];
+            
+            return cell;
+        }
+            break;
+        default:
+            break;
+    }
+    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UserDetailViewControllerIdentifier"];
     if(cell == nil)
     {
@@ -287,6 +531,39 @@
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    switch (_type) {
+        case 1:
+        {
+            DealDetailViewController *dealDetailVC = [[[DealDetailViewController alloc] init] autorelease];
+            dealDetailVC.dealId = [[_likeArray objectAtIndex:indexPath.row] dealId];
+            [self.navigationController pushViewController:dealDetailVC animated:YES];
+        }
+            break;
+        case 2:
+        {
+            DealDetailViewController *dealDetailVC = [[[DealDetailViewController alloc] init] autorelease];
+            dealDetailVC.dealId = [[_shareArray objectAtIndex:indexPath.row] dealId];
+            [self.navigationController pushViewController:dealDetailVC animated:YES];
+        }
+            break;
+        case 3:
+        {
+            DealDetailViewController *dealDetailVC = [[[DealDetailViewController alloc] init] autorelease];
+            dealDetailVC.dealId = [[_commentArray objectAtIndex:indexPath.row] dealId];
+            [self.navigationController pushViewController:dealDetailVC animated:YES];
+        }
+            break;
+        case 4:
+        {
+            ShopViewController *shopVC = [[[ShopViewController alloc] init] autorelease];
+            shopVC.poiId = [[_favouriteArray objectAtIndex:indexPath.row] poiId];
+            [self.navigationController pushViewController:shopVC animated:YES];
+        }
+            break;
+        default:
+            break;
+    }
+    
     return nil;
 }
 

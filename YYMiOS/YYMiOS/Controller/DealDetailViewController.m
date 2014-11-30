@@ -119,7 +119,7 @@
 {
     [super loadView];
     
-    _titleLabel.text = @"晒单详情";
+    _titleLabel.text = @"晒单评论";
     
     _shareButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     _shareButton.frame = CGRectMake(_headerView.frame.size.width - 2 - 40, 2, 40, 40);

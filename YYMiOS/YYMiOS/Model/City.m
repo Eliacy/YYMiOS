@@ -113,7 +113,7 @@
 
 + (void)getCityListWithCityId:(NSInteger)cityId
                       success:(LPObjectSuccessBlock)successBlock
-                      failure:(LPObjectFailureBlock)failureBlcok
+                      failure:(LPObjectFailureBlock)failureBlock
 {
     [[LPAPIClient sharedAPIClient] getCityListWithCityId:cityId
                                                  success:^(id respondObject) {
@@ -122,9 +122,9 @@
                                                          successBlock([City parseFromeDictionary:respondObject]);
                                                      }
                                                  } failure:^(NSError *error) {
-                                                     if(failureBlcok)
+                                                     if(failureBlock)
                                                      {
-                                                         failureBlcok(error);
+                                                         failureBlock(error);
                                                      }
                                                  }];
 }

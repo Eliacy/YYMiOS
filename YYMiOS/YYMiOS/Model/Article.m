@@ -123,7 +123,7 @@
                               limit:(NSInteger)limit
                              cityId:(NSInteger)cityId
                             success:(LPObjectSuccessBlock)successBlock
-                            failure:(LPObjectFailureBlock)failureBlcok
+                            failure:(LPObjectFailureBlock)failureBlock
 {
     [[LPAPIClient sharedAPIClient] getArticleListWithArticleId:articleId
                                                          brief:brief
@@ -136,9 +136,9 @@
                                                                successBlock([Article parseFromeDictionary:respondObject]);
                                                            }
                                                        } failure:^(NSError *error) {
-                                                           if(failureBlcok)
+                                                           if(failureBlock)
                                                            {
-                                                               failureBlcok(error);
+                                                               failureBlock(error);
                                                            }
                                                        }];
 }
