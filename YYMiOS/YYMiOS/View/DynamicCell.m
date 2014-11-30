@@ -146,7 +146,7 @@
         _locationIcon.image = [UIImage imageNamed:@"dynamic_location.png"];
         [_backImageView addSubview:_locationIcon];
         
-        _locationLabel = [[UILabel alloc] initWithFrame:CGRectMake(_priceLabel.frame.origin.x, _priceLabel.frame.origin.y + _priceLabel.frame.size.height + 10, 290, 15)];
+        _locationLabel = [[UILabel alloc] initWithFrame:CGRectMake(_priceLabel.frame.origin.x, _priceLabel.frame.origin.y + _priceLabel.frame.size.height + 10, 200, 15)];
         _locationLabel.backgroundColor = [UIColor clearColor];
         _locationLabel.textColor = [UIColor grayColor];
         _locationLabel.font = [UIFont systemFontOfSize:13.0f];
