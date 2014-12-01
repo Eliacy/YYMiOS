@@ -13,6 +13,8 @@
 #import "POI.h"
 #import "DealDetailViewController.h"
 #import "ShopViewController.h"
+#import "FollowingViewController.h"
+#import "FollowerViewController.h"
 
 @interface UserDetailViewController ()
 
@@ -27,12 +29,16 @@
 
 - (void)clickFollowingButton:(id)sender
 {
-    
+    FollowingViewController *followingVC = [[[FollowingViewController alloc] init] autorelease];
+    followingVC.userId = _userId;
+    [self.navigationController pushViewController:followingVC animated:YES];
 }
 
 - (void)clickFollowerButton:(id)sender
 {
-    
+    FollowerViewController *followerVC = [[[FollowerViewController alloc] init] autorelease];
+    followerVC.userId = _userId;
+    [self.navigationController pushViewController:followerVC animated:YES];
 }
 
 - (void)clickLikeButton:(id)sender
@@ -201,6 +207,7 @@
     _tableView.backgroundColor = [UIColor clearColor];
     _tableView.dataSource = self;
     _tableView.delegate = self;
+    _tableView.separatorColor = [UIColor clearColor];
     [self.view addSubview:_tableView];
     
     UIView *tableFooterView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 1)] autorelease];
@@ -396,10 +403,14 @@
     _followerButton.frame = CGRectMake(_followingButton.frame.origin.x + _followingButton.frame.size.width + 5, _followerButton.frame.origin.y, followerSize.width + 20, _followerButton.frame.size.height);
     [_followerButton setTitle:followerString forState:UIControlStateNormal];
     
-    [_likeButton setTitle:[NSString stringWithFormat:@"喜欢\n%i", user.likeCount] forState:UIControlStateSelected];
+    [_likeButton setTitle:[NSString stringWithFormat:@"喜欢\n%i", user.likeCount] forState:UIControlStateNormal];
     [_shareButton setTitle:[NSString stringWithFormat:@"分享\n%i", user.shareCount] forState:UIControlStateNormal];
     [_commentButton setTitle:[NSString stringWithFormat:@"评论\n%i", user.reviewCount] forState:UIControlStateNormal];
     [_favouriteButton setTitle:[NSString stringWithFormat:@"收藏\n%i", user.favouriteCount] forState:UIControlStateNormal];
+    [_likeButton setTitle:[NSString stringWithFormat:@"喜欢\n%i", user.likeCount] forState:UIControlStateSelected];
+    [_shareButton setTitle:[NSString stringWithFormat:@"分享\n%i", user.shareCount] forState:UIControlStateSelected];
+    [_commentButton setTitle:[NSString stringWithFormat:@"评论\n%i", user.reviewCount] forState:UIControlStateSelected];
+    [_favouriteButton setTitle:[NSString stringWithFormat:@"收藏\n%i", user.favouriteCount] forState:UIControlStateSelected];
 }
 
 /*
