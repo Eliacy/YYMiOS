@@ -22,6 +22,12 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    //生成应用版本号
+    NSDictionary *dict = [[NSBundle mainBundle] infoDictionary];
+    NSString *versionString = [dict objectForKey:@"CFBundleShortVersionString"];
+    [[NSUserDefaults standardUserDefaults] setObject:versionString forKey:@"AppVersion"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
     //Push
     [self registerRemoteNotification];
     

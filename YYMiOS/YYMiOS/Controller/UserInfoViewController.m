@@ -223,7 +223,19 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-//    UIImage *image = [info valueForKey:UIImagePickerControllerEditedImage];
+    UIImage *image = [info valueForKey:UIImagePickerControllerEditedImage];
+    
+    [LPUtility uploadImageToQiniuWithImage:image
+                                   imageId:0
+                                      type:3
+                                    userId:[[User sharedUser] userId]
+                                      note:nil
+                                      name:[NSString stringWithFormat:@"i%@_%i_%i", [[NSUserDefaults standardUserDefaults] objectForKey:@"AppVersion"], (int)[[NSDate date] timeIntervalSince1970], rand()]
+                                  complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+                                      
+                                      
+                                      
+                                  }];
     
     [picker dismissViewControllerAnimated:YES completion:^{
         

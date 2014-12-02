@@ -7,6 +7,7 @@
 //
 
 #import "LPObject.h"
+#import "QNUploadManager.h"
 
 @interface LPUtility : LPObject
 
@@ -21,5 +22,13 @@
 + (CGSize)getTextHeightWithText:(NSString *)text
                            font:(UIFont *)font
                            size:(CGSize)size;
+
++ (void)uploadImageToQiniuWithImage:(UIImage *)image
+                            imageId:(NSInteger)imageId
+                               type:(NSInteger)type
+                             userId:(NSInteger)userId
+                               note:(NSString *)note
+                               name:(NSString *)name
+                           complete:(QNUpCompletionHandler)completionHandler;
 
 @end
