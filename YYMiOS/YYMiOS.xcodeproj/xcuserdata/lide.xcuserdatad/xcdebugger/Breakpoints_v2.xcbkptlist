@@ -9,12 +9,44 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "YYMiOS/Utility/LPUtility.m"
-            timestampString = "439195616.35801"
+            filePath = "YYMiOS/Utility/LPAPIClient.m"
+            timestampString = "439214864.660987"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "139"
-            endingLineNumber = "139"
+            startingLineNumber = "1217"
+            endingLineNumber = "1217"
+            landmarkName = "-getQiniuUploadTokenWithImageId:type:userId:note:name:width:height:success:failure:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "YYMiOS/Utility/LPAPIClient.m"
+            timestampString = "439215658.604148"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1248"
+            endingLineNumber = "1248"
+            landmarkName = "-getQiniuUploadTokenWithImageId:type:userId:note:name:width:height:success:failure:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "YYMiOS/Utility/LPUtility.m"
+            timestampString = "439215949.844386"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "148"
+            endingLineNumber = "148"
             landmarkName = "+uploadImageToQiniuWithImage:imageId:type:userId:note:name:complete:"
             landmarkType = "5">
          </BreakpointContent>

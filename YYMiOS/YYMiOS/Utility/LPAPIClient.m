@@ -1201,4 +1201,55 @@ static id APIClient = nil;
                   failure:failureBlock];
 }
 
+/*
+ 获取Qiniu上传图片token
+ */
+- (void)getQiniuUploadTokenWithImageId:(NSInteger)imageId
+                                  type:(NSInteger)type
+                                userId:(NSInteger)userId
+                                  note:(NSString *)note
+                                  name:(NSString *)name
+                                 width:(NSInteger)width
+                                height:(NSInteger)height
+                               success:(LPAPISuccessBlock)successBlock
+                               failure:(LPAPIFailureBlock)failureBlock
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
+    
+    NSMutableDictionary *imageDictionary = [NSMutableDictionary dictionaryWithCapacity:0];
+    if(imageId > 0)
+    {
+        [imageDictionary setObject:[NSNumber numberWithInteger:imageId] forKey:@"id"];
+    }
+    [imageDictionary setObject:[NSNumber numberWithInteger:type] forKey:@"type"];
+    [imageDictionary setObject:[NSNumber numberWithInteger:userId] forKey:@"user"];
+    if(note && ![note isEqualToString:@""])
+    {
+        [imageDictionary setObject:note forKey:@"note"];
+    }
+    if(name && ![name isEqualToString:@""])
+    {
+        [imageDictionary setObject:name forKey:@"name"];
+    }
+    [imageDictionary setObject:@"$(fsize)" forKey:@"size"];
+    [imageDictionary setObject:@"$(mimeType)" forKey:@"mime"];
+    [imageDictionary setObject:[NSNumber numberWithInteger:width] forKey:@"width"];
+    [imageDictionary setObject:[NSNumber numberWithInteger:height] forKey:@"height"];
+    [imageDictionary setObject:@"$(etag)" forKey:@"hash"];
+    
+    NSData *data = [NSJSONSerialization dataWithJSONObject:imageDictionary options:NSJSONWritingPrettyPrinted error:nil];
+    NSString *string = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
+    
+    if(string && ![string isEqualToString:@""])
+    {
+        [params setObject:string forKey:@"params"];
+    }
+    
+    [self sendRequestPath:@"/rpc/uptokens"
+                   params:params
+                   method:@"POST"
+                  success:successBlock
+                  failure:failureBlock];
+}
+
 @end

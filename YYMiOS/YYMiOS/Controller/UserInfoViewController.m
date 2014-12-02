@@ -229,7 +229,7 @@
                                    imageId:0
                                       type:3
                                     userId:[[User sharedUser] userId]
-                                      note:nil
+                                      note:@"nothing"
                                       name:[NSString stringWithFormat:@"i%@_%i_%i", [[NSUserDefaults standardUserDefaults] objectForKey:@"AppVersion"], (int)[[NSDate date] timeIntervalSince1970], rand()]
                                   complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
                                       

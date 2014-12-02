@@ -329,4 +329,17 @@ typedef void (^LPAPIFailureBlock)(NSError *error);
                               success:(LPAPISuccessBlock)successBlock
                               failure:(LPAPIFailureBlock)failureBlock;
 
+/*
+ 获取Qiniu上传图片token
+ */
+- (void)getQiniuUploadTokenWithImageId:(NSInteger)imageId
+                                  type:(NSInteger)type
+                                userId:(NSInteger)userId
+                                  note:(NSString *)note
+                                  name:(NSString *)name
+                                 width:(NSInteger)width
+                                height:(NSInteger)height
+                               success:(LPAPISuccessBlock)successBlock
+                               failure:(LPAPIFailureBlock)failureBlock;
+
 @end

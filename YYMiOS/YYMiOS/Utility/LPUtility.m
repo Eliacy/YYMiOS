@@ -136,59 +136,94 @@
                                name:(NSString *)name
                            complete:(QNUpCompletionHandler)completionHandler
 {
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
-    
-    [params setObject:[NSString stringWithFormat:@"%@:%@", kQiniuBucket, name] forKey:@"scope"];
-    double systemTimeStamp = [[[NSUserDefaults standardUserDefaults] objectForKey:@"SystemTimeStamp"] doubleValue];
-    if([[NSDate date] timeIntervalSince1970] - systemTimeStamp > 86400)
-    {
-        systemTimeStamp = [[NSDate date] timeIntervalSince1970];
-        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithDouble:systemTimeStamp] forKey:@"SystemTimeStamp"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
-    [params setObject:[NSNumber numberWithInt:(int)systemTimeStamp + 86400] forKey:@"deadline"];
-    [params setObject:@"http://rpc.youyoumm.com/rpc/images/call" forKey:@"callbackUrl"];
-    
-    NSMutableDictionary *callbackBody = [NSMutableDictionary dictionaryWithCapacity:0];
-    if(imageId > 0)
-    {
-        [callbackBody setObject:[NSNumber numberWithInteger:imageId] forKey:@"id"];
-    }
-    [callbackBody setObject:[NSNumber numberWithInteger:type] forKey:@"type"];
-    [callbackBody setObject:[NSNumber numberWithInteger:userId] forKey:@"user"];
-    if(note && ![note isEqualToString:@""])
-    {
-        [callbackBody setObject:note forKey:@"note"];
-    }
-    if(name && ![name isEqualToString:@""])
-    {
-        [callbackBody setObject:name forKey:@"name"];
-    }
-    [callbackBody setObject:@"$(fsize)" forKey:@"size"];
-    [callbackBody setObject:@"$(mimeType)" forKey:@"mime"];
-    [callbackBody setObject:@"$(imageInfo.width)" forKey:@"width"];
-    [callbackBody setObject:@"$(imageInfo.height)" forKey:@"height"];
-    [callbackBody setObject:@"$(etag)" forKey:@"hash"];
-    [params setObject:callbackBody forKey:@"callbackBody"];
-    
-    NSData *putPolicy = [NSJSONSerialization dataWithJSONObject:params options:NSJSONWritingPrettyPrinted error:nil];
-    NSString *encodePutPolicy = [QNUrlSafeBase64 encodeData:putPolicy];
-    NSString *encodeSign = [LPUtility hmacsha1:encodePutPolicy secret:kSecretKey];
-    
-    NSString *uploadToken = [NSString stringWithFormat:@"%@:%@:%@", kAccessKey, encodeSign, encodePutPolicy];
-    
-    QNUploadManager *uploadManager = [[[QNUploadManager alloc] init] autorelease];
-    
-    NSData *uploadData = UIImagePNGRepresentation(image);
-    
-    [uploadManager putData:uploadData
-                       key:name
-                     token:uploadToken
-                  complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
-                      
-                      NSLog(@"%@", [resp description]);
-                      
-                  } option:nil];
+    [[LPAPIClient sharedAPIClient] getQiniuUploadTokenWithImageId:imageId
+                                                             type:type
+                                                           userId:userId
+                                                             note:note
+                                                             name:name
+                                                            width:image.size.width
+                                                           height:image.size.height
+                                                          success:^(id respondObject) {
+                                                              
+                                                              if(respondObject && [respondObject objectForKey:@"data"])
+                                                              {
+                                                                  respondObject = [respondObject objectForKey:@"data"];
+                                                              }
+                                                              
+                                                              if([respondObject objectForKey:@"token"] && ![[respondObject objectForKey:@"token"] isEqual:[NSNull null]])
+                                                              {
+                                                                  NSString *uploadToken = [respondObject objectForKey:@"token"];
+                                                                  
+                                                                  QNUploadManager *uploadManager = [[[QNUploadManager alloc] init] autorelease];
+                                                                  
+                                                                  NSData *uploadData = UIImagePNGRepresentation(image);
+                                                                  
+                                                                  [uploadManager putData:uploadData
+                                                                                     key:name
+                                                                                   token:uploadToken
+                                                                                complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+                                                                                    
+                                                                                    NSLog(@"%@", [resp description]);
+                                                                                    
+                                                                                } option:nil];
+                                                              }
+                                                              
+                                                          } failure:^(NSError *error) {
+                                                              
+                                                          }];
+//    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
+//    
+//    [params setObject:[NSString stringWithFormat:@"%@:%@", kQiniuBucket, name] forKey:@"scope"];
+//    double systemTimeStamp = [[[NSUserDefaults standardUserDefaults] objectForKey:@"SystemTimeStamp"] doubleValue];
+//    if([[NSDate date] timeIntervalSince1970] - systemTimeStamp > 86400)
+//    {
+//        systemTimeStamp = [[NSDate date] timeIntervalSince1970];
+//        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithDouble:systemTimeStamp] forKey:@"SystemTimeStamp"];
+//        [[NSUserDefaults standardUserDefaults] synchronize];
+//    }
+//    [params setObject:[NSNumber numberWithInt:(int)systemTimeStamp + 86400] forKey:@"deadline"];
+//    [params setObject:@"http://rpc.youyoumm.com/rpc/images/call" forKey:@"callbackUrl"];
+//    
+//    NSMutableDictionary *callbackBody = [NSMutableDictionary dictionaryWithCapacity:0];
+//    if(imageId > 0)
+//    {
+//        [callbackBody setObject:[NSNumber numberWithInteger:imageId] forKey:@"id"];
+//    }
+//    [callbackBody setObject:[NSNumber numberWithInteger:type] forKey:@"type"];
+//    [callbackBody setObject:[NSNumber numberWithInteger:userId] forKey:@"user"];
+//    if(note && ![note isEqualToString:@""])
+//    {
+//        [callbackBody setObject:note forKey:@"note"];
+//    }
+//    if(name && ![name isEqualToString:@""])
+//    {
+//        [callbackBody setObject:name forKey:@"name"];
+//    }
+//    [callbackBody setObject:@"$(fsize)" forKey:@"size"];
+//    [callbackBody setObject:@"$(mimeType)" forKey:@"mime"];
+//    [callbackBody setObject:[NSNumber numberWithInteger:image.size.width] forKey:@"width"];
+//    [callbackBody setObject:[NSNumber numberWithInteger:image.size.height] forKey:@"height"];
+//    [callbackBody setObject:@"$(etag)" forKey:@"hash"];
+//    [params setObject:callbackBody forKey:@"callbackBody"];
+//    
+//    NSData *putPolicy = [NSJSONSerialization dataWithJSONObject:params options:NSJSONWritingPrettyPrinted error:nil];
+//    NSString *encodePutPolicy = [QNUrlSafeBase64 encodeData:putPolicy];
+//    NSString *encodeSign = [LPUtility hmacsha1:encodePutPolicy secret:kSecretKey];
+//    
+//    NSString *uploadToken = [NSString stringWithFormat:@"%@:%@:%@", kAccessKey, encodeSign, encodePutPolicy];
+//    
+//    QNUploadManager *uploadManager = [[[QNUploadManager alloc] init] autorelease];
+//    
+//    NSData *uploadData = UIImagePNGRepresentation(image);
+//    
+//    [uploadManager putData:uploadData
+//                       key:name
+//                     token:uploadToken
+//                  complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+//                      
+//                      NSLog(@"%@", [resp description]);
+//                      
+//                  } option:nil];
 }
 
 @end
