@@ -278,18 +278,18 @@
 //                                                              
 //                                                          }];
     
-//    [LPUtility uploadImageToQiniuWithImage:image
-//                                   imageId:0
-//                                      type:3
-//                                    userId:[[User sharedUser] userId]
-//                                      note:@"nothing"
-//                                      name:[NSString stringWithFormat:@"i%@_%i_%i", [[NSUserDefaults standardUserDefaults] objectForKey:@"AppVersion"], (int)[[NSDate date] timeIntervalSince1970], rand()]
-//                                  complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
-//                                      
-//                                      if(resp && [resp objectForKey:@"data"])
-//                                      {
+    [LPUtility uploadImageToQiniuWithImage:image
+                                   imageId:0
+                                      type:3
+                                    userId:[[User sharedUser] userId]
+                                      note:@"nothing"
+                                      name:[NSString stringWithFormat:@"i%@_%i_%i", [[NSUserDefaults standardUserDefaults] objectForKey:@"AppVersion"], (int)[[NSDate date] timeIntervalSince1970], rand()]
+                                  complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+                                      
+                                      if(resp && [resp objectForKey:@"data"])
+                                      {
                                           [User modifyUserInfoWithUserId:[[User sharedUser] userId]
-                                                                  iconId:11331//[[[resp objectForKey:@"data"] objectForKey:@"id"] integerValue]
+                                                                  iconId:[[[resp objectForKey:@"data"] objectForKey:@"id"] integerValue]
                                                                 userName:nil
                                                                 password:nil
                                                                   gender:nil
@@ -298,9 +298,9 @@
                                                                  } failure:^(NSError *error) {
                                                                      
                                                                  }];
-//                                      }
-//
-//                                  }];
+                                      }
+
+                                  }];
     
     [picker dismissViewControllerAnimated:YES completion:^{
         

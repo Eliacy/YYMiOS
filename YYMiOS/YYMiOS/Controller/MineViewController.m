@@ -310,6 +310,7 @@
     }
     _user = [user retain];
     
+    NSLog(@"%@", [LPUtility getQiniuImageURLStringWithBaseString:user.userIcon.imageURL imageSize:CGSizeMake(120, 120)]);
     [_avatarImageView setImageWithURL:[NSURL URLWithString:[LPUtility getQiniuImageURLStringWithBaseString:user.userIcon.imageURL imageSize:CGSizeMake(120, 120)]]];
     _nameLabel.text = user.userName;
     

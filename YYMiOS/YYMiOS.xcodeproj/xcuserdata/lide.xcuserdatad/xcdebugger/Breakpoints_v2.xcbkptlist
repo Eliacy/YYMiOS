@@ -19,22 +19,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "YYMiOS/Utility/LPAPIClient.m"
-            timestampString = "439291090.247518"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "308"
-            endingLineNumber = "308"
-            landmarkName = "-sendRequestPath:params:method:success:failure:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "YYMiOS/Controller/UserInfoViewController.m"
             timestampString = "439293047.489155"
             startingColumnNumber = "9223372036854775807"
@@ -48,10 +32,10 @@
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__78-[UserInfoViewController imagePickerController:didFinishPickingMediaWithInfo:]_block_invoke"
+                  symbolName = "__78-[UserInfoViewController imagePickerController:didFinishPickingMediaWithInfo:]_block_invoke_2"
                   moduleName = "YYMiOS"
                   urlString = "file:///Users/Lide/Documents/Development/YYMiOS_20141130/YYMiOS/YYMiOS/Controller/UserInfoViewController.m"
-                  timestampString = "439293072.079257"
+                  timestampString = "439295348.13171"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "298"
@@ -62,10 +46,10 @@
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__78-[UserInfoViewController imagePickerController:didFinishPickingMediaWithInfo:]_block_invoke_2"
+                  symbolName = "__78-[UserInfoViewController imagePickerController:didFinishPickingMediaWithInfo:]_block_invoke_3"
                   moduleName = "YYMiOS"
                   urlString = "file:///Users/Lide/Documents/Development/YYMiOS_20141130/YYMiOS/YYMiOS/Controller/UserInfoViewController.m"
-                  timestampString = "439293072.079391"
+                  timestampString = "439295348.131815"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "300"
@@ -104,6 +88,22 @@
             startingLineNumber = "291"
             endingLineNumber = "291"
             landmarkName = "-imagePickerController:didFinishPickingMediaWithInfo:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "YYMiOS/Controller/MineViewController.m"
+            timestampString = "439295141.55282"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "314"
+            endingLineNumber = "314"
+            landmarkName = "-setUser:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

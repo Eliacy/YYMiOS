@@ -122,7 +122,7 @@ static id APIClient = nil;
         }
         NSString *string = [self stringFromBaseURL:path withParams:params];
         
-        ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:[[kHTTPRequestPrefix stringByAppendingString:string] stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding]]];
+        ASIHTTPRequest *request = [[[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:[[kHTTPRequestPrefix stringByAppendingString:string] stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding]]] autorelease];
         [request addRequestHeader:@"X-Auth-Signature" value:hashedValue(kAPISecret, string)];
         
         [request setCompletionBlock:^{
@@ -228,7 +228,7 @@ static id APIClient = nil;
         }
         NSString *string = [self stringFromBaseURL:path withParams:params];
         
-        ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:[[kHTTPRequestPrefix stringByAppendingString:string] stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding]]];
+        ASIHTTPRequest *request = [[[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:[[kHTTPRequestPrefix stringByAppendingString:string] stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding]]] autorelease];
         [request addRequestHeader:@"X-Auth-Signature" value:hashedValue(kAPISecret, string)];
         [request setRequestMethod:@"DELETE"];
         [request setCompletionBlock:^{
@@ -275,9 +275,11 @@ static id APIClient = nil;
         }
         NSString *string = [self stringFromBaseURL:path withParams:params];
         
-        ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:[[kHTTPRequestPrefix stringByAppendingString:string] stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding]]];
+        ASIFormDataRequest *request  = [[[ASIFormDataRequest alloc] initWithURL:[NSURL URLWithString:[[kHTTPRequestPrefix stringByAppendingString:string] stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding]]] autorelease];
+        
         [request addRequestHeader:@"X-Auth-Signature" value:hashedValue(kAPISecret, string)];
         [request setRequestMethod:@"PUT"];
+        
         [request setCompletionBlock:^{
             
             NSData *data = [request responseData];
@@ -309,6 +311,8 @@ static id APIClient = nil;
             failureBlock(error);
             
         }];
+        
+        [request startAsynchronous];
     }
 }
 
