@@ -154,23 +154,21 @@
                                                               {
                                                                   NSString *uploadToken = [respondObject objectForKey:@"token"];
                                                                   
-                                                                  QNUploadManager *uploadManager = [[[QNUploadManager alloc] init] autorelease];
+                                                                  QNUploadManager *uploadManager = [[QNUploadManager alloc] init];
                                                                   
                                                                   NSData *uploadData = UIImagePNGRepresentation(image);
                                                                   
                                                                   [uploadManager putData:uploadData
                                                                                      key:name
                                                                                    token:uploadToken
-                                                                                complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
-                                                                                    
-                                                                                    NSLog(@"%@", [resp description]);
-                                                                                    
-                                                                                } option:nil];
+                                                                                complete:completionHandler
+                                                                                  option:nil];
                                                               }
                                                               
                                                           } failure:^(NSError *error) {
                                                               
                                                           }];
+    
 //    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
 //    
 //    [params setObject:[NSString stringWithFormat:@"%@:%@", kQiniuBucket, name] forKey:@"scope"];

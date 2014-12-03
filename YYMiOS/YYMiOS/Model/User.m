@@ -226,4 +226,30 @@ static User *sharedUser = nil;
                                                  }];
 }
 
++ (void)modifyUserInfoWithUserId:(NSInteger)userId
+                          iconId:(NSInteger)iconId
+                        userName:(NSString *)userName
+                        password:(NSString *)password
+                          gender:(NSString *)gender
+                         success:(LPObjectSuccessBlock)successBlock
+                         failure:(LPObjectFailureBlock)failureBlock
+{
+    [[LPAPIClient sharedAPIClient] modifyUserInfoWithUserId:userId
+                                                     iconId:iconId
+                                                   userName:userName
+                                                   password:password
+                                                     gender:gender
+                                                    success:^(id respondObject) {
+                                                        if(successBlock)
+                                                        {
+                                                            successBlock([User parseFromeDictionary:respondObject]);
+                                                        }
+                                                    } failure:^(NSError *error) {
+                                                        if(failureBlock)
+                                                        {
+                                                            failureBlock(error);
+                                                        }
+                                                    }];
+}
+
 @end

@@ -69,4 +69,12 @@
                       success:(LPObjectSuccessBlock)successBlock
                       failure:(LPObjectFailureBlock)failureBlock;
 
++ (void)modifyUserInfoWithUserId:(NSInteger)userId
+                          iconId:(NSInteger)iconId
+                        userName:(NSString *)userName
+                        password:(NSString *)password
+                          gender:(NSString *)gender
+                         success:(LPObjectSuccessBlock)successBlock
+                         failure:(LPObjectFailureBlock)failureBlock;
+
 @end
