@@ -310,8 +310,8 @@
     }
     _user = [user retain];
     
-    NSLog(@"%@", [LPUtility getQiniuImageURLStringWithBaseString:user.userIcon.imageURL imageSize:CGSizeMake(120, 120)]);
-    [_avatarImageView setImageWithURL:[NSURL URLWithString:[LPUtility getQiniuImageURLStringWithBaseString:user.userIcon.imageURL imageSize:CGSizeMake(120, 120)]]];
+    NSLog(@"%@", [LPUtility getQiniuImageURLStringWithBaseString:/*user.userIcon.imageURL*/@"http://youyoumm.qiniudn.com/FrBeGeWJcx803Q97hhukFP1LIkbu" imageSize:CGSizeMake(120, 120)]);
+    [_avatarImageView setImageWithURL:[NSURL URLWithString:[LPUtility getQiniuImageURLStringWithBaseString:/*user.userIcon.imageURL*/@"http://youyoumm.qiniudn.com/FrBeGeWJcx803Q97hhukFP1LIkbu" imageSize:CGSizeMake(120, 120)]]];
     _nameLabel.text = user.userName;
     
     CGSize nameSize = [LPUtility getTextHeightWithText:_nameLabel.text font:_nameLabel.font size:CGSizeMake(300, 100)];

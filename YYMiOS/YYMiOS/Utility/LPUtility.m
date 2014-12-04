@@ -11,6 +11,7 @@
 #include <CommonCrypto/CommonHMAC.h>
 #import "QNEtag.h"
 #import "QNUrlSafeBase64.h"
+#import "QNUploadOption.h"
 
 #define kQiniuBucket @"youyoumm.qiniudn.com"
 
@@ -158,11 +159,13 @@
                                                                   
                                                                   NSData *uploadData = UIImagePNGRepresentation(image);
                                                                   
+                                                                  QNUploadOption *opt = [[QNUploadOption alloc] initWithMime:@"image/png" progressHandler:nil params:nil checkCrc:YES cancellationSignal:nil];
+                                                                  
                                                                   [uploadManager putData:uploadData
-                                                                                     key:name
+                                                                                     key:nil
                                                                                    token:uploadToken
                                                                                 complete:completionHandler
-                                                                                  option:nil];
+                                                                                  option:opt];
                                                               }
                                                               
                                                           } failure:^(NSError *error) {
@@ -222,6 +225,47 @@
 //                      NSLog(@"%@", [resp description]);
 //                      
 //                  } option:nil];
+}
+
++ (void)uploadImageToQiniuWithFilePath:(NSString *)filePath
+                               imageId:(NSInteger)imageId
+                                  type:(NSInteger)type
+                                userId:(NSInteger)userId
+                                  note:(NSString *)note
+                                  name:(NSString *)name
+                              complete:(QNUpCompletionHandler)completionHandler
+{
+    [[LPAPIClient sharedAPIClient] getQiniuUploadTokenWithImageId:imageId
+                                                             type:type
+                                                           userId:userId
+                                                             note:note
+                                                             name:name
+                                                            width:640
+                                                           height:480
+                                                          success:^(id respondObject) {
+                                                              
+                                                              if(respondObject && [respondObject objectForKey:@"data"])
+                                                              {
+                                                                  respondObject = [respondObject objectForKey:@"data"];
+                                                              }
+                                                              
+                                                              if([respondObject objectForKey:@"token"] && ![[respondObject objectForKey:@"token"] isEqual:[NSNull null]])
+                                                              {
+                                                                  NSString *uploadToken = [respondObject objectForKey:@"token"];
+                                                                  
+                                                                  QNUploadManager *uploadManager = [[QNUploadManager alloc] init];
+                                                                  QNUploadOption *opt = [[QNUploadOption alloc] initWithMime:@"image/png" progressHandler:nil params:nil checkCrc:YES cancellationSignal:nil];
+                                                                  
+                                                                  [uploadManager putFile:filePath
+                                                                                     key:name
+                                                                                   token:uploadToken
+                                                                                complete:completionHandler
+                                                                                  option:opt];
+                                                              }
+                                                              
+                                                          } failure:^(NSError *error) {
+                                                              
+                                                          }];
 }
 
 @end

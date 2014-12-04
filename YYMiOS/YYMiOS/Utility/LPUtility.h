@@ -31,4 +31,12 @@
                                name:(NSString *)name
                            complete:(QNUpCompletionHandler)completionHandler;
 
++ (void)uploadImageToQiniuWithFilePath:(NSString *)filePath
+                               imageId:(NSInteger)imageId
+                                  type:(NSInteger)type
+                                userId:(NSInteger)userId
+                                  note:(NSString *)note
+                                  name:(NSString *)name
+                              complete:(QNUpCompletionHandler)completionHandler;
+
 @end

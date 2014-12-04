@@ -225,65 +225,12 @@
 {
     UIImage *image = [info valueForKey:UIImagePickerControllerEditedImage];
     
-//    NSString *name = [NSString stringWithFormat:@"i%@_%i_%i", [[NSUserDefaults standardUserDefaults] objectForKey:@"AppVersion"], (int)[[NSDate date] timeIntervalSince1970], rand()];
-//    [[LPAPIClient sharedAPIClient] getQiniuUploadTokenWithImageId:0
-//                                                             type:3
-//                                                           userId:[[User sharedUser] userId]
-//                                                             note:nil
-//                                                             name:name
-//                                                            width:image.size.width
-//                                                           height:image.size.height
-//                                                          success:^(id respondObject) {
-//                                                              
-//                                                              if(respondObject && [respondObject objectForKey:@"data"])
-//                                                              {
-//                                                                  respondObject = [respondObject objectForKey:@"data"];
-//                                                              }
-//                                                              
-//                                                              if([respondObject objectForKey:@"token"] && ![[respondObject objectForKey:@"token"] isEqual:[NSNull null]])
-//                                                              {
-//                                                                  NSString *uploadToken = [respondObject objectForKey:@"token"];
-//                                                                  
-//                                                                  QNUploadManager *uploadManager = [[[QNUploadManager alloc] init] autorelease];
-//                                                                  
-//                                                                  NSData *uploadData = UIImageJPEGRepresentation(image, 0.8);
-//                                                                  
-//                                                                  [uploadManager putData:uploadData
-//                                                                                     key:name
-//                                                                                   token:uploadToken
-//                                                                                complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
-//                                                                                    
-//                                                                                    if(resp && [resp objectForKey:@"data"])
-//                                                                                    {
-//                                                                                        resp = [resp objectForKey:@"data"];
-//                                                                                        
-//                                                                                        [User modifyUserInfoWithUserId:[[User sharedUser] userId]
-//                                                                                                                iconId:[[resp objectForKey:@"id"] integerValue]
-//                                                                                                              userName:nil
-//                                                                                                              password:nil
-//                                                                                                                gender:nil
-//                                                                                                               success:^(NSArray *array) {
-//                                                                                                                   
-//                                                                                                               } failure:^(NSError *error) {
-//                                                                                                                   
-//                                                                                                               }];
-//                                                                                    }
-//
-//                                                                                    return;
-//                                                                                }
-//                                                                                  option:nil];
-//                                                              }
-//                                                              
-//                                                          } failure:^(NSError *error) {
-//                                                              
-//                                                          }];
-    
     [LPUtility uploadImageToQiniuWithImage:image
                                    imageId:0
                                       type:3
                                     userId:[[User sharedUser] userId]
                                       note:@"nothing"
-                                      name:[NSString stringWithFormat:@"i%@_%i_%i", [[NSUserDefaults standardUserDefaults] objectForKey:@"AppVersion"], (int)[[NSDate date] timeIntervalSince1970], rand()]
+                                      name:[NSString stringWithFormat:@"i%@_%i_%i.png", [[NSUserDefaults standardUserDefaults] objectForKey:@"AppVersion"], (int)[[NSDate date] timeIntervalSince1970], arc4random()]
                                   complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
                                       
                                       if(resp && [resp objectForKey:@"data"])
