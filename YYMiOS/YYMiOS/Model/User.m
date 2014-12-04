@@ -38,24 +38,39 @@ static User *sharedUser = nil;
     @synchronized(sharedUser){
         if(sharedUser == nil)
         {
-            NSArray *array = [LPUtility unarchiveDataFromCache:@"LoginUser"];
-            if(array && [array isKindOfClass:[NSArray class]] && [array count] > 0)
-            {
-                sharedUser = [[array objectAtIndex:0] retain];
-            }
-            else
-            {
-                sharedUser = [[User alloc] init];
-            }
+            sharedUser = [[User alloc] init];
         }
+    }
+    
+    NSArray *array = [LPUtility unarchiveDataFromCache:@"LoginUser"];
+    if(array && [array isKindOfClass:[NSArray class]] && [array count] > 0)
+    {
+        User *user = [array objectAtIndex:0];
+        
+        sharedUser.userIcon = user.userIcon;
+        sharedUser.userId = user.userId;
+        sharedUser.userName = user.userName;
+        sharedUser.anonymous = user.anonymous;
+        sharedUser.badges = user.badges;
+        sharedUser.createTime = user.createTime;
+        sharedUser.exp = user.exp;
+        sharedUser.fanCount = user.fanCount;
+        sharedUser.favouriteCount = user.favouriteCount;
+        sharedUser.followCount = user.followCount;
+        sharedUser.followed = user.followed;
+        sharedUser.gender = user.gender;
+        sharedUser.level = user.level;
+        sharedUser.likeCount = user.likeCount;
+        sharedUser.mobile = user.mobile;
+        sharedUser.reviewCount = user.reviewCount;
+        sharedUser.shareCount = user.shareCount;
+        sharedUser.updateTime = user.updateTime;
+        sharedUser.loginName = user.loginName;
+        sharedUser.emUsername = user.emUsername;
+        sharedUser.emPassword = user.emPassword;
     }
 
     return sharedUser;
-}
-
-+ (void)setSharedUser:(User *)user
-{
-    sharedUser = user;
 }
 
 - (id)initWithAttribute:(NSDictionary *)attribute

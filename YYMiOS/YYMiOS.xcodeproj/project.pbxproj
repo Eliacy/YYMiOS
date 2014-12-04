@@ -194,6 +194,7 @@
 		04B33FF21A11199200F0A3E9 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B33FF11A11199200F0A3E9 /* Comment.m */; };
 		04B36B0219E57BCE00FA7D3A /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B36B0119E57BCE00FA7D3A /* CommentCell.m */; };
 		04B36B0519E7C88A00FA7D3A /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B36B0419E7C88A00FA7D3A /* User.m */; };
+		04D208D31A30560C00250564 /* Toast+UIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D208D21A30560C00250564 /* Toast+UIView.m */; };
 		04DC527319FBBC6B00342DB6 /* Site.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DC527219FBBC6B00342DB6 /* Site.m */; };
 		04DC527619FBC01E00342DB6 /* LPImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DC527519FBC01E00342DB6 /* LPImage.m */; };
 		04DC527919FBD0F400342DB6 /* DealEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DC527819FBD0F400342DB6 /* DealEditViewController.m */; };
@@ -588,6 +589,8 @@
 		04B36B0119E57BCE00FA7D3A /* CommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentCell.m; sourceTree = "<group>"; };
 		04B36B0319E7C88A00FA7D3A /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		04B36B0419E7C88A00FA7D3A /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		04D208D11A30560C00250564 /* Toast+UIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Toast+UIView.h"; sourceTree = "<group>"; };
+		04D208D21A30560C00250564 /* Toast+UIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Toast+UIView.m"; sourceTree = "<group>"; };
 		04DC527119FBBC6B00342DB6 /* Site.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Site.h; sourceTree = "<group>"; };
 		04DC527219FBBC6B00342DB6 /* Site.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Site.m; sourceTree = "<group>"; };
 		04DC527419FBC01E00342DB6 /* LPImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPImage.h; sourceTree = "<group>"; };
@@ -710,6 +713,8 @@
 				04482AC51A17BC9200BC950E /* POIAnnotationView.m */,
 				0475C8A31A19026200958E71 /* ArticlePOIView.h */,
 				0475C8A41A19026200958E71 /* ArticlePOIView.m */,
+				04D208D11A30560C00250564 /* Toast+UIView.h */,
+				04D208D21A30560C00250564 /* Toast+UIView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1513,6 +1518,7 @@
 				04B0D07A19DD1FAF00289F78 /* ShareKit.m in Sources */,
 				048355AB19D320C7005ECAD6 /* FeedbackViewController.m in Sources */,
 				04788D5E19D7FD2F00BE283B /* Article.m in Sources */,
+				04D208D31A30560C00250564 /* Toast+UIView.m in Sources */,
 				04A824BD1A0FD682000B6AFF /* NearbyMapViewController.m in Sources */,
 				04B0D07D19DD23E400289F78 /* FilterViewController.m in Sources */,
 				04788D5819D7F2FB00BE283B /* DraftViewController.m in Sources */,

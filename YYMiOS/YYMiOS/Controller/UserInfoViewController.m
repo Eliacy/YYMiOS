@@ -225,6 +225,9 @@
 {
     UIImage *image = [info valueForKey:UIImagePickerControllerEditedImage];
     
+    [self.view hideToastActivity];
+    [self.view makeToastActivity];
+    
     [LPUtility uploadImageToQiniuWithImage:image
                                    imageId:0
                                       type:3
@@ -242,7 +245,16 @@
                                                                   gender:nil
                                                                  success:^(NSArray *array) {
                                                                      
+                                                                     [self.view hideToastActivity];
+                                                                     
+                                                                     if([array count] > 0)
+                                                                     {
+                                                                         [LPUtility archiveData:array IntoCache:@"LoginUser"];
+                                                                     }
+                                                                     
                                                                  } failure:^(NSError *error) {
+                                                                     
+                                                                     [self.view hideToastActivity];
                                                                      
                                                                  }];
                                       }

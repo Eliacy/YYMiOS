@@ -256,24 +256,7 @@
     }
     _isAppear = YES;
     
-    [User getUserInfoWithUserId:[[User sharedUser] userId]
-                         offset:0
-                          limit:0
-                       followId:0
-                          fanId:0
-                        success:^(NSArray *array) {
-                            
-                            if([array count] > 0)
-                            {
-                                [User setSharedUser:[array objectAtIndex:0]];
-                                [LPUtility archiveData:array IntoCache:@"LoginUser"];
-                                
-                                [self setUser:[array objectAtIndex:0]];
-                            }
-                            
-                        } failure:^(NSError *error) {
-                            
-                        }];
+    [self setUser:[User sharedUser]];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -310,8 +293,7 @@
     }
     _user = [user retain];
     
-    NSLog(@"%@", [LPUtility getQiniuImageURLStringWithBaseString:/*user.userIcon.imageURL*/@"http://youyoumm.qiniudn.com/FrBeGeWJcx803Q97hhukFP1LIkbu" imageSize:CGSizeMake(120, 120)]);
-    [_avatarImageView setImageWithURL:[NSURL URLWithString:[LPUtility getQiniuImageURLStringWithBaseString:/*user.userIcon.imageURL*/@"http://youyoumm.qiniudn.com/FrBeGeWJcx803Q97hhukFP1LIkbu" imageSize:CGSizeMake(120, 120)]]];
+    [_avatarImageView setImageWithURL:[NSURL URLWithString:[LPUtility getQiniuImageURLStringWithBaseString:user.userIcon.imageURL imageSize:CGSizeMake(120, 120)]]];
     _nameLabel.text = user.userName;
     
     CGSize nameSize = [LPUtility getTextHeightWithText:_nameLabel.text font:_nameLabel.font size:CGSizeMake(300, 100)];
