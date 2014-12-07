@@ -1256,4 +1256,22 @@ static id APIClient = nil;
                   failure:failureBlock];
 }
 
+/*
+ 获取城市天气
+ */
+- (void)getCityForecastWithCityId:(NSInteger)cityId
+                          success:(LPAPISuccessBlock)successBlock
+                          failure:(LPAPIFailureBlock)failureBlock
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
+    
+    [params setObject:[NSNumber numberWithInteger:cityId] forKey:@"city"];
+    
+    [self sendRequestPath:@"/rpc/forecasts"
+                   params:params
+                   method:@"GET"
+                  success:successBlock
+                  failure:failureBlock];
+}
+
 @end

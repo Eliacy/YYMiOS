@@ -18,6 +18,7 @@
 @synthesize cityOrder = _cityOrder;
 @synthesize areaArray = _areaArray;
 @synthesize title = _title;
+@synthesize timeZone = _timeZone;
 
 - (id)initWithAttribute:(NSDictionary *)attribute
 {
@@ -64,6 +65,10 @@
             if([attribute objectForKey:@"name"] && ![[attribute objectForKey:@"name"] isEqual:[NSNull null]])
             {
                 self.title = [attribute objectForKey:@"name"];
+            }
+            if([attribute objectForKey:@"timezone"] && ![[attribute objectForKey:@"timezone"] isEqual:[NSNull null]])
+            {
+                self.timeZone = [attribute objectForKey:@"timezone"];
             }
         }
     }

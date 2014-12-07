@@ -7,14 +7,20 @@
 //
 
 #import "BaseViewController.h"
+#import "Weather.h"
 
 @class TabViewController;
 
-@interface WeatherViewController : BaseViewController
+@interface WeatherViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate>
 {
     TabViewController   *_tabVC;
+    Weather             *_weather;
+    
+    UIImageView         *_backgroundImageView;
+    UITableView         *_tableView;
 }
 
 @property (assign, nonatomic) TabViewController *tabVC;
+@property (retain, nonatomic) Weather *weather;
 
 @end

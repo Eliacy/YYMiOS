@@ -71,6 +71,14 @@
 		045605A919CB398B00BF5933 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 045605A819CB398B00BF5933 /* HomeViewController.m */; };
 		045605AC19CB3AFB00BF5933 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 045605AA19CB3AFB00BF5933 /* LaunchScreen.xib */; };
 		045605AD19CB3AFB00BF5933 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 045605AB19CB3AFB00BF5933 /* Main.storyboard */; };
+		045E4F461A34A1010091E7F2 /* Weather.m in Sources */ = {isa = PBXBuildFile; fileRef = 045E4F451A34A1010091E7F2 /* Weather.m */; };
+		045E4F491A34A2C90091E7F2 /* Forecast.m in Sources */ = {isa = PBXBuildFile; fileRef = 045E4F481A34A2C90091E7F2 /* Forecast.m */; };
+		045E4F4E1A34B33B0091E7F2 /* weather_day.png in Resources */ = {isa = PBXBuildFile; fileRef = 045E4F4A1A34B33B0091E7F2 /* weather_day.png */; };
+		045E4F4F1A34B33B0091E7F2 /* weather_night.png in Resources */ = {isa = PBXBuildFile; fileRef = 045E4F4B1A34B33B0091E7F2 /* weather_night.png */; };
+		045E4F501A34B33B0091E7F2 /* weather_night@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 045E4F4C1A34B33B0091E7F2 /* weather_night@2x.png */; };
+		045E4F511A34B33B0091E7F2 /* weather_day@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 045E4F4D1A34B33B0091E7F2 /* weather_day@2x.png */; };
+		045E4F541A34B94A0091E7F2 /* launch_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 045E4F521A34B94A0091E7F2 /* launch_image.png */; };
+		045E4F551A34B94A0091E7F2 /* launch_image_long.png in Resources */ = {isa = PBXBuildFile; fileRef = 045E4F531A34B94A0091E7F2 /* launch_image_long.png */; };
 		045EF5621A04CD2D00A85776 /* QNAsyncRun.m in Sources */ = {isa = PBXBuildFile; fileRef = 045EF5441A04CD2D00A85776 /* QNAsyncRun.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		045EF5631A04CD2D00A85776 /* QNConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 045EF5461A04CD2D00A85776 /* QNConfig.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		045EF5641A04CD2D00A85776 /* QNCrc32.m in Sources */ = {isa = PBXBuildFile; fileRef = 045EF5481A04CD2D00A85776 /* QNCrc32.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -299,6 +307,16 @@
 		045605A819CB398B00BF5933 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		045605AA19CB3AFB00BF5933 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		045605AB19CB3AFB00BF5933 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		045E4F441A34A1010091E7F2 /* Weather.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Weather.h; sourceTree = "<group>"; };
+		045E4F451A34A1010091E7F2 /* Weather.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Weather.m; sourceTree = "<group>"; };
+		045E4F471A34A2C90091E7F2 /* Forecast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Forecast.h; sourceTree = "<group>"; };
+		045E4F481A34A2C90091E7F2 /* Forecast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Forecast.m; sourceTree = "<group>"; };
+		045E4F4A1A34B33B0091E7F2 /* weather_day.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weather_day.png; sourceTree = "<group>"; };
+		045E4F4B1A34B33B0091E7F2 /* weather_night.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weather_night.png; sourceTree = "<group>"; };
+		045E4F4C1A34B33B0091E7F2 /* weather_night@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weather_night@2x.png"; sourceTree = "<group>"; };
+		045E4F4D1A34B33B0091E7F2 /* weather_day@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weather_day@2x.png"; sourceTree = "<group>"; };
+		045E4F521A34B94A0091E7F2 /* launch_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch_image.png; sourceTree = "<group>"; };
+		045E4F531A34B94A0091E7F2 /* launch_image_long.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch_image_long.png; sourceTree = "<group>"; };
 		045EF5431A04CD2D00A85776 /* QNAsyncRun.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QNAsyncRun.h; sourceTree = "<group>"; };
 		045EF5441A04CD2D00A85776 /* QNAsyncRun.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QNAsyncRun.m; sourceTree = "<group>"; };
 		045EF5451A04CD2D00A85776 /* QNConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QNConfig.h; sourceTree = "<group>"; };
@@ -678,6 +696,10 @@
 				0491C0BC19EE5D9600FF71D4 /* Area.m */,
 				0486F4621A07F057002E8CFC /* Tip.h */,
 				0486F4631A07F057002E8CFC /* Tip.m */,
+				045E4F441A34A1010091E7F2 /* Weather.h */,
+				045E4F451A34A1010091E7F2 /* Weather.m */,
+				045E4F471A34A2C90091E7F2 /* Forecast.h */,
+				045E4F481A34A2C90091E7F2 /* Forecast.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -722,6 +744,10 @@
 		0435238619D05D0100F67B8E /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				045E4F4A1A34B33B0091E7F2 /* weather_day.png */,
+				045E4F4D1A34B33B0091E7F2 /* weather_day@2x.png */,
+				045E4F4B1A34B33B0091E7F2 /* weather_night.png */,
+				045E4F4C1A34B33B0091E7F2 /* weather_night@2x.png */,
 				04E0EAE51A1A5472000B7055 /* confirm.png */,
 				04E0EAE41A1A5472000B7055 /* confirm@2x.png */,
 				04E0EADE1A1A5088000B7055 /* dynamic_price.png */,
@@ -817,6 +843,8 @@
 		0456057B19CB381800BF5933 /* YYMiOS */ = {
 			isa = PBXGroup;
 			children = (
+				045E4F521A34B94A0091E7F2 /* launch_image.png */,
+				045E4F531A34B94A0091E7F2 /* launch_image_long.png */,
 				04AFF1AE1A1494A7000CE6FF /* Icon-60@2x.png */,
 				04AFF1AF1A1494A7000CE6FF /* Icon-60@3x.png */,
 				04B0D04519DA7C3000289F78 /* 3rd */,
@@ -1435,6 +1463,7 @@
 				045605AD19CB3AFB00BF5933 /* Main.storyboard in Resources */,
 				044274051A13CFCC00DD99CD /* location@2x.png in Resources */,
 				04AFF1A31A148B0F000CE6FF /* tab_news_hide@2x.png in Resources */,
+				045E4F501A34B33B0091E7F2 /* weather_night@2x.png in Resources */,
 				04482AB91A17AF7E00BC950E /* 2@2x.png in Resources */,
 				044273F71A13C50700DD99CD /* star_hide.png in Resources */,
 				04AFF19C1A148B0F000CE6FF /* tab_my_show.png in Resources */,
@@ -1445,7 +1474,9 @@
 				044274101A13DF7500DD99CD /* icon_visa.png in Resources */,
 				0435238E19D05D0100F67B8E /* btn_back_highlighted@2x.png in Resources */,
 				04AFF1AA1A148B4C000CE6FF /* tab_weather_hide.png in Resources */,
+				045E4F551A34B94A0091E7F2 /* launch_image_long.png in Resources */,
 				0456058A19CB381800BF5933 /* Images.xcassets in Resources */,
+				045E4F4E1A34B33B0091E7F2 /* weather_day.png in Resources */,
 				0475C8B11A19198200958E71 /* comment_white@2x.png in Resources */,
 				04AFF1971A148B0F000CE6FF /* tab_home_hide@2x.png in Resources */,
 				04AFF1A11A148B0F000CE6FF /* tab_nearby_show@2x.png in Resources */,
@@ -1473,6 +1504,7 @@
 				044273EB1A13C21600DD99CD /* rank_S@2x.png in Resources */,
 				044274061A13CFCC00DD99CD /* location.png in Resources */,
 				04AFF1A21A148B0F000CE6FF /* tab_news_hide.png in Resources */,
+				045E4F511A34B33B0091E7F2 /* weather_day@2x.png in Resources */,
 				044274011A13CD2500DD99CD /* talk_gray@2x.png in Resources */,
 				044273F61A13C50700DD99CD /* star_half.png in Resources */,
 				04AFF1961A148B0F000CE6FF /* tab_home_hide.png in Resources */,
@@ -1488,6 +1520,7 @@
 				04482AB51A17AF7E00BC950E /* 2.png in Resources */,
 				04E0EAE61A1A5472000B7055 /* confirm@2x.png in Resources */,
 				04AFF19A1A148B0F000CE6FF /* tab_my_hide.png in Resources */,
+				045E4F541A34B94A0091E7F2 /* launch_image.png in Resources */,
 				04AFF1A01A148B0F000CE6FF /* tab_nearby_show.png in Resources */,
 				044273FB1A13C50700DD99CD /* star_half@2x.png in Resources */,
 				04B0D06619DA7C3000289F78 /* WeiboSDK.bundle in Resources */,
@@ -1497,6 +1530,7 @@
 				04AFF19D1A148B0F000CE6FF /* tab_my_show@2x.png in Resources */,
 				04AFF1B11A1494A7000CE6FF /* Icon-60@3x.png in Resources */,
 				0475C8B01A19198200958E71 /* like_white@2x.png in Resources */,
+				045E4F4F1A34B33B0091E7F2 /* weather_night.png in Resources */,
 				044274121A13DF7500DD99CD /* icon_mastercard.png in Resources */,
 				04482ABC1A17AF7E00BC950E /* 6@2x.png in Resources */,
 				04AFF1AC1A148B4C000CE6FF /* tab_weather_show.png in Resources */,
@@ -1516,6 +1550,7 @@
 				047EB62A19E7CE8000A2E081 /* ASIAuthenticationDialog.m in Sources */,
 				045EF5671A04CD2D00A85776 /* QNHttpManager.m in Sources */,
 				04B0D07A19DD1FAF00289F78 /* ShareKit.m in Sources */,
+				045E4F491A34A2C90091E7F2 /* Forecast.m in Sources */,
 				048355AB19D320C7005ECAD6 /* FeedbackViewController.m in Sources */,
 				04788D5E19D7FD2F00BE283B /* Article.m in Sources */,
 				04D208D31A30560C00250564 /* Toast+UIView.m in Sources */,
@@ -1587,6 +1622,7 @@
 				0456057F19CB381800BF5933 /* main.m in Sources */,
 				0435239119D05E3200F67B8E /* DynamicCell.m in Sources */,
 				0435237819D053C500F67B8E /* NearbyViewController.m in Sources */,
+				045E4F461A34A1010091E7F2 /* Weather.m in Sources */,
 				04B0D06019DA7C3000289F78 /* SDWebImageDecoder.m in Sources */,
 				0435237B19D053D300F67B8E /* MineViewController.m in Sources */,
 				046BF9F51A0BCC4F003FE419 /* LPUtility.m in Sources */,
@@ -1702,6 +1738,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Lide Ma (C87W5P53R8)";
@@ -1730,6 +1767,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Lide Ma (C87W5P53R8)";

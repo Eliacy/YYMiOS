@@ -342,4 +342,11 @@ typedef void (^LPAPIFailureBlock)(NSError *error);
                                success:(LPAPISuccessBlock)successBlock
                                failure:(LPAPIFailureBlock)failureBlock;
 
+/*
+ 获取城市天气
+ */
+- (void)getCityForecastWithCityId:(NSInteger)cityId
+                          success:(LPAPISuccessBlock)successBlock
+                          failure:(LPAPIFailureBlock)failureBlock;
+
 @end

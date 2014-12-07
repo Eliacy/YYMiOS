@@ -17,6 +17,7 @@
     NSInteger       _cityOrder;
     NSArray         *_areaArray;
     NSString        *_title;
+    NSString        *_timeZone;
 }
 
 @property (assign, nonatomic) NSInteger cityId;
@@ -26,6 +27,7 @@
 @property (assign, nonatomic) NSInteger cityOrder;
 @property (retain, nonatomic) NSArray *areaArray;
 @property (retain, nonatomic) NSString *title;
+@property (retain, nonatomic) NSString *timeZone;
 
 - (id)initWithAttribute:(NSDictionary *)attribute;
 
