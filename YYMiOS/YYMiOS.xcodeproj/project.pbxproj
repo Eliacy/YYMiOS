@@ -79,6 +79,8 @@
 		045E4F511A34B33B0091E7F2 /* weather_day@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 045E4F4D1A34B33B0091E7F2 /* weather_day@2x.png */; };
 		045E4F541A34B94A0091E7F2 /* launch_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 045E4F521A34B94A0091E7F2 /* launch_image.png */; };
 		045E4F551A34B94A0091E7F2 /* launch_image_long.png in Resources */ = {isa = PBXBuildFile; fileRef = 045E4F531A34B94A0091E7F2 /* launch_image_long.png */; };
+		045E4F581A34BBDF0091E7F2 /* WeatherCurrentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 045E4F571A34BBDF0091E7F2 /* WeatherCurrentCell.m */; };
+		045E4F5B1A34BC050091E7F2 /* WeatherForecastCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 045E4F5A1A34BC050091E7F2 /* WeatherForecastCell.m */; };
 		045EF5621A04CD2D00A85776 /* QNAsyncRun.m in Sources */ = {isa = PBXBuildFile; fileRef = 045EF5441A04CD2D00A85776 /* QNAsyncRun.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		045EF5631A04CD2D00A85776 /* QNConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 045EF5461A04CD2D00A85776 /* QNConfig.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		045EF5641A04CD2D00A85776 /* QNCrc32.m in Sources */ = {isa = PBXBuildFile; fileRef = 045EF5481A04CD2D00A85776 /* QNCrc32.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -317,6 +319,10 @@
 		045E4F4D1A34B33B0091E7F2 /* weather_day@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weather_day@2x.png"; sourceTree = "<group>"; };
 		045E4F521A34B94A0091E7F2 /* launch_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch_image.png; sourceTree = "<group>"; };
 		045E4F531A34B94A0091E7F2 /* launch_image_long.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch_image_long.png; sourceTree = "<group>"; };
+		045E4F561A34BBDF0091E7F2 /* WeatherCurrentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherCurrentCell.h; sourceTree = "<group>"; };
+		045E4F571A34BBDF0091E7F2 /* WeatherCurrentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherCurrentCell.m; sourceTree = "<group>"; };
+		045E4F591A34BC050091E7F2 /* WeatherForecastCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherForecastCell.h; sourceTree = "<group>"; };
+		045E4F5A1A34BC050091E7F2 /* WeatherForecastCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherForecastCell.m; sourceTree = "<group>"; };
 		045EF5431A04CD2D00A85776 /* QNAsyncRun.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QNAsyncRun.h; sourceTree = "<group>"; };
 		045EF5441A04CD2D00A85776 /* QNAsyncRun.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QNAsyncRun.m; sourceTree = "<group>"; };
 		045EF5451A04CD2D00A85776 /* QNConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QNConfig.h; sourceTree = "<group>"; };
@@ -711,6 +717,10 @@
 				0435237E19D0574900F67B8E /* HomeCell.m */,
 				0435238F19D05E3200F67B8E /* DynamicCell.h */,
 				0435239019D05E3200F67B8E /* DynamicCell.m */,
+				045E4F561A34BBDF0091E7F2 /* WeatherCurrentCell.h */,
+				045E4F571A34BBDF0091E7F2 /* WeatherCurrentCell.m */,
+				045E4F591A34BC050091E7F2 /* WeatherForecastCell.h */,
+				045E4F5A1A34BC050091E7F2 /* WeatherForecastCell.m */,
 				048355A619D31F3F005ECAD6 /* NearbyCell.h */,
 				048355A719D31F3F005ECAD6 /* NearbyCell.m */,
 				04788D5919D7FAF000BE283B /* DraftCell.h */,
@@ -1593,11 +1603,13 @@
 				047EB62D19E7CE8000A2E081 /* ASIDownloadCache.m in Sources */,
 				0435237F19D0574900F67B8E /* HomeCell.m in Sources */,
 				04B0D06319DA7C3000289F78 /* SDWebImagePrefetcher.m in Sources */,
+				045E4F581A34BBDF0091E7F2 /* WeatherCurrentCell.m in Sources */,
 				045EF56B1A04CD2D00A85776 /* QNResumeUpload.m in Sources */,
 				047EB62C19E7CE8000A2E081 /* ASIDataDecompressor.m in Sources */,
 				048355AE19D320D2005ECAD6 /* AboutViewController.m in Sources */,
 				04E963761A2C3C470067C6C2 /* FollowerViewController.m in Sources */,
 				04A824B71A0FBA16000B6AFF /* MKMapView+ZoomLevel.m in Sources */,
+				045E4F5B1A34BC050091E7F2 /* WeatherForecastCell.m in Sources */,
 				04B36B0219E57BCE00FA7D3A /* CommentCell.m in Sources */,
 				0491C0BD19EE5D9600FF71D4 /* Area.m in Sources */,
 				0435236C19D0502C00F67B8E /* LPObject.m in Sources */,

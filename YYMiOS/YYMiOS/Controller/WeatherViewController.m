@@ -7,6 +7,8 @@
 //
 
 #import "WeatherViewController.h"
+#import "WeatherCurrentCell.h"
+#import "WeatherForecastCell.h"
 
 @interface WeatherViewController ()
 
@@ -42,8 +44,12 @@
     _backgroundImageView.layer.masksToBounds = YES;
     [self.view addSubview:_backgroundImageView];
     
-//    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, _adjustView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - _adjustView.frame.size.height) style:UITableViewStylePlain];
-//    _tableView.backgroundColor = [UIColor clearColor];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, _adjustView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - _adjustView.frame.size.height) style:UITableViewStylePlain];
+    _tableView.backgroundColor = [UIColor clearColor];
+    _tableView.dataSource = self;
+    _tableView.delegate = self;
+    _tableView.separatorColor = [UIColor clearColor];
+    [self.view addSubview:_tableView];
 }
 
 - (void)viewDidLoad {
@@ -122,6 +128,198 @@
     {
         _backgroundImageView.image = [UIImage imageNamed:@"weather_night"];
     }
+    
+    [_tableView reloadData];
+}
+
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 3;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    switch (section) {
+        case 0:
+        {
+            if(_weather && _weather.currentForecast != nil)
+            {
+                return 1;
+            }
+        }
+            break;
+        case 1:
+        {
+            if(_weather && _weather.forecastArray != nil && [_weather.forecastArray count] > 0)
+            {
+                return [_weather.forecastArray count];
+            }
+        }
+            break;
+        case 2:
+        {
+        
+        }
+            break;
+        default:
+            break;
+    }
+    
+    return 0;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CGFloat height = 0;
+    
+    switch (indexPath.section) {
+        case 0:
+        {
+            height += 75;
+        }
+            break;
+        case 1:
+        {
+            height += 45;
+        }
+            break;
+        case 2:
+        {
+            
+        }
+            break;
+        default:
+            break;
+    }
+
+    return height;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    CGFloat height = 0;
+    
+    switch (section) {
+        case 0:
+        {
+            height += 1;
+        }
+            break;
+        case 1:
+        {
+            height += 1;
+        }
+            break;
+        case 2:
+        {
+            
+        }
+            break;
+        default:
+            break;
+    }
+    
+    return height;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    switch (section) {
+        case 0:
+        {
+            UIView *view = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 1)] autorelease];
+            UIView *line = [[[UIView alloc] initWithFrame:CGRectMake(15, 0, view.frame.size.width - 15, 1)] autorelease];
+            line.backgroundColor = [UIColor whiteColor];
+            [view addSubview:line];
+            return view;
+        }
+            break;
+        case 1:
+        {
+            UIView *view = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 1)] autorelease];
+            UIView *line = [[[UIView alloc] initWithFrame:CGRectMake(15, 0, view.frame.size.width - 15, 1)] autorelease];
+            line.backgroundColor = [UIColor whiteColor];
+            [view addSubview:line];
+            return view;
+        }
+            break;
+        case 2:
+        {
+            
+        }
+            break;
+        default:
+            break;
+    }
+    
+    return nil;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    switch (indexPath.section) {
+        case 0:
+        {
+            WeatherCurrentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WeatherViewControllerCurrentIdentifier"];
+            if(cell == nil)
+            {
+                cell = [[[WeatherCurrentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"WeatherViewControllerCurrentIdentifier"] autorelease];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            }
+            
+            cell.weather = _weather;
+            
+            return cell;
+        }
+            break;
+        case 1:
+        {
+            WeatherForecastCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WeatherViewControllerForecastIdentifier"];
+            if(cell == nil)
+            {
+                cell = [[[WeatherForecastCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"WeatherViewControllerForecastIdentifier"] autorelease];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            }
+            
+            cell.forecast = [_weather.forecastArray objectAtIndex:indexPath.row];
+            
+            return cell;
+        }
+            break;
+        case 2:
+        {
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WeatherViewControllerIdentifier"];
+            if(cell == nil)
+            {
+                cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"WeatherViewControllerIdentifier"] autorelease];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            }
+            
+            return cell;
+        }
+            break;
+        default:
+        {
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WeatherViewControllerIdentifier"];
+            if(cell == nil)
+            {
+                cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"WeatherViewControllerIdentifier"] autorelease];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            }
+            
+            return cell;
+        }
+            break;
+    }
+}
+
+#pragma mark - UITableViewDelegate
+
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return nil;
 }
 
 @end
