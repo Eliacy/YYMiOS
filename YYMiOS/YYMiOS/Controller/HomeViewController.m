@@ -103,7 +103,7 @@
                             
                             if([_cityArray count] > 0)
                             {
-                                _titleLabel.text = [[_cityArray objectAtIndex:0] cityName];
+                                _titleLabel.text = [[[_cityArray objectAtIndex:0] cityName] stringByAppendingString:@" ∨"];
                                 
                                 [[NSUserDefaults standardUserDefaults] setObject:[[_cityArray objectAtIndex:0] cityName] forKey:@"city_name"];
                                 [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:[[_cityArray objectAtIndex:0] cityId]] forKey:@"city_id"];
@@ -218,7 +218,7 @@
 
 - (void)titleExpandKitDidSelectWithIndex:(NSIndexPath *)indexPath
 {
-    _titleLabel.text = [[_cityArray objectAtIndex:indexPath.row] cityName];
+    _titleLabel.text = [[[_cityArray objectAtIndex:indexPath.row] cityName] stringByAppendingString:@" ∨"];
     
     [[NSUserDefaults standardUserDefaults] setObject:[[_cityArray objectAtIndex:indexPath.row] cityName] forKey:@"city_name"];
     [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:[[_cityArray objectAtIndex:indexPath.row] cityId]] forKey:@"city_id"];
