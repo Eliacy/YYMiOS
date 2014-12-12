@@ -6,3 +6,5 @@
 #
 # Pods/
 
+# OSX Cache:
+.DS_Store

@@ -39,4 +39,9 @@
                                   name:(NSString *)name
                               complete:(QNUpCompletionHandler)completionHandler;
 
+//解析字符串时间戳：
++ (NSDate *)dateFromInternetDateTimeString:(NSString *)dateString;
+//以用户友好的方式输出时间戳：
++ (NSString *)friendlyStringFromDate:(NSDate *)date;
+
 @end
