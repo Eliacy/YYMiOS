@@ -76,4 +76,14 @@
                          success:(LPObjectSuccessBlock)successBlock
                          failure:(LPObjectFailureBlock)failureBlock;
 
++ (void)followSomeoneWithUserId:(NSInteger)userId
+                     fromUserId:(NSInteger)fromUserId
+                        success:(LPObjectSuccessBlock)successBlock
+                        failure:(LPObjectFailureBlock)failureBlock;
+
++ (void)unfollowSomeoneWithUserId:(NSInteger)userId
+                       fromUserId:(NSInteger)fromUserId
+                          success:(LPObjectSuccessBlock)successBlock
+                          failure:(LPObjectFailureBlock)failureBlock;
+
 @end

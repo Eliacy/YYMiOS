@@ -83,6 +83,49 @@
     }
     _deal = deal;
     
+    for(UIView *view in self.subviews)
+    {
+        if(view.tag >= kKeywordImageViewTag)
+        {
+            [view removeFromSuperview];
+        }
+    }
+    
+    CGSize textSize = [LPUtility getTextHeightWithText:_keywordLabel.text
+                                                  font:_keywordLabel.font
+                                                  size:CGSizeMake(200, 100)];
+    CGFloat offsetX = textSize.width + 15;
+    CGFloat offsetY = 10;
+    
+    for(NSInteger i = 0; i < [deal.keywordArray count]; i++)
+    {
+        NSString *keyword = [deal.keywordArray objectAtIndex:i];
+        CGSize keywordSize = [LPUtility getTextHeightWithText:keyword
+                                                         font:[UIFont systemFontOfSize:10.0f]
+                                                         size:CGSizeMake(200, 100)];
+        if(offsetX + keywordSize.width + 5 + 10 > self.frame.size.width - 15)
+        {
+            offsetX = textSize.width + 15;
+            offsetY += 25;
+        }
+        
+        UIImageView *imageView = [[[UIImageView alloc] initWithFrame:CGRectMake(offsetX, offsetY + 3, keywordSize.width + 5, 14)] autorelease];
+        imageView.backgroundColor = [UIColor clearColor];
+        imageView.image = [[UIImage imageNamed:[NSString stringWithFormat:@"%i.png", (int)(i % 6 + 1)]] stretchableImageWithLeftCapWidth:5 topCapHeight:0];
+        imageView.tag = kKeywordImageViewTag + i;
+        [self addSubview:imageView];
+        
+        UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(0, 1, imageView.frame.size.width, 12)] autorelease];
+        label.backgroundColor = [UIColor clearColor];
+        label.textColor = [UIColor whiteColor];
+        label.font = [UIFont systemFontOfSize:10.0f];
+        label.textAlignment = NSTextAlignmentCenter;
+        label.text = keyword;
+        [imageView addSubview:label];
+        
+        offsetX += keywordSize.width + 5 + 10;
+    }
+    
     _priceLabel.text = [NSString stringWithFormat:@"总价：%i%@", deal.total, deal.currency];
     
     _likeLabel.text = [NSString stringWithFormat:@"%i", (int)deal.likeCount];

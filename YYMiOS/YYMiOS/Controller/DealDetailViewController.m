@@ -11,6 +11,8 @@
 #import "CommentCell.h"
 #import "Comment.h"
 #import "ShopViewController.h"
+#import "FollowingViewController.h"
+#import "FollowerViewController.h"
 
 #define kImageViewTag 81521
 
@@ -33,17 +35,27 @@
 
 - (void)clickFollowingButton:(id)sender
 {
-
+    FollowingViewController *followingVC = [[[FollowingViewController alloc] init] autorelease];
+    followingVC.userId = _deal.user.userId;
+    [self.navigationController pushViewController:followingVC animated:YES];
 }
 
 - (void)clickFollowerButton:(id)sender
 {
-
+    FollowerViewController *followerVC = [[[FollowerViewController alloc] init] autorelease];
+    followerVC.userId = _deal.user.userId;
+    [self.navigationController pushViewController:followerVC animated:YES];
 }
 
 - (void)clickFollowButton:(id)sender
 {
-
+    [User followSomeoneWithUserId:_deal.user.userId
+                       fromUserId:[[User sharedUser] userId]
+                          success:^(NSArray *array) {
+                              
+                          } failure:^(NSError *error) {
+                              
+                          }];
 }
 
 - (void)clickSendButton:(id)sender
@@ -197,23 +209,25 @@
     _followingButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     _followingButton.frame = CGRectMake(_timeLabel.frame.origin.x, _timeLabel.frame.origin.y + _timeLabel.frame.size.height + 5, 60, 20);
     _followingButton.backgroundColor = [UIColor clearColor];
-    _followingButton.layer.borderWidth = 1.0f;
-    _followingButton.layer.borderColor = [[UIColor grayColor] CGColor];
-    [_followingButton setTitle:@"关注：15" forState:UIControlStateNormal];
-    [_followingButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-    _followingButton.titleLabel.font = [UIFont systemFontOfSize:12.0f];
+    [_followingButton setTitleColor:[UIColor colorWithRed:153.0 / 255.0 green:153.0 / 255.0 blue:153.0 / 255.0 alpha:1.0] forState:UIControlStateNormal];
+    _followingButton.titleLabel.font = [UIFont systemFontOfSize:11.0f];
+    _followingButton.layer.borderWidth = 0.5;
+    _followingButton.layer.borderColor = [[UIColor colorWithRed:221.0 / 255.0 green:221.0 / 255.0 blue:221.0 / 255.0 alpha:1.0] CGColor];
     [_followingButton addTarget:self action:@selector(clickFollowingButton:) forControlEvents:UIControlEventTouchUpInside];
+    _followingButton.layer.cornerRadius = 2.0;
+    _followingButton.layer.masksToBounds = YES;
     [_tableHeaderView addSubview:_followingButton];
     
     _followerButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-    _followerButton.frame = CGRectMake(_followingButton.frame.origin.x + _followingButton.frame.size.width + 5, _followingButton.frame.origin.y, _followingButton.frame.size.width, _followingButton.frame.size.height);
+    _followerButton.frame = CGRectMake(_followingButton.frame.origin.x + _followingButton.frame.size.width + 5, _followingButton.frame.origin.y, 60, 20);
     _followerButton.backgroundColor = [UIColor clearColor];
-    _followerButton.layer.borderWidth = 1.0f;
-    _followerButton.layer.borderColor = [[UIColor grayColor] CGColor];
-    [_followerButton setTitle:@"粉丝：300" forState:UIControlStateNormal];
     [_followerButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-    _followerButton.titleLabel.font = [UIFont systemFontOfSize:12.0f];
+    _followerButton.titleLabel.font = [UIFont systemFontOfSize:11.0f];
+    _followerButton.layer.borderWidth = 0.5;
+    _followerButton.layer.borderColor = [[UIColor colorWithRed:221.0 / 255.0 green:221.0 / 255.0 blue:221.0 / 255.0 alpha:1.0] CGColor];
     [_followerButton addTarget:self action:@selector(clickFollowerButton:) forControlEvents:UIControlEventTouchUpInside];
+    _followerButton.layer.cornerRadius = 2.0;
+    _followerButton.layer.masksToBounds = YES;
     [_tableHeaderView addSubview:_followerButton];
     
     _followButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
@@ -338,6 +352,16 @@
     [_avatarImageView setImageWithURL:[NSURL URLWithString:[LPUtility getQiniuImageURLStringWithBaseString:deal.user.userIcon.imageURL imageSize:CGSizeMake(100, 100)]]];
     _nameLabel.text = deal.user.userName;
     _timeLabel.text = deal.updateTime;
+    
+    NSString *followingString = [NSString stringWithFormat:@"关注:%i", deal.user.followCount];
+    CGSize followingSize = [LPUtility getTextHeightWithText:followingString font:[UIFont systemFontOfSize:11.0f] size:CGSizeMake(200, 100)];
+    _followingButton.frame = CGRectMake(_followingButton.frame.origin.x, _followingButton.frame.origin.y, followingSize.width + 20, _followingButton.frame.size.height);
+    [_followingButton setTitle:followingString forState:UIControlStateNormal];
+    
+    NSString *followerString = [NSString stringWithFormat:@"粉丝:%i", deal.user.fanCount];
+    CGSize followerSize = [LPUtility getTextHeightWithText:followerString font:[UIFont systemFontOfSize:11.0f] size:CGSizeMake(200, 100)];
+    _followerButton.frame = CGRectMake(_followingButton.frame.origin.x + _followingButton.frame.size.width + 5, _followerButton.frame.origin.y, followerSize.width + 20, _followerButton.frame.size.height);
+    [_followerButton setTitle:followerString forState:UIControlStateNormal];
     
     CGSize contentSize = [LPUtility getTextHeightWithText:deal.content
                                                      font:_contentLabel.font

@@ -267,4 +267,44 @@ static User *sharedUser = nil;
                                                     }];
 }
 
++ (void)followSomeoneWithUserId:(NSInteger)userId
+                     fromUserId:(NSInteger)fromUserId
+                        success:(LPObjectSuccessBlock)successBlock
+                        failure:(LPObjectFailureBlock)failureBlock
+{
+    [[LPAPIClient sharedAPIClient] followSomeoneWithUserId:userId
+                                                fromUserId:fromUserId
+                                                   success:^(id respondObject) {
+                                                       if(successBlock)
+                                                       {
+                                                           successBlock([User parseFromeDictionary:respondObject]);
+                                                       }
+                                                   } failure:^(NSError *error) {
+                                                       if(failureBlock)
+                                                       {
+                                                           failureBlock(error);
+                                                       }
+                                                   }];
+}
+
++ (void)unfollowSomeoneWithUserId:(NSInteger)userId
+                       fromUserId:(NSInteger)fromUserId
+                          success:(LPObjectSuccessBlock)successBlock
+                          failure:(LPObjectFailureBlock)failureBlock
+{
+    [[LPAPIClient sharedAPIClient] unfollowSomeoneWithUserId:userId
+                                                  fromUserId:fromUserId
+                                                     success:^(id respondObject) {
+                                                         if(successBlock)
+                                                         {
+                                                             successBlock([User parseFromeDictionary:respondObject]);
+                                                         }
+                                                     } failure:^(NSError *error) {
+                                                         if(failureBlock)
+                                                         {
+                                                             failureBlock(error);
+                                                         }
+                                                     }];
+}
+
 @end
