@@ -178,6 +178,7 @@
     _avatarImageView.backgroundColor = [UIColor clearColor];
     _avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
     _avatarImageView.layer.masksToBounds = YES;
+    _avatarImageView.layer.cornerRadius = 30.0;
     [_tableHeaderView addSubview:_avatarImageView];
     
     _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(_avatarImageView.frame.origin.x + _avatarImageView.frame.size.width + 10, _avatarImageView.frame.origin.y, 130, 20)];

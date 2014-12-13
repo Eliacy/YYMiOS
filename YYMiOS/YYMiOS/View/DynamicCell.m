@@ -44,6 +44,7 @@
         _avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
         _avatarImageView.layer.masksToBounds = YES;
         _avatarImageView.userInteractionEnabled = YES;
+        _avatarImageView.layer.cornerRadius = 30.0;
         [_backImageView addSubview:_avatarImageView];
         
         UITapGestureRecognizer *oneFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAvatarImageView:)];

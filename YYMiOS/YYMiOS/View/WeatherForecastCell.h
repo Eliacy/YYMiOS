@@ -15,6 +15,8 @@
     
     UILabel     *_weekdayLabel;
     UILabel     *_weatherLabel;
+    
+    UIImageView *_iconImageView;
 }
 
 @property (retain, nonatomic) Forecast *forecast;

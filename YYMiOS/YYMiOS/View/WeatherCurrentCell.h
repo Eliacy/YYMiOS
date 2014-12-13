@@ -15,6 +15,8 @@
     
     UILabel     *_cityLabel;
     UILabel     *_weatherLabel;
+    
+    UIImageView *_iconImageView;
 }
 
 @property (retain, nonatomic) Weather *weather;
