@@ -40,6 +40,21 @@
 
 - (id)initWithAttribute:(NSDictionary *)attribute;
 
++ (void)getPOIListWithPOIId:(NSInteger)POIId
+                      brief:(NSInteger)brief
+                     offset:(NSInteger)offset
+                      limit:(NSInteger)limit
+                    keyword:(NSString *)keyword
+                       area:(NSInteger)area
+                       city:(NSInteger)city
+                      range:(NSInteger)range
+                   category:(NSInteger)category
+                      order:(NSInteger)order
+                  longitude:(CGFloat)longitude
+                   latitude:(CGFloat)latitude
+                    success:(LPObjectSuccessBlock)successBlock
+                    failure:(LPObjectFailureBlock)failureBlock;
+
 + (void)getPOIListWithOffset:(NSInteger)offset
                        limit:(NSInteger)limit
                      keyword:(NSString *)keyword

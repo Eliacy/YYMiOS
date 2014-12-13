@@ -136,6 +136,46 @@
     return mutableArray;
 }
 
++ (void)getPOIListWithPOIId:(NSInteger)POIId
+                      brief:(NSInteger)brief
+                     offset:(NSInteger)offset
+                      limit:(NSInteger)limit
+                    keyword:(NSString *)keyword
+                       area:(NSInteger)area
+                       city:(NSInteger)city
+                      range:(NSInteger)range
+                   category:(NSInteger)category
+                      order:(NSInteger)order
+                  longitude:(CGFloat)longitude
+                   latitude:(CGFloat)latitude
+                    success:(LPObjectSuccessBlock)successBlock
+                    failure:(LPObjectFailureBlock)failureBlock
+{
+    [[LPAPIClient sharedAPIClient] getPOIListWithPOIId:POIId
+                                                 brief:brief
+                                                offset:offset
+                                                 limit:limit
+                                               keyword:keyword
+                                                  area:area
+                                                  city:city
+                                                 range:range
+                                              category:category
+                                                 order:order
+                                             longitude:longitude
+                                              latitude:latitude
+                                               success:^(id respondObject) {
+                                                   if(successBlock)
+                                                   {
+                                                       successBlock([POI parseFromeDictionary:respondObject]);
+                                                   }
+                                               } failure:^(NSError *error) {
+                                                   if(failureBlock)
+                                                   {
+                                                       failureBlock(error);
+                                                   }
+                                               }];
+}
+
 + (void)getPOIListWithOffset:(NSInteger)offset
                        limit:(NSInteger)limit
                      keyword:(NSString *)keyword

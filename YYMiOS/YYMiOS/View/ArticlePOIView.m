@@ -10,7 +10,9 @@
 
 @implementation ArticlePOIView
 
+@synthesize poiId = _poiId;
 @synthesize poi = _poi;
+@synthesize delegate = _delegate;
 
 @synthesize keywordImageView = _keywordImageView;
 
@@ -99,6 +101,43 @@
     // Drawing code
 }
 */
+
+- (void)setPoiId:(NSInteger)poiId
+{
+    _poiId = poiId;
+    
+    [POI getPOIListWithPOIId:poiId
+                       brief:1
+                      offset:0
+                       limit:0
+                     keyword:@""
+                        area:0
+                        city:0
+                       range:-1
+                    category:0
+                       order:0
+                   longitude:0
+                    latitude:0
+                     success:^(NSArray *array) {
+                         
+                         if([array count] > 0)
+                         {
+                             self.poi = [array objectAtIndex:0];
+                             
+                             if(_poi.keywordArray && [_poi.keywordArray isKindOfClass:[NSArray class]] && [_poi.keywordArray count] > 0)
+                             {
+                                 self.keywordImageView.image = [[UIImage imageNamed:[NSString stringWithFormat:@"%i.png", (int)arc4random() % 6 + 1]] stretchableImageWithLeftCapWidth:5 topCapHeight:0];
+                             }
+                             else
+                             {
+                                 self.keywordImageView.image = nil;
+                             }
+                         }
+                         
+                     } failure:^(NSError *error) {
+                         
+                     }];
+}
 
 - (void)setPoi:(POI *)poi
 {

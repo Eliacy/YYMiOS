@@ -10,10 +10,11 @@
 #import "ShareKit.h"
 #import "CommentCell.h"
 #import "Comment.h"
+#import "ShopViewController.h"
 
 #define kImageViewTag 81521
 
-@interface DealDetailViewController () <UITextFieldDelegate>
+@interface DealDetailViewController () <UITextFieldDelegate, ArticlePOIViewDelegate>
 
 @end
 
@@ -231,6 +232,14 @@
     _contentLabel.numberOfLines = 0;
     [_tableHeaderView addSubview:_contentLabel];
     
+    _dealDetailExtView = [[DealDetailExtView alloc] initWithFrame:CGRectMake(0, _contentLabel.frame.origin.y + _contentLabel.frame.size.height, _tableHeaderView.frame.size.width, 90)];
+    _dealDetailExtView.backgroundColor = [UIColor clearColor];
+    [_tableHeaderView addSubview:_dealDetailExtView];
+    
+    _articlePOIView = [[ArticlePOIView alloc] initWithFrame:CGRectMake(0, _dealDetailExtView.frame.origin.y + _dealDetailExtView.frame.size.height, _tableHeaderView.frame.size.width, 88)];
+    _articlePOIView.delegate = self;
+    [_tableHeaderView addSubview:_articlePOIView];
+    
     _line = [[UIView alloc] initWithFrame:CGRectMake(0, _tableHeaderView.frame.size.height - 0.5, _tableHeaderView.frame.size.width, 0.5)];
     _line.backgroundColor = [UIColor colorWithRed:221.0 / 255.0 green:221.0 / 255.0 blue:221.0 / 255.0 alpha:1.0];
     [_tableHeaderView addSubview:_line];
@@ -345,7 +354,7 @@
         }
     }
     
-    _tableHeaderView.frame = CGRectMake(_tableHeaderView.frame.origin.x, _tableHeaderView.frame.origin.y, _tableHeaderView.frame.size.width, _contentLabel.frame.origin.y + _contentLabel.frame.size.height + [deal.imageArray count] * 170 + 10);
+    _tableHeaderView.frame = CGRectMake(_tableHeaderView.frame.origin.x, _tableHeaderView.frame.origin.y, _tableHeaderView.frame.size.width, _contentLabel.frame.origin.y + _contentLabel.frame.size.height + [deal.imageArray count] * 170 + 10 + 90 + 88);
     
     for(NSInteger i = 0; i < [deal.imageArray count]; i++)
     {
@@ -357,8 +366,12 @@
         [_tableHeaderView addSubview:imageView];
     }
     
-    _line.frame = CGRectMake(_line.frame.origin.x, _tableHeaderView.frame.size.height - 0.5, _line.frame.size.width, _line.frame.size.height);
+    _articlePOIView.frame = CGRectMake(_articlePOIView.frame.origin.x, _tableHeaderView.frame.size.height - 88, _articlePOIView.frame.size.width, _articlePOIView.frame.size.height);
+    _articlePOIView.poiId = deal.site.siteId;
+    _dealDetailExtView.frame = CGRectMake(_dealDetailExtView.frame.origin.x, _articlePOIView.frame.origin.y - _dealDetailExtView.frame.size.height, _dealDetailExtView.frame.size.width, _dealDetailExtView.frame.size.height);
+    _dealDetailExtView.deal = deal;
     
+    _line.frame = CGRectMake(_line.frame.origin.x, _tableHeaderView.frame.size.height - 0.5, _line.frame.size.width, _line.frame.size.height);
     _tableView.tableHeaderView = _tableHeaderView;
 }
 
@@ -424,6 +437,15 @@
     [self sendMessage];
     
     return YES;
+}
+
+#pragma mark - ArticlePOIViewDelegate
+
+- (void)articlePOIViewDidTap:(ArticlePOIView *)articlePOIView
+{
+    ShopViewController *shopVC = [[[ShopViewController alloc] init] autorelease];
+    shopVC.poiId = articlePOIView.poi.poiId;
+    [self.navigationController pushViewController:shopVC animated:YES];
 }
 
 @end
