@@ -26,6 +26,7 @@
 #import "User.h"
 #import "EaseMob.h"
 #import "Toast+UIView.h"
+#import "LocationManager.h"
 
 #define LP_SAFE_RELEASE(X)  [X release]; X = nil;
 #define LP_VIEW_RELEASE(X)  [X removeFromSuperview]; [X release]; X = nil;

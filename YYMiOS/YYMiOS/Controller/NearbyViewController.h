@@ -7,13 +7,15 @@
 //
 
 #import "BaseViewController.h"
+#import "SRRefreshView.h"
 
 @class TabViewController;
 
-@interface NearbyViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate>
+@interface NearbyViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate, SRRefreshDelegate>
 {
     TabViewController   *_tabVC;
     
+    SRRefreshView   *_slimeView;
     UITableView     *_tableView;
     NSMutableArray  *_nearbyArray;
     

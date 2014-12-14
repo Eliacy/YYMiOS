@@ -42,6 +42,7 @@
     MKMapView       *_mapView;
     UIView          *_floatView;
     UILabel         *_mapLabel;
+    UIView          *_mapTapView;
     
     UIView          *_keywordView;
     UIView          *_topImageView;

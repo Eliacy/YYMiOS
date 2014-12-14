@@ -17,7 +17,7 @@
 @property (copy, nonatomic) NSString *title;
 @property (copy, nonatomic) NSString *subtitle;
 
-@property (retain, nonatomic) POI *poi;
+@property (retain, nonatomic) id poi;
 @property (assign, nonatomic) BOOL isDetail;
 
 @end
