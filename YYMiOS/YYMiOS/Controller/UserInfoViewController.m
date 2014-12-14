@@ -258,6 +258,10 @@
                                                                      
                                                                  }];
                                       }
+                                      else
+                                      {
+                                          [self.view hideToastActivity];
+                                      }
 
                                   }];
     

@@ -18,6 +18,7 @@
     NSInteger   _typeId;
     NSString    *_typeName;
     NSString    *_weekday;
+    BOOL        _isNight;
 }
 
 @property (retain, nonatomic) NSString *condiction;
@@ -28,6 +29,7 @@
 @property (assign, nonatomic) NSInteger typeId;
 @property (retain, nonatomic) NSString *typeName;
 @property (retain, nonatomic) NSString *weekday;
+@property (assign, nonatomic) BOOL isNight;
 
 - (id)initWithAttribute:(NSDictionary *)attribute;
 

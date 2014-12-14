@@ -14,6 +14,7 @@
 
 @interface ArticlePOIView : UIView
 {
+    NSInteger       _poiId;
     POI             *_poi;
     id<ArticlePOIViewDelegate>  _delegate;
     
@@ -30,6 +31,7 @@
     UILabel         *_keywordLabel;
 }
 
+@property (assign, nonatomic) NSInteger poiId;
 @property (retain, nonatomic) POI *poi;
 @property (assign, nonatomic) id<ArticlePOIViewDelegate> delegate;
 

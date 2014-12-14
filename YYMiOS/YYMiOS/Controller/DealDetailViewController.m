@@ -10,10 +10,13 @@
 #import "ShareKit.h"
 #import "CommentCell.h"
 #import "Comment.h"
+#import "ShopViewController.h"
+#import "FollowingViewController.h"
+#import "FollowerViewController.h"
 
 #define kImageViewTag 81521
 
-@interface DealDetailViewController () <UITextFieldDelegate>
+@interface DealDetailViewController () <UITextFieldDelegate, ArticlePOIViewDelegate>
 
 @end
 
@@ -32,17 +35,27 @@
 
 - (void)clickFollowingButton:(id)sender
 {
-
+    FollowingViewController *followingVC = [[[FollowingViewController alloc] init] autorelease];
+    followingVC.userId = _deal.user.userId;
+    [self.navigationController pushViewController:followingVC animated:YES];
 }
 
 - (void)clickFollowerButton:(id)sender
 {
-
+    FollowerViewController *followerVC = [[[FollowerViewController alloc] init] autorelease];
+    followerVC.userId = _deal.user.userId;
+    [self.navigationController pushViewController:followerVC animated:YES];
 }
 
 - (void)clickFollowButton:(id)sender
 {
-
+    [User followSomeoneWithUserId:_deal.user.userId
+                       fromUserId:[[User sharedUser] userId]
+                          success:^(NSArray *array) {
+                              
+                          } failure:^(NSError *error) {
+                              
+                          }];
 }
 
 - (void)clickSendButton:(id)sender
@@ -178,6 +191,7 @@
     _avatarImageView.backgroundColor = [UIColor clearColor];
     _avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
     _avatarImageView.layer.masksToBounds = YES;
+    _avatarImageView.layer.cornerRadius = 30.0;
     [_tableHeaderView addSubview:_avatarImageView];
     
     _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(_avatarImageView.frame.origin.x + _avatarImageView.frame.size.width + 10, _avatarImageView.frame.origin.y, 130, 20)];
@@ -195,23 +209,25 @@
     _followingButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     _followingButton.frame = CGRectMake(_timeLabel.frame.origin.x, _timeLabel.frame.origin.y + _timeLabel.frame.size.height + 5, 60, 20);
     _followingButton.backgroundColor = [UIColor clearColor];
-    _followingButton.layer.borderWidth = 1.0f;
-    _followingButton.layer.borderColor = [[UIColor grayColor] CGColor];
-    [_followingButton setTitle:@"关注：15" forState:UIControlStateNormal];
-    [_followingButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-    _followingButton.titleLabel.font = [UIFont systemFontOfSize:12.0f];
+    [_followingButton setTitleColor:[UIColor colorWithRed:153.0 / 255.0 green:153.0 / 255.0 blue:153.0 / 255.0 alpha:1.0] forState:UIControlStateNormal];
+    _followingButton.titleLabel.font = [UIFont systemFontOfSize:11.0f];
+    _followingButton.layer.borderWidth = 0.5;
+    _followingButton.layer.borderColor = [[UIColor colorWithRed:221.0 / 255.0 green:221.0 / 255.0 blue:221.0 / 255.0 alpha:1.0] CGColor];
     [_followingButton addTarget:self action:@selector(clickFollowingButton:) forControlEvents:UIControlEventTouchUpInside];
+    _followingButton.layer.cornerRadius = 2.0;
+    _followingButton.layer.masksToBounds = YES;
     [_tableHeaderView addSubview:_followingButton];
     
     _followerButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-    _followerButton.frame = CGRectMake(_followingButton.frame.origin.x + _followingButton.frame.size.width + 5, _followingButton.frame.origin.y, _followingButton.frame.size.width, _followingButton.frame.size.height);
+    _followerButton.frame = CGRectMake(_followingButton.frame.origin.x + _followingButton.frame.size.width + 5, _followingButton.frame.origin.y, 60, 20);
     _followerButton.backgroundColor = [UIColor clearColor];
-    _followerButton.layer.borderWidth = 1.0f;
-    _followerButton.layer.borderColor = [[UIColor grayColor] CGColor];
-    [_followerButton setTitle:@"粉丝：300" forState:UIControlStateNormal];
     [_followerButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-    _followerButton.titleLabel.font = [UIFont systemFontOfSize:12.0f];
+    _followerButton.titleLabel.font = [UIFont systemFontOfSize:11.0f];
+    _followerButton.layer.borderWidth = 0.5;
+    _followerButton.layer.borderColor = [[UIColor colorWithRed:221.0 / 255.0 green:221.0 / 255.0 blue:221.0 / 255.0 alpha:1.0] CGColor];
     [_followerButton addTarget:self action:@selector(clickFollowerButton:) forControlEvents:UIControlEventTouchUpInside];
+    _followerButton.layer.cornerRadius = 2.0;
+    _followerButton.layer.masksToBounds = YES;
     [_tableHeaderView addSubview:_followerButton];
     
     _followButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
@@ -229,6 +245,14 @@
     _contentLabel.font = [UIFont systemFontOfSize:16.0f];
     _contentLabel.numberOfLines = 0;
     [_tableHeaderView addSubview:_contentLabel];
+    
+    _dealDetailExtView = [[DealDetailExtView alloc] initWithFrame:CGRectMake(0, _contentLabel.frame.origin.y + _contentLabel.frame.size.height, _tableHeaderView.frame.size.width, 90)];
+    _dealDetailExtView.backgroundColor = [UIColor clearColor];
+    [_tableHeaderView addSubview:_dealDetailExtView];
+    
+    _articlePOIView = [[ArticlePOIView alloc] initWithFrame:CGRectMake(0, _dealDetailExtView.frame.origin.y + _dealDetailExtView.frame.size.height, _tableHeaderView.frame.size.width, 88)];
+    _articlePOIView.delegate = self;
+    [_tableHeaderView addSubview:_articlePOIView];
     
     _line = [[UIView alloc] initWithFrame:CGRectMake(0, _tableHeaderView.frame.size.height - 0.5, _tableHeaderView.frame.size.width, 0.5)];
     _line.backgroundColor = [UIColor colorWithRed:221.0 / 255.0 green:221.0 / 255.0 blue:221.0 / 255.0 alpha:1.0];
@@ -329,6 +353,16 @@
     _nameLabel.text = deal.user.userName;
     _timeLabel.text = [LPUtility friendlyStringFromDate:deal.updateTime];
     
+    NSString *followingString = [NSString stringWithFormat:@"关注:%i", deal.user.followCount];
+    CGSize followingSize = [LPUtility getTextHeightWithText:followingString font:[UIFont systemFontOfSize:11.0f] size:CGSizeMake(200, 100)];
+    _followingButton.frame = CGRectMake(_followingButton.frame.origin.x, _followingButton.frame.origin.y, followingSize.width + 20, _followingButton.frame.size.height);
+    [_followingButton setTitle:followingString forState:UIControlStateNormal];
+    
+    NSString *followerString = [NSString stringWithFormat:@"粉丝:%i", deal.user.fanCount];
+    CGSize followerSize = [LPUtility getTextHeightWithText:followerString font:[UIFont systemFontOfSize:11.0f] size:CGSizeMake(200, 100)];
+    _followerButton.frame = CGRectMake(_followingButton.frame.origin.x + _followingButton.frame.size.width + 5, _followerButton.frame.origin.y, followerSize.width + 20, _followerButton.frame.size.height);
+    [_followerButton setTitle:followerString forState:UIControlStateNormal];
+    
     CGSize contentSize = [LPUtility getTextHeightWithText:deal.content
                                                      font:_contentLabel.font
                                                      size:CGSizeMake(_contentLabel.frame.size.width, 2000)];
@@ -344,7 +378,7 @@
         }
     }
     
-    _tableHeaderView.frame = CGRectMake(_tableHeaderView.frame.origin.x, _tableHeaderView.frame.origin.y, _tableHeaderView.frame.size.width, _contentLabel.frame.origin.y + _contentLabel.frame.size.height + [deal.imageArray count] * 170 + 10);
+    _tableHeaderView.frame = CGRectMake(_tableHeaderView.frame.origin.x, _tableHeaderView.frame.origin.y, _tableHeaderView.frame.size.width, _contentLabel.frame.origin.y + _contentLabel.frame.size.height + [deal.imageArray count] * 170 + 10 + 90 + 88);
     
     for(NSInteger i = 0; i < [deal.imageArray count]; i++)
     {
@@ -356,8 +390,12 @@
         [_tableHeaderView addSubview:imageView];
     }
     
-    _line.frame = CGRectMake(_line.frame.origin.x, _tableHeaderView.frame.size.height - 0.5, _line.frame.size.width, _line.frame.size.height);
+    _articlePOIView.frame = CGRectMake(_articlePOIView.frame.origin.x, _tableHeaderView.frame.size.height - 88, _articlePOIView.frame.size.width, _articlePOIView.frame.size.height);
+    _articlePOIView.poiId = deal.site.siteId;
+    _dealDetailExtView.frame = CGRectMake(_dealDetailExtView.frame.origin.x, _articlePOIView.frame.origin.y - _dealDetailExtView.frame.size.height, _dealDetailExtView.frame.size.width, _dealDetailExtView.frame.size.height);
+    _dealDetailExtView.deal = deal;
     
+    _line.frame = CGRectMake(_line.frame.origin.x, _tableHeaderView.frame.size.height - 0.5, _line.frame.size.width, _line.frame.size.height);
     _tableView.tableHeaderView = _tableHeaderView;
 }
 
@@ -423,6 +461,15 @@
     [self sendMessage];
     
     return YES;
+}
+
+#pragma mark - ArticlePOIViewDelegate
+
+- (void)articlePOIViewDidTap:(ArticlePOIView *)articlePOIView
+{
+    ShopViewController *shopVC = [[[ShopViewController alloc] init] autorelease];
+    shopVC.poiId = articlePOIView.poi.poiId;
+    [self.navigationController pushViewController:shopVC animated:YES];
 }
 
 @end

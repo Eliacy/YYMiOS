@@ -18,6 +18,7 @@
 @synthesize typeId = _typeId;
 @synthesize typeName = _typeName;
 @synthesize weekday = _weekday;
+@synthesize isNight = _isNight;
 
 - (id)initWithAttribute:(NSDictionary *)attribute
 {
@@ -57,6 +58,10 @@
             if([attribute objectForKey:@"weekday"] && ![[attribute objectForKey:@"weekday"] isEqual:[NSNull null]])
             {
                 self.weekday = [attribute objectForKey:@"weekday"];
+            }
+            if([attribute objectForKey:@"is_night"] && ![[attribute objectForKey:@"is_night"] isEqual:[NSNull null]])
+            {
+                self.isNight = [[attribute objectForKey:@"is_night"] boolValue];
             }
         }
     }

@@ -8,6 +8,7 @@
 
 #import "FollowingViewController.h"
 #import "UserDetailViewController.h"
+#import "UserListCell.h"
 
 @interface FollowingViewController ()
 
@@ -99,14 +100,21 @@
     return [_followingArray count];
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 80.0f;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FollowingViewControllerIdentifier"];
+    UserListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FollowingViewControllerIdentifier"];
     if(cell == nil)
     {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"FollowingViewControllerIdentifier"] autorelease];
+        cell = [[[UserListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"FollowingViewControllerIdentifier"] autorelease];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
+    
+    cell.user = [_followingArray objectAtIndex:indexPath.row];
     
     return cell;
 }

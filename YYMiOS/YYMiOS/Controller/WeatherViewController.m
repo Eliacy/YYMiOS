@@ -114,19 +114,13 @@
     }
     _weather = [weather retain];
     
-    NSDate *date = [NSDate date];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"hh:mm a"];
-    NSString *dateString = [dateFormatter stringFromDate:date];
-    NSLog(@"%@", dateString);
-    
-    if([dateString rangeOfString:@"AM"].location != NSNotFound)
+    if(weather.currentForecast.isNight)
     {
-        _backgroundImageView.image = [UIImage imageNamed:@"weather_day"];
+        _backgroundImageView.image = [UIImage imageNamed:@"weather_night.png"];
     }
     else
     {
-        _backgroundImageView.image = [UIImage imageNamed:@"weather_night"];
+        _backgroundImageView.image = [UIImage imageNamed:@"weather_day.png"];
     }
     
     [_tableView reloadData];

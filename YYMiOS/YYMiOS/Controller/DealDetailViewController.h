@@ -8,6 +8,8 @@
 
 #import "BaseViewController.h"
 #import "Deal.h"
+#import "DealDetailExtView.h"
+#import "ArticlePOIView.h"
 
 @interface DealDetailViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate>
 {
@@ -29,6 +31,10 @@
     UIButton        *_followingButton;
     UIButton        *_followerButton;
     UILabel         *_contentLabel;
+    
+    DealDetailExtView   *_dealDetailExtView;
+    ArticlePOIView  *_articlePOIView;
+    
     UIView          *_line;
     
     Deal            *_deal;
