@@ -329,4 +329,35 @@
     [self.tabVC.navigationController pushViewController:userDetailVC animated:YES];
 }
 
+- (void)dynamicCellDidClickFollowButton:(DynamicCell *)dynamicCell
+{
+    Deal *deal = dynamicCell.deal;
+    if(deal.user.followed)
+    {
+        [User unfollowSomeoneWithUserId:deal.user.userId
+                             fromUserId:[[User sharedUser] userId]
+                                success:^(NSArray *array) {
+                                    
+                                    deal.user.followed = !deal.user.followed;
+                                    [_tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:[_dynamicArray indexOfObject:deal] inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+                                    
+                                } failure:^(NSError *error) {
+                                    
+                                }];
+    }
+    else
+    {
+        [User followSomeoneWithUserId:deal.user.userId
+                           fromUserId:[[User sharedUser] userId]
+                              success:^(NSArray *array) {
+                                  
+                                  deal.user.followed = !deal.user.followed;
+                                  [_tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:[_dynamicArray indexOfObject:deal] inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+                                  
+                              } failure:^(NSError *error) {
+                                  
+                              }];
+    }
+}
+
 @end
