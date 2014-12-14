@@ -45,7 +45,7 @@
             }
             if([attribute objectForKey:@"time"] && ![[attribute objectForKey:@"time"] isEqual:[NSNull null]])
             {
-                self.time = [attribute objectForKey:@"time"];
+                self.time = [LPUtility dateFromInternetDateTimeString:[attribute objectForKey:@"time"]];
             }
             if([attribute objectForKey:@"type_id"] && ![[attribute objectForKey:@"type_id"] isEqual:[NSNull null]])
             {

@@ -14,21 +14,21 @@
     LPImage     *_caption;
     NSInteger   _commentCount;
     NSArray     *_contentArray;
-    NSString    *_createTime;
+    NSDate    *_createTime;
     NSInteger   _articleId;
     NSArray     *_keywordArray;
     NSString    *_title;
-    NSString    *_updateTime;
+    NSDate    *_updateTime;
 }
 
 @property (retain, nonatomic) LPImage *caption;
 @property (assign, nonatomic) NSInteger commentCount;
 @property (retain, nonatomic) NSArray *contentArray;
-@property (retain, nonatomic) NSString *createTime;
+@property (retain, nonatomic) NSDate *createTime;
 @property (assign, nonatomic) NSInteger articleId;
 @property (retain, nonatomic) NSArray *keywordArray;
 @property (retain, nonatomic) NSString *title;
-@property (retain, nonatomic) NSString *updateTime;
+@property (retain, nonatomic) NSDate *updateTime;
 
 - (id)initWithAttribute:(NSDictionary *)attribute;
 

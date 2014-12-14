@@ -15,9 +15,9 @@
     NSArray     *_atList;
     NSString    *_content;
     NSInteger   _commentId;
-    NSString    *_publishTime;
+    NSDate    *_publishTime;
     NSInteger   _reviewId;
-    NSString    *_updateTime;
+    NSDate    *_updateTime;
     User        *_user;
 }
 
@@ -25,9 +25,9 @@
 @property (retain, nonatomic) NSArray *atList;
 @property (retain, nonatomic) NSString *content;
 @property (assign, nonatomic) NSInteger commentId;
-@property (retain, nonatomic) NSString *publishTime;
+@property (retain, nonatomic) NSDate *publishTime;
 @property (assign, nonatomic) NSInteger reviewId;
-@property (retain, nonatomic) NSString *updateTime;
+@property (retain, nonatomic) NSDate *updateTime;
 @property (retain, nonatomic) User *user;
 
 - (id)initWithAttribute:(NSDictionary *)attribute;

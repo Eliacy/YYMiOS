@@ -16,7 +16,7 @@
     NSString    *_userName;
     BOOL        _anonymous;
     NSString    *_badges;
-    NSString    *_createTime;
+    NSDate    *_createTime;
     NSInteger   _exp;
     NSInteger   _fanCount;
     NSInteger   _favouriiteCount;
@@ -28,7 +28,7 @@
     NSString    *_mobile;
     NSInteger   _reviewCount;
     NSInteger   _shareCount;
-    NSString    *_updateTime;
+    NSDate    *_updateTime;
     NSString    *_loginName;
     NSString    *_emUsername;
     NSString    *_emPassword;
@@ -39,7 +39,7 @@
 @property (retain, nonatomic) NSString *userName;
 @property (assign, nonatomic) BOOL anonymous;
 @property (retain, nonatomic) NSString *badges;
-@property (retain, nonatomic) NSString *createTime;
+@property (retain, nonatomic) NSDate *createTime;
 @property (assign, nonatomic) NSInteger exp;
 @property (assign, nonatomic) NSInteger fanCount;
 @property (assign, nonatomic) NSInteger favouriteCount;
@@ -51,7 +51,7 @@
 @property (retain, nonatomic) NSString *mobile;
 @property (assign, nonatomic) NSInteger reviewCount;
 @property (assign, nonatomic) NSInteger shareCount;
-@property (retain, nonatomic) NSString *updateTime;
+@property (retain, nonatomic) NSDate *updateTime;
 @property (retain, nonatomic) NSString *loginName;
 @property (retain, nonatomic) NSString *emUsername;
 @property (retain, nonatomic) NSString *emPassword;

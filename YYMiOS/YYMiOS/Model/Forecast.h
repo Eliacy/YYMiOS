@@ -14,7 +14,7 @@
     NSInteger   _high;
     NSInteger   _low;
     NSInteger   _temp;
-    NSString    *_time;
+    NSDate    *_time;
     NSInteger   _typeId;
     NSString    *_typeName;
     NSString    *_weekday;
@@ -25,7 +25,7 @@
 @property (assign, nonatomic) NSInteger high;
 @property (assign, nonatomic) NSInteger low;
 @property (assign, nonatomic) NSInteger temp;
-@property (retain, nonatomic) NSString *time;
+@property (retain, nonatomic) NSDate *time;
 @property (assign, nonatomic) NSInteger typeId;
 @property (retain, nonatomic) NSString *typeName;
 @property (retain, nonatomic) NSString *weekday;

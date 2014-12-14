@@ -69,7 +69,7 @@
     _titleLabel.frame = CGRectMake((_backImageView.frame.size.width - titleSize.width - 20) / 2, (_backImageView.frame.size.height - 30) / 2, titleSize.width + 20, 30);
     _titleLabel.text = article.title;
     
-    _timeLabel.text = article.createTime;
+    _timeLabel.text = [LPUtility friendlyStringFromDate:article.createTime];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

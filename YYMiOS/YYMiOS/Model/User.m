@@ -107,7 +107,7 @@ static User *sharedUser = nil;
             }
             if([attribute objectForKey:@"create_time"] && ![[attribute objectForKey:@"create_time"] isEqual:[NSNull null]])
             {
-                self.createTime = [attribute objectForKey:@"create_time"];
+                self.createTime = [LPUtility dateFromInternetDateTimeString:[attribute objectForKey:@"create_time"]];
             }
             if([attribute objectForKey:@"exp"] && ![[attribute objectForKey:@"exp"] isEqual:[NSNull null]])
             {
@@ -155,7 +155,7 @@ static User *sharedUser = nil;
             }
             if([attribute objectForKey:@"update_time"] && ![[attribute objectForKey:@"update_time"] isEqual:[NSNull null]])
             {
-                self.updateTime = [attribute objectForKey:@"update_time"];
+                self.updateTime = [LPUtility dateFromInternetDateTimeString:[attribute objectForKey:@"update_time"]];
             }
             if([attribute objectForKey:@"username"] && ![[attribute objectForKey:@"username"] isEqual:[NSNull null]])
             {

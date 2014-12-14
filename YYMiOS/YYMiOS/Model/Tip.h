@@ -11,19 +11,19 @@
 @interface Tip : LPObject
 {
     NSArray     *_contentArray;
-    NSString    *_createTime;
+    NSDate    *_createTime;
     BOOL        _defaultFlag;
     NSInteger   _tipId;
     NSString    *_title;
-    NSString    *_updateTime;
+    NSDate    *_updateTime;
 }
 
 @property (retain, nonatomic) NSArray *contentArray;
-@property (retain, nonatomic) NSString *createTime;
+@property (retain, nonatomic) NSDate *createTime;
 @property (assign, nonatomic) BOOL defaultFlag;
 @property (assign, nonatomic) NSInteger tipId;
 @property (retain, nonatomic) NSString *title;
-@property (retain, nonatomic) NSString *updateTime;
+@property (retain, nonatomic) NSDate *updateTime;
 
 - (id)initWithAttribute:(NSDictionary *)attribute;
 
