@@ -55,7 +55,7 @@
     _weather = [weather retain];
     
     _cityLabel.text = weather.city.cityName;
-    _weatherLabel.text = [NSString stringWithFormat:@"%@ %i˚ ~ %i˚", weather.currentForecast.condiction, _weather.currentForecast.low, _weather.currentForecast.high];
+    _weatherLabel.text = [NSString stringWithFormat:@"%@ %i˚", weather.currentForecast.condiction, _weather.currentForecast.temp];
     
     switch (weather.currentForecast.typeId) {
         case 1:
