@@ -13,6 +13,7 @@
 #import "ShopViewController.h"
 #import "FollowingViewController.h"
 #import "FollowerViewController.h"
+#import "Share.h"
 
 #define kImageViewTag 81521
 
@@ -31,6 +32,17 @@
 - (void)clickShareButton:(id)sender
 {
     [[ShareKit sharedKit] show];
+    //share
+    [Share shareSomethingWithUserId:[[User sharedUser] userId]
+                             siteId:0
+                           reviewId:_dealId
+                          articleId:0
+                             target:@"微信"
+                            success:^(NSArray *array) {
+                                
+                            } failure:^(NSError *error) {
+                                
+                            }];
 }
 
 - (void)clickFollowingButton:(id)sender

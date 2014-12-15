@@ -13,6 +13,7 @@
 #import "POI.h"
 #import "ArticlePOIView.h"
 #import "ShopViewController.h"
+#import "Share.h"
 
 @interface ArticleViewController () <UITextFieldDelegate, ArticlePOIViewDelegate>
 
@@ -28,6 +29,17 @@
 - (void)clickShareButton:(id)sender
 {
     [[ShareKit sharedKit] show];
+    //share
+    [Share shareSomethingWithUserId:[[User sharedUser] userId]
+                             siteId:0
+                           reviewId:0
+                          articleId:_articleId
+                             target:@"微信"
+                            success:^(NSArray *array) {
+                                
+                            } failure:^(NSError *error) {
+                                
+                            }];
 }
 
 - (void)clickSendButton:(id)sender

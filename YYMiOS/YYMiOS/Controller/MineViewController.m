@@ -256,6 +256,23 @@
     }
     _isAppear = YES;
     
+    [User getUserInfoWithUserId:[[User sharedUser] userId]
+                         offset:0
+                          limit:1
+                       followId:0
+                          fanId:0
+                        success:^(NSArray *array) {
+                            
+                            if([array count] > 0)
+                            {
+                                [self setUser:[array objectAtIndex:0]];
+                                [LPUtility archiveData:array IntoCache:@"LoginUser"];
+                            }
+                            
+                        } failure:^(NSError *error) {
+                            
+                        }];
+    
     [self setUser:[User sharedUser]];
 }
 

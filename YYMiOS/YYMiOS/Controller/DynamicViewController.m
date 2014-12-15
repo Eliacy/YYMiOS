@@ -9,11 +9,11 @@
 #import "DynamicViewController.h"
 #import "TabViewController.h"
 #import "DynamicCell.h"
-
 #import "DealDetailViewController.h"
 #import "Deal.h"
-
 #import "UserDetailViewController.h"
+#import "ShareKit.h"
+#import "Share.h"
 
 @interface DynamicViewController () <DynamicCellDelegate>
 
@@ -362,7 +362,18 @@
 
 - (void)dynamicCellDidClickShareButton:(DynamicCell *)dynamicCell
 {
-
+    [[ShareKit sharedKit] show];
+    //share
+    [Share shareSomethingWithUserId:[[User sharedUser] userId]
+                             siteId:0
+                           reviewId:dynamicCell.deal.dealId
+                          articleId:0
+                             target:@"微信"
+                            success:^(NSArray *array) {
+                                
+                            } failure:^(NSError *error) {
+                                
+                            }];
 }
 
 @end

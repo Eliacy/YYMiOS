@@ -1291,7 +1291,7 @@ static id APIClient = nil;
     [params setObject:[NSNumber numberWithInteger:siteId] forKey:@"site"];
     [params setObject:[NSNumber numberWithInteger:reviewId] forKey:@"review"];
     [params setObject:[NSNumber numberWithInteger:articleId] forKey:@"article"];
-    if(target && [target isEqualToString:@""])
+    if(target && ![target isEqualToString:@""])
     {
         [params setObject:target forKey:@"target"];
     }

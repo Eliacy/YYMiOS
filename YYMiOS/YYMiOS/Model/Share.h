@@ -16,7 +16,7 @@
 {
     NSString    *_actionTime;
     Article     *_article;
-    NSString    *_description;
+    NSString    *_shareDescription;
     NSInteger   _shareId;
     LPImage     *_shareImage;
     Deal        *_deal;
@@ -29,5 +29,30 @@
 
 @property (retain, nonatomic) NSString *actionTime;
 @property (retain, nonatomic) Article *article;
+@property (retain, nonatomic) NSString *shareDescription;
+@property (assign, nonatomic) NSInteger shareId;
+@property (retain, nonatomic) LPImage *shareImage;
+@property (retain, nonatomic) Deal *deal;
+@property (retain, nonatomic) POI *poi;
+@property (retain, nonatomic) NSString *target;
+@property (retain, nonatomic) NSString *title;
+@property (retain, nonatomic) NSString *token;
+@property (assign, nonatomic) NSInteger userId;
+
+- (id)initWithAttribute:(NSDictionary *)attribute;
+
++ (void)shareSomethingWithUserId:(NSInteger)userId
+                          siteId:(NSInteger)siteId
+                        reviewId:(NSInteger)reviewId
+                       articleId:(NSInteger)articleId
+                          target:(NSString *)target
+                         success:(LPObjectSuccessBlock)successBlock
+                         failure:(LPObjectFailureBlock)failureBlock;
+
++ (void)getShareListWithOffset:(NSInteger)offset
+                         limit:(NSInteger)limit
+                        userId:(NSInteger)userId
+                       success:(LPObjectSuccessBlock)successBlock
+                       failure:(LPObjectFailureBlock)failureBlock;
 
 @end

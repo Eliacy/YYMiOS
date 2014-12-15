@@ -14,6 +14,8 @@
 #import "POIAnnotation.h"
 #import "ShopPictureViewController.h"
 #import "ShopMapViewController.h"
+#import "ShareKit.h"
+#import "Share.h"
 
 @interface ShopViewController () <UITextFieldDelegate>
 
@@ -28,7 +30,18 @@
 
 - (void)clickShareButton:(id)sender
 {
-
+    [[ShareKit sharedKit] show];
+    //share
+    [Share shareSomethingWithUserId:[[User sharedUser] userId]
+                             siteId:_poiId
+                           reviewId:0
+                          articleId:0
+                             target:@"微信"
+                            success:^(NSArray *array) {
+                                
+                            } failure:^(NSError *error) {
+                                
+                            }];
 }
 
 - (void)clickFavouriteButton:(id)sender
