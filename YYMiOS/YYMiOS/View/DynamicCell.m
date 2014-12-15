@@ -17,7 +17,10 @@
 
 - (void)clickFollowButton:(id)sender
 {
-
+    if(_delegate && [_delegate respondsToSelector:@selector(dynamicCellDidClickFollowButton:)])
+    {
+        [_delegate dynamicCellDidClickFollowButton:self];
+    }
 }
 
 - (void)clickShareButton:(id)sender
@@ -66,7 +69,7 @@
         _followButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
         _followButton.frame = CGRectMake(320 - 15 - 60, 15, 60, 30);
         _followButton.backgroundColor = [UIColor clearColor];
-        [_followButton setTitle:@"+关注" forState:UIControlStateNormal];
+        [_followButton setTitle:@"关注" forState:UIControlStateNormal];
         [_followButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
         _followButton.titleLabel.font = [UIFont systemFontOfSize:13.0f];
         _followButton.layer.borderWidth = 1.0;
@@ -184,6 +187,15 @@
     _nameLabel.text = deal.user.userName;
     _lastTimeLabel.text = [LPUtility friendlyStringFromDate:deal.updateTime];
     _contentLabel.text = deal.content;
+    
+    if(_deal.user.followed)
+    {
+        [_followButton setTitle:@"取消" forState:UIControlStateNormal];
+    }
+    else
+    {
+        [_followButton setTitle:@"关注" forState:UIControlStateNormal];
+    }
     
     if(deal.imageArray && [deal.imageArray isKindOfClass:[NSArray class]] && [deal.imageArray count] > 0)
     {

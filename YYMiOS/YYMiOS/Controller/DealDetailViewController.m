@@ -49,13 +49,46 @@
 
 - (void)clickFollowButton:(id)sender
 {
-    [User followSomeoneWithUserId:_deal.user.userId
-                       fromUserId:[[User sharedUser] userId]
-                          success:^(NSArray *array) {
-                              
-                          } failure:^(NSError *error) {
-                              
-                          }];
+    if(_deal.user.followed)
+    {
+        [User unfollowSomeoneWithUserId:_deal.user.userId
+                             fromUserId:[[User sharedUser] userId]
+                                success:^(NSArray *array) {
+                                    
+                                    _deal.user.followed = !_deal.user.followed;
+                                    if(_deal.user.followed)
+                                    {
+                                        [_followButton setTitle:@"取消" forState:UIControlStateNormal];
+                                    }
+                                    else
+                                    {
+                                        [_followButton setTitle:@"关注" forState:UIControlStateNormal];
+                                    }
+                                    
+                                } failure:^(NSError *error) {
+                                    
+                                }];
+    }
+    else
+    {
+        [User followSomeoneWithUserId:_deal.user.userId
+                           fromUserId:[[User sharedUser] userId]
+                              success:^(NSArray *array) {
+                                  
+                                  _deal.user.followed = !_deal.user.followed;
+                                  if(_deal.user.followed)
+                                  {
+                                      [_followButton setTitle:@"取消" forState:UIControlStateNormal];
+                                  }
+                                  else
+                                  {
+                                      [_followButton setTitle:@"关注" forState:UIControlStateNormal];
+                                  }
+                                  
+                              } failure:^(NSError *error) {
+                                  
+                              }];
+    }
 }
 
 - (void)clickSendButton:(id)sender
@@ -232,10 +265,12 @@
     
     _followButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     _followButton.frame = CGRectMake(_tableHeaderView.frame.size.width - 60 - 15, (_avatarImageView.frame.origin.y + _avatarImageView.frame.size.height) / 2 - 15, 60, 30);
-    _followButton.backgroundColor = [UIColor purpleColor];
-    [_followButton setTitle:@"+关注" forState:UIControlStateNormal];
-    [_followButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    _followButton.titleLabel.font = [UIFont systemFontOfSize:14.0f];
+    _followButton.backgroundColor = [UIColor clearColor];
+    [_followButton setTitle:@"关注" forState:UIControlStateNormal];
+    [_followButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    _followButton.titleLabel.font = [UIFont systemFontOfSize:13.0f];
+    _followButton.layer.borderWidth = 1.0;
+    _followButton.layer.borderColor = [[UIColor grayColor] CGColor];
     [_followButton addTarget:self action:@selector(clickFollowButton:) forControlEvents:UIControlEventTouchUpInside];
     [_tableHeaderView addSubview:_followButton];
     
@@ -352,6 +387,15 @@
     [_avatarImageView setImageWithURL:[NSURL URLWithString:[LPUtility getQiniuImageURLStringWithBaseString:deal.user.userIcon.imageURL imageSize:CGSizeMake(100, 100)]]];
     _nameLabel.text = deal.user.userName;
     _timeLabel.text = [LPUtility friendlyStringFromDate:deal.updateTime];
+    
+    if(deal.user.followed)
+    {
+        [_followButton setTitle:@"取消" forState:UIControlStateNormal];
+    }
+    else
+    {
+        [_followButton setTitle:@"关注" forState:UIControlStateNormal];
+    }
     
     NSString *followingString = [NSString stringWithFormat:@"关注:%i", deal.user.followCount];
     CGSize followingSize = [LPUtility getTextHeightWithText:followingString font:[UIFont systemFontOfSize:11.0f] size:CGSizeMake(200, 100)];

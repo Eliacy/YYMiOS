@@ -45,5 +45,6 @@
 @protocol DynamicCellDelegate <NSObject>
 
 - (void)dynamicCellDidTapAvatarImageView:(DynamicCell *)dynamicCell;
+- (void)dynamicCellDidClickFollowButton:(DynamicCell *)dynamicCell;
 
 @end

@@ -78,6 +78,8 @@
         [self lanuchLoginViewController];
     }
     
+    [[LocationManager sharedManager] askForLocationPrivacy];
+    
     return YES;
 }
 

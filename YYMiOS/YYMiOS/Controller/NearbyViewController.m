@@ -94,6 +94,17 @@
     _tableView.separatorColor = [UIColor clearColor];
     [self.view addSubview:_tableView];
     
+    _slimeView = [[SRRefreshView alloc] init];
+    _slimeView.delegate = self;
+    _slimeView.upInset = 0;
+    _slimeView.slimeMissWhenGoingBack = YES;
+    _slimeView.slime.bodyColor = [UIColor colorWithRed:187.0 / 255.0 green:187.0 / 255.0 blue:187.0 / 255.0 alpha:1.0];
+    _slimeView.slime.skinColor = [UIColor colorWithRed:187.0 / 255.0 green:187.0 / 255.0 blue:187.0 / 255.0 alpha:1.0];
+    _slimeView.slime.lineWith = 1;
+    _slimeView.slime.shadowBlur = 4;
+    _slimeView.slime.shadowColor = [UIColor clearColor];
+    [_tableView addSubview:_slimeView];
+    
     UIView *tableHeaderView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 15)] autorelease];
     tableHeaderView.backgroundColor = [UIColor clearColor];
     _tableView.tableHeaderView = tableHeaderView;
@@ -130,6 +141,15 @@
                           [_nearbyArray addObjectsFromArray:array];
                           [_tableView reloadData];
                           
+                          if([array count] < 20)
+                          {
+                              _isHaveMore = NO;
+                          }
+                          else
+                          {
+                              _isHaveMore = YES;
+                          }
+                          
                       } failure:^(NSError *error) {
                           
                       }];
@@ -160,6 +180,122 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [_slimeView scrollViewDidScroll];
+    
+    if(_tableView.contentOffset.y + _tableView.frame.size.height > _tableView.contentSize.height - 500 && _tableView.contentSize.height > _tableView.frame.size.height)
+    {
+        [self loadMore];
+    }
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    [_slimeView scrollViewDidEndDraging];
+}
+
+#pragma mark - SlimeRefreshDelegate
+
+- (void)slimeRefreshStartRefresh:(SRRefreshView *)refreshView
+{
+    [_slimeView performSelector:@selector(endRefresh)
+                     withObject:nil afterDelay:0
+                        inModes:[NSArray arrayWithObject:NSRunLoopCommonModes]];
+    
+    [self performSelector:@selector(refreshAfterPull) withObject:nil afterDelay:0];
+}
+
+- (void)refreshAfterPull
+{
+    if(_isLoading)
+    {
+        return;
+    }
+    _isLoading = YES;
+    
+    [POI getPOIListWithOffset:0
+                        limit:20
+                      keyword:@""
+                         area:_areaId
+                         city:[[[NSUserDefaults standardUserDefaults] objectForKey:@"city_id"] integerValue]
+                        range:-1
+                     category:_categoryId
+                        order:_order
+                    longitude:0
+                     latitude:0
+                      success:^(NSArray *array) {
+                          
+                          _isLoading = NO;
+                          
+                          [_nearbyArray removeAllObjects];
+                          [_nearbyArray addObjectsFromArray:array];
+                          [_tableView reloadData];
+                          
+                          if([array count] < 20)
+                          {
+                              _isHaveMore = NO;
+                          }
+                          else
+                          {
+                              _isHaveMore = YES;
+                          }
+                          
+                      } failure:^(NSError *error) {
+                          
+                          _isLoading = NO;
+                          
+                      }];
+}
+
+- (void)loadMore
+{
+    if(!_isHaveMore)
+    {
+        return;
+    }
+    
+    if(_isLoading)
+    {
+        return;
+    }
+    _isLoading = YES;
+    
+    [POI getPOIListWithOffset:[_nearbyArray count]
+                        limit:20
+                      keyword:@""
+                         area:_areaId
+                         city:[[[NSUserDefaults standardUserDefaults] objectForKey:@"city_id"] integerValue]
+                        range:-1
+                     category:_categoryId
+                        order:_order
+                    longitude:0
+                     latitude:0
+                      success:^(NSArray *array) {
+                          
+                          _isLoading = NO;
+                          
+                          [_nearbyArray addObjectsFromArray:array];
+                          [_tableView reloadData];
+                          
+                          if([array count] < 20)
+                          {
+                              _isHaveMore = NO;
+                          }
+                          else
+                          {
+                              _isHaveMore = YES;
+                          }
+                          
+                      } failure:^(NSError *error) {
+                          
+                          _isLoading = NO;
+                          
+                      }];
+}
 
 #pragma mark - UITableViewDataSource
 

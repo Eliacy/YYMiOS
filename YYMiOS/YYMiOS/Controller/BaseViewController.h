@@ -18,6 +18,7 @@
     
     BOOL        _isLoading;
     BOOL        _isAppear;
+    BOOL        _isHaveMore;
 }
 
 - (void)clickBackButton:(id)sender;

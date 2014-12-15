@@ -13,6 +13,7 @@
 #import "Deal.h"
 #import "POIAnnotation.h"
 #import "ShopPictureViewController.h"
+#import "ShopMapViewController.h"
 
 @interface ShopViewController () <UITextFieldDelegate>
 
@@ -245,9 +246,17 @@
     
     _mapLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, 0, _floatView.frame.size.width - 40 * 2, _floatView.frame.size.height)];
     _mapLabel.backgroundColor = [UIColor clearColor];
-    _mapLabel.textColor = [UIColor darkGrayColor];
-    _mapLabel.font = [UIFont systemFontOfSize:16.0f];
+    _mapLabel.textColor = [UIColor blackColor];
+    _mapLabel.font = [UIFont systemFontOfSize:14.0f];
     [_floatView addSubview:_mapLabel];
+    
+    _mapTapView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _mapView.frame.size.width, _mapView.frame.size.height)];
+    _mapTapView.backgroundColor = [UIColor clearColor];
+    [_mapView addSubview:_mapTapView];
+    
+    UITapGestureRecognizer *mapViewTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapMapView:)];
+    [_mapView addGestureRecognizer:mapViewTap];
+    [mapViewTap release];
     
     _keywordView = [[UIView alloc] initWithFrame:CGRectMake(0, _mapView.frame.origin.y + _mapView.frame.size.height, _tableHeaderView.frame.size.width, 20)];
     _keywordView.backgroundColor = [UIColor clearColor];
@@ -615,6 +624,16 @@
     {
         ShopPictureViewController *shopPictureVC = [[[ShopPictureViewController alloc] init] autorelease];
         [self.navigationController pushViewController:shopPictureVC animated:YES];
+    }
+}
+
+- (void)tapMapView:(UITapGestureRecognizer *)gestureRecognizer
+{
+    if(gestureRecognizer.state == UIGestureRecognizerStateEnded)
+    {
+        ShopMapViewController *shopMapVC = [[[ShopMapViewController alloc] init] autorelease];
+        shopMapVC.poiDetail = _poiDetail;
+        [self.navigationController pushViewController:shopMapVC animated:YES];
     }
 }
 

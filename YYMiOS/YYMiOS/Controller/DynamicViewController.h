@@ -7,13 +7,15 @@
 //
 
 #import "BaseViewController.h"
+#import "SRRefreshView.h"
 
 @class TabViewController;
 
-@interface DynamicViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate>
+@interface DynamicViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate, SRRefreshDelegate>
 {
     TabViewController   *_tabVC;
     
+    SRRefreshView   *_slimeView;
     UITableView     *_tableView;
     NSMutableArray  *_dynamicArray;
     
