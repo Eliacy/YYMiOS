@@ -334,27 +334,47 @@
     Deal *deal = dynamicCell.deal;
     if(deal.user.followed)
     {
+        if(_isLoading)
+        {
+            return;
+        }
+        _isLoading = YES;
+        
         [User unfollowSomeoneWithUserId:deal.user.userId
                              fromUserId:[[User sharedUser] userId]
                                 success:^(NSArray *array) {
+                                    
+                                    _isLoading = NO;
                                     
                                     deal.user.followed = !deal.user.followed;
                                     [_tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:[_dynamicArray indexOfObject:deal] inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
                                     
                                 } failure:^(NSError *error) {
                                     
+                                    _isLoading = NO;
+                                    
                                 }];
     }
     else
     {
+        if(_isLoading)
+        {
+            return;
+        }
+        _isLoading = YES;
+        
         [User followSomeoneWithUserId:deal.user.userId
                            fromUserId:[[User sharedUser] userId]
                               success:^(NSArray *array) {
+                                  
+                                  _isLoading = NO;
                                   
                                   deal.user.followed = !deal.user.followed;
                                   [_tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:[_dynamicArray indexOfObject:deal] inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
                                   
                               } failure:^(NSError *error) {
+                                  
+                                  _isLoading = NO;
                                   
                               }];
     }
@@ -374,6 +394,58 @@
                             } failure:^(NSError *error) {
                                 
                             }];
+}
+
+- (void)dynamicCellDidClickLikeButton:(DynamicCell *)dynamicCell
+{
+    if(dynamicCell.deal.liked)
+    {
+        if(_isLoading)
+        {
+            return;
+        }
+        _isLoading = YES;
+        
+        [Deal unlikeReviewWithUserId:[[User sharedUser] userId]
+                            reviewId:dynamicCell.deal.dealId
+                             success:^(NSArray *array) {
+                                 
+                                 _isLoading = NO;
+                                 
+                                 dynamicCell.deal.liked = NO;
+                                 dynamicCell.deal.likeCount -= 1;
+                                 [_tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[_tableView indexPathForCell:dynamicCell]] withRowAnimation:UITableViewRowAnimationAutomatic];
+                                 
+                             } failure:^(NSError *error) {
+                                 
+                                 _isLoading = NO;
+                                 
+                             }];
+    }
+    else
+    {
+        if(_isLoading)
+        {
+            return;
+        }
+        _isLoading = YES;
+        
+        [Deal likeReviewWithUserId:[[User sharedUser] userId]
+                          reviewId:dynamicCell.deal.dealId
+                           success:^(NSArray *array) {
+                               
+                               _isLoading = NO;
+                               
+                               dynamicCell.deal.liked = YES;
+                               dynamicCell.deal.likeCount += 1;
+                               [_tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[_tableView indexPathForCell:dynamicCell]] withRowAnimation:UITableViewRowAnimationAutomatic];
+                               
+                           } failure:^(NSError *error) {
+                               
+                               _isLoading = NO;
+                               
+                           }];
+    }
 }
 
 @end

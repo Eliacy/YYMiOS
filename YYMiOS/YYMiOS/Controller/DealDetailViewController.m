@@ -17,7 +17,7 @@
 
 #define kImageViewTag 81521
 
-@interface DealDetailViewController () <UITextFieldDelegate, ArticlePOIViewDelegate>
+@interface DealDetailViewController () <UITextFieldDelegate, ArticlePOIViewDelegate, DealDetailExtViewDelegate>
 
 @end
 
@@ -295,6 +295,7 @@
     
     _dealDetailExtView = [[DealDetailExtView alloc] initWithFrame:CGRectMake(0, _contentLabel.frame.origin.y + _contentLabel.frame.size.height, _tableHeaderView.frame.size.width, 90)];
     _dealDetailExtView.backgroundColor = [UIColor clearColor];
+    _dealDetailExtView.delegate = self;
     [_tableHeaderView addSubview:_dealDetailExtView];
     
     _articlePOIView = [[ArticlePOIView alloc] initWithFrame:CGRectMake(0, _dealDetailExtView.frame.origin.y + _dealDetailExtView.frame.size.height, _tableHeaderView.frame.size.width, 88)];
@@ -526,6 +527,58 @@
     ShopViewController *shopVC = [[[ShopViewController alloc] init] autorelease];
     shopVC.poiId = articlePOIView.poi.poiId;
     [self.navigationController pushViewController:shopVC animated:YES];
+}
+
+#pragma mark - DealDetailExtViewDelegate
+
+- (void)dealDetailExtViewDidClickLikeButton:(DealDetailExtView *)dealDetailExtView
+{
+    if(dealDetailExtView.deal.liked)
+    {
+        if(_isLoading)
+        {
+            return;
+        }
+        _isLoading = YES;
+        
+        [Deal unlikeReviewWithUserId:[[User sharedUser] userId]
+                            reviewId:dealDetailExtView.deal.dealId
+                             success:^(NSArray *array) {
+                                 
+                                 _isLoading = NO;
+                                 dealDetailExtView.deal.liked = NO;
+                                 dealDetailExtView.deal.likeCount -= 1;
+                                 [dealDetailExtView refresh];
+                                 
+                             } failure:^(NSError *error) {
+                                 
+                                 _isLoading = NO;
+                                 
+                             }];
+    }
+    else
+    {
+        if(_isLoading)
+        {
+            return;
+        }
+        _isLoading = YES;
+        
+        [Deal likeReviewWithUserId:[[User sharedUser] userId]
+                          reviewId:dealDetailExtView.deal.dealId
+                           success:^(NSArray *array) {
+                               
+                               _isLoading = NO;
+                               dealDetailExtView.deal.liked = YES;
+                               dealDetailExtView.deal.likeCount += 1;
+                               [dealDetailExtView refresh];
+                               
+                           } failure:^(NSError *error) {
+                               
+                               _isLoading = NO;
+                               
+                           }];
+    }
 }
 
 @end

@@ -28,6 +28,7 @@
     NSInteger   _total;
     NSString    *_updateTime;
     User        *_user;
+    BOOL        _liked;
 }
 
 @property (retain, nonatomic) NSArray *atList;
@@ -46,6 +47,7 @@
 @property (assign, nonatomic) NSInteger total;
 @property (retain, nonatomic) NSString *updateTime;
 @property (retain, nonatomic) User *user;
+@property (assign, nonatomic) BOOL liked;
 
 - (id)initWithAttribute:(NSDictionary *)attribute;
 
@@ -66,5 +68,15 @@
                              userId:(NSInteger)userId
                             success:(LPObjectSuccessBlock)successBlock
                             failure:(LPObjectFailureBlock)failureBlock;
+
++ (void)likeReviewWithUserId:(NSInteger)userId
+                    reviewId:(NSInteger)reviewId
+                     success:(LPObjectSuccessBlock)successBlock
+                     failure:(LPObjectFailureBlock)failureBlock;
+
++ (void)unlikeReviewWithUserId:(NSInteger)userId
+                      reviewId:(NSInteger)reviewId
+                       success:(LPObjectSuccessBlock)successBlock
+                       failure:(LPObjectFailureBlock)failureBlock;
 
 @end

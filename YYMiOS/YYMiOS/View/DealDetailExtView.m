@@ -13,6 +13,19 @@
 @implementation DealDetailExtView
 
 @synthesize deal = _deal;
+@synthesize delegate = _delegate;
+
+#pragma mark - private
+
+- (void)clickLikeButton:(id)sender
+{
+    if(_delegate && [_delegate respondsToSelector:@selector(dealDetailExtViewDidClickLikeButton:)])
+    {
+        [_delegate dealDetailExtViewDidClickLikeButton:self];
+    }
+}
+
+#pragma mark - super
 
 /*
 // Only override drawRect: if you perform custom drawing.
@@ -66,6 +79,12 @@
         _commentLabel.textColor = [UIColor colorWithRed:153.0 / 255.0 green:153.0 / 255.0 blue:153.0 / 255.0 alpha:1.0];
         _commentLabel.font = [UIFont systemFontOfSize:12.0f];
         [self addSubview:_commentLabel];
+        
+        _likeButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+        _likeButton.frame = CGRectMake(_likeIcon.frame.origin.x, _likeIcon.frame.origin.y - 10, 40, 40);
+        _likeButton.backgroundColor = [UIColor clearColor];
+        [_likeButton addTarget:self action:@selector(clickLikeButton:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_likeButton];
         
         _grayView = [[UIView alloc] initWithFrame:CGRectMake(0, frame.size.height - 10, frame.size.width, 10)];
         _grayView.backgroundColor = [UIColor colorWithRed:246.0 / 255.0 green:246.0 / 255.0 blue:246.0 / 255.0 alpha:1.0];
@@ -128,8 +147,31 @@
     
     _priceLabel.text = [NSString stringWithFormat:@"总价：%i%@", deal.total, deal.currency];
     
+    if(deal.liked)
+    {
+        _likeIcon.image = [UIImage imageNamed:@"deal_detail_like.png"];
+    }
+    else
+    {
+        _likeIcon.image = [UIImage imageNamed:@"deal_detail_unlike.png"];
+    }
+    
     _likeLabel.text = [NSString stringWithFormat:@"%i", (int)deal.likeCount];
     _commentLabel.text = [NSString stringWithFormat:@"%i", (int)deal.commentCount];
+}
+
+- (void)refresh
+{
+    if(_deal.liked)
+    {
+        _likeIcon.image = [UIImage imageNamed:@"deal_detail_like.png"];
+    }
+    else
+    {
+        _likeIcon.image = [UIImage imageNamed:@"deal_detail_unlike.png"];
+    }
+    
+    _likeLabel.text = [NSString stringWithFormat:@"%i", (int)_deal.likeCount];
 }
 
 @end

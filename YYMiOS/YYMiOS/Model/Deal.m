@@ -27,6 +27,7 @@
 @synthesize total = _total;
 @synthesize updateTime = _updateTime;
 @synthesize user = _user;
+@synthesize liked = _liked;
 
 - (id)initWithAttribute:(NSDictionary *)attribute
 {
@@ -138,6 +139,10 @@
                     self.user = user;
                 }
             }
+            if([attribute objectForKey:@"liked"] && ![[attribute objectForKey:@"liked"] isEqual:[NSNull null]])
+            {
+                self.liked = [[attribute objectForKey:@"liked"] boolValue];
+            }
         }
     }
     
@@ -238,6 +243,46 @@
                                                                failureBlock(error);
                                                            }
                                                        }];
+}
+
++ (void)likeReviewWithUserId:(NSInteger)userId
+                    reviewId:(NSInteger)reviewId
+                     success:(LPObjectSuccessBlock)successBlock
+                     failure:(LPObjectFailureBlock)failureBlock
+{
+    [[LPAPIClient sharedAPIClient] likeReviewWithUserId:userId
+                                               reviewId:reviewId
+                                                success:^(id respondObject) {
+                                                    if(successBlock)
+                                                    {
+                                                        successBlock([Deal parseFromeDictionary:respondObject]);
+                                                    }
+                                                } failure:^(NSError *error) {
+                                                    if(failureBlock)
+                                                    {
+                                                        failureBlock(error);
+                                                    }
+                                                }];
+}
+
++ (void)unlikeReviewWithUserId:(NSInteger)userId
+                      reviewId:(NSInteger)reviewId
+                       success:(LPObjectSuccessBlock)successBlock
+                       failure:(LPObjectFailureBlock)failureBlock
+{
+    [[LPAPIClient sharedAPIClient] unlikeReviewWithUserId:userId
+                                                 reviewId:reviewId
+                                                  success:^(id respondObject) {
+                                                      if(successBlock)
+                                                      {
+                                                          successBlock([Deal parseFromeDictionary:respondObject]);
+                                                      }
+                                                  } failure:^(NSError *error) {
+                                                      if(failureBlock)
+                                                      {
+                                                          failureBlock(error);
+                                                      }
+                                                  }];
 }
 
 @end
