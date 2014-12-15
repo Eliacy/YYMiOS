@@ -25,7 +25,10 @@
 
 - (void)clickShareButton:(id)sender
 {
-
+    if(_delegate && [_delegate respondsToSelector:@selector(dynamicCellDidClickShareButton:)])
+    {
+        [_delegate dynamicCellDidClickShareButton:self];
+    }
 }
 
 #pragma mark - super

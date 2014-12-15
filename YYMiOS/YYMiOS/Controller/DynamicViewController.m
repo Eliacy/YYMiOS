@@ -360,4 +360,9 @@
     }
 }
 
+- (void)dynamicCellDidClickShareButton:(DynamicCell *)dynamicCell
+{
+
+}
+
 @end

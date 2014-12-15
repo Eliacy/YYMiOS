@@ -26,6 +26,11 @@
 
 #pragma mark - private
 
+- (void)clickShareButton:(id)sender
+{
+
+}
+
 - (void)clickFavouriteButton:(id)sender
 {
     if(_isLoading)
@@ -129,6 +134,15 @@
     [super loadView];
     
     _titleLabel.text = @"店铺主页";
+    
+    _shareButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    _shareButton.frame = CGRectMake(_headerView.frame.size.width - 2 - 40 - 2 - 40, 2, 40, 40);
+    _shareButton.backgroundColor = [UIColor clearColor];
+    [_shareButton setTitle:@"分享" forState:UIControlStateNormal];
+    [_shareButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _shareButton.titleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
+    [_shareButton addTarget:self action:@selector(clickShareButton:) forControlEvents:UIControlEventTouchUpInside];
+    [_headerView addSubview:_shareButton];
     
     _favouriteButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     _favouriteButton.frame = CGRectMake(_headerView.frame.size.width - 2 - 40, 2, 40, 40);

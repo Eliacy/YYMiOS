@@ -46,5 +46,6 @@
 
 - (void)dynamicCellDidTapAvatarImageView:(DynamicCell *)dynamicCell;
 - (void)dynamicCellDidClickFollowButton:(DynamicCell *)dynamicCell;
+- (void)dynamicCellDidClickShareButton:(DynamicCell *)dynamicCell;
 
 @end

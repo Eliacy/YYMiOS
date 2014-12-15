@@ -27,6 +27,50 @@
 
 #pragma mark - private
 
+- (void)clickFollowButton:(id)sender
+{
+    if(_user.followed)
+    {
+        [User unfollowSomeoneWithUserId:_user.userId
+                             fromUserId:[[User sharedUser] userId]
+                                success:^(NSArray *array) {
+                                    
+                                    _user.followed = !_user.followed;
+                                    if(_user.followed)
+                                    {
+                                        [_followButton setTitle:@"取消" forState:UIControlStateNormal];
+                                    }
+                                    else
+                                    {
+                                        [_followButton setTitle:@"关注" forState:UIControlStateNormal];
+                                    }
+                                    
+                                } failure:^(NSError *error) {
+                                    
+                                }];
+    }
+    else
+    {
+        [User followSomeoneWithUserId:_user.userId
+                           fromUserId:[[User sharedUser] userId]
+                              success:^(NSArray *array) {
+                                  
+                                  _user.followed = !_user.followed;
+                                  if(_user.followed)
+                                  {
+                                      [_followButton setTitle:@"取消" forState:UIControlStateNormal];
+                                  }
+                                  else
+                                  {
+                                      [_followButton setTitle:@"关注" forState:UIControlStateNormal];
+                                  }
+                                  
+                              } failure:^(NSError *error) {
+                                  
+                              }];
+    }
+}
+
 - (void)clickFollowingButton:(id)sender
 {
     FollowingViewController *followingVC = [[[FollowingViewController alloc] init] autorelease];
@@ -202,6 +246,15 @@
     [super loadView];
     
     _titleLabel.text = @"个人主页";
+    
+    _followButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    _followButton.frame = CGRectMake(_headerView.frame.size.width - 2 - 40, 2, 40, 40);
+    _followButton.backgroundColor = [UIColor clearColor];
+    [_followButton setTitle:@"关注" forState:UIControlStateNormal];
+    [_followButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _followButton.titleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
+    [_followButton addTarget:self action:@selector(clickFollowButton:) forControlEvents:UIControlEventTouchUpInside];
+    [_headerView addSubview:_followButton];
     
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, _adjustView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - _adjustView.frame.size.height) style:UITableViewStylePlain];
     _tableView.backgroundColor = [UIColor clearColor];
@@ -385,6 +438,15 @@
         LP_SAFE_RELEASE(_user);
     }
     _user = [user retain];
+    
+    if(user.followed)
+    {
+        [_followButton setTitle:@"取消" forState:UIControlStateNormal];
+    }
+    else
+    {
+        [_followButton setTitle:@"关注" forState:UIControlStateNormal];
+    }
     
     [_avatarImageView setImageWithURL:[NSURL URLWithString:[LPUtility getQiniuImageURLStringWithBaseString:user.userIcon.imageURL imageSize:CGSizeMake(120, 120)]]];
     _nameLabel.text = user.userName;

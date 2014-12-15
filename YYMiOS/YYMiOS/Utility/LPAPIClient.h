@@ -349,4 +349,24 @@ typedef void (^LPAPIFailureBlock)(NSError *error);
                           success:(LPAPISuccessBlock)successBlock
                           failure:(LPAPIFailureBlock)failureBlock;
 
+/*
+ 分享接口
+ */
+- (void)shareSomethingWithUserId:(NSInteger)userId
+                          siteId:(NSInteger)siteId
+                        reviewId:(NSInteger)reviewId
+                       articleId:(NSInteger)articleId
+                          target:(NSString *)target
+                         success:(LPAPISuccessBlock)successBlock
+                         failure:(LPAPIFailureBlock)failureBlock;
+
+/*
+ 获取分享列表
+ */
+- (void)getShareListWithOffset:(NSInteger)offset
+                         limit:(NSInteger)limit
+                        userId:(NSInteger)userId
+                       success:(LPAPISuccessBlock)successBlock
+                       failure:(LPAPIFailureBlock)failureBlock;
+
 @end
