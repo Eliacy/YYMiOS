@@ -13,6 +13,8 @@
     NSInteger       _userId;
     User            *_user;
     
+    UIButton        *_followButton;
+    
     UITableView     *_tableView;
     NSInteger       _type;
     

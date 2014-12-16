@@ -9,11 +9,11 @@
 #import "DynamicViewController.h"
 #import "TabViewController.h"
 #import "DynamicCell.h"
-
 #import "DealDetailViewController.h"
 #import "Deal.h"
-
 #import "UserDetailViewController.h"
+#import "ShareKit.h"
+#import "Share.h"
 
 @interface DynamicViewController () <DynamicCellDelegate>
 
@@ -334,29 +334,117 @@
     Deal *deal = dynamicCell.deal;
     if(deal.user.followed)
     {
+        if(_isLoading)
+        {
+            return;
+        }
+        _isLoading = YES;
+        
         [User unfollowSomeoneWithUserId:deal.user.userId
                              fromUserId:[[User sharedUser] userId]
                                 success:^(NSArray *array) {
+                                    
+                                    _isLoading = NO;
                                     
                                     deal.user.followed = !deal.user.followed;
                                     [_tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:[_dynamicArray indexOfObject:deal] inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
                                     
                                 } failure:^(NSError *error) {
                                     
+                                    _isLoading = NO;
+                                    
                                 }];
     }
     else
     {
+        if(_isLoading)
+        {
+            return;
+        }
+        _isLoading = YES;
+        
         [User followSomeoneWithUserId:deal.user.userId
                            fromUserId:[[User sharedUser] userId]
                               success:^(NSArray *array) {
+                                  
+                                  _isLoading = NO;
                                   
                                   deal.user.followed = !deal.user.followed;
                                   [_tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:[_dynamicArray indexOfObject:deal] inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
                                   
                               } failure:^(NSError *error) {
                                   
+                                  _isLoading = NO;
+                                  
                               }];
+    }
+}
+
+- (void)dynamicCellDidClickShareButton:(DynamicCell *)dynamicCell
+{
+    [[ShareKit sharedKit] show];
+    //share
+    [Share shareSomethingWithUserId:[[User sharedUser] userId]
+                             siteId:0
+                           reviewId:dynamicCell.deal.dealId
+                          articleId:0
+                             target:@"微信"
+                            success:^(NSArray *array) {
+                                
+                            } failure:^(NSError *error) {
+                                
+                            }];
+}
+
+- (void)dynamicCellDidClickLikeButton:(DynamicCell *)dynamicCell
+{
+    if(dynamicCell.deal.liked)
+    {
+        if(_isLoading)
+        {
+            return;
+        }
+        _isLoading = YES;
+        
+        [Deal unlikeReviewWithUserId:[[User sharedUser] userId]
+                            reviewId:dynamicCell.deal.dealId
+                             success:^(NSArray *array) {
+                                 
+                                 _isLoading = NO;
+                                 
+                                 dynamicCell.deal.liked = NO;
+                                 dynamicCell.deal.likeCount -= 1;
+                                 [_tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[_tableView indexPathForCell:dynamicCell]] withRowAnimation:UITableViewRowAnimationAutomatic];
+                                 
+                             } failure:^(NSError *error) {
+                                 
+                                 _isLoading = NO;
+                                 
+                             }];
+    }
+    else
+    {
+        if(_isLoading)
+        {
+            return;
+        }
+        _isLoading = YES;
+        
+        [Deal likeReviewWithUserId:[[User sharedUser] userId]
+                          reviewId:dynamicCell.deal.dealId
+                           success:^(NSArray *array) {
+                               
+                               _isLoading = NO;
+                               
+                               dynamicCell.deal.liked = YES;
+                               dynamicCell.deal.likeCount += 1;
+                               [_tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[_tableView indexPathForCell:dynamicCell]] withRowAnimation:UITableViewRowAnimationAutomatic];
+                               
+                           } failure:^(NSError *error) {
+                               
+                               _isLoading = NO;
+                               
+                           }];
     }
 }
 

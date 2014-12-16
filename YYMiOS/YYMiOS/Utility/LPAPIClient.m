@@ -1274,4 +1274,55 @@ static id APIClient = nil;
                   failure:failureBlock];
 }
 
+/*
+ 分享接口
+ */
+- (void)shareSomethingWithUserId:(NSInteger)userId
+                          siteId:(NSInteger)siteId
+                        reviewId:(NSInteger)reviewId
+                       articleId:(NSInteger)articleId
+                          target:(NSString *)target
+                         success:(LPAPISuccessBlock)successBlock
+                         failure:(LPAPIFailureBlock)failureBlock
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
+    
+    [params setObject:[NSNumber numberWithInteger:userId] forKey:@"user"];
+    [params setObject:[NSNumber numberWithInteger:siteId] forKey:@"site"];
+    [params setObject:[NSNumber numberWithInteger:reviewId] forKey:@"review"];
+    [params setObject:[NSNumber numberWithInteger:articleId] forKey:@"article"];
+    if(target && ![target isEqualToString:@""])
+    {
+        [params setObject:target forKey:@"target"];
+    }
+    
+    [self sendRequestPath:@"/rpc/shares"
+                   params:params
+                   method:@"POST"
+                  success:successBlock
+                  failure:failureBlock];
+}
+
+/*
+ 获取分享列表
+ */
+- (void)getShareListWithOffset:(NSInteger)offset
+                         limit:(NSInteger)limit
+                        userId:(NSInteger)userId
+                       success:(LPAPISuccessBlock)successBlock
+                       failure:(LPAPIFailureBlock)failureBlock
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
+    
+    [params setObject:[NSNumber numberWithInteger:offset] forKey:@"offset"];
+    [params setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
+    [params setObject:[NSNumber numberWithInteger:userId] forKey:@"user"];
+    
+    [self sendRequestPath:@"/rpc/shares"
+                   params:params
+                   method:@"GET"
+                  success:successBlock
+                  failure:failureBlock];
+}
+
 @end

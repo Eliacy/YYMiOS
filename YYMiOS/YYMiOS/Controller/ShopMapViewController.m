@@ -26,8 +26,7 @@
 
 - (void)clickLocateButton:(id)sender
 {
-    [[LocationManager sharedManager] setDelegate:self];
-    [[LocationManager sharedManager] startUpdatingLocation];
+    [_mapView setCenterCoordinate:_selfAnnotation.coordinate zoomLevel:13 animated:YES];
 }
 
 #pragma mark - super
@@ -77,6 +76,9 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    [[LocationManager sharedManager] setDelegate:self];
+    [[LocationManager sharedManager] startUpdatingLocation];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -196,11 +198,6 @@
     CLLocation *location = [locations objectAtIndex:0];
     _selfAnnotation.coordinate = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude);
     [_mapView addAnnotation:_selfAnnotation];
-    
-    [_mapView setCenterCoordinate:location.coordinate zoomLevel:13 animated:YES];
-    
-    [[LocationManager sharedManager] setDelegate:nil];
-    [[LocationManager sharedManager] stopUpdatingLocation];
 }
 
 @end

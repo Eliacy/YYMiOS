@@ -14,6 +14,8 @@
 #import "POIAnnotation.h"
 #import "ShopPictureViewController.h"
 #import "ShopMapViewController.h"
+#import "ShareKit.h"
+#import "Share.h"
 
 @interface ShopViewController () <UITextFieldDelegate>
 
@@ -25,6 +27,22 @@
 @synthesize poiDetail = _poiDetail;
 
 #pragma mark - private
+
+- (void)clickShareButton:(id)sender
+{
+    [[ShareKit sharedKit] show];
+    //share
+    [Share shareSomethingWithUserId:[[User sharedUser] userId]
+                             siteId:_poiId
+                           reviewId:0
+                          articleId:0
+                             target:@"微信"
+                            success:^(NSArray *array) {
+                                
+                            } failure:^(NSError *error) {
+                                
+                            }];
+}
 
 - (void)clickFavouriteButton:(id)sender
 {
@@ -129,6 +147,15 @@
     [super loadView];
     
     _titleLabel.text = @"店铺主页";
+    
+    _shareButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    _shareButton.frame = CGRectMake(_headerView.frame.size.width - 2 - 40 - 2 - 40, 2, 40, 40);
+    _shareButton.backgroundColor = [UIColor clearColor];
+    [_shareButton setTitle:@"分享" forState:UIControlStateNormal];
+    [_shareButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _shareButton.titleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
+    [_shareButton addTarget:self action:@selector(clickShareButton:) forControlEvents:UIControlEventTouchUpInside];
+    [_headerView addSubview:_shareButton];
     
     _favouriteButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     _favouriteButton.frame = CGRectMake(_headerView.frame.size.width - 2 - 40, 2, 40, 40);

@@ -15,6 +15,9 @@
 #import "ShopViewController.h"
 #import "FollowingViewController.h"
 #import "FollowerViewController.h"
+#import "Share.h"
+#import "HomeCell.h"
+#import "ArticleViewController.h"
 
 @interface UserDetailViewController ()
 
@@ -26,6 +29,50 @@
 @synthesize user = _user;
 
 #pragma mark - private
+
+- (void)clickFollowButton:(id)sender
+{
+    if(_user.followed)
+    {
+        [User unfollowSomeoneWithUserId:_user.userId
+                             fromUserId:[[User sharedUser] userId]
+                                success:^(NSArray *array) {
+                                    
+                                    _user.followed = !_user.followed;
+                                    if(_user.followed)
+                                    {
+                                        [_followButton setTitle:@"取消" forState:UIControlStateNormal];
+                                    }
+                                    else
+                                    {
+                                        [_followButton setTitle:@"关注" forState:UIControlStateNormal];
+                                    }
+                                    
+                                } failure:^(NSError *error) {
+                                    
+                                }];
+    }
+    else
+    {
+        [User followSomeoneWithUserId:_user.userId
+                           fromUserId:[[User sharedUser] userId]
+                              success:^(NSArray *array) {
+                                  
+                                  _user.followed = !_user.followed;
+                                  if(_user.followed)
+                                  {
+                                      [_followButton setTitle:@"取消" forState:UIControlStateNormal];
+                                  }
+                                  else
+                                  {
+                                      [_followButton setTitle:@"关注" forState:UIControlStateNormal];
+                                  }
+                                  
+                              } failure:^(NSError *error) {
+                                  
+                              }];
+    }
+}
 
 - (void)clickFollowingButton:(id)sender
 {
@@ -97,6 +144,22 @@
     
     _type = 2;
     [_tableView reloadData];
+    
+    if([_shareArray count] == 0)
+    {
+        [Share getShareListWithOffset:0
+                                limit:20
+                               userId:[[User sharedUser] userId]
+                              success:^(NSArray *array) {
+                                  
+                                  [_shareArray removeAllObjects];
+                                  [_shareArray addObjectsFromArray:array];
+                                  [_tableView reloadData];
+                                  
+                              } failure:^(NSError *error) {
+                                  
+                              }];
+    }
 }
 
 - (void)clickCommentButton:(id)sender
@@ -202,6 +265,15 @@
     [super loadView];
     
     _titleLabel.text = @"个人主页";
+    
+    _followButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    _followButton.frame = CGRectMake(_headerView.frame.size.width - 2 - 40, 2, 40, 40);
+    _followButton.backgroundColor = [UIColor clearColor];
+    [_followButton setTitle:@"关注" forState:UIControlStateNormal];
+    [_followButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _followButton.titleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
+    [_followButton addTarget:self action:@selector(clickFollowButton:) forControlEvents:UIControlEventTouchUpInside];
+    [_headerView addSubview:_followButton];
     
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, _adjustView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - _adjustView.frame.size.height) style:UITableViewStylePlain];
     _tableView.backgroundColor = [UIColor clearColor];
@@ -386,6 +458,15 @@
     }
     _user = [user retain];
     
+    if(user.followed)
+    {
+        [_followButton setTitle:@"取消" forState:UIControlStateNormal];
+    }
+    else
+    {
+        [_followButton setTitle:@"关注" forState:UIControlStateNormal];
+    }
+    
     [_avatarImageView setImageWithURL:[NSURL URLWithString:[LPUtility getQiniuImageURLStringWithBaseString:user.userIcon.imageURL imageSize:CGSizeMake(120, 120)]]];
     _nameLabel.text = user.userName;
     
@@ -431,6 +512,26 @@
     if(_type == 4)
     {
         return 155.0f;
+    }
+    else if(_type == 2)
+    {
+        Share *share = [_shareArray objectAtIndex:indexPath.row];
+        if(share.poi)
+        {
+            return 155.0f;
+        }
+        else if(share.deal)
+        {
+            return 445.0f;
+        }
+        else if(share.article)
+        {
+            return 140.0f;
+        }
+        else
+        {
+            return 0;
+        }
     }
     return 445.0f;
 }
@@ -484,16 +585,58 @@
             break;
         case 2:
         {
-            DynamicCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UserDetailViewControllerDynamicIdentifier"];
-            if(cell == nil)
+            Share *share = [_shareArray objectAtIndex:indexPath.row];
+            
+            if(share.poi)
             {
-                cell = [[[DynamicCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UserDetailViewControllerDynamicIdentifier"] autorelease];
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                NearbyCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UserDetailViewControllerNearbyIdentifier"];
+                if(cell == nil)
+                {
+                    cell = [[[NearbyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UserDetailViewControllerNearbyIdentifier"] autorelease];
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                }
+                
+                cell.poi = share.poi;
+                
+                return cell;
             }
-            
-            cell.deal = [_shareArray objectAtIndex:indexPath.row];
-            
-            return cell;
+            else if(share.deal)
+            {
+                DynamicCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UserDetailViewControllerDynamicIdentifier"];
+                if(cell == nil)
+                {
+                    cell = [[[DynamicCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UserDetailViewControllerDynamicIdentifier"] autorelease];
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                }
+                
+                cell.deal = share.deal;
+                
+                return cell;
+            }
+            else if(share.article)
+            {
+                HomeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UserDetailViewControllerArticleIdentifier"];
+                if(cell == nil)
+                {
+                    cell = [[[HomeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UserDetailViewControllerArticleIdentifier"] autorelease];
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                }
+                
+                cell.article = share.article;
+                
+                return cell;
+            }
+            else
+            {
+                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UserDetailViewControllerIdentifier"];
+                if(cell == nil)
+                {
+                    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UserDetailViewControllerIdentifier"] autorelease];
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                }
+                
+                return cell;
+            }
         }
             break;
         case 3:
@@ -552,9 +695,25 @@
             break;
         case 2:
         {
-            DealDetailViewController *dealDetailVC = [[[DealDetailViewController alloc] init] autorelease];
-            dealDetailVC.dealId = [[_shareArray objectAtIndex:indexPath.row] dealId];
-            [self.navigationController pushViewController:dealDetailVC animated:YES];
+            Share *share = [_shareArray objectAtIndex:indexPath.row];
+            if(share.poi)
+            {
+                ShopViewController *shopVC = [[[ShopViewController alloc] init] autorelease];
+                shopVC.poiId = [share.poi poiId];
+                [self.navigationController pushViewController:shopVC animated:YES];
+            }
+            else if(share.deal)
+            {
+                DealDetailViewController *dealDetailVC = [[[DealDetailViewController alloc] init] autorelease];
+                dealDetailVC.dealId = [share.deal dealId];
+                [self.navigationController pushViewController:dealDetailVC animated:YES];
+            }
+            else if(share.article)
+            {
+                ArticleViewController *articleVC = [[[ArticleViewController alloc] init] autorelease];
+                articleVC.articleId = [share.article articleId];
+                [self.navigationController pushViewController:articleVC animated:YES];
+            }
         }
             break;
         case 3:

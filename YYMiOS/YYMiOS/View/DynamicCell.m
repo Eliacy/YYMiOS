@@ -25,7 +25,18 @@
 
 - (void)clickShareButton:(id)sender
 {
+    if(_delegate && [_delegate respondsToSelector:@selector(dynamicCellDidClickShareButton:)])
+    {
+        [_delegate dynamicCellDidClickShareButton:self];
+    }
+}
 
+- (void)clickLikeButton:(id)sender
+{
+    if(_delegate && [_delegate respondsToSelector:@selector(dynamicCellDidClickLikeButton:)])
+    {
+        [_delegate dynamicCellDidClickLikeButton:self];
+    }
 }
 
 #pragma mark - super
@@ -87,6 +98,7 @@
         
         _goodsImageView = [[UIImageView alloc] initWithFrame:CGRectMake(_contentLabel.frame.origin.x, _contentLabel.frame.origin.y + _contentLabel.frame.size.height + 5, 290, 250)];
         _goodsImageView.backgroundColor = [UIColor clearColor];
+        _goodsImageView.userInteractionEnabled = YES;
         _goodsImageView.contentMode = UIViewContentModeScaleAspectFill;
         _goodsImageView.layer.masksToBounds = YES;
         [_backImageView addSubview:_goodsImageView];
@@ -109,6 +121,7 @@
         _likeButton.titleLabel.font = [UIFont systemFontOfSize:12.0f];
         _likeButton.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 0);
         [_likeButton setImage:[UIImage imageNamed:@"like_white.png"] forState:UIControlStateNormal];
+        [_likeButton addTarget:self action:@selector(clickLikeButton:) forControlEvents:UIControlEventTouchUpInside];
         [_floatView addSubview:_likeButton];
         
 //        _commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(_likeLabel.frame.origin.x + _likeLabel.frame.size.width, 0, 50, _floatView.frame.size.height)];
@@ -209,6 +222,16 @@
     CGSize size = [LPUtility getTextHeightWithText:[NSString stringWithFormat:@"%i", (int)deal.likeCount]
                                               font:[UIFont systemFontOfSize:12.0f]
                                               size:CGSizeMake(200, 100)];
+    
+    if(deal.liked)
+    {
+        [_likeButton setImage:[UIImage imageNamed:@"deal_detail_like.png"] forState:UIControlStateNormal];
+    }
+    else
+    {
+        [_likeButton setImage:[UIImage imageNamed:@"like_white.png"] forState:UIControlStateNormal];
+    }
+    
     _likeButton.frame = CGRectMake(_likeButton.frame.origin.x, _likeButton.frame.origin.y, size.width + 20, _likeButton.frame.size.height);
     [_likeButton setTitle:[NSString stringWithFormat:@"%i", (int)deal.likeCount] forState:UIControlStateNormal];
     [_commentButton setTitle:[NSString stringWithFormat:@"%i", (int)deal.commentCount] forState:UIControlStateNormal];
