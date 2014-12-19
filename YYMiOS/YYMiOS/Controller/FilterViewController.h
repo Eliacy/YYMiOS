@@ -26,6 +26,7 @@
     BOOL            _categoryExpandFlag;
     BOOL            _orderExpandFlag;
     
+    NSInteger       _range;
     NSInteger       _areaId;
     NSInteger       _categoryId;
     NSInteger       _order;
