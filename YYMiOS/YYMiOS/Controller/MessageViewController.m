@@ -7,12 +7,54 @@
 //
 
 #import "MessageViewController.h"
+#import "MessageDetailViewController.h"
 
-@interface MessageViewController ()
+@interface MessageViewController () <IChatManagerDelegate>
 
 @end
 
 @implementation MessageViewController
+
+#pragma mark - private
+
+- (NSMutableArray *)loadDataSource
+{
+    NSMutableArray *ret = [NSMutableArray arrayWithCapacity:0];
+    
+    NSArray *conversations = [[EaseMob sharedInstance].chatManager conversations];
+    NSArray* sorte = [conversations sortedArrayUsingComparator:
+                      ^(EMConversation *obj1, EMConversation* obj2){
+                          EMMessage *message1 = [obj1 latestMessage];
+                          EMMessage *message2 = [obj2 latestMessage];
+                          if(message1.timestamp > message2.timestamp) {
+                              return(NSComparisonResult)NSOrderedAscending;
+                          }else {
+                              return(NSComparisonResult)NSOrderedDescending;
+                          }
+                      }];
+    
+    for(NSInteger i = 0; i < [sorte count]; i++)
+    {
+        EMConversation *conversation = [sorte objectAtIndex:i];
+        
+        [ret addObject:conversation];
+    }
+    
+    return ret;
+}
+
+-(void)refreshDataSource
+{
+    NSMutableArray *array = [self loadDataSource];
+    if(array && [array count] > 0)
+    {
+        [_messageArray removeAllObjects];
+        [_messageArray addObjectsFromArray:array];
+    }
+    [_tableView reloadData];
+}
+
+#pragma mark - super
 
 - (id)init
 {
@@ -20,8 +62,6 @@
     if(self != nil)
     {
         _messageArray = [[NSMutableArray alloc] initWithCapacity:0];
-        
-        [_messageArray addObjectsFromArray:[NSArray arrayWithObjects:@"1", @"2", @"3", @"4", @"5", nil]];
     }
     
     return self;
@@ -37,8 +77,11 @@
     _tableView.backgroundColor = [UIColor clearColor];
     _tableView.dataSource = self;
     _tableView.delegate = self;
-    _tableView.separatorColor = [UIColor clearColor];
     [self.view addSubview:_tableView];
+    
+    UIView *tableFooterView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 1)] autorelease];
+    tableFooterView.backgroundColor = [UIColor clearColor];
+    _tableView.tableFooterView = tableFooterView;
 }
 
 - (void)viewDidLoad {
@@ -49,6 +92,33 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    if(_isAppear)
+    {
+        return;
+    }
+    _isAppear = YES;
+    
+    [self refreshDataSource];
+    [self registerNotifications];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    if(!_isAppear)
+    {
+        return;
+    }
+    _isAppear = NO;
+    
+    [self unregisterNotifications];
 }
 
 /*
@@ -77,7 +147,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
-    cell.textLabel.text = [NSString stringWithFormat:@"%i", (int)indexPath.row];
+    cell.textLabel.text = [[_messageArray objectAtIndex:indexPath.row] chatter];
     
     return cell;
 }
@@ -86,7 +156,47 @@
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    MessageDetailViewController *messageDetailVC = [[[MessageDetailViewController alloc] init] autorelease];
+    messageDetailVC.emUsername = [[_messageArray objectAtIndex:indexPath.row] chatter];
+    [self.navigationController pushViewController:messageDetailVC animated:YES];
+    
     return nil;
+}
+
+#pragma mark - registerNotifications
+
+- (void)registerNotifications
+{
+    [self unregisterNotifications];
+    [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
+}
+
+- (void)unregisterNotifications
+{
+    [[EaseMob sharedInstance].chatManager removeDelegate:self];
+}
+
+#pragma mark - IChatManagerDelegate
+
+- (void)didUnreadMessagesCountChanged
+{
+    [self refreshDataSource];
+}
+
+- (void)didUpdateGroupList:(NSArray *)allGroups error:(EMError *)error
+{
+    [self refreshDataSource];
+}
+
+- (void)willReceiveOfflineMessages
+{
+    NSLog(@"开始接收离线消息");
+}
+
+- (void)didFinishedReceiveOfflineMessages:(NSArray *)offlineMessages
+{
+    NSLog(@"离线消息接收成功");
+    [self refreshDataSource];
 }
 
 @end

@@ -140,6 +140,7 @@
 		0491C0B719EE5B1C00FF71D4 /* Country.m in Sources */ = {isa = PBXBuildFile; fileRef = 0491C0B619EE5B1C00FF71D4 /* Country.m */; };
 		0491C0BA19EE5C3600FF71D4 /* City.m in Sources */ = {isa = PBXBuildFile; fileRef = 0491C0B919EE5C3600FF71D4 /* City.m */; };
 		0491C0BD19EE5D9600FF71D4 /* Area.m in Sources */ = {isa = PBXBuildFile; fileRef = 0491C0BC19EE5D9600FF71D4 /* Area.m */; };
+		0491FE561A4417C800A624E3 /* MessageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0491FE551A4417C800A624E3 /* MessageDetailViewController.m */; };
 		0498E32919F509840085E12B /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0498E31719F509840085E12B /* AFHTTPRequestOperation.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		0498E32A19F509840085E12B /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0498E31919F509840085E12B /* AFHTTPRequestOperationManager.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		0498E32B19F509840085E12B /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0498E31B19F509840085E12B /* AFHTTPSessionManager.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -476,6 +477,8 @@
 		0491C0B919EE5C3600FF71D4 /* City.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = City.m; sourceTree = "<group>"; };
 		0491C0BB19EE5D9600FF71D4 /* Area.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Area.h; sourceTree = "<group>"; };
 		0491C0BC19EE5D9600FF71D4 /* Area.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Area.m; sourceTree = "<group>"; };
+		0491FE541A4417C800A624E3 /* MessageDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageDetailViewController.h; sourceTree = "<group>"; };
+		0491FE551A4417C800A624E3 /* MessageDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageDetailViewController.m; sourceTree = "<group>"; };
 		0498E31619F509840085E12B /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
 		0498E31719F509840085E12B /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
 		0498E31819F509840085E12B /* AFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
@@ -1065,6 +1068,8 @@
 				0435238119D05C6500F67B8E /* TipsViewController.m */,
 				0435238319D05C7200F67B8E /* MessageViewController.h */,
 				0435238419D05C7200F67B8E /* MessageViewController.m */,
+				0491FE541A4417C800A624E3 /* MessageDetailViewController.h */,
+				0491FE551A4417C800A624E3 /* MessageDetailViewController.m */,
 				048355AF19D322DA005ECAD6 /* UserInfoViewController.h */,
 				048355B019D322DA005ECAD6 /* UserInfoViewController.m */,
 				04788D6B19D8098700BE283B /* NicknameViewController.h */,
@@ -1778,6 +1783,7 @@
 				04A824B71A0FBA16000B6AFF /* MKMapView+ZoomLevel.m in Sources */,
 				045E4F5B1A34BC050091E7F2 /* WeatherForecastCell.m in Sources */,
 				04B36B0219E57BCE00FA7D3A /* CommentCell.m in Sources */,
+				0491FE561A4417C800A624E3 /* MessageDetailViewController.m in Sources */,
 				0491C0BD19EE5D9600FF71D4 /* Area.m in Sources */,
 				0435236C19D0502C00F67B8E /* LPObject.m in Sources */,
 				0456058219CB381800BF5933 /* AppDelegate.m in Sources */,
@@ -1942,7 +1948,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "60dbde45-d808-4f80-8a09-f5b7059e7cc9";
+				PROVISIONING_PROFILE = "561bba4c-8a71-4aff-979d-39078ce15c3d";
 				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Debug;
@@ -1971,7 +1977,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "60dbde45-d808-4f80-8a09-f5b7059e7cc9";
+				PROVISIONING_PROFILE = "561bba4c-8a71-4aff-979d-39078ce15c3d";
 				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Release;

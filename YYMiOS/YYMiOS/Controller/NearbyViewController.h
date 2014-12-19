@@ -22,6 +22,7 @@
     UIButton        *_filterButton;
     UIButton        *_mapButton;
     
+    NSInteger       _range;
     NSInteger       _areaId;
     NSInteger       _categoryId;
     NSInteger       _order;

@@ -146,6 +146,8 @@
         }
         else
         {
+            NSLog(@"%@, %@", [[User sharedUser] emUsername], [[User sharedUser] emPassword]);
+            
             [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:[[User sharedUser] emUsername]
                                                                 password:[[User sharedUser] emPassword]
                                                               completion:^(NSDictionary *loginInfo, EMError *error) {
