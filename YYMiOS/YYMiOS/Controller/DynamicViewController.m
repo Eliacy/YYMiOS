@@ -384,16 +384,19 @@
 {
     [[ShareKit sharedKit] show];
     //share
-    [Share shareSomethingWithUserId:[[User sharedUser] userId]
-                             siteId:0
-                           reviewId:dynamicCell.deal.dealId
-                          articleId:0
-                             target:@"微信"
-                            success:^(NSArray *array) {
-                                
-                            } failure:^(NSError *error) {
-                                
-                            }];
+//    [Share shareSomethingWithUserId:[[User sharedUser] userId]
+//                             siteId:0
+//                           reviewId:dynamicCell.deal.dealId
+//                          articleId:0
+//                             target:@"微信"
+//                            success:^(NSArray *array) {
+//                                
+//                            } failure:^(NSError *error) {
+//                                
+//                            }];
+    [[ShareKit sharedKit] setArticleId:0];
+    [[ShareKit sharedKit] setReviewId:dynamicCell.deal.dealId];
+    [[ShareKit sharedKit] setSiteId:0];
 }
 
 - (void)dynamicCellDidClickLikeButton:(DynamicCell *)dynamicCell

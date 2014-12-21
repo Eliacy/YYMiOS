@@ -9,8 +9,10 @@
 #import "AppDelegate.h"
 #import "LoginViewController.h"
 #import "TabViewController.h"
-
+#import "WeiboSDK.h"
 #import "Categories.h"
+
+#define WEIBOKEY    @"2377894405"           //微博appid
 
 @interface AppDelegate () <IChatManagerDelegate>
 
@@ -21,6 +23,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    [WeiboSDK enableDebugMode:YES];
+    [WeiboSDK registerApp:WEIBOKEY];
     
     //生成应用版本号
     NSDictionary *dict = [[NSBundle mainBundle] infoDictionary];

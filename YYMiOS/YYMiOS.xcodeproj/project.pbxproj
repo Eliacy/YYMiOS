@@ -96,6 +96,8 @@
 		046BF9F51A0BCC4F003FE419 /* LPUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 046BF9F41A0BCC4F003FE419 /* LPUtility.m */; };
 		0472CFC61A472BC80018093D /* libEaseMobClientSDKLite.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0472CFC31A472BC80018093D /* libEaseMobClientSDKLite.a */; };
 		0472CFC71A472BC80018093D /* EaseMob.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0472CFC51A472BC80018093D /* EaseMob.bundle */; };
+		0472CFCA1A472FFE0018093D /* btn_share_weibo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0472CFC81A472FFE0018093D /* btn_share_weibo@2x.png */; };
+		0472CFCB1A472FFE0018093D /* btn_share_weibo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0472CFC91A472FFE0018093D /* btn_share_weibo.png */; };
 		0475C8A51A19026200958E71 /* ArticlePOIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0475C8A41A19026200958E71 /* ArticlePOIView.m */; };
 		0475C8B01A19198200958E71 /* like_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0475C8AC1A19198200958E71 /* like_white@2x.png */; };
 		0475C8B11A19198200958E71 /* comment_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0475C8AD1A19198200958E71 /* comment_white@2x.png */; };
@@ -476,6 +478,8 @@
 		0472CFC11A472BC80018093D /* EMErrorDefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMErrorDefs.h; sourceTree = "<group>"; };
 		0472CFC31A472BC80018093D /* libEaseMobClientSDKLite.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libEaseMobClientSDKLite.a; sourceTree = "<group>"; };
 		0472CFC51A472BC80018093D /* EaseMob.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = EaseMob.bundle; sourceTree = "<group>"; };
+		0472CFC81A472FFE0018093D /* btn_share_weibo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_share_weibo@2x.png"; sourceTree = "<group>"; };
+		0472CFC91A472FFE0018093D /* btn_share_weibo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_share_weibo.png; sourceTree = "<group>"; };
 		0475C8A31A19026200958E71 /* ArticlePOIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticlePOIView.h; sourceTree = "<group>"; };
 		0475C8A41A19026200958E71 /* ArticlePOIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticlePOIView.m; sourceTree = "<group>"; };
 		0475C8AC1A19198200958E71 /* like_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "like_white@2x.png"; sourceTree = "<group>"; };
@@ -865,6 +869,8 @@
 		0435238619D05D0100F67B8E /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				0472CFC91A472FFE0018093D /* btn_share_weibo.png */,
+				0472CFC81A472FFE0018093D /* btn_share_weibo@2x.png */,
 				048AD0101A3F4EAB00AD670F /* deal_detail_unlike.png */,
 				048AD00F1A3F4EAB00AD670F /* deal_detail_unlike@2x.png */,
 				048ACFF91A3DFF1B00AD670F /* btn_locate.png */,
@@ -1646,6 +1652,7 @@
 				04B1C9561A3C2B5000FD0BC8 /* deal_detail_comment.png in Resources */,
 				04B1C9421A3BF48D00FD0BC8 /* snow@2x.png in Resources */,
 				04B1C9431A3BF48D00FD0BC8 /* rain@2x.png in Resources */,
+				0472CFCB1A472FFE0018093D /* btn_share_weibo.png in Resources */,
 				04AFF19C1A148B0F000CE6FF /* tab_my_show.png in Resources */,
 				044273ED1A13C21600DD99CD /* rank_SS.png in Resources */,
 				045605AC19CB3AFB00BF5933 /* LaunchScreen.xib in Resources */,
@@ -1735,6 +1742,7 @@
 				048ACFFC1A3DFF1B00AD670F /* btn_locate@2x.png in Resources */,
 				04482ABC1A17AF7E00BC950E /* 6@2x.png in Resources */,
 				04B1C9321A3B893200FD0BC8 /* snow_large@2x.png in Resources */,
+				0472CFCA1A472FFE0018093D /* btn_share_weibo@2x.png in Resources */,
 				04AFF1AC1A148B4C000CE6FF /* tab_weather_show.png in Resources */,
 				04B1C92C1A3B893200FD0BC8 /* rain_large.png in Resources */,
 				04482AC31A17B4FA00BC950E /* map_location@2x.png in Resources */,

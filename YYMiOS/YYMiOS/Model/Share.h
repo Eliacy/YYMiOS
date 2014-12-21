@@ -25,6 +25,7 @@
     NSString    *_title;
     NSString    *_token;
     NSInteger   _userId;
+    NSString    *_shareURL;
 }
 
 @property (retain, nonatomic) NSString *actionTime;
@@ -38,6 +39,7 @@
 @property (retain, nonatomic) NSString *title;
 @property (retain, nonatomic) NSString *token;
 @property (assign, nonatomic) NSInteger userId;
+@property (retain, nonatomic) NSString *shareURL;
 
 - (id)initWithAttribute:(NSDictionary *)attribute;
 
