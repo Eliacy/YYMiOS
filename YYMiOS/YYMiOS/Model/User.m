@@ -307,4 +307,24 @@ static User *sharedUser = nil;
                                                      }];
 }
 
++ (void)getUserListWithEmIds:(NSString *)emIds
+                       brief:(NSInteger)brief
+                     success:(LPObjectSuccessBlock)successBlock
+                     failure:(LPObjectFailureBlock)failureBlock
+{
+    [[LPAPIClient sharedAPIClient] getUserListWithEmIds:emIds
+                                                  brief:brief
+                                                success:^(id respondObject) {
+                                                    if(successBlock)
+                                                    {
+                                                        successBlock([User parseFromeDictionary:respondObject]);
+                                                    }
+                                                } failure:^(NSError *error) {
+                                                    if(failureBlock)
+                                                    {
+                                                        failureBlock(error);
+                                                    }
+                                                }];
+}
+
 @end

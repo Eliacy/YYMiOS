@@ -369,4 +369,12 @@ typedef void (^LPAPIFailureBlock)(NSError *error);
                        success:(LPAPISuccessBlock)successBlock
                        failure:(LPAPIFailureBlock)failureBlock;
 
+/*
+ 通过环信ID获取用户信息
+ */
+- (void)getUserListWithEmIds:(NSString *)emIds
+                       brief:(NSInteger)brief
+                     success:(LPAPISuccessBlock)successBlock
+                     failure:(LPAPIFailureBlock)failureBlock;
+
 @end

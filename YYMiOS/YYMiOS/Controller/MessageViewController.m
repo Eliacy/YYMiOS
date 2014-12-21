@@ -8,6 +8,8 @@
 
 #import "MessageViewController.h"
 #import "MessageDetailViewController.h"
+#import "MessageCell.h"
+#import "Message.h"
 
 @interface MessageViewController () <IChatManagerDelegate>
 
@@ -43,15 +45,55 @@
     return ret;
 }
 
--(void)refreshDataSource
+- (void)refreshDataSource
 {
-    NSMutableArray *array = [self loadDataSource];
-    if(array && [array count] > 0)
+    NSMutableArray *conversationArray = [self loadDataSource];
+    if(conversationArray && [conversationArray count] > 0)
     {
-        [_messageArray removeAllObjects];
-        [_messageArray addObjectsFromArray:array];
+        NSMutableString *string = [NSMutableString stringWithCapacity:0];
+        for(NSInteger i = 0; i < [conversationArray count]; i++)
+        {
+            if(i == [conversationArray count] - 1)
+            {
+                [string appendString:[(EMConversation *)[conversationArray objectAtIndex:i] chatter]];
+            }
+            else
+            {
+                [string appendFormat:@"%@,", [(EMConversation *)[conversationArray objectAtIndex:i] chatter]];
+            }
+        }
+        
+        [User getUserListWithEmIds:string
+                             brief:1
+                           success:^(NSArray *array) {
+                               
+                               if([array count] > 0)
+                               {
+                                   [_messageArray removeAllObjects];
+                                   
+                                   for(User *user in array)
+                                   {
+                                       Message *message = [[[Message alloc] init] autorelease];
+                                       message.user = user;
+                                       for(EMConversation *conversation in conversationArray)
+                                       {
+//                                           if([[conversation.chatter uppercaseString] isEqualToString:[user.emUsername uppercaseString]])
+                                           if([conversation.chatter isEqualToString:user.emUsername])
+                                           {
+                                               message.conversation = conversation;
+                                               break;
+                                           }
+                                       }
+                                       [_messageArray addObject:message];
+                                   }
+                                   
+                                   [_tableView reloadData];
+                               }
+                               
+                           } failure:^(NSError *error) {
+                               
+                           }];
     }
-    [_tableView reloadData];
 }
 
 #pragma mark - super
@@ -71,13 +113,17 @@
 {
     [super loadView];
     
-    _titleLabel.text = @"消息";
+    _titleLabel.text = @"用户消息";
     
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, _adjustView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - _adjustView.frame.size.height) style:UITableViewStylePlain];
     _tableView.backgroundColor = [UIColor clearColor];
     _tableView.dataSource = self;
     _tableView.delegate = self;
     [self.view addSubview:_tableView];
+    
+    UIView *tableHeaderView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 15)] autorelease];
+    tableHeaderView.backgroundColor = [UIColor clearColor];
+    _tableView.tableHeaderView = tableHeaderView;
     
     UIView *tableFooterView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 1)] autorelease];
     tableFooterView.backgroundColor = [UIColor clearColor];
@@ -138,16 +184,21 @@
     return [_messageArray count];
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 95.0f;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MessageViewControllerIdentifier"];
+    MessageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MessageViewControllerIdentifier"];
     if(cell == nil)
     {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"MessageViewControllerIdentifier"] autorelease];
+        cell = [[[MessageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"MessageViewControllerIdentifier"] autorelease];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
-    cell.textLabel.text = [[_messageArray objectAtIndex:indexPath.row] chatter];
+    cell.message = [_messageArray objectAtIndex:indexPath.row];
     
     return cell;
 }
@@ -157,7 +208,7 @@
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     MessageDetailViewController *messageDetailVC = [[[MessageDetailViewController alloc] init] autorelease];
-    messageDetailVC.emUsername = [[_messageArray objectAtIndex:indexPath.row] chatter];
+    messageDetailVC.emUsername = [[(Message *)[_messageArray objectAtIndex:indexPath.row] user] emUsername];
     [self.navigationController pushViewController:messageDetailVC animated:YES];
     
     return nil;

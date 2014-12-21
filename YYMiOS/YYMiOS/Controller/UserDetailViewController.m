@@ -281,7 +281,7 @@
     _messageButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     _messageButton.frame = CGRectMake(0, 0, _footerView.frame.size.width, _footerView.frame.size.height);
     _messageButton.backgroundColor = [UIColor colorWithRed:249.0 / 255.0 green:100.0 / 255.0 blue:128.0 / 255.0 alpha:1.0];
-    [_messageButton setTitle:@"发私信" forState:UIControlStateNormal];
+    [_messageButton setTitle:@"发消息" forState:UIControlStateNormal];
     [_messageButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_messageButton addTarget:self action:@selector(clickMessageButton:) forControlEvents:UIControlEventTouchUpInside];
     [_footerView addSubview:_messageButton];

@@ -12,6 +12,11 @@
 {
     NSString        *_emUsername;
     
+    UIView          *_footerView;
+    UIView          *_textBackView;
+    UITextField     *_textField;
+    UIButton        *_sendButton;
+    
     UITableView     *_tableView;
     NSMutableArray  *_messageDetailArray;
 }

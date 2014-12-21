@@ -57,8 +57,7 @@
 #import "EMGroupStyleSetting.h"
 #import "IChatImageOptions.h"
 #import "EMConversation.h"
-#import "EMReceiptReq.h"
-#import "EMReceiptResp.h"
+#import "EMReceipt.h"
 
 // chat progress
 #import "IEMChatProgressDelegate.h"
@@ -72,6 +71,6 @@
 //push
 #import "EMPushNotificationOptions.h"
 
-#import "EMAnonymityHelper.h"
+#import "EMAnonymousHelper.h"
 
 #endif
