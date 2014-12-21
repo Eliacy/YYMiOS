@@ -60,6 +60,7 @@
 {
     UserDetailViewController *userDetailVC = [[[UserDetailViewController alloc] init] autorelease];
     userDetailVC.userId = [[User sharedUser] userId];
+    userDetailVC.detailType = DetailLike;
     [self.tabVC.navigationController pushViewController:userDetailVC animated:YES];
 }
 
@@ -67,6 +68,7 @@
 {
     UserDetailViewController *userDetailVC = [[[UserDetailViewController alloc] init] autorelease];
     userDetailVC.userId = [[User sharedUser] userId];
+    userDetailVC.detailType = DetailShare;
     [self.tabVC.navigationController pushViewController:userDetailVC animated:YES];
 }
 
@@ -74,6 +76,7 @@
 {
     UserDetailViewController *userDetailVC = [[[UserDetailViewController alloc] init] autorelease];
     userDetailVC.userId = [[User sharedUser] userId];
+    userDetailVC.detailType = DetailComment;
     [self.tabVC.navigationController pushViewController:userDetailVC animated:YES];
 }
 
@@ -81,6 +84,7 @@
 {
     UserDetailViewController *userDetailVC = [[[UserDetailViewController alloc] init] autorelease];
     userDetailVC.userId = [[User sharedUser] userId];
+    userDetailVC.detailType = DetailCollect;
     [self.tabVC.navigationController pushViewController:userDetailVC animated:YES];
 }
 

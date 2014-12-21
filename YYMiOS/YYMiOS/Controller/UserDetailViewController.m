@@ -29,6 +29,8 @@
 @synthesize userId = _userId;
 @synthesize user = _user;
 
+@synthesize detailType = _detailType;
+
 #pragma mark - private
 
 - (void)clickMessageButton:(id)sender
@@ -450,18 +452,47 @@
                             
                         }];
     
-    [Deal getReviewLikeListWithOffset:0
-                                limit:20
-                               userId:_userId
-                              success:^(NSArray *array) {
-                                  
-                                  [_likeArray removeAllObjects];
-                                  [_likeArray addObjectsFromArray:array];
-                                  [_tableView reloadData];
-                                  
-                              } failure:^(NSError *error) {
-                                  
-                              }];
+    switch (_detailType) {
+        case DetailLike:
+        {
+            [Deal getReviewLikeListWithOffset:0
+                                        limit:20
+                                       userId:_userId
+                                      success:^(NSArray *array) {
+                                          
+                                          [_likeArray removeAllObjects];
+                                          [_likeArray addObjectsFromArray:array];
+                                          [_tableView reloadData];
+                                          
+                                      } failure:^(NSError *error) {
+                                          
+                                      }];
+        }
+            break;
+        case DetailShare:
+        {
+            [self clickShareButton:nil];
+        }
+            break;
+        case DetailComment:
+        {
+            [self clickCommentButton:nil];
+        }
+            break;
+        case DetailCollect:
+        {
+            [self clickFavouriteButton:nil];
+        }
+            break;
+        default:
+            break;
+    }
+    
+    if(_userId == [[User sharedUser] userId])
+    {
+        _footerView.hidden = YES;
+        _tableView.frame = CGRectMake(0, _adjustView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - _adjustView.frame.size.height);
+    }
 }
 
 - (void)didReceiveMemoryWarning
