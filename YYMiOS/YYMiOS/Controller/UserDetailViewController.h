@@ -35,6 +35,9 @@
     UIButton        *_shareButton;
     UIButton        *_commentButton;
     UIButton        *_favouriteButton;
+    
+    UIView          *_footerView;
+    UIButton        *_messageButton;
 }
 
 @property (assign, nonatomic) NSInteger userId;
