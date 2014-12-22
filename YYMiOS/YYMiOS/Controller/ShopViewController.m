@@ -32,16 +32,19 @@
 {
     [[ShareKit sharedKit] show];
     //share
-    [Share shareSomethingWithUserId:[[User sharedUser] userId]
-                             siteId:_poiId
-                           reviewId:0
-                          articleId:0
-                             target:@"微信"
-                            success:^(NSArray *array) {
-                                
-                            } failure:^(NSError *error) {
-                                
-                            }];
+//    [Share shareSomethingWithUserId:[[User sharedUser] userId]
+//                             siteId:_poiId
+//                           reviewId:0
+//                          articleId:0
+//                             target:@"微信"
+//                            success:^(NSArray *array) {
+//                                
+//                            } failure:^(NSError *error) {
+//                                
+//                            }];
+    [[ShareKit sharedKit] setArticleId:0];
+    [[ShareKit sharedKit] setReviewId:0];
+    [[ShareKit sharedKit] setSiteId:_poiId];
 }
 
 - (void)clickFavouriteButton:(id)sender

@@ -7,10 +7,11 @@
 //
 
 #import "MessageDetailViewController.h"
+#import "ChatSendHelper.h"
 
 #define KPageCount 20
 
-@interface MessageDetailViewController () <IChatManagerDelegate>
+@interface MessageDetailViewController () <IChatManagerDelegate, UITextFieldDelegate>
 {
     dispatch_queue_t _messageQueue;
     
@@ -24,6 +25,27 @@
 @synthesize emUsername = _emUsername;
 
 #pragma mark - private
+
+- (void)clickSendButton:(id)sender
+{
+    if([_textField isFirstResponder])
+    {
+        [_textField resignFirstResponder];
+    }
+    [self sendMessage];
+}
+
+- (void)sendMessage
+{
+    if(!_textField.text && [_textField.text isEqualToString:@""])
+    {
+        return;
+    }
+    
+    //创建messsage对象
+    EMMessage *tempMessage = [ChatSendHelper sendTextMessageWithString:_textField.text toUsername:_emUsername isChatGroup:NO requireEncryption:NO];
+    [self addChatDataToMessage:tempMessage];
+}
 
 - (void)loadMoreMessages
 {
@@ -62,6 +84,42 @@
     });
 }
 
+- (void)keyboardWillShown:(NSNotification *)notification
+{
+    CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
+    
+    [UIView animateWithDuration:0.33
+                     animations:^{
+                         
+                         if(_tableView.frame.size.height - _tableView.contentSize.height < keyboardSize.height - 44)
+                         {
+                             _tableView.transform = CGAffineTransformMake(1, 0, 0, 1, 0, -keyboardSize.height);
+                         }
+                         _footerView.transform = CGAffineTransformMake(1, 0, 0, 1, 0, -keyboardSize.height);
+                         
+                     }];
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification
+{
+    [UIView animateWithDuration:0.33
+                     animations:^{
+                         
+                         _tableView.transform = CGAffineTransformIdentity;
+                         _footerView.transform = CGAffineTransformIdentity;
+                         
+                     }];
+}
+
+- (void)addChatDataToMessage:(EMMessage *)message
+{
+    //补完message detail
+    [_messageDetailArray addObject:message];
+    
+    [_tableView reloadData];
+    [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[_messageDetailArray count] - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+}
+
 #pragma mark - super
 
 - (id)init
@@ -79,7 +137,41 @@
 {
     [super loadView];
     
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, _adjustView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - _adjustView.frame.size.height) style:UITableViewStylePlain];
+    _footerView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 49, self.view.frame.size.width, 49)];
+    _footerView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:_footerView];
+    
+    UIView *line = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, _footerView.frame.size.width, 0.5)] autorelease];
+    line.backgroundColor = [UIColor lightGrayColor];
+    [_footerView addSubview:line];
+    
+    _textBackView = [[UIView alloc] initWithFrame:CGRectMake(15, 10, 240, 30)];
+    _textBackView.backgroundColor = [UIColor colorWithRed:245.0 / 255.0 green:245.0 / 255.0 blue:245.0 / 255.0 alpha:1.0];
+    _textBackView.layer.borderWidth = 0.5;
+    _textBackView.layer.borderColor = [UIColor colorWithRed:200.0 / 255.0 green:200.0 / 255.0 blue:200.0 / 255.0 alpha:1.0].CGColor;
+    _textBackView.layer.cornerRadius = 3.0;
+    _textBackView.layer.masksToBounds = YES;
+    [_footerView addSubview:_textBackView];
+    
+    _textField = [[UITextField alloc] initWithFrame:CGRectMake(6, 4, 228, 24)];
+    _textField.backgroundColor = [UIColor clearColor];
+    _textField.placeholder = @"说点啥吧";
+    _textField.delegate = self;
+    _textField.returnKeyType = UIReturnKeySend;
+    [_textBackView addSubview:_textField];
+    
+    _sendButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    _sendButton.frame = CGRectMake(_footerView.frame.size.width - 15 - 40, 10, 40, 30);
+    _sendButton.backgroundColor = [UIColor colorWithRed:252.0 / 255.0 green:107.0 / 255.0 blue:135.0 / 255.0 alpha:1.0];
+    _sendButton.layer.cornerRadius = 3.0;
+    _sendButton.layer.masksToBounds = YES;
+    [_sendButton setTitle:@"发送" forState:UIControlStateNormal];
+    [_sendButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _sendButton.titleLabel.font = [UIFont systemFontOfSize:13.0f];
+    [_sendButton addTarget:self action:@selector(clickSendButton:) forControlEvents:UIControlEventTouchUpInside];
+    [_footerView addSubview:_sendButton];
+    
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, _adjustView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - _adjustView.frame.size.height - _footerView.frame.size.height) style:UITableViewStylePlain];
     _tableView.backgroundColor = [UIColor clearColor];
     _tableView.dataSource = self;
     _tableView.delegate = self;
@@ -104,6 +196,29 @@
     
     //通过会话管理者获取已收发消息
     [self loadMoreMessages];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShown:)
+                                                 name:UIKeyboardWillChangeFrameNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillChangeFrameNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -172,6 +287,35 @@
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return nil;
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    if([_textField isFirstResponder])
+    {
+        [_textField resignFirstResponder];
+    }
+    [self sendMessage];
+    
+    return YES;
+}
+
+#pragma mark - IChatManagerDelegate
+
+- (void)didSendMessage:(EMMessage *)message
+                 error:(EMError *)error
+{
+    
+}
+
+- (void)didReceiveMessage:(EMMessage *)message
+{
+    if((message.from && [message.from isEqualToString:_emUsername]))
+    {
+        [self addChatDataToMessage:message];
+    }
 }
 
 @end

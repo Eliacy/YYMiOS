@@ -21,6 +21,7 @@
 @synthesize title = _title;
 @synthesize token = _token;
 @synthesize userId = _userId;
+@synthesize shareURL = _shareURL;
 
 - (id)initWithAttribute:(NSDictionary *)attribute
 {
@@ -92,6 +93,10 @@
             if([attribute objectForKey:@"user_id"] && ![[attribute objectForKey:@"user_id"] isEqual:[NSNull null]])
             {
                 self.userId = [[attribute objectForKey:@"user_id"] integerValue];
+            }
+            if([attribute objectForKey:@"url"] && ![[attribute objectForKey:@"url"] isEqual:[NSNull null]])
+            {
+                self.shareURL = [attribute objectForKey:@"url"];
             }
         }
     }

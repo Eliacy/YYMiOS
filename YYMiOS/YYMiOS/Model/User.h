@@ -86,4 +86,9 @@
                           success:(LPObjectSuccessBlock)successBlock
                           failure:(LPObjectFailureBlock)failureBlock;
 
++ (void)getUserListWithEmIds:(NSString *)emIds
+                       brief:(NSInteger)brief
+                     success:(LPObjectSuccessBlock)successBlock
+                     failure:(LPObjectFailureBlock)failureBlock;
+
 @end

@@ -18,9 +18,19 @@
     UIView      *_blockView;
     
     UIView      *_shareView;
+    
+    UIButton    *_weiboButton;
+    
+    NSInteger   _articleId;
+    NSInteger   _reviewId;
+    NSInteger   _siteId;
 }
 
 @property (assign, nonatomic) id<ShareKitDelegate> delegate;
+
+@property (assign, nonatomic) NSInteger articleId;
+@property (assign, nonatomic) NSInteger reviewId;
+@property (assign, nonatomic) NSInteger siteId;
 
 + (id)sharedKit;
 

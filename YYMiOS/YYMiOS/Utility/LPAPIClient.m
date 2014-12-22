@@ -1325,4 +1325,27 @@ static id APIClient = nil;
                   failure:failureBlock];
 }
 
+/*
+ 通过环信ID获取用户信息
+ */
+- (void)getUserListWithEmIds:(NSString *)emIds
+                       brief:(NSInteger)brief
+                     success:(LPAPISuccessBlock)successBlock
+                     failure:(LPAPIFailureBlock)failureBlock
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
+    
+    if(emIds && ![emIds isEqualToString:@""])
+    {
+        [params setObject:emIds forKey:@"em"];
+    }
+    [params setObject:[NSNumber numberWithInteger:brief] forKey:@"brief"];
+    
+    [self sendRequestPath:@"/rpc/users"
+                   params:params
+                   method:@"GET"
+                  success:successBlock
+                  failure:failureBlock];
+}
+
 @end

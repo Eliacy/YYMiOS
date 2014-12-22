@@ -8,6 +8,14 @@
 
 #import "BaseViewController.h"
 
+typedef enum _detailType
+{
+    DetailLike = 0,
+    DetailShare = 1,
+    DetailComment = 2,
+    DetailCollect = 3,
+}DetailType;
+
 @interface UserDetailViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate>
 {
     NSInteger       _userId;
@@ -35,9 +43,16 @@
     UIButton        *_shareButton;
     UIButton        *_commentButton;
     UIButton        *_favouriteButton;
+    
+    UIView          *_footerView;
+    UIButton        *_messageButton;
+    
+    DetailType      _detailType;
 }
 
 @property (assign, nonatomic) NSInteger userId;
 @property (retain, nonatomic) User *user;
+
+@property (assign, nonatomic) DetailType detailType;
 
 @end

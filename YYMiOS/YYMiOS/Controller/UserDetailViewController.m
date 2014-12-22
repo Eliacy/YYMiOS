@@ -18,6 +18,7 @@
 #import "Share.h"
 #import "HomeCell.h"
 #import "ArticleViewController.h"
+#import "MessageDetailViewController.h"
 
 @interface UserDetailViewController ()
 
@@ -28,7 +29,16 @@
 @synthesize userId = _userId;
 @synthesize user = _user;
 
+@synthesize detailType = _detailType;
+
 #pragma mark - private
+
+- (void)clickMessageButton:(id)sender
+{
+    MessageDetailViewController *messageDetailVC = [[[MessageDetailViewController alloc] init] autorelease];
+    messageDetailVC.emUsername = _user.emUsername;
+    [self.navigationController pushViewController:messageDetailVC animated:YES];
+}
 
 - (void)clickFollowButton:(id)sender
 {
@@ -266,6 +276,18 @@
     
     _titleLabel.text = @"个人主页";
     
+    _footerView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 49, self.view.frame.size.width, 49)];
+    _footerView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:_footerView];
+    
+    _messageButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    _messageButton.frame = CGRectMake(0, 0, _footerView.frame.size.width, _footerView.frame.size.height);
+    _messageButton.backgroundColor = [UIColor colorWithRed:249.0 / 255.0 green:100.0 / 255.0 blue:128.0 / 255.0 alpha:1.0];
+    [_messageButton setTitle:@"发消息" forState:UIControlStateNormal];
+    [_messageButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_messageButton addTarget:self action:@selector(clickMessageButton:) forControlEvents:UIControlEventTouchUpInside];
+    [_footerView addSubview:_messageButton];
+    
     _followButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     _followButton.frame = CGRectMake(_headerView.frame.size.width - 2 - 40, 2, 40, 40);
     _followButton.backgroundColor = [UIColor clearColor];
@@ -275,7 +297,7 @@
     [_followButton addTarget:self action:@selector(clickFollowButton:) forControlEvents:UIControlEventTouchUpInside];
     [_headerView addSubview:_followButton];
     
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, _adjustView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - _adjustView.frame.size.height) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, _adjustView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - _adjustView.frame.size.height - _footerView.frame.size.height) style:UITableViewStylePlain];
     _tableView.backgroundColor = [UIColor clearColor];
     _tableView.dataSource = self;
     _tableView.delegate = self;
@@ -430,18 +452,47 @@
                             
                         }];
     
-    [Deal getReviewLikeListWithOffset:0
-                                limit:20
-                               userId:_userId
-                              success:^(NSArray *array) {
-                                  
-                                  [_likeArray removeAllObjects];
-                                  [_likeArray addObjectsFromArray:array];
-                                  [_tableView reloadData];
-                                  
-                              } failure:^(NSError *error) {
-                                  
-                              }];
+    switch (_detailType) {
+        case DetailLike:
+        {
+            [Deal getReviewLikeListWithOffset:0
+                                        limit:20
+                                       userId:_userId
+                                      success:^(NSArray *array) {
+                                          
+                                          [_likeArray removeAllObjects];
+                                          [_likeArray addObjectsFromArray:array];
+                                          [_tableView reloadData];
+                                          
+                                      } failure:^(NSError *error) {
+                                          
+                                      }];
+        }
+            break;
+        case DetailShare:
+        {
+            [self clickShareButton:nil];
+        }
+            break;
+        case DetailComment:
+        {
+            [self clickCommentButton:nil];
+        }
+            break;
+        case DetailCollect:
+        {
+            [self clickFavouriteButton:nil];
+        }
+            break;
+        default:
+            break;
+    }
+    
+    if(_userId == [[User sharedUser] userId])
+    {
+        _footerView.hidden = YES;
+        _tableView.frame = CGRectMake(0, _adjustView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - _adjustView.frame.size.height);
+    }
 }
 
 - (void)didReceiveMemoryWarning

@@ -11,6 +11,7 @@
 #import "EMChatServiceDefs.h"
 
 @class EMError;
+@class EMGroupOccupant;
 
 /*!
  @class
@@ -50,7 +51,7 @@
 
 /*!
  @property
- @brief 群组的所有者
+ @brief 群组的创建者
  @discussion
         群组的所有者只有一人
  */
@@ -79,6 +80,7 @@
 /*!
  @property
  @brief 此群组黑名单中的成员列表
+ @discussion 需要owner权限才能查看，非owner返回nil
  */
 @property (nonatomic, strong, readonly) NSArray  *bans;
 
@@ -119,5 +121,13 @@
  @result 返回新创建的群组
  */
 - (id)initWithGroupId:(NSString *)groupId;
+
+/*!
+ @method
+ @brief 通过username获取它的属性(一般只有匿名群中会用到)
+ @param username 需要获取的occupant信息的username
+ @result 返回返回username在群组中的属性
+ */
+- (EMGroupOccupant *)occupantWithUsername:(NSString *)username;
 
 @end
