@@ -9,6 +9,7 @@
 #import "ShareKit.h"
 #import "Share.h"
 #import "WeiboSDK.h"
+#import "WXApi.h"
 
 @implementation ShareKit
 
@@ -58,7 +59,98 @@
                             } failure:^(NSError *error) {
                                 
                             }];
+}
 
+- (void)clickWeixinButton:(id)sender
+{
+    if(![WXApi isWXAppInstalled])
+    {
+        [[[[UIApplication sharedApplication] delegate] window] hideToast];
+        [[[[UIApplication sharedApplication] delegate] window] makeToast:@"您还没有安装微信" duration:1.5 position:@"center"];
+        
+        return;
+    }
+    
+    [Share shareSomethingWithUserId:[[User sharedUser] userId]
+                             siteId:_siteId
+                           reviewId:_reviewId
+                          articleId:_articleId
+                             target:@"微信"
+                            success:^(NSArray *array) {
+                                
+                                if([array count] > 0)
+                                {
+                                    Share *share = [array objectAtIndex:0];
+                                    
+                                    WXMediaMessage *message = [WXMediaMessage message];
+                                    message.title = share.title;
+                                    message.description = share.shareDescription;
+                                    [message setThumbImage:[UIImage imageNamed:@"Icon-60@2x.png"]];
+                                    
+                                    WXWebpageObject *ext = [WXWebpageObject object];
+                                    ext.webpageUrl = share.shareURL;
+                                    
+                                    message.mediaObject = ext;
+                                    
+                                    SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
+                                    req.bText = NO;
+                                    req.message = message;
+                                    req.scene = WXSceneSession;
+                                    [WXApi sendReq:req];
+                                    [req release];
+                                    
+                                    [self hide];
+                                }
+                                
+                            } failure:^(NSError *error) {
+                                
+                            }];
+}
+
+- (void)clickFriendButton:(id)sender
+{
+    if(![WXApi isWXAppInstalled])
+    {
+        [[[[UIApplication sharedApplication] delegate] window] hideToast];
+        [[[[UIApplication sharedApplication] delegate] window] makeToast:@"您还没有安装微信" duration:1.5 position:@"center"];
+        
+        return;
+    }
+    
+    [Share shareSomethingWithUserId:[[User sharedUser] userId]
+                             siteId:_siteId
+                           reviewId:_reviewId
+                          articleId:_articleId
+                             target:@"朋友圈"
+                            success:^(NSArray *array) {
+                                
+                                if([array count] > 0)
+                                {
+                                    Share *share = [array objectAtIndex:0];
+                                    
+                                    WXMediaMessage *message = [WXMediaMessage message];
+                                    message.title = share.title;
+                                    message.description = share.shareDescription;
+                                    [message setThumbImage:[UIImage imageNamed:@"Icon-60@2x.png"]];
+                                    
+                                    WXWebpageObject *ext = [WXWebpageObject object];
+                                    ext.webpageUrl = share.shareURL;
+                                    
+                                    message.mediaObject = ext;
+                                    
+                                    SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
+                                    req.bText = NO;
+                                    req.message = message;
+                                    req.scene = WXSceneTimeline;
+                                    [WXApi sendReq:req];
+                                    [req release];
+                                    
+                                    [self hide];
+                                }
+                                
+                            } failure:^(NSError *error) {
+                                
+                            }];
 }
 
 #pragma mark - public
@@ -102,6 +194,20 @@ static id sharedKit = nil;
         [_weiboButton setBackgroundImage:[UIImage imageNamed:@"btn_share_weibo.png"] forState:UIControlStateNormal];
         [_weiboButton addTarget:self action:@selector(clickWeiboButton:) forControlEvents:UIControlEventTouchUpInside];
         [_shareView addSubview:_weiboButton];
+        
+        _weixinButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+        _weixinButton.frame = CGRectMake(_weiboButton.frame.origin.x + _weiboButton.frame.size.width + 15, _weiboButton.frame.origin.y, 60, 60);
+        _weixinButton.backgroundColor = [UIColor clearColor];
+        [_weixinButton setBackgroundImage:[UIImage imageNamed:@"btn_share_weixin.png"] forState:UIControlStateNormal];
+        [_weixinButton addTarget:self action:@selector(clickWeixinButton:) forControlEvents:UIControlEventTouchUpInside];
+        [_shareView addSubview:_weixinButton];
+        
+        _friendButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+        _friendButton.frame = CGRectMake(_weixinButton.frame.origin.x + _weixinButton.frame.size.width + 15, _weixinButton.frame.origin.y, 60, 60);
+        _friendButton.backgroundColor = [UIColor clearColor];
+        [_friendButton setBackgroundImage:[UIImage imageNamed:@"btn_share_friend.png"] forState:UIControlStateNormal];
+        [_friendButton addTarget:self action:@selector(clickFriendButton:) forControlEvents:UIControlEventTouchUpInside];
+        [_shareView addSubview:_friendButton];
     }
     
     return self;
