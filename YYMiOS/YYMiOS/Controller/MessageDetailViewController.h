@@ -10,7 +10,7 @@
 
 @interface MessageDetailViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate>
 {
-    NSString        *_emUsername;
+    User            *_user;
     
     UIView          *_footerView;
     UIView          *_textBackView;
@@ -21,6 +21,6 @@
     NSMutableArray  *_messageDetailArray;
 }
 
-@property (retain, nonatomic) NSString *emUsername;
+@property (retain, nonatomic) User *user;
 
 @end

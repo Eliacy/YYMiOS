@@ -251,6 +251,7 @@
 		04C010961A486F5900D741E5 /* btn_share_friend@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04C010921A486F5900D741E5 /* btn_share_friend@2x.png */; };
 		04C010971A486F5900D741E5 /* btn_share_friend.png in Resources */ = {isa = PBXBuildFile; fileRef = 04C010931A486F5900D741E5 /* btn_share_friend.png */; };
 		04C010981A486F5900D741E5 /* btn_share_weixin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04C010941A486F5900D741E5 /* btn_share_weixin@2x.png */; };
+		04C0109B1A48791B00D741E5 /* MessageDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C0109A1A48791B00D741E5 /* MessageDetailCell.m */; };
 		04C2418E1A3D7B490073CBBF /* ShopMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C2418D1A3D7B490073CBBF /* ShopMapViewController.m */; };
 		04D208D31A30560C00250564 /* Toast+UIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D208D21A30560C00250564 /* Toast+UIView.m */; };
 		04DC527319FBBC6B00342DB6 /* Site.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DC527219FBBC6B00342DB6 /* Site.m */; };
@@ -722,6 +723,8 @@
 		04C010921A486F5900D741E5 /* btn_share_friend@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_share_friend@2x.png"; sourceTree = "<group>"; };
 		04C010931A486F5900D741E5 /* btn_share_friend.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_share_friend.png; sourceTree = "<group>"; };
 		04C010941A486F5900D741E5 /* btn_share_weixin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_share_weixin@2x.png"; sourceTree = "<group>"; };
+		04C010991A48791B00D741E5 /* MessageDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageDetailCell.h; sourceTree = "<group>"; };
+		04C0109A1A48791B00D741E5 /* MessageDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageDetailCell.m; sourceTree = "<group>"; };
 		04C2418C1A3D7B490073CBBF /* ShopMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopMapViewController.h; sourceTree = "<group>"; };
 		04C2418D1A3D7B490073CBBF /* ShopMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopMapViewController.m; sourceTree = "<group>"; };
 		04D208D11A30560C00250564 /* Toast+UIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Toast+UIView.h"; sourceTree = "<group>"; };
@@ -870,6 +873,8 @@
 				04B1C94B1A3BFD9300FD0BC8 /* UserListCell.m */,
 				0491FE571A46C2C100A624E3 /* MessageCell.h */,
 				0491FE581A46C2C100A624E3 /* MessageCell.m */,
+				04C010991A48791B00D741E5 /* MessageDetailCell.h */,
+				04C0109A1A48791B00D741E5 /* MessageDetailCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1826,6 +1831,7 @@
 				04B0D06319DA7C3000289F78 /* SDWebImagePrefetcher.m in Sources */,
 				045E4F581A34BBDF0091E7F2 /* WeatherCurrentCell.m in Sources */,
 				04C2418E1A3D7B490073CBBF /* ShopMapViewController.m in Sources */,
+				04C0109B1A48791B00D741E5 /* MessageDetailCell.m in Sources */,
 				045EF56B1A04CD2D00A85776 /* QNResumeUpload.m in Sources */,
 				047EB62C19E7CE8000A2E081 /* ASIDataDecompressor.m in Sources */,
 				048355AE19D320D2005ECAD6 /* AboutViewController.m in Sources */,
