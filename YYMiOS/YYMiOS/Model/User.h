@@ -15,7 +15,7 @@
     NSInteger   _userId;
     NSString    *_userName;
     BOOL        _anonymous;
-    NSString    *_badges;
+    NSArray    *_badges;
     NSDate    *_createTime;
     NSInteger   _exp;
     NSInteger   _fanCount;
@@ -38,7 +38,7 @@
 @property (assign, nonatomic) NSInteger userId;
 @property (retain, nonatomic) NSString *userName;
 @property (assign, nonatomic) BOOL anonymous;
-@property (retain, nonatomic) NSString *badges;
+@property (retain, nonatomic) NSArray *badges;
 @property (retain, nonatomic) NSDate *createTime;
 @property (assign, nonatomic) NSInteger exp;
 @property (assign, nonatomic) NSInteger fanCount;

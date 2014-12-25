@@ -103,7 +103,11 @@ static User *sharedUser = nil;
             }
             if([attribute objectForKey:@"badges"] && ![[attribute objectForKey:@"badges"] isEqual:[NSNull null]])
             {
-                self.badges = [attribute objectForKey:@"badges"];
+                NSArray *array = [attribute objectForKey:@"badges"];
+                if(array && [array isKindOfClass:[NSArray class]] && [array count] > 0)
+                {
+                    self.badges = array;
+                }
             }
             if([attribute objectForKey:@"create_time"] && ![[attribute objectForKey:@"create_time"] isEqual:[NSNull null]])
             {
