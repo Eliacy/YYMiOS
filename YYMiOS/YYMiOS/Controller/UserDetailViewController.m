@@ -318,11 +318,12 @@
     _backView.backgroundColor = [UIColor whiteColor];
     [_tableHeaderView addSubview:_backView];
     
-    _avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 10, 60, 60)];
+    _avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 10, 60, 60)];
     _avatarImageView.backgroundColor = [UIColor clearColor];
     _avatarImageView.userInteractionEnabled = YES;
-    _avatarImageView.layer.cornerRadius = 30;
+    _avatarImageView.layer.cornerRadius = 30.0;
     _avatarImageView.layer.masksToBounds = YES;
+    _avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
     [_backView addSubview:_avatarImageView];
     
     _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(_avatarImageView.frame.origin.x + _avatarImageView.frame.size.width + 10, _avatarImageView.frame.origin.y, _backView.frame.size.width - 20 * 2 - 10 - _avatarImageView.frame.size.width, 20)];

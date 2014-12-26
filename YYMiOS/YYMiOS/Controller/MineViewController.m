@@ -17,6 +17,8 @@
 #import "FeedbackViewController.h"
 #import "AboutViewController.h"
 
+#import "FollowingViewController.h"
+#import "FollowerViewController.h"
 #import "UserDetailViewController.h"
 
 #define kBadgesImageViewTag 18926
@@ -46,16 +48,16 @@
 
 - (void)clickFollowingButton:(id)sender
 {
-    UserDetailViewController *userDetailVC = [[[UserDetailViewController alloc] init] autorelease];
-    userDetailVC.userId = [[User sharedUser] userId];
-    [self.tabVC.navigationController pushViewController:userDetailVC animated:YES];
+    FollowingViewController *followingVC = [[[FollowingViewController alloc] init] autorelease];
+    followingVC.userId = [[User sharedUser] userId];
+    [self.tabVC.navigationController pushViewController:followingVC animated:YES];
 }
 
 - (void)clickFollowerButton:(id)sender
 {
-    UserDetailViewController *userDetailVC = [[[UserDetailViewController alloc] init] autorelease];
-    userDetailVC.userId = [[User sharedUser] userId];
-    [self.tabVC.navigationController pushViewController:userDetailVC animated:YES];
+    FollowerViewController *followerVC = [[[FollowerViewController alloc] init] autorelease];
+    followerVC.userId = [[User sharedUser] userId];
+    [self.tabVC.navigationController pushViewController:followerVC animated:YES];
 }
 
 - (void)clickLikeButton:(id)sender
@@ -144,11 +146,12 @@
     _backView.backgroundColor = [UIColor whiteColor];
     [_tableHeaderView addSubview:_backView];
     
-    _avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 10, 60, 60)];
+    _avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 10, 60, 60)];
     _avatarImageView.backgroundColor = [UIColor clearColor];
     _avatarImageView.userInteractionEnabled = YES;
-    _avatarImageView.layer.cornerRadius = 30;
+    _avatarImageView.layer.cornerRadius = 30.0;
     _avatarImageView.layer.masksToBounds = YES;
+    _avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
     [_backView addSubview:_avatarImageView];
     
     UITapGestureRecognizer *oneFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAvaterView:)];
