@@ -11,7 +11,9 @@
 #import "TabViewController.h"
 #import "WeiboSDK.h"
 #import "Categories.h"
+#import "WXApi.h"
 
+#define WEIXINKEY   @"wx9ecdcdfe681ca533"   //微信appid
 #define WEIBOKEY    @"2377894405"           //微博appid
 
 @interface AppDelegate () <IChatManagerDelegate>
@@ -24,6 +26,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    [WXApi registerApp:WEIXINKEY];
     [WeiboSDK enableDebugMode:YES];
     [WeiboSDK registerApp:WEIBOKEY];
     

@@ -8,6 +8,7 @@
 
 #import "MessageDetailViewController.h"
 #import "ChatSendHelper.h"
+#import "MessageDetailCell.h"
 
 #define KPageCount 20
 
@@ -22,7 +23,7 @@
 
 @implementation MessageDetailViewController
 
-@synthesize emUsername = _emUsername;
+@synthesize user = _user;
 
 #pragma mark - private
 
@@ -43,8 +44,10 @@
     }
     
     //创建messsage对象
-    EMMessage *tempMessage = [ChatSendHelper sendTextMessageWithString:_textField.text toUsername:_emUsername isChatGroup:NO requireEncryption:NO];
+    EMMessage *tempMessage = [ChatSendHelper sendTextMessageWithString:_textField.text toUsername:_user.emUsername isChatGroup:NO requireEncryption:NO];
     [self addChatDataToMessage:tempMessage];
+    
+    _textField.text = @"";
 }
 
 - (void)loadMoreMessages
@@ -175,7 +178,12 @@
     _tableView.backgroundColor = [UIColor clearColor];
     _tableView.dataSource = self;
     _tableView.delegate = self;
+    _tableView.separatorColor = [UIColor clearColor];
     [self.view addSubview:_tableView];
+    
+    UIView *tableHeaderView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 12)] autorelease];
+    tableHeaderView.backgroundColor = [UIColor clearColor];
+    _tableView.tableHeaderView = tableHeaderView;
     
     UIView *tableFooterView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 1)] autorelease];
     tableFooterView.backgroundColor = [UIColor clearColor];
@@ -190,7 +198,7 @@
     //注册为SDK的ChatManager的delegate
     [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
     
-    _conversation = [[EaseMob sharedInstance].chatManager conversationForChatter:_emUsername isGroup:NO];
+    _conversation = [[EaseMob sharedInstance].chatManager conversationForChatter:_user.emUsername isGroup:NO];
     [_conversation markMessagesAsRead:YES];
     _messageQueue = dispatch_queue_create("easemob.com", NULL);
     
@@ -238,6 +246,21 @@
 
 #pragma mark - UITableViewDataSource
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CGFloat height = 0;
+    
+    EMMessage *message = [_messageDetailArray objectAtIndex:indexPath.row];
+    
+    CGSize textSize = [LPUtility getTextHeightWithText:[(EMTextMessageBody *)message.messageBodies.lastObject text]
+                                                  font:[UIFont systemFontOfSize:14.0f]
+                                                  size:CGSizeMake(150, 2000)];
+    height += textSize.height;
+    height += 45 + 20;
+    
+    return height;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [_messageDetailArray count];
@@ -245,39 +268,15 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MessageDetailViewControllerIdentifier"];
+    MessageDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MessageDetailViewControllerIdentifier"];
     if(cell == nil)
     {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"MessageDetailViewControllerIdentifier"] autorelease];
+        cell = [[[MessageDetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"MessageDetailViewControllerIdentifier"] autorelease];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
-    EMMessage *message = [_messageDetailArray objectAtIndex:indexPath.row];
-    id<IEMMessageBody> messageBody = message.messageBodies.lastObject;
-    NSString *ret;
-    switch (messageBody.messageBodyType) {
-        case eMessageBodyType_Image:{
-            ret = @"[图片]";
-        } break;
-        case eMessageBodyType_Text:{
-            // 表情映射。
-            NSString *didReceiveText = ((EMTextMessageBody *)messageBody).text;
-            ret = didReceiveText;
-        } break;
-        case eMessageBodyType_Voice:{
-            ret = @"[声音]";
-        } break;
-        case eMessageBodyType_Location: {
-            ret = @"[位置]";
-        } break;
-        case eMessageBodyType_Video: {
-            ret = @"[视频]";
-        } break;
-        default: {
-        } break;
-    }
-    
-    cell.textLabel.text = ret;
+    cell.user = _user;
+    cell.message = [_messageDetailArray objectAtIndex:indexPath.row];
     
     return cell;
 }
@@ -312,7 +311,7 @@
 
 - (void)didReceiveMessage:(EMMessage *)message
 {
-    if((message.from && [message.from isEqualToString:_emUsername]))
+    if((message.from && [message.from isEqualToString:_user.emUsername]))
     {
         [self addChatDataToMessage:message];
     }

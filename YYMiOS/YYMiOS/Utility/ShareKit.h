@@ -20,6 +20,8 @@
     UIView      *_shareView;
     
     UIButton    *_weiboButton;
+    UIButton    *_weixinButton;
+    UIButton    *_friendButton;
     
     NSInteger   _articleId;
     NSInteger   _reviewId;

@@ -38,7 +38,7 @@
 - (void)clickMessageButton:(id)sender
 {
     MessageDetailViewController *messageDetailVC = [[[MessageDetailViewController alloc] init] autorelease];
-    messageDetailVC.emUsername = _user.emUsername;
+    messageDetailVC.user = _user;
     [self.navigationController pushViewController:messageDetailVC animated:YES];
 }
 

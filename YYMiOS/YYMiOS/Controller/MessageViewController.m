@@ -208,7 +208,7 @@
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     MessageDetailViewController *messageDetailVC = [[[MessageDetailViewController alloc] init] autorelease];
-    messageDetailVC.emUsername = [[(Message *)[_messageArray objectAtIndex:indexPath.row] user] emUsername];
+    messageDetailVC.user = [(Message *)[_messageArray objectAtIndex:indexPath.row] user];
     [self.navigationController pushViewController:messageDetailVC animated:YES];
     
     return nil;
