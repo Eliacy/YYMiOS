@@ -17,6 +17,8 @@
 #import "FeedbackViewController.h"
 #import "AboutViewController.h"
 
+#import "FollowerViewController.h"
+#import "FollowingViewController.h"
 #import "UserDetailViewController.h"
 
 @interface MineViewController ()
@@ -44,16 +46,21 @@
 
 - (void)clickFollowingButton:(id)sender
 {
-    UserDetailViewController *userDetailVC = [[[UserDetailViewController alloc] init] autorelease];
-    userDetailVC.userId = [[User sharedUser] userId];
-    [self.tabVC.navigationController pushViewController:userDetailVC animated:YES];
+//    UserDetailViewController *userDetailVC = [[[UserDetailViewController alloc] init] autorelease];
+//    userDetailVC.userId = [[User sharedUser] userId];
+//    [self.tabVC.navigationController pushViewController:userDetailVC animated:YES];
+    FollowingViewController *followingVC = [[[FollowingViewController alloc] init] autorelease];
+    followingVC.userId = [[User sharedUser] userId];
+    [self.tabVC.navigationController pushViewController:followingVC animated:YES];
 }
 
 - (void)clickFollowerButton:(id)sender
 {
-    UserDetailViewController *userDetailVC = [[[UserDetailViewController alloc] init] autorelease];
-    userDetailVC.userId = [[User sharedUser] userId];
-    [self.tabVC.navigationController pushViewController:userDetailVC animated:YES];
+//    UserDetailViewController *userDetailVC = [[[UserDetailViewController alloc] init] autorelease];
+//    userDetailVC.userId = [[User sharedUser] userId];
+//    [self.tabVC.navigationController pushViewController:userDetailVC animated:YES];
+    FollowerViewController *followerVC = [[[FollowerViewController alloc] init] autorelease];
+    [self.tabVC.navigationController pushViewController:followerVC animated:YES];
 }
 
 - (void)clickLikeButton:(id)sender

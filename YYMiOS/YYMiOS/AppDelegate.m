@@ -178,6 +178,27 @@
             [[NSUserDefaults standardUserDefaults] synchronize];
         }
     }
+    
+    [[LPAPIClient sharedAPIClient] getLowestVersionSuccess:^(id respondObject) {
+        
+        if([respondObject objectForKey:@"data"])
+        {
+            respondObject = [respondObject objectForKey:@"data"];
+            if([respondObject objectForKey:@"minimal_available_version"] && ![[respondObject objectForKey:@"minimal_available_version"] isEqual:[NSNull null]])
+            {
+                NSInteger lowestVersion = [[respondObject objectForKey:@"minimal_available_version"] integerValue];
+                NSDictionary *dict = [[NSBundle mainBundle] infoDictionary];
+                if([[dict objectForKey:@"CFBundleShortVersionString"] floatValue] < lowestVersion)
+                {
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"请下载最新版本" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                    [alertView show];
+                }
+            }
+        }
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -238,6 +259,13 @@
     UINavigationController *navigationController = [[[UINavigationController alloc] initWithRootViewController:tabVC] autorelease];
     navigationController.navigationBarHidden = YES;
     self.window.rootViewController = navigationController;
+}
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.baidu.com"]];
 }
 
 @end

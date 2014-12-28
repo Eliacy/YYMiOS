@@ -653,6 +653,8 @@
     if(gestureRecognizer.state == UIGestureRecognizerStateEnded)
     {
         ShopPictureViewController *shopPictureVC = [[[ShopPictureViewController alloc] init] autorelease];
+        shopPictureVC.index = 0;
+        shopPictureVC.pictureArray = [NSMutableArray arrayWithArray:_poiDetail.topImageArray];
         [self.navigationController pushViewController:shopPictureVC animated:YES];
     }
 }

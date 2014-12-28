@@ -254,6 +254,7 @@
 		04C0109B1A48791B00D741E5 /* MessageDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C0109A1A48791B00D741E5 /* MessageDetailCell.m */; };
 		04C2418E1A3D7B490073CBBF /* ShopMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C2418D1A3D7B490073CBBF /* ShopMapViewController.m */; };
 		04D208D31A30560C00250564 /* Toast+UIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D208D21A30560C00250564 /* Toast+UIView.m */; };
+		04D550791A50612F00FF5AFA /* PictureImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D550781A50612F00FF5AFA /* PictureImageView.m */; };
 		04DC527319FBBC6B00342DB6 /* Site.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DC527219FBBC6B00342DB6 /* Site.m */; };
 		04DC527619FBC01E00342DB6 /* LPImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DC527519FBC01E00342DB6 /* LPImage.m */; };
 		04DC527919FBD0F400342DB6 /* DealEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DC527819FBD0F400342DB6 /* DealEditViewController.m */; };
@@ -729,6 +730,8 @@
 		04C2418D1A3D7B490073CBBF /* ShopMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopMapViewController.m; sourceTree = "<group>"; };
 		04D208D11A30560C00250564 /* Toast+UIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Toast+UIView.h"; sourceTree = "<group>"; };
 		04D208D21A30560C00250564 /* Toast+UIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Toast+UIView.m"; sourceTree = "<group>"; };
+		04D550771A50612F00FF5AFA /* PictureImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PictureImageView.h; sourceTree = "<group>"; };
+		04D550781A50612F00FF5AFA /* PictureImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PictureImageView.m; sourceTree = "<group>"; };
 		04DC527119FBBC6B00342DB6 /* Site.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Site.h; sourceTree = "<group>"; };
 		04DC527219FBBC6B00342DB6 /* Site.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Site.m; sourceTree = "<group>"; };
 		04DC527419FBC01E00342DB6 /* LPImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPImage.h; sourceTree = "<group>"; };
@@ -875,6 +878,8 @@
 				0491FE581A46C2C100A624E3 /* MessageCell.m */,
 				04C010991A48791B00D741E5 /* MessageDetailCell.h */,
 				04C0109A1A48791B00D741E5 /* MessageDetailCell.m */,
+				04D550771A50612F00FF5AFA /* PictureImageView.h */,
+				04D550781A50612F00FF5AFA /* PictureImageView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1874,6 +1879,7 @@
 				046BF9F51A0BCC4F003FE419 /* LPUtility.m in Sources */,
 				04B1C94F1A3C23AC00FD0BC8 /* DealDetailExtView.m in Sources */,
 				04E963731A2C3C350067C6C2 /* FollowingViewController.m in Sources */,
+				04D550791A50612F00FF5AFA /* PictureImageView.m in Sources */,
 				04DC527619FBC01E00342DB6 /* LPImage.m in Sources */,
 				049E691019E13F0400DA984F /* DealDetailViewController.m in Sources */,
 				0498E32F19F509840085E12B /* AFURLRequestSerialization.m in Sources */,
