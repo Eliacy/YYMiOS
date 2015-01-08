@@ -26,6 +26,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    NSTimeInterval startTimeStamp = [[NSDate date] timeIntervalSince1970];
+    
     [WXApi registerApp:WEIXINKEY];
     [WeiboSDK enableDebugMode:YES];
     [WeiboSDK registerApp:WEIBOKEY];
@@ -76,6 +78,10 @@
     } failure:^(NSError *error) {
         
     }];
+    
+    // 让启动画面停留足够长的时间，方便用户看清楚：
+    double timeToSleep = 1.8 - ([[NSDate date] timeIntervalSince1970] - startTimeStamp);
+    [NSThread sleepForTimeInterval:timeToSleep];
     
     if([[NSUserDefaults standardUserDefaults] objectForKey:@"login_flag"] && [[[NSUserDefaults standardUserDefaults] objectForKey:@"login_flag"] boolValue])
     {
