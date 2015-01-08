@@ -62,6 +62,8 @@
     _logoutButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     _logoutButton.frame = CGRectMake(20, _tableFooterView.frame.size.height - 45, _tableFooterView.frame.size.width - 20 * 2, 45);
     _logoutButton.backgroundColor = [UIColor grayColor];
+    _logoutButton.layer.cornerRadius = 5.0;
+    _logoutButton.layer.masksToBounds = YES;
     [_logoutButton setTitle:@"退出当前登录" forState:UIControlStateNormal];
     [_logoutButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_logoutButton addTarget:self action:@selector(clickLogoutButton:) forControlEvents:UIControlEventTouchUpInside];
