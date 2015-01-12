@@ -11,12 +11,16 @@
 @implementation CommentCell
 
 @synthesize comment = _comment;
+@synthesize delegate = _delegate;
 
 #pragma mark - private
 
 - (void)clickReplyButton:(id)sender
 {
-
+    if(_delegate && [_delegate respondsToSelector:@selector(commentCellDidClickReplyButton:)])
+    {
+        [_delegate commentCellDidClickReplyButton:self];
+    }
 }
 
 #pragma mark - super
