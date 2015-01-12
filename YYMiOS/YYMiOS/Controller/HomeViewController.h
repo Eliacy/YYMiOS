@@ -22,8 +22,12 @@
     
     UIButton        *_tipsButton;
     UIButton        *_messageButton;
+    
+    UILabel         *_messageCountLabel;
 }
 
 @property (assign, nonatomic) TabViewController *tabVC;
+
+- (void)refreshMessageCount:(NSInteger)count;
 
 @end

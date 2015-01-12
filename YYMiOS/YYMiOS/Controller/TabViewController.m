@@ -8,11 +8,18 @@
 
 #import "TabViewController.h"
 
-@interface TabViewController ()
+static const CGFloat kDefaultPlaySoundInterval = 3.0;
+
+@interface TabViewController () <IChatManagerDelegate>
+
+@property (retain, nonatomic) NSDate *lastPlaySoundDate;
 
 @end
 
 @implementation TabViewController
+
+@synthesize homeVC = _homeVC;
+@synthesize mineVC = _mineVC;
 
 #pragma mark - private
 
@@ -223,6 +230,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [self registerNotifications];
+}
+
+-(void)registerNotifications
+{
+    [self unregisterNotifications];
+    
+    [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
+}
+
+-(void)unregisterNotifications
+{
+    [[EaseMob sharedInstance].chatManager removeDelegate:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -233,6 +254,8 @@
     {
         [_currentVC viewWillAppear:animated];
     }
+    
+    [self setupUnreadMessageCount];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -259,5 +282,100 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+#pragma mark - IChatManagerDelegate
+
+- (void)didUnreadMessagesCountChanged
+{
+    [self setupUnreadMessageCount];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"RefreshEaseMobMessage"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)setupUnreadMessageCount
+{
+    if([[[EaseMob sharedInstance] chatManager] isLoggedIn])
+    {
+        NSArray *conversations = [[EaseMob sharedInstance].chatManager conversations];
+        NSArray* sorte = [conversations sortedArrayUsingComparator:
+                          ^(EMConversation *obj1, EMConversation* obj2){
+                              EMMessage *message1 = [obj1 latestMessage];
+                              EMMessage *message2 = [obj2 latestMessage];
+                              if(message1.timestamp > message2.timestamp) {
+                                  return(NSComparisonResult)NSOrderedAscending;
+                              }else {
+                                  return(NSComparisonResult)NSOrderedDescending;
+                              }
+                          }];
+        
+        NSInteger unreadCount = 0;
+        
+        for(NSInteger i = 0; i < [sorte count]; i++)
+        {
+            EMConversation *conversation = [sorte objectAtIndex:i];
+            unreadCount += [conversation unreadMessagesCount];
+        }
+        
+        if(self.homeVC != nil)
+        {
+            [self.homeVC refreshMessageCount:unreadCount];
+        }
+        if(self.mineVC != nil)
+        {
+            [self.mineVC refreshMessageCount:unreadCount];
+        }
+    }
+}
+
+// 收到消息回调
+-(void)didReceiveMessage:(EMMessage *)message
+{
+#if !TARGET_IPHONE_SIMULATOR
+    
+    BOOL isAppActivity = [[UIApplication sharedApplication] applicationState] == UIApplicationStateActive;
+    
+    if(!isAppActivity)
+    {
+        [self showNotificationWithMessage:message];
+    }
+    else
+    {
+        [self playSoundAndVibration];
+    }
+#endif
+}
+
+- (void)playSoundAndVibration{
+    NSTimeInterval timeInterval = [[NSDate date]
+                                   timeIntervalSinceDate:self.lastPlaySoundDate];
+    if (timeInterval < kDefaultPlaySoundInterval) {
+        //如果距离上次响铃和震动时间太短, 则跳过响铃
+        NSLog(@"skip ringing & vibration %@, %@", [NSDate date], self.lastPlaySoundDate);
+        return;
+    }
+    
+    //保存最后一次响铃时间
+    self.lastPlaySoundDate = [NSDate date];
+    
+    // 收到消息时，播放音频
+    [[EaseMob sharedInstance].deviceManager asyncPlayNewMessageSound];
+    // 收到消息时，震动
+    [[EaseMob sharedInstance].deviceManager asyncPlayVibration];
+}
+
+- (void)showNotificationWithMessage:(EMMessage *)message
+{
+    //发送本地推送
+    UILocalNotification *notification = [[[UILocalNotification alloc] init] autorelease];
+    notification.fireDate = [NSDate date]; //触发通知的时间
+    notification.alertBody = @"您有一条新消息";
+    notification.alertAction = @"打开";
+    notification.timeZone = [NSTimeZone defaultTimeZone];
+    notification.soundName = UILocalNotificationDefaultSoundName;
+    notification.userInfo = [NSDictionary dictionaryWithObject:message.from forKey:@"chatter"];
+    //发送通知
+    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+}
 
 @end

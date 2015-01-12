@@ -138,6 +138,16 @@
     [_messageButton addTarget:self action:@selector(clickMessageButton:) forControlEvents:UIControlEventTouchUpInside];
     [_headerView addSubview:_messageButton];
     
+    _messageCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(_messageButton.frame.size.width - 12, 5, 12, 12)];
+    _messageCountLabel.backgroundColor = [UIColor redColor];
+    _messageCountLabel.layer.cornerRadius = 6.0f;
+    _messageCountLabel.layer.masksToBounds = YES;
+    _messageCountLabel.textColor = [UIColor whiteColor];
+    _messageCountLabel.font = [UIFont systemFontOfSize:10.0f];
+    _messageCountLabel.textAlignment = NSTextAlignmentCenter;
+    [_messageButton addSubview:_messageCountLabel];
+    _messageCountLabel.hidden = YES;
+    
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, _adjustView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - _adjustView.frame.size.height) style:UITableViewStylePlain];
     _tableView.backgroundColor = [UIColor clearColor];
     _tableView.dataSource = self;
@@ -585,6 +595,23 @@
     {
         UserInfoViewController *userInfoVC = [[[UserInfoViewController alloc] init] autorelease];
         [self.tabVC.navigationController pushViewController:userInfoVC animated:YES];
+    }
+}
+
+- (void)refreshMessageCount:(NSInteger)count
+{
+    if(count == 0)
+    {
+        _messageCountLabel.hidden = YES;
+    }
+    else
+    {
+        _messageCountLabel.hidden = NO;
+        
+        NSString *string = count > 99 ? @"99+" : [NSString stringWithFormat:@"%i", (int)count];
+        CGSize stringSize = [LPUtility getTextHeightWithText:string font:_messageCountLabel.font size:CGSizeMake(100, 100)];
+        _messageCountLabel.frame = CGRectMake(_messageButton.frame.size.width - stringSize.width - 6, 5, stringSize.width + 6, 12);
+        _messageCountLabel.text = string;
     }
 }
 

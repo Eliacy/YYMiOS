@@ -32,10 +32,14 @@
     UIButton        *_settingButton;
     UIButton        *_messageButton;
     
+    UILabel         *_messageCountLabel;
+    
     User            *_user;
 }
 
 @property (assign, nonatomic) TabViewController *tabVC;
 @property (retain, nonatomic) User *user;
+
+- (void)refreshMessageCount:(NSInteger)count;
 
 @end

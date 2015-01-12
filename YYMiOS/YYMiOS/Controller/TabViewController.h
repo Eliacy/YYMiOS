@@ -32,4 +32,7 @@
     UIViewController        *_currentVC;
 }
 
+@property (assign, nonatomic) HomeViewController *homeVC;
+@property (assign, nonatomic) MineViewController *mineVC;
+
 @end
