@@ -44,11 +44,14 @@
     _backgroundImageView.layer.masksToBounds = YES;
     [self.view addSubview:_backgroundImageView];
     
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, _adjustView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - _adjustView.frame.size.height) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, _adjustView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - _adjustView.frame.size.height) style:UITableViewStyleGrouped];
     _tableView.backgroundColor = [UIColor clearColor];
     _tableView.dataSource = self;
     _tableView.delegate = self;
     _tableView.separatorColor = [UIColor clearColor];
+    // 这里用 UITableViewStyleGrouped 代替 Plain 来解决第二个 Section 的 Footer 中的横线挤在界面最下方无法消失问题。但这样也造成了表格样式有变化，下面两行尽量还原表现样式。
+    _tableView.sectionHeaderHeight = 0.0;
+    _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, _tableView.bounds.size.width, 0.01f)];
     [self.view addSubview:_tableView];
 }
 

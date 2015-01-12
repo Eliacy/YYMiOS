@@ -94,32 +94,58 @@
     [_backView addGestureRecognizer:backViewTap];
     [backViewTap release];
     
-    _telephoneTextField = [[UITextField alloc] initWithFrame:CGRectMake(40, _adjustView.frame.size.height + 40, self.view.frame.size.width - 40 * 2, 40)];
-    _telephoneTextField.backgroundColor = [UIColor whiteColor];
+    _telephoneBackView = [[UIView alloc] initWithFrame:CGRectMake(40, _adjustView.frame.size.height + 40, self.view.frame.size.width - 40 * 2, 40)];
+    _telephoneBackView.backgroundColor = [UIColor whiteColor];
+    _telephoneBackView.layer.borderWidth = 0.5;
+    _telephoneBackView.layer.borderColor = [UIColor colorWithRed:200.0 / 255.0 green:200.0 / 255.0 blue:200.0 / 255.0 alpha:1.0].CGColor;
+    _telephoneBackView.layer.cornerRadius = 5.0;
+    _telephoneBackView.layer.masksToBounds = YES;
+    [self.view addSubview:_telephoneBackView];
+    
+    _telephoneTextField = [[UITextField alloc] initWithFrame:CGRectMake(10, 0, _telephoneBackView.frame.size.width, _telephoneBackView.frame.size.height)];
+    _telephoneTextField.backgroundColor = [UIColor clearColor];
     _telephoneTextField.delegate = self;
     _telephoneTextField.returnKeyType = UIReturnKeyNext;
     _telephoneTextField.placeholder = @"手机号";
-    [self.view addSubview:_telephoneTextField];
+    [_telephoneBackView addSubview:_telephoneTextField];
     
-    _passwordTextField = [[UITextField alloc] initWithFrame:CGRectMake(_telephoneTextField.frame.origin.x, _telephoneTextField.frame.origin.y + _telephoneTextField.frame.size.height + 10, _telephoneTextField.frame.size.width, _telephoneTextField.frame.size.height)];
-    _passwordTextField.backgroundColor = [UIColor whiteColor];
+    _passwordBackView = [[UIView alloc] initWithFrame:CGRectMake(_telephoneBackView.frame.origin.x, _telephoneBackView.frame.origin.y + _telephoneBackView.frame.size.height + 10, _telephoneBackView.frame.size.width, _telephoneBackView.frame.size.height)];
+    _passwordBackView.backgroundColor = [UIColor whiteColor];
+    _passwordBackView.layer.borderWidth = 0.5;
+    _passwordBackView.layer.borderColor = [UIColor colorWithRed:200.0 / 255.0 green:200.0 / 255.0 blue:200.0 / 255.0 alpha:1.0].CGColor;
+    _passwordBackView.layer.cornerRadius = 5.0;
+    _passwordBackView.layer.masksToBounds = YES;
+    [self.view addSubview:_passwordBackView];
+    
+    _passwordTextField = [[UITextField alloc] initWithFrame:CGRectMake(10, 0, _passwordBackView.frame.size.width, _passwordBackView.frame.size.height)];
+    _passwordTextField.backgroundColor = [UIColor clearColor];
     _passwordTextField.secureTextEntry = YES;
     _passwordTextField.delegate = self;
     _passwordTextField.returnKeyType = UIReturnKeyNext;
     _passwordTextField.placeholder = @"密码";
-    [self.view addSubview:_passwordTextField];
+    [_passwordBackView addSubview:_passwordTextField];
     
-    _repasswordTextField = [[UITextField alloc] initWithFrame:CGRectMake(_passwordTextField.frame.origin.x, _passwordTextField.frame.origin.y + _passwordTextField.frame.size.height + 10, _passwordTextField.frame.size.width, _passwordTextField.frame.size.height)];
-    _repasswordTextField.backgroundColor = [UIColor whiteColor];
+    _repasswordBackView = [[UIView alloc] initWithFrame:CGRectMake(_passwordBackView.frame.origin.x, _passwordBackView.frame.origin.y + _passwordBackView.frame.size.height + 10, _passwordBackView.frame.size.width, _passwordBackView.frame.size.height)];
+    _repasswordBackView.backgroundColor = [UIColor whiteColor];
+    _repasswordBackView.layer.borderWidth = 0.5;
+    _repasswordBackView.layer.borderColor = [UIColor colorWithRed:200.0 / 255.0 green:200.0 / 255.0 blue:200.0 / 255.0 alpha:1.0].CGColor;
+    _repasswordBackView.layer.cornerRadius = 5.0;
+    _repasswordBackView.layer.masksToBounds = YES;
+    [self.view addSubview:_repasswordBackView];
+    
+    _repasswordTextField = [[UITextField alloc] initWithFrame:CGRectMake(10, 0, _repasswordBackView.frame.size.width, _repasswordBackView.frame.size.height)];
+    _repasswordTextField.backgroundColor = [UIColor clearColor];
     _repasswordTextField.secureTextEntry = YES;
     _repasswordTextField.delegate = self;
     _repasswordTextField.returnKeyType = UIReturnKeyGo;
     _repasswordTextField.placeholder = @"确认密码";
-    [self.view addSubview:_repasswordTextField];
+    [_repasswordBackView addSubview:_repasswordTextField];
     
     _registerButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-    _registerButton.frame = CGRectMake(_repasswordTextField.frame.origin.x, _repasswordTextField.frame.origin.y + _repasswordTextField.frame.size.height + 40, _repasswordTextField.frame.size.width, _repasswordTextField.frame.size.height);
+    _registerButton.frame = CGRectMake(_repasswordBackView.frame.origin.x, _repasswordBackView.frame.origin.y + _repasswordBackView.frame.size.height + 40, _repasswordBackView.frame.size.width, _repasswordBackView.frame.size.height);
     _registerButton.backgroundColor = [UIColor purpleColor];
+    _registerButton.layer.cornerRadius = 5.0;
+    _registerButton.layer.masksToBounds = YES;
     [_registerButton setTitle:@"注册" forState:UIControlStateNormal];
     [_registerButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_registerButton addTarget:self action:@selector(clickRegisterButton:) forControlEvents:UIControlEventTouchUpInside];

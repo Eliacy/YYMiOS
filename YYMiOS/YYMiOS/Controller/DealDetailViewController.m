@@ -402,7 +402,7 @@
     
     [_avatarImageView setImageWithURL:[NSURL URLWithString:[LPUtility getQiniuImageURLStringWithBaseString:deal.user.userIcon.imageURL imageSize:CGSizeMake(100, 100)]]];
     _nameLabel.text = deal.user.userName;
-    _timeLabel.text = deal.updateTime;
+    _timeLabel.text = [LPUtility friendlyStringFromDate:deal.updateTime];
     
     if(deal.user.followed)
     {

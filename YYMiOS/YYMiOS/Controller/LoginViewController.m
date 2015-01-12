@@ -99,24 +99,42 @@
     [_backView addGestureRecognizer:backViewTap];
     [backViewTap release];
     
-    _telephoneTextField = [[UITextField alloc] initWithFrame:CGRectMake(40, _adjustView.frame.size.height + 40, self.view.frame.size.width - 40 * 2, 40)];
-    _telephoneTextField.backgroundColor = [UIColor whiteColor];
+    _telephoneBackView = [[UIView alloc] initWithFrame:CGRectMake(40, _adjustView.frame.size.height + 40, self.view.frame.size.width - 40 * 2, 40)];
+    _telephoneBackView.backgroundColor = [UIColor whiteColor];
+    _telephoneBackView.layer.borderWidth = 0.5;
+    _telephoneBackView.layer.borderColor = [UIColor colorWithRed:200.0 / 255.0 green:200.0 / 255.0 blue:200.0 / 255.0 alpha:1.0].CGColor;
+    _telephoneBackView.layer.cornerRadius = 5.0;
+    _telephoneBackView.layer.masksToBounds = YES;
+    [self.view addSubview:_telephoneBackView];
+    
+    _telephoneTextField = [[UITextField alloc] initWithFrame:CGRectMake(10, 0, _telephoneBackView.frame.size.width, _telephoneBackView.frame.size.height)];
+    _telephoneTextField.backgroundColor = [UIColor clearColor];
     _telephoneTextField.delegate = self;
     _telephoneTextField.returnKeyType = UIReturnKeyNext;
     _telephoneTextField.placeholder = @"手机号";
-    [self.view addSubview:_telephoneTextField];
+    [_telephoneBackView addSubview:_telephoneTextField];
+ 
+    _passwordBackView = [[UIView alloc] initWithFrame:CGRectMake(_telephoneBackView.frame.origin.x, _telephoneBackView.frame.origin.y + _telephoneBackView.frame.size.height + 10, _telephoneBackView.frame.size.width, _telephoneBackView.frame.size.height)];
+    _passwordBackView.backgroundColor = [UIColor whiteColor];
+    _passwordBackView.layer.borderWidth = 0.5;
+    _passwordBackView.layer.borderColor = [UIColor colorWithRed:200.0 / 255.0 green:200.0 / 255.0 blue:200.0 / 255.0 alpha:1.0].CGColor;
+    _passwordBackView.layer.cornerRadius = 5.0;
+    _passwordBackView.layer.masksToBounds = YES;
+    [self.view addSubview:_passwordBackView];
     
-    _passwordTextField = [[UITextField alloc] initWithFrame:CGRectMake(_telephoneTextField.frame.origin.x, _telephoneTextField.frame.origin.y + _telephoneTextField.frame.size.height + 10, _telephoneTextField.frame.size.width, _telephoneTextField.frame.size.height)];
-    _passwordTextField.backgroundColor = [UIColor whiteColor];
+    _passwordTextField = [[UITextField alloc] initWithFrame:CGRectMake(10, 0, _passwordBackView.frame.size.width, _passwordBackView.frame.size.height)];
+    _passwordTextField.backgroundColor = [UIColor clearColor];
     _passwordTextField.secureTextEntry = YES;
     _passwordTextField.delegate = self;
     _passwordTextField.returnKeyType = UIReturnKeyGo;
     _passwordTextField.placeholder = @"密码";
-    [self.view addSubview:_passwordTextField];
+    [_passwordBackView addSubview:_passwordTextField];
     
     _loginButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-    _loginButton.frame = CGRectMake(_passwordTextField.frame.origin.x, _passwordTextField.frame.origin.y + _passwordTextField.frame.size.height + 40, _passwordTextField.frame.size.width, _passwordTextField.frame.size.height);
+    _loginButton.frame = CGRectMake(_passwordBackView.frame.origin.x, _passwordBackView.frame.origin.y + _passwordBackView.frame.size.height + 40, _passwordBackView.frame.size.width, _passwordBackView.frame.size.height);
     _loginButton.backgroundColor = [UIColor purpleColor];
+    _loginButton.layer.cornerRadius = 5.0;
+    _loginButton.layer.masksToBounds = YES;
     [_loginButton setTitle:@"登录" forState:UIControlStateNormal];
     [_loginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_loginButton addTarget:self action:@selector(clickLoginButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -125,6 +143,8 @@
     _registerButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     _registerButton.frame = CGRectMake(_loginButton.frame.origin.x, _loginButton.frame.origin.y + _loginButton.frame.size.height + 10, _loginButton.frame.size.width, _loginButton.frame.size.height);
     _registerButton.backgroundColor = [UIColor orangeColor];
+    _registerButton.layer.cornerRadius = 5.0;
+    _registerButton.layer.masksToBounds = YES;
     [_registerButton setTitle:@"注册" forState:UIControlStateNormal];
     [_registerButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_registerButton addTarget:self action:@selector(clickRegisterButton:) forControlEvents:UIControlEventTouchUpInside];

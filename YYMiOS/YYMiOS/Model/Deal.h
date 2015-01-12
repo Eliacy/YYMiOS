@@ -21,12 +21,12 @@
     NSInteger   _imageCount;
     NSArray     *_keywordArray;
     NSInteger   _likeCount;
-    NSString    *_publishTime;
+    NSDate    *_publishTime;
     BOOL        _published;
     BOOL        _selected;
     Site        *_site;
     NSInteger   _total;
-    NSString    *_updateTime;
+    NSDate    *_updateTime;
     User        *_user;
     BOOL        _liked;
 }
@@ -40,12 +40,12 @@
 @property (assign, nonatomic) NSInteger imageCount;
 @property (retain, nonatomic) NSArray *keywordArray;
 @property (assign, nonatomic) NSInteger likeCount;
-@property (retain, nonatomic) NSString *publishTime;
+@property (retain, nonatomic) NSDate *publishTime;
 @property (assign, nonatomic) BOOL published;
 @property (assign, nonatomic) BOOL selected;
 @property (retain, nonatomic) Site *site;
 @property (assign, nonatomic) NSInteger total;
-@property (retain, nonatomic) NSString *updateTime;
+@property (retain, nonatomic) NSDate *updateTime;
 @property (retain, nonatomic) User *user;
 @property (assign, nonatomic) BOOL liked;
 

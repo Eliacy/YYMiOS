@@ -12,8 +12,11 @@
 {
     UIView          *_backView;
     
+    UIView          *_telephoneBackView;
     UITextField     *_telephoneTextField;
+    UIView          *_passwordBackView;
     UITextField     *_passwordTextField;
+    UIView          *_repasswordBackView;
     UITextField     *_repasswordTextField;
     
     UIButton        *_registerButton;

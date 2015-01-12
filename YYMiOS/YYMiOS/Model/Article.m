@@ -49,7 +49,7 @@
             }
             if([attribute objectForKey:@"create_time"] && ![[attribute objectForKey:@"create_time"] isEqual:[NSNull null]])
             {
-                self.createTime = [attribute objectForKey:@"create_time"];
+                self.createTime = [LPUtility dateFromInternetDateTimeString:[attribute objectForKey:@"create_time"]];
             }
             if([attribute objectForKey:@"id"] && ![[attribute objectForKey:@"id"] isEqual:[NSNull null]])
             {
@@ -69,7 +69,7 @@
             }
             if([attribute objectForKey:@"update_time"] && ![[attribute objectForKey:@"update_time"] isEqual:[NSNull null]])
             {
-                self.updateTime = [attribute objectForKey:@"update_time"];
+                self.updateTime = [LPUtility dateFromInternetDateTimeString:[attribute objectForKey:@"update_time"]];
             }
         }
     }

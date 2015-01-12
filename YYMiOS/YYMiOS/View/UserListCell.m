@@ -8,6 +8,8 @@
 
 #import "UserListCell.h"
 
+#define kBadgesImageViewTag 18926
+
 @implementation UserListCell
 
 @synthesize user = _user;
@@ -79,6 +81,14 @@
     }
     _user = [user retain];
     
+    for(UIView *view in self.subviews)
+    {
+        if(view.tag >= kBadgesImageViewTag)
+        {
+            [view removeFromSuperview];
+        }
+    }
+    
     [_avatarImageView setImageWithURL:[NSURL URLWithString:[LPUtility getQiniuImageURLStringWithBaseString:user.userIcon.imageURL imageSize:CGSizeMake(120, 120)]]];
     _nameLabel.text = user.userName;
     
@@ -95,6 +105,38 @@
     CGSize followerSize = [LPUtility getTextHeightWithText:followerString font:[UIFont systemFontOfSize:11.0f] size:CGSizeMake(200, 100)];
     _followerButton.frame = CGRectMake(_followingButton.frame.origin.x + _followingButton.frame.size.width + 5, _followerButton.frame.origin.y, followerSize.width + 20, _followerButton.frame.size.height);
     [_followerButton setTitle:followerString forState:UIControlStateNormal];
+    
+    CGFloat offsetX = _followingButton.frame.origin.x;
+    CGFloat offsetY = _followingButton.frame.origin.y + _followingButton.frame.size.height + 5;
+    
+    for(NSInteger i = 0; i < [user.badges count]; i++)
+    {
+        NSString *badge = [user.badges objectAtIndex:i];
+        CGSize badgeSize = [LPUtility getTextHeightWithText:badge
+                                                         font:[UIFont systemFontOfSize:10.0f]
+                                                         size:CGSizeMake(200, 100)];
+        if(offsetX + badgeSize.width + 5 + 10 > self.frame.size.width - 15)
+        {
+            // 这里控制只输出一行用户勋章，更多的则没有显示。在个人主页的上半部，会把一个用户的勋章显示全。
+            break;
+        }
+        
+        UIImageView *imageView = [[[UIImageView alloc] initWithFrame:CGRectMake(offsetX, offsetY + 2, badgeSize.width + 5, 14)] autorelease];
+        imageView.backgroundColor = [UIColor clearColor];
+        imageView.image = [[UIImage imageNamed:[NSString stringWithFormat:@"%i.png", (int)(i % 6 + 1)]] stretchableImageWithLeftCapWidth:5 topCapHeight:0];
+        imageView.tag = kBadgesImageViewTag + i;
+        [self addSubview:imageView];
+        
+        UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(0, 1, imageView.frame.size.width, 12)] autorelease];
+        label.backgroundColor = [UIColor clearColor];
+        label.textColor = [UIColor whiteColor];
+        label.font = [UIFont systemFontOfSize:10.0f];
+        label.textAlignment = NSTextAlignmentCenter;
+        label.text = badge;
+        [imageView addSubview:label];
+        
+        offsetX += badgeSize.width + 5 + 10;
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

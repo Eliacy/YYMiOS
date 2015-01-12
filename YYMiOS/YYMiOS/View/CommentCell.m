@@ -84,7 +84,7 @@
     
     [_avatarImageView setImageWithURL:[NSURL URLWithString:[LPUtility getQiniuImageURLStringWithBaseString:comment.user.userIcon.imageURL imageSize:CGSizeMake(100, 100)]]];
     _nameLabel.text = comment.user.userName;
-    _timeLabel.text = comment.updateTime;
+    _timeLabel.text = [LPUtility friendlyStringFromDate:comment.updateTime];
     
     CGSize contentSize = [LPUtility getTextHeightWithText:comment.content
                                                      font:_contentLabel.font

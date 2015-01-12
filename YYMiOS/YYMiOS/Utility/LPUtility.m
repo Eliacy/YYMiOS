@@ -101,7 +101,7 @@
         [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithDouble:systemTimeStamp] forKey:@"SystemTimeStamp"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
-    NSString *downloadString = [NSString stringWithFormat:@"%@?imageView2/2/w/%i/h/%i&e=%i", baseString, (int)imageSize.width, (int)imageSize.height, (int)systemTimeStamp + 86400];
+    NSString *downloadString = [NSString stringWithFormat:@"%@?imageMogr2/thumbnail/!%ix%ir/quality/96&e=%i", baseString, (int)imageSize.width, (int)imageSize.height, (int)systemTimeStamp + 86400];
     
     NSString *secretKey = [LPUtility hmacsha1:downloadString secret:kSecretKey];
     
@@ -266,6 +266,70 @@
                                                           } failure:^(NSError *error) {
                                                               
                                                           }];
+}
+
+//解析字符串时间戳：
+//参考自：http://zurb.com/forrst/posts/NSDate_from_Internet_Date_Time_String-evA
++ (NSDate *)dateFromInternetDateTimeString:(NSString *)dateString
+{
+    // Setup Date & Formatter
+    NSDate *date = nil;
+    static NSDateFormatter *formatter = nil;
+    if (!formatter) {
+        // ToDo: 不确定这一段对不对。解析时候每次都把时区当做 0 时区是对的么？是否 model 中永远存 0 时区的，输出时根据当前时区再做处理？
+        NSLocale *en_US_POSIX = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
+        formatter = [[NSDateFormatter alloc] init];
+        [formatter setLocale:en_US_POSIX];
+        [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+        [en_US_POSIX release];
+    }
+    
+    /*
+     *  RFC3339
+     */
+    
+    NSString *RFC3339String = [[NSString stringWithString:dateString] uppercaseString];
+    RFC3339String = [RFC3339String stringByReplacingOccurrencesOfString:@"Z" withString:@"-0000"];
+    
+    // Remove colon in timezone as iOS 4+ NSDateFormatter breaks
+    // See https://devforums.apple.com/thread/45837
+    if (RFC3339String.length > 20) {
+        RFC3339String = [RFC3339String stringByReplacingOccurrencesOfString:@":"
+                                                                 withString:@""
+                                                                    options:0
+                                                                      range:NSMakeRange(20, RFC3339String.length-20)];
+    }
+    
+    if (!date) { // 1996-12-19T16:39:57-0800
+        [formatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ssZZZ"];
+        date = [formatter dateFromString:RFC3339String];
+    }
+    if (!date) { // 1937-01-01T12:00:27.87+0020
+        [formatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss.SSSZZZ"];
+        date = [formatter dateFromString:RFC3339String];
+    }
+    if (!date) { // 1937-01-01T12:00:27
+        [formatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss"]; 
+        date = [formatter dateFromString:RFC3339String];
+    }
+    if (date) return date;
+    
+    // Failed
+    return nil;
+    
+}
+
+//以用户友好的方式输出时间戳：
++ (NSString *)friendlyStringFromDate:(NSDate *)date
+{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    NSTimeZone *timeZone = [NSTimeZone localTimeZone];
+    
+    [formatter setTimeZone:timeZone];
+    // ToDo: 希望改成仿微信式的时间显示风格。。
+    [formatter setDateFormat : @"yyyy年M月d日 H点m分"];
+    
+    return [formatter stringFromDate:date];
 }
 
 @end

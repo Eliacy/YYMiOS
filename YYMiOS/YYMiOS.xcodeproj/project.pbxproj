@@ -181,6 +181,7 @@
 		04A9944D1A2B501D00B7AEDD /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04A9944C1A2B501D00B7AEDD /* CoreData.framework */; };
 		04A9944F1A2B53A100B7AEDD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04A9944E1A2B53A100B7AEDD /* CoreGraphics.framework */; };
 		04A994511A2B53B300B7AEDD /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 04A994501A2B53B300B7AEDD /* libxml2.dylib */; };
+		04AFEC1A1A641BC2006791AB /* PictureImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AFEC191A641BC2006791AB /* PictureImageView.m */; };
 		04AFF1961A148B0F000CE6FF /* tab_home_hide.png in Resources */ = {isa = PBXBuildFile; fileRef = 04AFF1861A148B0F000CE6FF /* tab_home_hide.png */; };
 		04AFF1971A148B0F000CE6FF /* tab_home_hide@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04AFF1871A148B0F000CE6FF /* tab_home_hide@2x.png */; };
 		04AFF1981A148B0F000CE6FF /* tab_home_show.png in Resources */ = {isa = PBXBuildFile; fileRef = 04AFF1881A148B0F000CE6FF /* tab_home_show.png */; };
@@ -254,7 +255,6 @@
 		04C0109B1A48791B00D741E5 /* MessageDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C0109A1A48791B00D741E5 /* MessageDetailCell.m */; };
 		04C2418E1A3D7B490073CBBF /* ShopMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C2418D1A3D7B490073CBBF /* ShopMapViewController.m */; };
 		04D208D31A30560C00250564 /* Toast+UIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D208D21A30560C00250564 /* Toast+UIView.m */; };
-		04D550791A50612F00FF5AFA /* PictureImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D550781A50612F00FF5AFA /* PictureImageView.m */; };
 		04DC527319FBBC6B00342DB6 /* Site.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DC527219FBBC6B00342DB6 /* Site.m */; };
 		04DC527619FBC01E00342DB6 /* LPImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DC527519FBC01E00342DB6 /* LPImage.m */; };
 		04DC527919FBD0F400342DB6 /* DealEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DC527819FBD0F400342DB6 /* DealEditViewController.m */; };
@@ -631,6 +631,8 @@
 		04A9944C1A2B501D00B7AEDD /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		04A9944E1A2B53A100B7AEDD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		04A994501A2B53B300B7AEDD /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		04AFEC181A641BC2006791AB /* PictureImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PictureImageView.h; sourceTree = "<group>"; };
+		04AFEC191A641BC2006791AB /* PictureImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PictureImageView.m; sourceTree = "<group>"; };
 		04AFF1861A148B0F000CE6FF /* tab_home_hide.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tab_home_hide.png; sourceTree = "<group>"; };
 		04AFF1871A148B0F000CE6FF /* tab_home_hide@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_home_hide@2x.png"; sourceTree = "<group>"; };
 		04AFF1881A148B0F000CE6FF /* tab_home_show.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tab_home_show.png; sourceTree = "<group>"; };
@@ -731,8 +733,6 @@
 		04C2418D1A3D7B490073CBBF /* ShopMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopMapViewController.m; sourceTree = "<group>"; };
 		04D208D11A30560C00250564 /* Toast+UIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Toast+UIView.h"; sourceTree = "<group>"; };
 		04D208D21A30560C00250564 /* Toast+UIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Toast+UIView.m"; sourceTree = "<group>"; };
-		04D550771A50612F00FF5AFA /* PictureImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PictureImageView.h; sourceTree = "<group>"; };
-		04D550781A50612F00FF5AFA /* PictureImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PictureImageView.m; sourceTree = "<group>"; };
 		04DC527119FBBC6B00342DB6 /* Site.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Site.h; sourceTree = "<group>"; };
 		04DC527219FBBC6B00342DB6 /* Site.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Site.m; sourceTree = "<group>"; };
 		04DC527419FBC01E00342DB6 /* LPImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPImage.h; sourceTree = "<group>"; };
@@ -838,6 +838,8 @@
 		0435237C19D0573200F67B8E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				04AFEC181A641BC2006791AB /* PictureImageView.h */,
+				04AFEC191A641BC2006791AB /* PictureImageView.m */,
 				0435237D19D0574900F67B8E /* HomeCell.h */,
 				0435237E19D0574900F67B8E /* HomeCell.m */,
 				0435238F19D05E3200F67B8E /* DynamicCell.h */,
@@ -880,8 +882,6 @@
 				0491FE581A46C2C100A624E3 /* MessageCell.m */,
 				04C010991A48791B00D741E5 /* MessageDetailCell.h */,
 				04C0109A1A48791B00D741E5 /* MessageDetailCell.m */,
-				04D550771A50612F00FF5AFA /* PictureImageView.h */,
-				04D550781A50612F00FF5AFA /* PictureImageView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1883,7 +1883,7 @@
 				046BF9F51A0BCC4F003FE419 /* LPUtility.m in Sources */,
 				04B1C94F1A3C23AC00FD0BC8 /* DealDetailExtView.m in Sources */,
 				04E963731A2C3C350067C6C2 /* FollowingViewController.m in Sources */,
-				04D550791A50612F00FF5AFA /* PictureImageView.m in Sources */,
+				04AFEC1A1A641BC2006791AB /* PictureImageView.m in Sources */,
 				04DC527619FBC01E00342DB6 /* LPImage.m in Sources */,
 				049E691019E13F0400DA984F /* DealDetailViewController.m in Sources */,
 				0498E32F19F509840085E12B /* AFURLRequestSerialization.m in Sources */,
