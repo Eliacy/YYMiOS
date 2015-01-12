@@ -125,34 +125,37 @@
     }
     _isAppear = YES;
     
-    [POI getPOIListWithOffset:0
-                        limit:20
-                      keyword:@""
-                         area:_areaId
-                         city:[[[NSUserDefaults standardUserDefaults] objectForKey:@"city_id"] integerValue]
-                        range:-1
-                     category:_categoryId
-                        order:_order
-                    longitude:0
-                     latitude:0
-                      success:^(NSArray *array) {
-                          
-                          [_nearbyArray removeAllObjects];
-                          [_nearbyArray addObjectsFromArray:array];
-                          [_tableView reloadData];
-                          
-                          if([array count] < 20)
-                          {
-                              _isHaveMore = NO;
-                          }
-                          else
-                          {
-                              _isHaveMore = YES;
-                          }
-                          
-                      } failure:^(NSError *error) {
-                          
-                      }];
+    if([_nearbyArray count] == 0)
+    {
+        [POI getPOIListWithOffset:0
+                            limit:20
+                          keyword:@""
+                             area:_areaId
+                             city:[[[NSUserDefaults standardUserDefaults] objectForKey:@"city_id"] integerValue]
+                            range:-1
+                         category:_categoryId
+                            order:_order
+                        longitude:0
+                         latitude:0
+                          success:^(NSArray *array) {
+                              
+                              [_nearbyArray removeAllObjects];
+                              [_nearbyArray addObjectsFromArray:array];
+                              [_tableView reloadData];
+                              
+                              if([array count] < 20)
+                              {
+                                  _isHaveMore = NO;
+                              }
+                              else
+                              {
+                                  _isHaveMore = YES;
+                              }
+                              
+                          } failure:^(NSError *error) {
+                              
+                          }];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated

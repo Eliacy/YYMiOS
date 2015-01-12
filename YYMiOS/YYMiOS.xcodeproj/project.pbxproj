@@ -77,7 +77,7 @@
 		045E4F4F1A34B33B0091E7F2 /* weather_night.png in Resources */ = {isa = PBXBuildFile; fileRef = 045E4F4B1A34B33B0091E7F2 /* weather_night.png */; };
 		045E4F501A34B33B0091E7F2 /* weather_night@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 045E4F4C1A34B33B0091E7F2 /* weather_night@2x.png */; };
 		045E4F511A34B33B0091E7F2 /* weather_day@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 045E4F4D1A34B33B0091E7F2 /* weather_day@2x.png */; };
-		045E4F541A34B94A0091E7F2 /* launch_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 045E4F521A34B94A0091E7F2 /* launch_image.png */; };
+		045E4F541A34B94A0091E7F2 /* launch_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 045E4F521A34B94A0091E7F2 /* launch_image@2x.png */; };
 		045E4F551A34B94A0091E7F2 /* launch_image_long.png in Resources */ = {isa = PBXBuildFile; fileRef = 045E4F531A34B94A0091E7F2 /* launch_image_long.png */; };
 		045E4F581A34BBDF0091E7F2 /* WeatherCurrentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 045E4F571A34BBDF0091E7F2 /* WeatherCurrentCell.m */; };
 		045E4F5B1A34BC050091E7F2 /* WeatherForecastCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 045E4F5A1A34BC050091E7F2 /* WeatherForecastCell.m */; };
@@ -265,6 +265,7 @@
 		04E0EAE31A1A5088000B7055 /* dynamic_location.png in Resources */ = {isa = PBXBuildFile; fileRef = 04E0EADF1A1A5088000B7055 /* dynamic_location.png */; };
 		04E0EAE61A1A5472000B7055 /* confirm@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04E0EAE41A1A5472000B7055 /* confirm@2x.png */; };
 		04E0EAE71A1A5472000B7055 /* confirm.png in Resources */ = {isa = PBXBuildFile; fileRef = 04E0EAE51A1A5472000B7055 /* confirm.png */; };
+		04E429231A63D58900DB1F1F /* launch_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 04E429221A63D58900DB1F1F /* launch_image.png */; };
 		04E963731A2C3C350067C6C2 /* FollowingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E963721A2C3C350067C6C2 /* FollowingViewController.m */; };
 		04E963761A2C3C470067C6C2 /* FollowerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E963751A2C3C470067C6C2 /* FollowerViewController.m */; };
 /* End PBXBuildFile section */
@@ -367,7 +368,7 @@
 		045E4F4B1A34B33B0091E7F2 /* weather_night.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weather_night.png; sourceTree = "<group>"; };
 		045E4F4C1A34B33B0091E7F2 /* weather_night@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weather_night@2x.png"; sourceTree = "<group>"; };
 		045E4F4D1A34B33B0091E7F2 /* weather_day@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weather_day@2x.png"; sourceTree = "<group>"; };
-		045E4F521A34B94A0091E7F2 /* launch_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch_image.png; sourceTree = "<group>"; };
+		045E4F521A34B94A0091E7F2 /* launch_image@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "launch_image@2x.png"; sourceTree = "<group>"; };
 		045E4F531A34B94A0091E7F2 /* launch_image_long.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch_image_long.png; sourceTree = "<group>"; };
 		045E4F561A34BBDF0091E7F2 /* WeatherCurrentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherCurrentCell.h; sourceTree = "<group>"; };
 		045E4F571A34BBDF0091E7F2 /* WeatherCurrentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherCurrentCell.m; sourceTree = "<group>"; };
@@ -746,6 +747,7 @@
 		04E0EADF1A1A5088000B7055 /* dynamic_location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dynamic_location.png; sourceTree = "<group>"; };
 		04E0EAE41A1A5472000B7055 /* confirm@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "confirm@2x.png"; sourceTree = "<group>"; };
 		04E0EAE51A1A5472000B7055 /* confirm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = confirm.png; sourceTree = "<group>"; };
+		04E429221A63D58900DB1F1F /* launch_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch_image.png; sourceTree = "<group>"; };
 		04E963711A2C3C350067C6C2 /* FollowingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FollowingViewController.h; sourceTree = "<group>"; };
 		04E963721A2C3C350067C6C2 /* FollowingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FollowingViewController.m; sourceTree = "<group>"; };
 		04E963741A2C3C470067C6C2 /* FollowerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FollowerViewController.h; sourceTree = "<group>"; };
@@ -1020,7 +1022,8 @@
 		0456057B19CB381800BF5933 /* YYMiOS */ = {
 			isa = PBXGroup;
 			children = (
-				045E4F521A34B94A0091E7F2 /* launch_image.png */,
+				04E429221A63D58900DB1F1F /* launch_image.png */,
+				045E4F521A34B94A0091E7F2 /* launch_image@2x.png */,
 				045E4F531A34B94A0091E7F2 /* launch_image_long.png */,
 				04AFF1AE1A1494A7000CE6FF /* Icon-60@2x.png */,
 				04AFF1AF1A1494A7000CE6FF /* Icon-60@3x.png */,
@@ -1679,6 +1682,7 @@
 				04AFF19C1A148B0F000CE6FF /* tab_my_show.png in Resources */,
 				044273ED1A13C21600DD99CD /* rank_SS.png in Resources */,
 				045605AC19CB3AFB00BF5933 /* LaunchScreen.xib in Resources */,
+				04E429231A63D58900DB1F1F /* launch_image.png in Resources */,
 				048AD0091A3E065B00AD670F /* sr_refresh@2X.png in Resources */,
 				04AFF1AD1A148B4C000CE6FF /* tab_weather_show@2x.png in Resources */,
 				04AFF19B1A148B0F000CE6FF /* tab_my_hide@2x.png in Resources */,
@@ -1745,7 +1749,7 @@
 				04482AB51A17AF7E00BC950E /* 2.png in Resources */,
 				04E0EAE61A1A5472000B7055 /* confirm@2x.png in Resources */,
 				04AFF19A1A148B0F000CE6FF /* tab_my_hide.png in Resources */,
-				045E4F541A34B94A0091E7F2 /* launch_image.png in Resources */,
+				045E4F541A34B94A0091E7F2 /* launch_image@2x.png in Resources */,
 				04AFF1A01A148B0F000CE6FF /* tab_nearby_show.png in Resources */,
 				044273FB1A13C50700DD99CD /* star_half@2x.png in Resources */,
 				04B0D06619DA7C3000289F78 /* WeiboSDK.bundle in Resources */,
