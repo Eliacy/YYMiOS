@@ -7,7 +7,21 @@
 //
 
 #import "BaseViewController.h"
+#import "PictureImageView.h"
 
 @interface ShopPictureViewController : BaseViewController
+{
+    NSInteger       _index;
+    NSMutableArray  *_pictureArray;
+
+    UIScrollView        *_scrollView;
+    
+    PictureImageView    *_leftBrowserView;
+    PictureImageView    *_middleBrowserView;
+    PictureImageView    *_rightBrowserView;
+}
+
+@property (assign, nonatomic) NSInteger index;
+@property (retain, nonatomic) NSMutableArray *pictureArray;
 
 @end

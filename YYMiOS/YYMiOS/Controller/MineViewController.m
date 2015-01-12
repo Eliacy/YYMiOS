@@ -17,8 +17,9 @@
 #import "FeedbackViewController.h"
 #import "AboutViewController.h"
 
-#import "FollowingViewController.h"
 #import "FollowerViewController.h"
+#import "FollowingViewController.h"
+
 #import "UserDetailViewController.h"
 
 #define kBadgesImageViewTag 18926
@@ -48,6 +49,9 @@
 
 - (void)clickFollowingButton:(id)sender
 {
+//    UserDetailViewController *userDetailVC = [[[UserDetailViewController alloc] init] autorelease];
+//    userDetailVC.userId = [[User sharedUser] userId];
+//    [self.tabVC.navigationController pushViewController:userDetailVC animated:YES];
     FollowingViewController *followingVC = [[[FollowingViewController alloc] init] autorelease];
     followingVC.userId = [[User sharedUser] userId];
     [self.tabVC.navigationController pushViewController:followingVC animated:YES];
@@ -55,6 +59,9 @@
 
 - (void)clickFollowerButton:(id)sender
 {
+//    UserDetailViewController *userDetailVC = [[[UserDetailViewController alloc] init] autorelease];
+//    userDetailVC.userId = [[User sharedUser] userId];
+//    [self.tabVC.navigationController pushViewController:userDetailVC animated:YES];
     FollowerViewController *followerVC = [[[FollowerViewController alloc] init] autorelease];
     followerVC.userId = [[User sharedUser] userId];
     [self.tabVC.navigationController pushViewController:followerVC animated:YES];
