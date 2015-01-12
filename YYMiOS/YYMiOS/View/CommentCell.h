@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "Comment.h"
 
+@protocol CommentCellDelegate;
+
 @interface CommentCell : UITableViewCell
 {
     Comment         *_comment;
@@ -18,8 +20,17 @@
     UILabel         *_timeLabel;
     UILabel         *_contentLabel;
     UIButton        *_replyButton;
+    
+    id<CommentCellDelegate> _delegate;
 }
 
 @property (retain, nonatomic) Comment *comment;
+@property (assign, nonatomic) id<CommentCellDelegate> delegate;
+
+@end
+
+@protocol CommentCellDelegate <NSObject>
+
+- (void)commentCellDidClickReplyButton:(CommentCell *)commentCell;
 
 @end
