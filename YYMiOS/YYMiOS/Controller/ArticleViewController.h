@@ -24,9 +24,13 @@
     UITableView     *_tableView;
     
     NSMutableArray  *_commentArray;
+    
+    NSString        *_atListString;
 }
 
 @property (assign, nonatomic) NSInteger articleId;
 @property (retain, nonatomic) Article *article;
+
+@property (retain, nonatomic) NSString *atListString;
 
 @end
