@@ -7,20 +7,60 @@
 //
 
 #import "DealEditViewController.h"
+#import "POISelectViewController.h"
 
-@interface DealEditViewController ()
+@interface DealEditViewController () <POISelectViewControllerDelegate>
 
 @end
 
 @implementation DealEditViewController
 
 @synthesize delegate = _delegate;
+@synthesize deal = _deal;
 
 #pragma mark - private
 
+- (void)clickBackButton:(id)sender
+{
+    [super clickBackButton:sender];
+    
+    if(_deal.site != nil)
+    {
+        NSMutableArray *draftArray = [NSMutableArray arrayWithArray:[LPUtility unarchiveDataFromCache:@"draft_list"]];
+        
+        for(Deal *deal in draftArray)
+        {
+            if(deal.dealKey && [deal.dealKey isEqualToString:_deal.dealKey])
+            {
+                [draftArray removeObject:deal];
+                break;
+            }
+        }
+        
+        [draftArray insertObject:_deal atIndex:0];
+        [LPUtility archiveData:draftArray IntoCache:@"draft_list"];
+    }
+}
+
 - (void)clickDeleteButton:(id)sender
 {
+    if(_deal.site != nil)
+    {
+        NSMutableArray *draftArray = [NSMutableArray arrayWithArray:[LPUtility unarchiveDataFromCache:@"draft_list"]];
+        
+        for(Deal *deal in draftArray)
+        {
+            if(deal.dealKey && [deal.dealKey isEqualToString:_deal.dealKey])
+            {
+                [draftArray removeObject:deal];
+                break;
+            }
+        }
+        
+        [LPUtility archiveData:draftArray IntoCache:@"draft_list"];
+    }
     
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)clickPublishButton:(id)sender
@@ -62,6 +102,12 @@
     [_publishButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_publishButton addTarget:self action:@selector(clickPublishButton:) forControlEvents:UIControlEventTouchUpInside];
     [_tableFooterView addSubview:_publishButton];
+    
+    if(self.deal == nil)
+    {
+        self.deal = [[Deal alloc] init];
+        self.deal.dealKey = [NSString stringWithFormat:@"%i_%i", (int)[[NSDate date] timeIntervalSince1970], arc4random()];
+    }
 }
 
 //- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -116,7 +162,14 @@
     {
         case 0:
         {
-            cell.textLabel.text = @"选择店铺";
+            if(_deal.site.siteName && ![_deal.site.siteName isEqualToString:@""])
+            {
+                cell.textLabel.text = _deal.site.siteName;
+            }
+            else
+            {
+                cell.textLabel.text = @"选择店铺";
+            }
         }
             break;
         case 1:
@@ -135,7 +188,39 @@
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    switch (indexPath.row) {
+        case 0:
+        {
+            POISelectViewController *poiSelectVC = [[[POISelectViewController alloc] init] autorelease];
+            poiSelectVC.delegate = self;
+            [self.navigationController pushViewController:poiSelectVC animated:YES];
+        }
+            break;
+        case 1:
+        {
+        
+        }
+            break;
+        default:
+            break;
+    }
+    
     return nil;
+}
+
+#pragma mark - POISelectViewControllerDelegate
+
+- (void)poiSelectViewControllerDidSelectPOI:(POI *)poi
+{
+    if(_deal.site == nil)
+    {
+        _deal.site = [[Site alloc] init];
+    }
+    
+    _deal.site.siteId = poi.poiId;
+    _deal.site.siteName = poi.name;
+    
+    [_tableView reloadData];
 }
 
 @end

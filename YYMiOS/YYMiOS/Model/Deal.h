@@ -29,6 +29,7 @@
     NSDate    *_updateTime;
     User        *_user;
     BOOL        _liked;
+    NSString    *_dealKey;
 }
 
 @property (retain, nonatomic) NSArray *atList;
@@ -48,6 +49,7 @@
 @property (retain, nonatomic) NSDate *updateTime;
 @property (retain, nonatomic) User *user;
 @property (assign, nonatomic) BOOL liked;
+@property (retain, nonatomic) NSString *dealKey;
 
 - (id)initWithAttribute:(NSDictionary *)attribute;
 

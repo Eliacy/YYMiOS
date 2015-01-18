@@ -128,6 +128,7 @@
                                 
                                 [[NSUserDefaults standardUserDefaults] setObject:[[_cityArray objectAtIndex:0] cityName] forKey:@"city_name"];
                                 [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:[[_cityArray objectAtIndex:0] cityId]] forKey:@"city_id"];
+                                [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"refresh_nearby_data"];
                                 [[NSUserDefaults standardUserDefaults] synchronize];
                                 
                                 [Article getArticleListWithArticleId:0
@@ -358,6 +359,7 @@
     
     [[NSUserDefaults standardUserDefaults] setObject:[[_cityArray objectAtIndex:indexPath.row] cityName] forKey:@"city_name"];
     [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:[[_cityArray objectAtIndex:indexPath.row] cityId]] forKey:@"city_id"];
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"refresh_nearby_data"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     [Article getArticleListWithArticleId:0

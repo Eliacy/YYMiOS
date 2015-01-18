@@ -28,6 +28,7 @@
 @synthesize updateTime = _updateTime;
 @synthesize user = _user;
 @synthesize liked = _liked;
+@synthesize dealKey = _dealKey;
 
 - (id)initWithAttribute:(NSDictionary *)attribute
 {

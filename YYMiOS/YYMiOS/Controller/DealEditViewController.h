@@ -7,6 +7,7 @@
 //
 
 #import "BaseViewController.h"
+#import "Deal.h"
 
 @protocol DealEditViewControllerDelegate;
 
@@ -19,9 +20,12 @@
     
     UIView          *_tableFooterView;
     UIButton        *_publishButton;
+    
+    Deal            *_deal;
 }
 
 @property (assign, nonatomic) id<DealEditViewControllerDelegate> delegate;
+@property (retain, nonatomic) Deal *deal;
 
 @end
 

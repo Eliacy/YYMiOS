@@ -14,6 +14,7 @@
 #import "UserDetailViewController.h"
 #import "ShareKit.h"
 #import "Share.h"
+#import "DealEditViewController.h"
 
 @interface DynamicViewController () <DynamicCellDelegate>
 
@@ -32,7 +33,8 @@
 
 - (void)clickAddButton:(id)sender
 {
-
+    DealEditViewController *dealEditVC = [[[DealEditViewController alloc] init] autorelease];
+    [self.tabVC.navigationController pushViewController:dealEditVC animated:YES];
 }
 
 #pragma mark - super
