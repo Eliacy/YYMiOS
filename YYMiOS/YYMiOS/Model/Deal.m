@@ -286,4 +286,58 @@
                                                   }];
 }
 
++ (void)deleteDealDetailWithDealId:(NSInteger)dealId
+                           success:(LPObjectSuccessBlock)successBlock
+                           failure:(LPObjectFailureBlock)failureBlock
+{
+    [[LPAPIClient sharedAPIClient] deleteDealDetailWithDealId:dealId
+                                                      success:^(id respondObject) {
+                                                          if(successBlock)
+                                                          {
+                                                              successBlock([Deal parseFromeDictionary:respondObject]);
+                                                          }
+                                                      } failure:^(NSError *error) {
+                                                          if(failureBlock)
+                                                          {
+                                                              failureBlock(error);
+                                                          }
+                                                      }];
+}
+
++ (void)createDealDetailWithPublished:(NSInteger)published
+                               userId:(NSInteger)userId
+                               atList:(NSString *)atList
+                                 star:(float)star
+                              content:(NSString *)content
+                               images:(NSString *)images
+                             keywords:(NSString *)keywords
+                                total:(NSInteger)total
+                             currency:(NSString *)currency
+                               siteId:(NSInteger)siteId
+                              success:(LPObjectSuccessBlock)successBlock
+                              failure:(LPObjectFailureBlock)failureBlock
+{
+    [[LPAPIClient sharedAPIClient] createDealDetailWithPublished:published
+                                                          userId:userId
+                                                          atList:atList
+                                                            star:star
+                                                         content:content
+                                                          images:images
+                                                        keywords:keywords
+                                                           total:total
+                                                        currency:currency
+                                                          siteId:siteId
+                                                         success:^(id respondObject) {
+                                                             if(successBlock)
+                                                             {
+                                                                 successBlock([Deal parseFromeDictionary:respondObject]);
+                                                             }
+                                                         } failure:^(NSError *error) {
+                                                             if(failureBlock)
+                                                             {
+                                                                 failureBlock(error);
+                                                             }
+                                                         }];
+}
+
 @end

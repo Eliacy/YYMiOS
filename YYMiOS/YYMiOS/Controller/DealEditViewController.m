@@ -9,7 +9,7 @@
 #import "DealEditViewController.h"
 #import "POISelectViewController.h"
 
-@interface DealEditViewController () <POISelectViewControllerDelegate>
+@interface DealEditViewController () <POISelectViewControllerDelegate, UITextViewDelegate>
 
 @end
 
@@ -65,7 +65,50 @@
 
 - (void)clickPublishButton:(id)sender
 {
+    if(_deal.site == nil || [_deal.site.siteName isEqualToString:@""] || [_deal.content isEqualToString:@""])
+    {
+        [self.view hideToast];
+        [self.view makeToast:@"发送内容不完整" duration:1.5 position:@"center"];
+        
+        return;
+    }
     
+    if(_isLoading)
+    {
+        return;
+    }
+    _isLoading = YES;
+    
+    [Deal createDealDetailWithPublished:0
+                                 userId:[[User sharedUser] userId]
+                                 atList:nil
+                                   star:0
+                                content:_deal.content
+                                 images:nil
+                               keywords:nil
+                                  total:0
+                               currency:nil
+                                 siteId:_deal.site.siteId
+                                success:^(NSArray *array) {
+                                    
+                                    NSMutableArray *draftArray = [NSMutableArray arrayWithArray:[LPUtility unarchiveDataFromCache:@"draft_list"]];
+                                    
+                                    for(Deal *deal in draftArray)
+                                    {
+                                        if(deal.dealKey && [deal.dealKey isEqualToString:_deal.dealKey])
+                                        {
+                                            [draftArray removeObject:deal];
+                                            break;
+                                        }
+                                    }
+                                    
+                                    [LPUtility archiveData:draftArray IntoCache:@"draft_list"];
+                                    
+                                    [self.navigationController popViewControllerAnimated:YES];
+                                    
+                                } failure:^(NSError *error) {
+                                    
+                                }];
 }
 
 #pragma mark - super
@@ -95,6 +138,20 @@
     _tableFooterView.backgroundColor = [UIColor clearColor];
     _tableView.tableFooterView = _tableFooterView;
     
+    UIView *tapView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableFooterView.frame.size.width, _tableFooterView.frame.size.height)] autorelease];
+    tapView.backgroundColor = [UIColor clearColor];
+    [_tableFooterView addSubview:tapView];
+    
+    UITapGestureRecognizer *oneFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapView:)];
+    [tapView addGestureRecognizer:oneFingerTap];
+    [oneFingerTap release];
+    
+    _textView = [[UITextView alloc] initWithFrame:CGRectMake(15, 15, _tableFooterView.frame.size.width - 15 * 2, 70)];
+    _textView.backgroundColor = [UIColor whiteColor];
+    _textView.textColor = [UIColor blackColor];
+    _textView.delegate = self;
+    [_tableFooterView addSubview:_textView];
+    
     _publishButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     _publishButton.frame = CGRectMake(40, _tableFooterView.frame.size.height - 40, _tableFooterView.frame.size.width - 40 * 2, 40);
     _publishButton.backgroundColor = [UIColor redColor];
@@ -108,6 +165,8 @@
         self.deal = [[Deal alloc] init];
         self.deal.dealKey = [NSString stringWithFormat:@"%i_%i", (int)[[NSDate date] timeIntervalSince1970], arc4random()];
     }
+    
+    [self refreshData];
 }
 
 //- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -141,6 +200,11 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (void)refreshData
+{
+    _textView.text = _deal.content;
+}
 
 #pragma mark - UITableViewDataSource
 
@@ -221,6 +285,26 @@
     _deal.site.siteName = poi.name;
     
     [_tableView reloadData];
+}
+
+#pragma mark - UIGestureRecognizer
+
+- (void)tapView:(UITapGestureRecognizer *)gestureRecognizer
+{
+    if(gestureRecognizer.state == UIGestureRecognizerStateEnded)
+    {
+        if([_textView isFirstResponder])
+        {
+            [_textView resignFirstResponder];
+        }
+    }
+}
+
+#pragma mark - UITextViewDelegate
+
+- (void)textViewDidChange:(UITextView *)textView
+{
+    _deal.content = textView.text;
 }
 
 @end

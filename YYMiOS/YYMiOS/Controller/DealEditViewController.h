@@ -19,6 +19,7 @@
     UITableView     *_tableView;
     
     UIView          *_tableFooterView;
+    UITextView      *_textView;
     UIButton        *_publishButton;
     
     Deal            *_deal;

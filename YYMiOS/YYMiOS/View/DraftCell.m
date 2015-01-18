@@ -53,6 +53,7 @@
     _deal = [deal retain];
     
     _titleLabel.text = deal.site.siteName;
+    _contentLabel.text = deal.content;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

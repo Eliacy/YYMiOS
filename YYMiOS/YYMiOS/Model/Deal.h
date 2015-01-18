@@ -81,4 +81,21 @@
                        success:(LPObjectSuccessBlock)successBlock
                        failure:(LPObjectFailureBlock)failureBlock;
 
++ (void)deleteDealDetailWithDealId:(NSInteger)dealId
+                           success:(LPObjectSuccessBlock)successBlock
+                           failure:(LPObjectFailureBlock)failureBlock;
+
++ (void)createDealDetailWithPublished:(NSInteger)published
+                               userId:(NSInteger)userId
+                               atList:(NSString *)atList
+                                 star:(float)star
+                              content:(NSString *)content
+                               images:(NSString *)images
+                             keywords:(NSString *)keywords
+                                total:(NSInteger)total
+                             currency:(NSString *)currency
+                               siteId:(NSInteger)siteId
+                              success:(LPObjectSuccessBlock)successBlock
+                              failure:(LPObjectFailureBlock)failureBlock;
+
 @end
