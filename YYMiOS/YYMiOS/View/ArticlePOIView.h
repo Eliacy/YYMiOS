@@ -22,6 +22,7 @@
     UIImageView     *_avatarImageView;
     UILabel         *_titleLabel;
     UIImageView     *_levelImageView;
+    UILabel         *_levelLabel;
     StarView        *_starView;
     UIButton        *_reviewButton;
     UILabel         *_distanceLabel;

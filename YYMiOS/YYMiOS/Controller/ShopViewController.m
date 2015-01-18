@@ -149,7 +149,7 @@
 {
     [super loadView];
     
-    _titleLabel.text = @"店铺主页";
+    _titleLabel.text = @"详情";
     
     _shareButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     _shareButton.frame = CGRectMake(_headerView.frame.size.width - 2 - 40 - 2 - 40, 2, 40, 40);
@@ -225,9 +225,16 @@
     _nameLabel.font = [UIFont systemFontOfSize:15.0f];
     [_tableHeaderView addSubview:_nameLabel];
     
-    _levelImageView = [[UIImageView alloc] initWithFrame:CGRectMake(_tableHeaderView.frame.size.width - 8 - 15, 8, 15, 15)];
+    _levelLabel = [[UILabel alloc] initWithFrame:CGRectMake(_tableHeaderView.frame.size.width - 8 - 15, 8, 15, 15)];
+    _levelLabel.backgroundColor = [UIColor clearColor];
+    _levelLabel.textColor = [UIColor whiteColor];
+    _levelLabel.font = [UIFont systemFontOfSize:12.0f];
+    _levelLabel.textAlignment = NSTextAlignmentCenter;
+    
+    _levelImageView = [[UIImageView alloc] initWithFrame:CGRectMake(_levelLabel.frame.origin.x, _levelLabel.frame.origin.y + (_levelLabel.frame.size.height - 15) / 3, _levelLabel.frame.size.width, 15)];
     _levelImageView.backgroundColor = [UIColor clearColor];
     [_tableHeaderView addSubview:_levelImageView];
+    [_tableHeaderView addSubview:_levelLabel];
     
     _starView = [[StarView alloc] initWithFrame:CGRectMake(_nameLabel.frame.origin.x, _nameLabel.frame.origin.y + _nameLabel.frame.size.height + 15, 70, 10)];
     _starView.backgroundColor = [UIColor clearColor];
@@ -410,26 +417,18 @@
     [_logoImageView setImageWithURL:[NSURL URLWithString:[LPUtility getQiniuImageURLStringWithBaseString:poiDetail.logo.imageURL imageSize:CGSizeMake(100, 100)]]];
     _nameLabel.text = poiDetail.name;
     
-    if(poiDetail.level && [poiDetail.level isEqualToString:@"S"])
+    if(poiDetail.level)
     {
-        _levelImageView.frame = CGRectMake(_tableHeaderView.frame.size.width - 8 - 15, _levelImageView.frame.origin.y, 15, 15);
-        _levelImageView.image = [UIImage imageNamed:@"rank_S.png"];
-    }
-    else if(poiDetail.level && [poiDetail.level isEqualToString:@"SS"])
-    {
-        _levelImageView.frame = CGRectMake(_tableHeaderView.frame.size.width - 8 - 31, _levelImageView.frame.origin.y, 31, 15);
-        _levelImageView.image = [UIImage imageNamed:@"rank_SS.png"];
-    }
-    else if(poiDetail.level && [poiDetail.level isEqualToString:@"A+"])
-    {
-        _levelImageView.frame = CGRectMake(_tableHeaderView.frame.size.width - 8 - 31, _levelImageView.frame.origin.y, 31, 15);
-        _levelImageView.image = [UIImage imageNamed:@"rank_A+.png"];
+        CGSize size = [LPUtility getTextHeightWithText:poiDetail.level font:_levelLabel.font size:CGSizeMake(200, 20)];
+        _levelLabel.frame = CGRectMake(_tableHeaderView.frame.size.width - 8 - size.width - 5, _levelLabel.frame.origin.y, size.width + 5, _levelLabel.frame.size.height);
+        _levelImageView.frame = CGRectMake(_levelLabel.frame.origin.x, _levelLabel.frame.origin.y + (_levelLabel.frame.size.height - 15) / 3, _levelLabel.frame.size.width, 15);
+        _levelImageView.image = [UIImage imageNamed:@"rank.png"];
+        _levelLabel.text = poiDetail.level;
     }
     else
     {
-        _levelImageView.image = nil;
+        _levelLabel.text = @"";
     }
-    
     
     _nameLabel.frame = CGRectMake(_nameLabel.frame.origin.x, _nameLabel.frame.origin.y, _tableHeaderView.frame.size.width - _logoImageView.frame.origin.x - _logoImageView.frame.size.width - 15 - _levelImageView.frame.size.width, _nameLabel.frame.size.height);
     
