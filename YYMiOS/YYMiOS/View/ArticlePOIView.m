@@ -43,9 +43,16 @@
         _titleLabel.font = [UIFont systemFontOfSize:14.0f];
         [_backView addSubview:_titleLabel];
         
-        _levelImageView = [[UIImageView alloc] initWithFrame:CGRectMake(_backView.frame.size.width - 8 - 15, 8, 15, 15)];
+        _levelLabel = [[UILabel alloc] initWithFrame:CGRectMake(_backView.frame.size.width - 8 - 15, 8, 15, 15)];
+        _levelLabel.backgroundColor = [UIColor clearColor];
+        _levelLabel.textColor = [UIColor whiteColor];
+        _levelLabel.font = [UIFont systemFontOfSize:12.0f];
+        _levelLabel.textAlignment = NSTextAlignmentCenter;
+        
+        _levelImageView = [[UIImageView alloc] initWithFrame:CGRectMake(_levelLabel.frame.origin.x, _levelLabel.frame.origin.y + (_levelLabel.frame.size.height - 15) / 3, _levelLabel.frame.size.width, 15)];
         _levelImageView.backgroundColor = [UIColor clearColor];
         [_backView addSubview:_levelImageView];
+        [_backView addSubview:_levelLabel];
         
         _starView = [[StarView alloc] initWithFrame:CGRectMake(_titleLabel.frame.origin.x, _titleLabel.frame.origin.y + _titleLabel.frame.size.height + 15, 70, 10)];
         _starView.backgroundColor = [UIColor clearColor];
@@ -149,26 +156,18 @@
     
     _titleLabel.text = poi.name;
     
-    if(poi.level && [poi.level isEqualToString:@"S"])
+    if(poi.level)
     {
-        _levelImageView.frame = CGRectMake(self.frame.size.width - 8 - 15, _levelImageView.frame.origin.y, 15, 15);
-        _levelImageView.image = [UIImage imageNamed:@"rank_S.png"];
-    }
-    else if(poi.level && [poi.level isEqualToString:@"SS"])
-    {
-        _levelImageView.frame = CGRectMake(self.frame.size.width - 8 - 31, _levelImageView.frame.origin.y, 31, 15);
-        _levelImageView.image = [UIImage imageNamed:@"rank_SS.png"];
-    }
-    else if(poi.level && [poi.level isEqualToString:@"A+"])
-    {
-        _levelImageView.frame = CGRectMake(self.frame.size.width - 8 - 31, _levelImageView.frame.origin.y, 31, 15);
-        _levelImageView.image = [UIImage imageNamed:@"rank_A+.png"];
+        CGSize size = [LPUtility getTextHeightWithText:poi.level font:_levelLabel.font size:CGSizeMake(200, 20)];
+        _levelLabel.frame = CGRectMake(_backView.frame.size.width - 8 - size.width - 5, _levelLabel.frame.origin.y, size.width + 5, _levelLabel.frame.size.height);
+        _levelImageView.frame = CGRectMake(_levelLabel.frame.origin.x, _levelLabel.frame.origin.y + (_levelLabel.frame.size.height - 15) / 3, _levelLabel.frame.size.width, 15);
+        _levelImageView.image = [UIImage imageNamed:@"rank.png"];
+        _levelLabel.text = poi.level;
     }
     else
     {
-        _levelImageView.image = nil;
+        _levelLabel.text = @"";
     }
-    
     
     _titleLabel.frame = CGRectMake(_titleLabel.frame.origin.x, _titleLabel.frame.origin.y, _backView.frame.size.width - _avatarImageView.frame.origin.x - _avatarImageView.frame.size.width - 15 - _levelImageView.frame.size.width, _titleLabel.frame.size.height);
     
