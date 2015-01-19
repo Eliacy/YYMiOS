@@ -20,6 +20,8 @@
     
     UIView          *_tableFooterView;
     UITextView      *_textView;
+    UIScrollView    *_scrollView;
+    UIButton        *_addPhotoButton;
     UIButton        *_publishButton;
     
     Deal            *_deal;

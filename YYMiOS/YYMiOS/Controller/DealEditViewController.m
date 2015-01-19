@@ -8,8 +8,9 @@
 
 #import "DealEditViewController.h"
 #import "POISelectViewController.h"
+#import "UserAtListViewController.h"
 
-@interface DealEditViewController () <POISelectViewControllerDelegate, UITextViewDelegate>
+@interface DealEditViewController () <POISelectViewControllerDelegate, UserAtListViewControllerDelegate, UITextViewDelegate>
 
 @end
 
@@ -81,15 +82,17 @@
     
     [Deal createDealDetailWithPublished:0
                                  userId:[[User sharedUser] userId]
-                                 atList:nil
+                                 atList:@""
                                    star:0
                                 content:_deal.content
-                                 images:nil
-                               keywords:nil
+                                 images:@""
+                               keywords:@""
                                   total:0
-                               currency:nil
+                               currency:@""
                                  siteId:_deal.site.siteId
                                 success:^(NSArray *array) {
+                                    
+                                    _isLoading = NO;
                                     
                                     NSMutableArray *draftArray = [NSMutableArray arrayWithArray:[LPUtility unarchiveDataFromCache:@"draft_list"]];
                                     
@@ -108,10 +111,28 @@
                                     
                                 } failure:^(NSError *error) {
                                     
+                                    _isLoading = NO;
+                                    
                                 }];
 }
 
+- (void)clickAddPhotoButton:(id)sender
+{
+    
+}
+
 #pragma mark - super
+
+- (id)init
+{
+    self = [super init];
+    if(self != nil)
+    {
+        
+    }
+    
+    return self;
+}
 
 - (void)loadView
 {
@@ -151,6 +172,17 @@
     _textView.textColor = [UIColor blackColor];
     _textView.delegate = self;
     [_tableFooterView addSubview:_textView];
+    
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, _textView.frame.origin.y + _textView.frame.size.height + 10, _tableFooterView.frame.size.width, 60)];
+    _scrollView.backgroundColor = [UIColor clearColor];
+    [_tableFooterView addSubview:_scrollView];
+    
+    _addPhotoButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    _addPhotoButton.frame = CGRectMake(15, 0, 60, 60);
+    _addPhotoButton.backgroundColor = [UIColor clearColor];
+    [_addPhotoButton setBackgroundImage:[UIImage imageNamed:@"add_image.png"] forState:UIControlStateNormal];
+    [_addPhotoButton addTarget:self action:@selector(clickAddPhotoButton:) forControlEvents:UIControlEventTouchUpInside];
+    [_scrollView addSubview:_addPhotoButton];
     
     _publishButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     _publishButton.frame = CGRectMake(40, _tableFooterView.frame.size.height - 40, _tableFooterView.frame.size.width - 40 * 2, 40);
@@ -262,7 +294,10 @@
             break;
         case 1:
         {
-        
+            UserAtListViewController *userAtListVC = [[[UserAtListViewController alloc] init] autorelease];
+            userAtListVC.delegate = self;
+            userAtListVC.selectArray = [NSMutableArray arrayWithArray:_deal.atList];
+            [self.navigationController pushViewController:userAtListVC animated:YES];
         }
             break;
         default:
@@ -285,6 +320,13 @@
     _deal.site.siteName = poi.name;
     
     [_tableView reloadData];
+}
+
+#pragma mark - UserAtListViewControllerDelegate
+
+- (void)userAtListViewControllerDidClickConfirmButton:(UserAtListViewController *)userAtListVC
+{
+
 }
 
 #pragma mark - UIGestureRecognizer

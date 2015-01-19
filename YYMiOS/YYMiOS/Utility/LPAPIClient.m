@@ -587,8 +587,8 @@ static id APIClient = nil;
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
     
     [params setObject:[NSNumber numberWithInteger:published] forKey:@"published"];
-    [params setObject:[NSNumber numberWithInteger:userId] forKey:@"user_id"];
-    if(atList && ![atList isEqualToString:@""])
+    [params setObject:[NSNumber numberWithInteger:userId] forKey:@"user"];
+    if(atList)// && ![atList isEqualToString:@""])
     {
         [params setObject:atList forKey:@"at_list"];
     }
@@ -597,20 +597,20 @@ static id APIClient = nil;
     {
         [params setObject:content forKey:@"content"];
     }
-    if(images && ![images isEqualToString:@""])
+    if(images)// && ![images isEqualToString:@""])
     {
         [params setObject:images forKey:@"images"];
     }
-    if(keywords && ![keywords isEqualToString:@""])
+    if(keywords)// && ![keywords isEqualToString:@""])
     {
         [params setObject:keywords forKey:@"keywords"];
     }
     [params setObject:[NSNumber numberWithInteger:total] forKey:@"total"];
-    if(currency && ![currency isEqualToString:@""])
+    if(currency)// && ![currency isEqualToString:@""])
     {
         [params setObject:currency forKey:@"currency"];
     }
-    [params setObject:[NSNumber numberWithInteger:siteId] forKey:@"site_id"];
+    [params setObject:[NSNumber numberWithInteger:siteId] forKey:@"site"];
     
     [self sendRequestPath:@"/rpc/reviews"
                    params:params

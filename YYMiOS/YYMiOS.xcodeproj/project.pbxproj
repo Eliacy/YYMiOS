@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		041EA8DF1A6D6416004175CD /* UserAtListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041EA8DE1A6D6416004175CD /* UserAtListViewController.m */; };
+		041EA8E21A6D72AD004175CD /* add_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 041EA8E01A6D72AD004175CD /* add_image.png */; };
+		041EA8E31A6D72AD004175CD /* add_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 041EA8E11A6D72AD004175CD /* add_image@2x.png */; };
 		0435235919D04D6C00F67B8E /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0435235819D04D6C00F67B8E /* BaseViewController.m */; };
 		0435236C19D0502C00F67B8E /* LPObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 0435236B19D0502C00F67B8E /* LPObject.m */; };
 		0435236F19D0510400F67B8E /* TabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0435236E19D0510400F67B8E /* TabViewController.m */; };
@@ -272,6 +275,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		041EA8DD1A6D6416004175CD /* UserAtListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserAtListViewController.h; sourceTree = "<group>"; };
+		041EA8DE1A6D6416004175CD /* UserAtListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserAtListViewController.m; sourceTree = "<group>"; };
+		041EA8E01A6D72AD004175CD /* add_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_image.png; sourceTree = "<group>"; };
+		041EA8E11A6D72AD004175CD /* add_image@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_image@2x.png"; sourceTree = "<group>"; };
 		0435235719D04D6C00F67B8E /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		0435235819D04D6C00F67B8E /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		0435235B19D04E4200F67B8E /* YYMiOS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "YYMiOS-Prefix.pch"; sourceTree = "<group>"; };
@@ -892,6 +899,8 @@
 		0435238619D05D0100F67B8E /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				041EA8E01A6D72AD004175CD /* add_image.png */,
+				041EA8E11A6D72AD004175CD /* add_image@2x.png */,
 				04C010911A486F5900D741E5 /* btn_share_weixin.png */,
 				04C010941A486F5900D741E5 /* btn_share_weixin@2x.png */,
 				04C010931A486F5900D741E5 /* btn_share_friend.png */,
@@ -1102,6 +1111,8 @@
 				04E963721A2C3C350067C6C2 /* FollowingViewController.m */,
 				04E963741A2C3C470067C6C2 /* FollowerViewController.h */,
 				04E963751A2C3C470067C6C2 /* FollowerViewController.m */,
+				041EA8DD1A6D6416004175CD /* UserAtListViewController.h */,
+				041EA8DE1A6D6416004175CD /* UserAtListViewController.m */,
 				049E690E19E13F0400DA984F /* DealDetailViewController.h */,
 				049E690F19E13F0400DA984F /* DealDetailViewController.m */,
 				04B0D07B19DD23E400289F78 /* FilterViewController.h */,
@@ -1673,6 +1684,7 @@
 				04482AB41A17AF7E00BC950E /* 3@2x.png in Resources */,
 				04B1C9551A3C2B5000FD0BC8 /* deal_detail_like.png in Resources */,
 				0435238C19D05D0100F67B8E /* btn_back@2x.png in Resources */,
+				041EA8E31A6D72AD004175CD /* add_image@2x.png in Resources */,
 				045605AD19CB3AFB00BF5933 /* Main.storyboard in Resources */,
 				044274051A13CFCC00DD99CD /* location@2x.png in Resources */,
 				04AFF1A31A148B0F000CE6FF /* tab_news_hide@2x.png in Resources */,
@@ -1729,6 +1741,7 @@
 				0435238D19D05D0100F67B8E /* btn_back_highlighted.png in Resources */,
 				044273F81A13C50700DD99CD /* star_show.png in Resources */,
 				04E0EAE71A1A5472000B7055 /* confirm.png in Resources */,
+				041EA8E21A6D72AD004175CD /* add_image.png in Resources */,
 				044273EB1A13C21600DD99CD /* rank_S@2x.png in Resources */,
 				04B1C9481A3BF48D00FD0BC8 /* sunshine.png in Resources */,
 				044274061A13CFCC00DD99CD /* location.png in Resources */,
@@ -1843,6 +1856,7 @@
 				047EB62D19E7CE8000A2E081 /* ASIDownloadCache.m in Sources */,
 				0435237F19D0574900F67B8E /* HomeCell.m in Sources */,
 				04B0D06319DA7C3000289F78 /* SDWebImagePrefetcher.m in Sources */,
+				041EA8DF1A6D6416004175CD /* UserAtListViewController.m in Sources */,
 				045E4F581A34BBDF0091E7F2 /* WeatherCurrentCell.m in Sources */,
 				04C2418E1A3D7B490073CBBF /* ShopMapViewController.m in Sources */,
 				04C0109B1A48791B00D741E5 /* MessageDetailCell.m in Sources */,
@@ -2005,7 +2019,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_OBJC_ARC = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Lide Ma (C87W5P53R8)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Lide Ma (N3D3W5CEFZ)";
 				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2022,7 +2036,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "561bba4c-8a71-4aff-979d-39078ce15c3d";
+				PROVISIONING_PROFILE = "e039484a-7351-4aa1-b588-3e1902b5f8e9";
 				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Debug;
@@ -2034,7 +2048,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_OBJC_ARC = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Lide Ma (C87W5P53R8)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Lide Ma (N3D3W5CEFZ)";
 				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2051,7 +2065,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "561bba4c-8a71-4aff-979d-39078ce15c3d";
+				PROVISIONING_PROFILE = "e039484a-7351-4aa1-b588-3e1902b5f8e9";
 				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Release;
