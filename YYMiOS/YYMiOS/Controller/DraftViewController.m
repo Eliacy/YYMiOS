@@ -32,8 +32,6 @@
     if(self != nil)
     {
         _draftArray = [[NSMutableArray alloc] initWithCapacity:0];
-        
-        [_draftArray addObjectsFromArray:[NSArray arrayWithObjects:@"1", @"2", @"3", @"4", nil]];
     }
     
     return self;
@@ -74,6 +72,16 @@
     // Do any additional setup after loading the view.
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    NSArray *draftArray = [LPUtility unarchiveDataFromCache:@"draft_list"];
+    [_draftArray removeAllObjects];
+    [_draftArray addObjectsFromArray:draftArray];
+    [_tableView reloadData];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -110,6 +118,8 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
+    cell.deal = [_draftArray objectAtIndex:indexPath.row];
+    
     return cell;
 }
 
@@ -118,6 +128,7 @@
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     DealEditViewController *dealEditVC = [[[DealEditViewController alloc] init] autorelease];
+    dealEditVC.deal = [_draftArray objectAtIndex:indexPath.row];
     [self.navigationController pushViewController:dealEditVC animated:YES];
     
     return nil;

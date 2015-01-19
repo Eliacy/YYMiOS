@@ -25,6 +25,7 @@
 		0435239419D0632D00F67B8E /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0435239319D0632D00F67B8E /* LoginViewController.m */; };
 		0435239719D0633E00F67B8E /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0435239619D0633E00F67B8E /* RegisterViewController.m */; };
 		043C66891A1885BE00E1E697 /* ShopDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 043C66881A1885BE00E1E697 /* ShopDetailCell.m */; };
+		043D58611A6C13F30051D3F0 /* POISelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 043D58601A6C13F30051D3F0 /* POISelectViewController.m */; };
 		044273EA1A13C21600DD99CD /* rank_SS@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 044273E41A13C21600DD99CD /* rank_SS@2x.png */; };
 		044273EB1A13C21600DD99CD /* rank_S@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 044273E51A13C21600DD99CD /* rank_S@2x.png */; };
 		044273EC1A13C21600DD99CD /* rank_A+.png in Resources */ = {isa = PBXBuildFile; fileRef = 044273E61A13C21600DD99CD /* rank_A+.png */; };
@@ -304,6 +305,8 @@
 		0435239619D0633E00F67B8E /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		043C66871A1885BE00E1E697 /* ShopDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopDetailCell.h; sourceTree = "<group>"; };
 		043C66881A1885BE00E1E697 /* ShopDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopDetailCell.m; sourceTree = "<group>"; };
+		043D585F1A6C13F30051D3F0 /* POISelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POISelectViewController.h; sourceTree = "<group>"; };
+		043D58601A6C13F30051D3F0 /* POISelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POISelectViewController.m; sourceTree = "<group>"; };
 		044273E41A13C21600DD99CD /* rank_SS@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rank_SS@2x.png"; sourceTree = "<group>"; };
 		044273E51A13C21600DD99CD /* rank_S@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rank_S@2x.png"; sourceTree = "<group>"; };
 		044273E61A13C21600DD99CD /* rank_A+.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rank_A+.png"; sourceTree = "<group>"; };
@@ -1115,6 +1118,8 @@
 				04788D5719D7F2FB00BE283B /* DraftViewController.m */,
 				04DC527719FBD0F400342DB6 /* DealEditViewController.h */,
 				04DC527819FBD0F400342DB6 /* DealEditViewController.m */,
+				043D585F1A6C13F30051D3F0 /* POISelectViewController.h */,
+				043D58601A6C13F30051D3F0 /* POISelectViewController.m */,
 				0435238019D05C6500F67B8E /* TipsViewController.h */,
 				0435238119D05C6500F67B8E /* TipsViewController.m */,
 				0435238319D05C7200F67B8E /* MessageViewController.h */,
@@ -1866,6 +1871,7 @@
 				04788D6A19D8008E00BE283B /* PhotoSelectView.m in Sources */,
 				0498E33119F509840085E12B /* AFURLSessionManager.m in Sources */,
 				045EF5661A04CD2D00A85776 /* QNUrlSafeBase64.m in Sources */,
+				043D58611A6C13F30051D3F0 /* POISelectViewController.m in Sources */,
 				045EF5691A04CD2D00A85776 /* QNUserAgent.m in Sources */,
 				04B0D06219DA7C3000289F78 /* SDWebImageManager.m in Sources */,
 				048AD00A1A3E065B00AD670F /* SRRefreshView.m in Sources */,

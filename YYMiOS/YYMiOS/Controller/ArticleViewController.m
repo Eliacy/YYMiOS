@@ -15,7 +15,7 @@
 #import "ShopViewController.h"
 #import "Share.h"
 
-@interface ArticleViewController () <UITextFieldDelegate, ArticlePOIViewDelegate>
+@interface ArticleViewController () <UITextFieldDelegate, ArticlePOIViewDelegate, CommentCellDelegate>
 
 @end
 
@@ -23,6 +23,8 @@
 
 @synthesize articleId = _articleId;
 @synthesize article = _article;
+
+@synthesize atListString = _atListString;
 
 #pragma mark - private
 
@@ -64,7 +66,7 @@
     [Comment createCommentWithDealId:0
                            articleId:_articleId
                               userId:[[User sharedUser] userId]
-                              atList:@""
+                              atList:self.atListString//@""
                              content:_textField.text
                              success:^(NSArray *array) {
                                  
@@ -502,6 +504,7 @@
         }
         
         cell.comment = [_commentArray objectAtIndex:indexPath.row];
+        cell.delegate = self;
         
         return cell;
     }
@@ -534,6 +537,15 @@
     ShopViewController *shopVC = [[[ShopViewController alloc] init] autorelease];
     shopVC.poiId = articlePOIView.poi.poiId;
     [self.navigationController pushViewController:shopVC animated:YES];
+}
+
+#pragma mark - CommentCellDelegate
+
+- (void)commentCellDidClickReplyButton:(CommentCell *)commentCell
+{
+    self.atListString = [NSString stringWithFormat:@"%i", commentCell.comment.user.userId];
+    
+    _textField.placeholder = [NSString stringWithFormat:@"回复%@：", commentCell.comment.user.userName];
 }
 
 @end

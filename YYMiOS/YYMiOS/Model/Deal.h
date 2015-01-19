@@ -29,6 +29,7 @@
     NSDate    *_updateTime;
     User        *_user;
     BOOL        _liked;
+    NSString    *_dealKey;
 }
 
 @property (retain, nonatomic) NSArray *atList;
@@ -48,6 +49,7 @@
 @property (retain, nonatomic) NSDate *updateTime;
 @property (retain, nonatomic) User *user;
 @property (assign, nonatomic) BOOL liked;
+@property (retain, nonatomic) NSString *dealKey;
 
 - (id)initWithAttribute:(NSDictionary *)attribute;
 
@@ -78,5 +80,22 @@
                       reviewId:(NSInteger)reviewId
                        success:(LPObjectSuccessBlock)successBlock
                        failure:(LPObjectFailureBlock)failureBlock;
+
++ (void)deleteDealDetailWithDealId:(NSInteger)dealId
+                           success:(LPObjectSuccessBlock)successBlock
+                           failure:(LPObjectFailureBlock)failureBlock;
+
++ (void)createDealDetailWithPublished:(NSInteger)published
+                               userId:(NSInteger)userId
+                               atList:(NSString *)atList
+                                 star:(float)star
+                              content:(NSString *)content
+                               images:(NSString *)images
+                             keywords:(NSString *)keywords
+                                total:(NSInteger)total
+                             currency:(NSString *)currency
+                               siteId:(NSInteger)siteId
+                              success:(LPObjectSuccessBlock)successBlock
+                              failure:(LPObjectFailureBlock)failureBlock;
 
 @end
