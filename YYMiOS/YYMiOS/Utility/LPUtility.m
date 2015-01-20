@@ -162,7 +162,7 @@
                                                                   QNUploadOption *opt = [[QNUploadOption alloc] initWithMime:@"image/png" progressHandler:nil params:nil checkCrc:YES cancellationSignal:nil];
                                                                   
                                                                   [uploadManager putData:uploadData
-                                                                                     key:nil
+                                                                                     key:name
                                                                                    token:uploadToken
                                                                                 complete:completionHandler
                                                                                   option:opt];

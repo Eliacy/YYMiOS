@@ -8,4 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-static const NSString *kQiniuVersion = @"7.0.6";
+/**
+ *    sdk 版本
+ */
+static const NSString *kQiniuVersion = @"7.0.7";

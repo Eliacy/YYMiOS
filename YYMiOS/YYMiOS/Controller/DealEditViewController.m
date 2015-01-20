@@ -9,8 +9,9 @@
 #import "DealEditViewController.h"
 #import "POISelectViewController.h"
 #import "UserAtListViewController.h"
+#import "PhotoSelectView.h"
 
-@interface DealEditViewController () <POISelectViewControllerDelegate, UserAtListViewControllerDelegate, UITextViewDelegate>
+@interface DealEditViewController () <POISelectViewControllerDelegate, UserAtListViewControllerDelegate, UITextViewDelegate, PhotoSelectViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @end
 
@@ -118,7 +119,10 @@
 
 - (void)clickAddPhotoButton:(id)sender
 {
-    
+    PhotoSelectView *photoSelectView = [[[PhotoSelectView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)] autorelease];
+    photoSelectView.backgroundColor = [UIColor clearColor];
+    photoSelectView.delegate = self;
+    [photoSelectView show];
 }
 
 #pragma mark - super
@@ -347,6 +351,101 @@
 - (void)textViewDidChange:(UITextView *)textView
 {
     _deal.content = textView.text;
+}
+
+#pragma mark - PhotoSelectViewDelegate
+
+- (void)photoSelectViewDidClickCameraButton:(PhotoSelectView *)photoSelectView
+{
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+    {
+        UIImagePickerController *picker = [[[UIImagePickerController alloc] init] autorelease];
+        picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        picker.delegate = self;
+        [self presentViewController:picker animated:YES completion:^{
+            
+        }];
+    }
+    else
+    {
+        NSLog(@"不能使用照相机");
+    }
+}
+
+- (void)photoSelectViewDidClickLibraryButton:(PhotoSelectView *)photoSelectView
+{
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary])
+    {
+        UIImagePickerController *picker = [[[UIImagePickerController alloc] init] autorelease];
+        picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        picker.delegate = self;
+        [self presentViewController:picker animated:YES completion:^{
+            
+        }];
+    }
+    else
+    {
+        NSLog(@"不能访问图片库");
+    }
+}
+
+#pragma mark - UIImagePickerControllerDelegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
+    
+    [self.view hideToastActivity];
+    [self.view makeToastActivity];
+    
+    [LPUtility uploadImageToQiniuWithImage:image
+                                   imageId:0
+                                      type:3
+                                    userId:[[User sharedUser] userId]
+                                      note:@"nothing"
+                                      name:[NSString stringWithFormat:@"i%@_%i_%i.png", [[NSUserDefaults standardUserDefaults] objectForKey:@"AppVersion"], (int)[[NSDate date] timeIntervalSince1970], arc4random()]
+                                  complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+                                      
+                                      if(resp && [resp objectForKey:@"data"])
+                                      {
+//                                          [User modifyUserInfoWithUserId:[[User sharedUser] userId]
+//                                                                  iconId:[[[resp objectForKey:@"data"] objectForKey:@"id"] integerValue]
+//                                                                userName:nil
+//                                                                password:nil
+//                                                                  gender:nil
+//                                                                 success:^(NSArray *array) {
+//                                                                     
+//                                                                     [self.view hideToastActivity];
+//                                                                     
+//                                                                     if([array count] > 0)
+//                                                                     {
+//                                                                         [LPUtility archiveData:array IntoCache:@"LoginUser"];
+//                                                                     }
+//                                                                     
+//                                                                 } failure:^(NSError *error) {
+//                                                                     
+//                                                                     [self.view hideToastActivity];
+//                                                                     
+//                                                                 }];
+                                          [self.view hideToastActivity];
+                                      }
+                                      else
+                                      {
+                                          [self.view hideToastActivity];
+                                      }
+                                      
+                                  }];
+    
+    [picker dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [picker dismissViewControllerAnimated:YES completion:^{
+        
+    }];
 }
 
 @end
