@@ -266,6 +266,7 @@
 		04E429231A63D58900DB1F1F /* launch_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 04E429221A63D58900DB1F1F /* launch_image.png */; };
 		04E963731A2C3C350067C6C2 /* FollowingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E963721A2C3C350067C6C2 /* FollowingViewController.m */; };
 		04E963761A2C3C470067C6C2 /* FollowerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E963751A2C3C470067C6C2 /* FollowerViewController.m */; };
+		0E7748B81A6F4B4700831C0E /* Function.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7748B71A6F4B4700831C0E /* Function.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		6487403E1A6C96710033BB6F /* rank.png in Resources */ = {isa = PBXBuildFile; fileRef = 6487403C1A6C96710033BB6F /* rank.png */; };
 		6487403F1A6C96710033BB6F /* rank@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6487403D1A6C96710033BB6F /* rank@2x.png */; };
 /* End PBXBuildFile section */
@@ -752,6 +753,9 @@
 		04E963721A2C3C350067C6C2 /* FollowingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FollowingViewController.m; sourceTree = "<group>"; };
 		04E963741A2C3C470067C6C2 /* FollowerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FollowerViewController.h; sourceTree = "<group>"; };
 		04E963751A2C3C470067C6C2 /* FollowerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FollowerViewController.m; sourceTree = "<group>"; };
+		0E7748B61A6F4B4700831C0E /* Function.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Function.h; sourceTree = "<group>"; };
+		0E7748B71A6F4B4700831C0E /* Function.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Function.m; sourceTree = "<group>"; };
+		0EB933D21A6E520F00F5C657 /* Constant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constant.h; sourceTree = "<group>"; };
 		6487403C1A6C96710033BB6F /* rank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rank.png; sourceTree = "<group>"; };
 		6487403D1A6C96710033BB6F /* rank@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rank@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1030,6 +1034,7 @@
 				04B0D04519DA7C3000289F78 /* 3rd */,
 				0435238619D05D0100F67B8E /* Resource */,
 				04B0D04119DA7AA100289F78 /* Utility */,
+				0EB933D11A6E51C400F5C657 /* Common */,
 				0435237C19D0573200F67B8E /* View */,
 				0435236919D0502C00F67B8E /* Model */,
 				045605A619CB396B00BF5933 /* Controller */,
@@ -1605,6 +1610,16 @@
 			path = weixinSDK;
 			sourceTree = "<group>";
 		};
+		0EB933D11A6E51C400F5C657 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				0EB933D21A6E520F00F5C657 /* Constant.h */,
+				0E7748B61A6F4B4700831C0E /* Function.h */,
+				0E7748B71A6F4B4700831C0E /* Function.m */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1728,7 +1743,6 @@
 				044273F81A13C50700DD99CD /* star_show.png in Resources */,
 				04E0EAE71A1A5472000B7055 /* confirm.png in Resources */,
 				041EA8E21A6D72AD004175CD /* add_image.png in Resources */,
-				044273EB1A13C21600DD99CD /* rank_S@2x.png in Resources */,
 				04B1C9481A3BF48D00FD0BC8 /* sunshine.png in Resources */,
 				044274061A13CFCC00DD99CD /* location.png in Resources */,
 				04AFF1A21A148B0F000CE6FF /* tab_news_hide.png in Resources */,
@@ -1863,6 +1877,7 @@
 				0435239719D0633E00F67B8E /* RegisterViewController.m in Sources */,
 				04A824B41A0FA560000B6AFF /* POIDetail.m in Sources */,
 				045EF5651A04CD2D00A85776 /* QNEtag.m in Sources */,
+				0E7748B81A6F4B4700831C0E /* Function.m in Sources */,
 				04788D5B19D7FAF000BE283B /* DraftCell.m in Sources */,
 				0435238219D05C6500F67B8E /* TipsViewController.m in Sources */,
 				04788D7019D809AF00BE283B /* GenderViewController.m in Sources */,

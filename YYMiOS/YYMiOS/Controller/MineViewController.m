@@ -587,8 +587,7 @@
     return nil;
 }
 
-#pragma mark - UIGestureRecognizer
-
+#pragma mark - 跳转个人信息页面
 - (void)tapAvaterView:(UITapGestureRecognizer *)gestureRecognizer
 {
     if(gestureRecognizer.state == UIGestureRecognizerStateEnded)
