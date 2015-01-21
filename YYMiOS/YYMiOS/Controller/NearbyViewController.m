@@ -125,7 +125,7 @@
     }
     _isAppear = YES;
     
-    if([_nearbyArray count] == 0 && [[[NSUserDefaults standardUserDefaults] objectForKey:@"refresh_nearby_data"] boolValue] == NO)
+    if([_nearbyArray count] == 0 || [[[NSUserDefaults standardUserDefaults] objectForKey:@"refresh_nearby_data"] boolValue] == YES)
     {
         [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:NO] forKey:@"refresh_nearby_data"];
         [[NSUserDefaults standardUserDefaults] synchronize];
