@@ -243,6 +243,8 @@
 		04B1C9551A3C2B5000FD0BC8 /* deal_detail_like.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B1C9511A3C2B5000FD0BC8 /* deal_detail_like.png */; };
 		04B1C9561A3C2B5000FD0BC8 /* deal_detail_comment.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B1C9521A3C2B5000FD0BC8 /* deal_detail_comment.png */; };
 		04B1C9571A3C2B5000FD0BC8 /* deal_detail_like@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B1C9531A3C2B5000FD0BC8 /* deal_detail_like@2x.png */; };
+		04B1F7DA1A6F9C4B00DCD2D5 /* deal_no_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B1F7D81A6F9C4B00DCD2D5 /* deal_no_image@2x.png */; };
+		04B1F7DB1A6F9C4B00DCD2D5 /* deal_no_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B1F7D91A6F9C4B00DCD2D5 /* deal_no_image.png */; };
 		04B33FF21A11199200F0A3E9 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B33FF11A11199200F0A3E9 /* Comment.m */; };
 		04B36B0219E57BCE00FA7D3A /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B36B0119E57BCE00FA7D3A /* CommentCell.m */; };
 		04B36B0519E7C88A00FA7D3A /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B36B0419E7C88A00FA7D3A /* User.m */; };
@@ -717,6 +719,8 @@
 		04B1C9511A3C2B5000FD0BC8 /* deal_detail_like.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = deal_detail_like.png; sourceTree = "<group>"; };
 		04B1C9521A3C2B5000FD0BC8 /* deal_detail_comment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = deal_detail_comment.png; sourceTree = "<group>"; };
 		04B1C9531A3C2B5000FD0BC8 /* deal_detail_like@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "deal_detail_like@2x.png"; sourceTree = "<group>"; };
+		04B1F7D81A6F9C4B00DCD2D5 /* deal_no_image@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "deal_no_image@2x.png"; sourceTree = "<group>"; };
+		04B1F7D91A6F9C4B00DCD2D5 /* deal_no_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = deal_no_image.png; sourceTree = "<group>"; };
 		04B33FF01A11199200F0A3E9 /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comment.h; sourceTree = "<group>"; };
 		04B33FF11A11199200F0A3E9 /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comment.m; sourceTree = "<group>"; };
 		04B36B0019E57BCE00FA7D3A /* CommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentCell.h; sourceTree = "<group>"; };
@@ -891,6 +895,8 @@
 		0435238619D05D0100F67B8E /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				04B1F7D81A6F9C4B00DCD2D5 /* deal_no_image@2x.png */,
+				04B1F7D91A6F9C4B00DCD2D5 /* deal_no_image.png */,
 				041EA8E01A6D72AD004175CD /* add_image.png */,
 				041EA8E11A6D72AD004175CD /* add_image@2x.png */,
 				04C010911A486F5900D741E5 /* btn_share_weixin.png */,
@@ -1678,6 +1684,7 @@
 				04AFF1A31A148B0F000CE6FF /* tab_news_hide@2x.png in Resources */,
 				04B1C9341A3B893200FD0BC8 /* cloudy_large@2x.png in Resources */,
 				045E4F501A34B33B0091E7F2 /* weather_night@2x.png in Resources */,
+				04B1F7DA1A6F9C4B00DCD2D5 /* deal_no_image@2x.png in Resources */,
 				04482AB91A17AF7E00BC950E /* 2@2x.png in Resources */,
 				044273F71A13C50700DD99CD /* star_hide.png in Resources */,
 				04B1C9561A3C2B5000FD0BC8 /* deal_detail_comment.png in Resources */,
@@ -1728,7 +1735,6 @@
 				044273F81A13C50700DD99CD /* star_show.png in Resources */,
 				04E0EAE71A1A5472000B7055 /* confirm.png in Resources */,
 				041EA8E21A6D72AD004175CD /* add_image.png in Resources */,
-				044273EB1A13C21600DD99CD /* rank_S@2x.png in Resources */,
 				04B1C9481A3BF48D00FD0BC8 /* sunshine.png in Resources */,
 				044274061A13CFCC00DD99CD /* location.png in Resources */,
 				04AFF1A21A148B0F000CE6FF /* tab_news_hide.png in Resources */,
@@ -1758,6 +1764,7 @@
 				044273FB1A13C50700DD99CD /* star_half@2x.png in Resources */,
 				04B0D06619DA7C3000289F78 /* WeiboSDK.bundle in Resources */,
 				04AFF19F1A148B0F000CE6FF /* tab_nearby_hide@2x.png in Resources */,
+				04B1F7DB1A6F9C4B00DCD2D5 /* deal_no_image.png in Resources */,
 				044274141A13DF7500DD99CD /* icon_mastercard@2x.png in Resources */,
 				04482ABB1A17AF7E00BC950E /* 6.png in Resources */,
 				04B1C92F1A3B893200FD0BC8 /* sunshine_large.png in Resources */,

@@ -240,6 +240,36 @@
 - (void)refreshData
 {
     _textView.text = _deal.content;
+    if(_deal.imageArray == nil)
+    {
+        _deal.imageArray = [NSMutableArray arrayWithCapacity:0];
+    }
+    [self refreshImageScrollView];
+}
+
+- (void)refreshImageScrollView
+{
+    for(UIView *view in _scrollView.subviews)
+    {
+        [view removeFromSuperview];
+    }
+    
+    CGFloat offsetX = 0;
+    CGFloat width = _deal.imageArray.count * 75 + 15 + 15 + 60;
+    _scrollView.contentSize = CGSizeMake(width, _scrollView.frame.size.height);
+    
+    for(NSInteger i = 0; i < _deal.imageArray.count; i++)
+    {
+        UIImageView *imageView = [[[UIImageView alloc] initWithFrame:CGRectMake(15 + 75 * i, 0, 60, 60)] autorelease];
+        imageView.backgroundColor = [UIColor brownColor];
+        [imageView setImageWithURL:[NSURL URLWithString:[LPUtility getQiniuImageURLStringWithBaseString:[[_deal.imageArray objectAtIndex:i] imageURL] imageSize:CGSizeMake(120, 120)]]];
+        [_scrollView addSubview:imageView];
+        
+        offsetX = imageView.frame.origin.x + imageView.frame.size.width;
+    }
+    
+    _addPhotoButton.frame = CGRectMake(offsetX + 15, 0, _addPhotoButton.frame.size.width, _addPhotoButton.frame.size.height);
+    [_scrollView addSubview:_addPhotoButton];
 }
 
 #pragma mark - UITableViewDataSource
@@ -406,32 +436,19 @@
                                       name:[NSString stringWithFormat:@"i%@_%i_%i.png", [[NSUserDefaults standardUserDefaults] objectForKey:@"AppVersion"], (int)[[NSDate date] timeIntervalSince1970], arc4random()]
                                   complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
                                       
+                                      [self.view hideToastActivity];
+                                      
                                       if(resp && [resp objectForKey:@"data"])
                                       {
-//                                          [User modifyUserInfoWithUserId:[[User sharedUser] userId]
-//                                                                  iconId:[[[resp objectForKey:@"data"] objectForKey:@"id"] integerValue]
-//                                                                userName:nil
-//                                                                password:nil
-//                                                                  gender:nil
-//                                                                 success:^(NSArray *array) {
-//                                                                     
-//                                                                     [self.view hideToastActivity];
-//                                                                     
-//                                                                     if([array count] > 0)
-//                                                                     {
-//                                                                         [LPUtility archiveData:array IntoCache:@"LoginUser"];
-//                                                                     }
-//                                                                     
-//                                                                 } failure:^(NSError *error) {
-//                                                                     
-//                                                                     [self.view hideToastActivity];
-//                                                                     
-//                                                                 }];
-                                          [self.view hideToastActivity];
-                                      }
-                                      else
-                                      {
-                                          [self.view hideToastActivity];
+                                          LPImage *image = [[[LPImage alloc] init] autorelease];
+                                          image.imageId = [[[resp objectForKey:@"data"] objectForKey:@"id"] integerValue];
+                                          image.imageURL = [[resp objectForKey:@"data"] objectForKey:@"url"];
+                                          
+                                          NSMutableArray *mutableArray = [NSMutableArray arrayWithArray:_deal.imageArray];
+                                          [mutableArray insertObject:image atIndex:0];
+                                          _deal.imageArray = mutableArray;
+                                          
+                                          [self refreshImageScrollView];
                                       }
                                       
                                   }];

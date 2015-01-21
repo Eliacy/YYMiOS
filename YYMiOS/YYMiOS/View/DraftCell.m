@@ -21,6 +21,8 @@
         
         _avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 70, 70)];
         _avatarImageView.backgroundColor = [UIColor brownColor];
+        _avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _avatarImageView.layer.masksToBounds = YES;
         [self.contentView addSubview:_avatarImageView];
         
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(_avatarImageView.frame.origin.x + _avatarImageView.frame.size.width + 10, _avatarImageView.frame.origin.y, 320 - _avatarImageView.frame.size.width - 10 * 3, 25)];
@@ -54,6 +56,12 @@
     
     _titleLabel.text = deal.site.siteName;
     _contentLabel.text = deal.content;
+    
+    _avatarImageView.image = [UIImage imageNamed:@"deal_no_image.png"];
+    if(_deal.imageArray && _deal.imageArray.count > 0)
+    {
+        [_avatarImageView setImageWithURL:[NSURL URLWithString:[LPUtility getQiniuImageURLStringWithBaseString:[[_deal.imageArray objectAtIndex:0] imageURL] imageSize:CGSizeMake(120, 120)]]];
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
