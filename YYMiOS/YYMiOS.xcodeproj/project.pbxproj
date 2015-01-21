@@ -108,7 +108,7 @@
 		04788D6419D7FD5600BE283B /* POI.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D6319D7FD5600BE283B /* POI.m */; };
 		04788D6719D7FD6100BE283B /* Draft.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D6619D7FD6100BE283B /* Draft.m */; };
 		04788D6A19D8008E00BE283B /* PhotoSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D6919D8008E00BE283B /* PhotoSelectView.m */; };
-		04788D6D19D8098700BE283B /* NicknameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D6C19D8098700BE283B /* NicknameViewController.m */; };
+		04788D6D19D8098700BE283B /* NicknameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D6C19D8098700BE283B /* NicknameViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		04788D7019D809AF00BE283B /* GenderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D6F19D809AF00BE283B /* GenderViewController.m */; };
 		04788D7319D80AA500BE283B /* ModifyPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04788D7219D80AA500BE283B /* ModifyPasswordViewController.m */; };
 		047EB62A19E7CE8000A2E081 /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 047EB61719E7CE8000A2E081 /* ASIAuthenticationDialog.m */; };
@@ -268,6 +268,7 @@
 		04E963761A2C3C470067C6C2 /* FollowerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E963751A2C3C470067C6C2 /* FollowerViewController.m */; };
 		0E7748B81A6F4B4700831C0E /* Function.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7748B71A6F4B4700831C0E /* Function.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		0E7748BA1A6F848200831C0E /* icon_right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E7748B91A6F848200831C0E /* icon_right@2x.png */; };
+		0E7748BD1A6FC3AE00831C0E /* UserInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7748BC1A6FC3AE00831C0E /* UserInfoCell.m */; };
 		6487403E1A6C96710033BB6F /* rank.png in Resources */ = {isa = PBXBuildFile; fileRef = 6487403C1A6C96710033BB6F /* rank.png */; };
 		6487403F1A6C96710033BB6F /* rank@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6487403D1A6C96710033BB6F /* rank@2x.png */; };
 /* End PBXBuildFile section */
@@ -757,6 +758,8 @@
 		0E7748B61A6F4B4700831C0E /* Function.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Function.h; sourceTree = "<group>"; };
 		0E7748B71A6F4B4700831C0E /* Function.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Function.m; sourceTree = "<group>"; };
 		0E7748B91A6F848200831C0E /* icon_right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_right@2x.png"; sourceTree = "<group>"; };
+		0E7748BB1A6FC3AE00831C0E /* UserInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoCell.h; sourceTree = "<group>"; };
+		0E7748BC1A6FC3AE00831C0E /* UserInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoCell.m; sourceTree = "<group>"; };
 		0EB933D21A6E520F00F5C657 /* Constant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constant.h; sourceTree = "<group>"; };
 		6487403C1A6C96710033BB6F /* rank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rank.png; sourceTree = "<group>"; };
 		6487403D1A6C96710033BB6F /* rank@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rank@2x.png"; sourceTree = "<group>"; };
@@ -890,6 +893,8 @@
 				0491FE581A46C2C100A624E3 /* MessageCell.m */,
 				04C010991A48791B00D741E5 /* MessageDetailCell.h */,
 				04C0109A1A48791B00D741E5 /* MessageDetailCell.m */,
+				0E7748BB1A6FC3AE00831C0E /* UserInfoCell.h */,
+				0E7748BC1A6FC3AE00831C0E /* UserInfoCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1817,6 +1822,7 @@
 				048355AB19D320C7005ECAD6 /* FeedbackViewController.m in Sources */,
 				04788D5E19D7FD2F00BE283B /* Article.m in Sources */,
 				04D208D31A30560C00250564 /* Toast+UIView.m in Sources */,
+				0E7748BD1A6FC3AE00831C0E /* UserInfoCell.m in Sources */,
 				04A824BD1A0FD682000B6AFF /* NearbyMapViewController.m in Sources */,
 				04B0D07D19DD23E400289F78 /* FilterViewController.m in Sources */,
 				0491FE591A46C2C100A624E3 /* MessageCell.m in Sources */,

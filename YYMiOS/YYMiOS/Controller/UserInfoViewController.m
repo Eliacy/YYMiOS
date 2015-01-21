@@ -14,6 +14,7 @@
 #import "Function.h"
 #import "User.h"
 #import "Constant.h"
+#import "UserInfoCell.h"
 
 @interface UserInfoViewController () <PhotoSelectViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
@@ -21,8 +22,6 @@
 
 @implementation UserInfoViewController
 {
-    //用户信息
-    User *user;
 }
 
 #pragma mark - private
@@ -43,10 +42,18 @@
     self = [super init];
     if(self != nil)
     {
-        user = [User sharedUser];
     }
     
     return self;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    if(_tableView){
+        [_tableView reloadData];
+    }
 }
 
 - (void)loadView
@@ -78,7 +85,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -86,15 +94,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 #pragma mark -
 #pragma mark - UITableViewDataSource
@@ -116,82 +115,14 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UserInfoViewControllerIndetifier"];
-    if(cell == nil)
-    {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UserInfoViewControllerIndetifier"] autorelease];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    NSString *CellIdentifier = @"UserInfoCell";
+    UserInfoCell *cell = (UserInfoCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[UserInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    
-    //统一标准
-    int fontSize = 16;
-    int leftX = 10;
-    int rightX = 35;
-    int arrowRithtX = 15;
-    //内容
-    #define cellTextArray @[@"头像",@"昵称",@"性别",@"手机号码",@"修改密码"]
-    
-    switch (indexPath.row) {
-        case 0:
-        {
-            [cell.contentView addSubview:[Function createLabelWithFrame:CGRectMake(leftX, (80-20)/2, 40, 20) FontSize:fontSize Text:[cellTextArray objectAtIndex:indexPath.row]]];
-            //头像
-            UIImageView *userIconImageView = [[[UIImageView alloc] initWithFrame:CGRectMake(cell.contentView.frame.size.width-rightX-60, (80-60)/2, 60, 60)] autorelease];
-            userIconImageView.backgroundColor = [UIColor clearColor];
-            userIconImageView.layer.cornerRadius = 30.0;
-            userIconImageView.layer.masksToBounds = YES;
-            userIconImageView.contentMode = UIViewContentModeScaleAspectFill;
-            [userIconImageView setImageWithURL:[NSURL URLWithString:[LPUtility getQiniuImageURLStringWithBaseString:user.userIcon.imageURL imageSize:CGSizeMake(120, 120)]]];
-            [cell.contentView addSubview:userIconImageView];
-            //箭头
-            [cell.contentView addSubview:[Function createArrowImageViewWithPoint:CGPointMake(cell.contentView.frame.size.width-15-8, (80-12)/2)]];
-        }
-            break;
-        case 1:
-        {
-            [cell.contentView addSubview:[Function createLabelWithFrame:CGRectMake(leftX, (45-20)/2, 40, 20) FontSize:fontSize Text:[cellTextArray objectAtIndex:indexPath.row]]];
-            //昵称
-            UILabel *userNameLabel = [Function createLabelWithFrame:CGRectMake(cell.contentView.frame.size.width-rightX-200, (cell.contentView.frame.size.height-20)/2, 200, 20) FontSize:fontSize Text:user.userName];
-            userNameLabel.textAlignment = NSTextAlignmentRight;
-            userNameLabel.textColor = GColor(112, 112, 112);
-            [cell.contentView addSubview:userNameLabel];
-            //箭头
-            [cell.contentView addSubview:[Function createArrowImageViewWithPoint:CGPointMake(cell.contentView.frame.size.width-arrowRithtX-8, (45-12)/2)]];
-        }
-            break;
-        case 2:
-        {
-            [cell.contentView addSubview:[Function createLabelWithFrame:CGRectMake(leftX, (45-20)/2, 40, 20) FontSize:fontSize Text:[cellTextArray objectAtIndex:indexPath.row]]];
-            //性别
-            UILabel *userGenderLabel = [Function createLabelWithFrame:CGRectMake(cell.contentView.frame.size.width-rightX-200, (cell.contentView.frame.size.height-20)/2, 200, 20) FontSize:fontSize Text:user.gender];
-            userGenderLabel.textAlignment = NSTextAlignmentRight;
-            userGenderLabel.textColor = GColor(112, 112, 112);
-            [cell.contentView addSubview:userGenderLabel];
-            //箭头
-            [cell.contentView addSubview:[Function createArrowImageViewWithPoint:CGPointMake(cell.contentView.frame.size.width-arrowRithtX-8, (45-12)/2)]];
-        }
-            break;
-        case 3:
-        {
-            [cell.contentView addSubview:[Function createLabelWithFrame:CGRectMake(leftX, (45-20)/2, 80, 20) FontSize:fontSize Text:[cellTextArray objectAtIndex:indexPath.row]]];
-            //手机号码
-            UILabel *userMobileLabel = [Function createLabelWithFrame:CGRectMake(cell.contentView.frame.size.width-arrowRithtX-200, (cell.contentView.frame.size.height-20)/2, 200, 20) FontSize:fontSize Text:user.mobile];
-            userMobileLabel.textAlignment = NSTextAlignmentRight;
-            userMobileLabel.textColor = GColor(112, 112, 112);
-            [cell.contentView addSubview:userMobileLabel];
-        }
-            break;
-        case 4:
-        {
-            //修改密码
-            [cell.contentView addSubview:[Function createLabelWithFrame:CGRectMake(leftX, (45-20)/2, 80, 20) FontSize:fontSize Text:[cellTextArray objectAtIndex:indexPath.row]]];
-            //箭头
-            [cell.contentView addSubview:[Function createArrowImageViewWithPoint:CGPointMake(cell.contentView.frame.size.width-arrowRithtX-8, (45-12)/2)]];
-        }
-            break;
-        default:
-            break;
-    }
+    [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
+    //重新布局视图
+    [cell layoutCellWithRow:indexPath.row];
     
     return cell;
 }

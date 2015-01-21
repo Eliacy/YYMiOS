@@ -13,6 +13,8 @@
 #define GLog(format, ...)
 #endif
 
-// 颜色宏
+//颜色
 #define GColor(x,y,z)     [UIColor colorWithRed:x/255. green:y/255. blue:z/255. alpha:1]
 
+//用户昵称长度限制
+#define USER_NAME_LENGTH 10
