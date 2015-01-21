@@ -12,10 +12,18 @@
 
 /**
  *  创建通用label
+ *
  *  @param Frame    尺寸
  *  @param FontSize 字号
  *  @param Text     文本
  */
 + (UILabel *)createLabelWithFrame:(CGRect)frame FontSize:(int)fontSize Text:(NSString *)text;
+
+/**
+ *  创建cell右侧箭头
+ *
+ *  @param Point    坐标
+ */
++ (UIImageView *)createArrowImageViewWithPoint:(CGPoint)point;
 
 @end

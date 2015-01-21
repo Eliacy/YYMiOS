@@ -21,4 +21,12 @@
     return label;
 }
 
+#pragma mark - 创建cell右侧箭头
++ (UIImageView *)createArrowImageViewWithPoint:(CGPoint)point
+{
+    UIImageView *arrowImageView = [[UIImageView alloc] initWithFrame:CGRectMake(point.x, point.y, 8, 12)];
+    arrowImageView.image = [UIImage imageNamed:@"icon_right"];
+    return arrowImageView;
+}
+
 @end

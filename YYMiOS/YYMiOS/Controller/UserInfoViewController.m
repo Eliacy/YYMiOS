@@ -126,60 +126,67 @@
     //统一标准
     int fontSize = 16;
     int leftX = 10;
-    int rightX = 60;
+    int rightX = 35;
+    int arrowRithtX = 15;
     //内容
     #define cellTextArray @[@"头像",@"昵称",@"性别",@"手机号码",@"修改密码"]
     
     switch (indexPath.row) {
         case 0:
         {
-            [cell addSubview:[Function createLabelWithFrame:CGRectMake(leftX, (80-20)/2, 40, 20) FontSize:fontSize Text:[cellTextArray objectAtIndex:indexPath.row]]];
+            [cell.contentView addSubview:[Function createLabelWithFrame:CGRectMake(leftX, (80-20)/2, 40, 20) FontSize:fontSize Text:[cellTextArray objectAtIndex:indexPath.row]]];
             //头像
-            UIImageView *userIconImageView = [[[UIImageView alloc] initWithFrame:CGRectMake(cell.frame.size.width-rightX-60, (80-60)/2, 60, 60)] autorelease];
+            UIImageView *userIconImageView = [[[UIImageView alloc] initWithFrame:CGRectMake(cell.contentView.frame.size.width-rightX-60, (80-60)/2, 60, 60)] autorelease];
             userIconImageView.backgroundColor = [UIColor clearColor];
             userIconImageView.layer.cornerRadius = 30.0;
             userIconImageView.layer.masksToBounds = YES;
             userIconImageView.contentMode = UIViewContentModeScaleAspectFill;
             [userIconImageView setImageWithURL:[NSURL URLWithString:[LPUtility getQiniuImageURLStringWithBaseString:user.userIcon.imageURL imageSize:CGSizeMake(120, 120)]]];
-            [cell addSubview:userIconImageView];
-            
+            [cell.contentView addSubview:userIconImageView];
+            //箭头
+            [cell.contentView addSubview:[Function createArrowImageViewWithPoint:CGPointMake(cell.contentView.frame.size.width-15-8, (80-12)/2)]];
         }
             break;
         case 1:
         {
-            [cell addSubview:[Function createLabelWithFrame:CGRectMake(leftX, (45-20)/2, 40, 20) FontSize:fontSize Text:[cellTextArray objectAtIndex:indexPath.row]]];
+            [cell.contentView addSubview:[Function createLabelWithFrame:CGRectMake(leftX, (45-20)/2, 40, 20) FontSize:fontSize Text:[cellTextArray objectAtIndex:indexPath.row]]];
             //昵称
-            UILabel *userNameLabel = [Function createLabelWithFrame:CGRectMake(cell.frame.size.width-rightX-200, (cell.frame.size.height-20)/2, 200, 20) FontSize:fontSize Text:user.userName];
+            UILabel *userNameLabel = [Function createLabelWithFrame:CGRectMake(cell.contentView.frame.size.width-rightX-200, (cell.contentView.frame.size.height-20)/2, 200, 20) FontSize:fontSize Text:user.userName];
             userNameLabel.textAlignment = NSTextAlignmentRight;
             userNameLabel.textColor = GColor(112, 112, 112);
-            [cell addSubview:userNameLabel];
+            [cell.contentView addSubview:userNameLabel];
+            //箭头
+            [cell.contentView addSubview:[Function createArrowImageViewWithPoint:CGPointMake(cell.contentView.frame.size.width-arrowRithtX-8, (45-12)/2)]];
         }
             break;
         case 2:
         {
-            [cell addSubview:[Function createLabelWithFrame:CGRectMake(leftX, (45-20)/2, 40, 20) FontSize:fontSize Text:[cellTextArray objectAtIndex:indexPath.row]]];
+            [cell.contentView addSubview:[Function createLabelWithFrame:CGRectMake(leftX, (45-20)/2, 40, 20) FontSize:fontSize Text:[cellTextArray objectAtIndex:indexPath.row]]];
             //性别
-            UILabel *userGenderLabel = [Function createLabelWithFrame:CGRectMake(cell.frame.size.width-rightX-200, (cell.frame.size.height-20)/2, 200, 20) FontSize:fontSize Text:user.gender];
+            UILabel *userGenderLabel = [Function createLabelWithFrame:CGRectMake(cell.contentView.frame.size.width-rightX-200, (cell.contentView.frame.size.height-20)/2, 200, 20) FontSize:fontSize Text:user.gender];
             userGenderLabel.textAlignment = NSTextAlignmentRight;
             userGenderLabel.textColor = GColor(112, 112, 112);
-            [cell addSubview:userGenderLabel];
+            [cell.contentView addSubview:userGenderLabel];
+            //箭头
+            [cell.contentView addSubview:[Function createArrowImageViewWithPoint:CGPointMake(cell.contentView.frame.size.width-arrowRithtX-8, (45-12)/2)]];
         }
             break;
         case 3:
         {
-            [cell addSubview:[Function createLabelWithFrame:CGRectMake(leftX, (45-20)/2, 80, 20) FontSize:fontSize Text:[cellTextArray objectAtIndex:indexPath.row]]];
+            [cell.contentView addSubview:[Function createLabelWithFrame:CGRectMake(leftX, (45-20)/2, 80, 20) FontSize:fontSize Text:[cellTextArray objectAtIndex:indexPath.row]]];
             //手机号码
-            UILabel *userMobileLabel = [Function createLabelWithFrame:CGRectMake(cell.frame.size.width-rightX-200, (cell.frame.size.height-20)/2, 200, 20) FontSize:fontSize Text:user.mobile];
+            UILabel *userMobileLabel = [Function createLabelWithFrame:CGRectMake(cell.contentView.frame.size.width-arrowRithtX-200, (cell.contentView.frame.size.height-20)/2, 200, 20) FontSize:fontSize Text:user.mobile];
             userMobileLabel.textAlignment = NSTextAlignmentRight;
             userMobileLabel.textColor = GColor(112, 112, 112);
-            [cell addSubview:userMobileLabel];
+            [cell.contentView addSubview:userMobileLabel];
         }
             break;
         case 4:
         {
             //修改密码
-            [cell addSubview:[Function createLabelWithFrame:CGRectMake(leftX, (45-20)/2, 80, 20) FontSize:fontSize Text:[cellTextArray objectAtIndex:indexPath.row]]];
-            
+            [cell.contentView addSubview:[Function createLabelWithFrame:CGRectMake(leftX, (45-20)/2, 80, 20) FontSize:fontSize Text:[cellTextArray objectAtIndex:indexPath.row]]];
+            //箭头
+            [cell.contentView addSubview:[Function createArrowImageViewWithPoint:CGPointMake(cell.contentView.frame.size.width-arrowRithtX-8, (45-12)/2)]];
         }
             break;
         default:
@@ -233,6 +240,7 @@
     return nil;
 }
 
+#pragma mark -
 #pragma mark - PhotoSelectViewDelegate
 
 - (void)photoSelectViewDidClickCameraButton:(PhotoSelectView *)photoSelectView
