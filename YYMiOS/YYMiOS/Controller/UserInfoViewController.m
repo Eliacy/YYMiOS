@@ -11,9 +11,7 @@
 #import "NicknameViewController.h"
 #import "GenderViewController.h"
 #import "ModifyPasswordViewController.h"
-#import "Function.h"
 #import "User.h"
-#import "Constant.h"
 #import "UserInfoCell.h"
 
 @interface UserInfoViewController () <PhotoSelectViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>

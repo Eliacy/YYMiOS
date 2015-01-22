@@ -8,7 +8,6 @@
 
 #import "NicknameViewController.h"
 #import "User.h"
-#import "Constant.h"
 
 @interface NicknameViewController ()
 
@@ -78,12 +77,12 @@
 {
     //检测是否为空
     if(userNameTextFiled.text.length==0){
-        [self.view makeToast:@"请输入昵称" duration:1.5 position:@"center"];
+        [self.view makeToast:@"请输入昵称" duration:TOAST_DURATION position:@"center"];
         return;
     }
     //检测长度
     if(userNameTextFiled.text.length>USER_NAME_LENGTH){
-        [self.view makeToast:@"昵称不应超过10位" duration:1.5 position:@"center"];
+        [self.view makeToast:@"昵称长度不应超过10位" duration:TOAST_DURATION position:@"center"];
         return;
     }
     [self.view makeToastActivity];
@@ -102,9 +101,11 @@
                                [self.view hideToastActivity];
                                //修改成功直接返回用户信息设置页面
                                [self.navigationController popViewControllerAnimated:YES];
+                               [self.view.window makeToast:@"昵称修改成功" duration:TOAST_DURATION position:@"center"];
                                
                            } failure:^(NSError *error) {
                                [self.view hideToastActivity];
+                               [self.view makeToast:@"网络异常" duration:TOAST_DURATION position:@"center"];
                            }];
     
 }

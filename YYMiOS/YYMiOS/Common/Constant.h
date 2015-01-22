@@ -16,5 +16,8 @@
 //颜色
 #define GColor(x,y,z)     [UIColor colorWithRed:x/255. green:y/255. blue:z/255. alpha:1]
 
+//提示语显示时间
+#define TOAST_DURATION 1.5
+
 //用户昵称长度限制
 #define USER_NAME_LENGTH 10

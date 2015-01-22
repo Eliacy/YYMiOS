@@ -81,30 +81,35 @@
     //控制显示内容
     switch(row){
         case 0:
+            //头像
             userIconImageView.hidden = NO;
             [userIconImageView setImageWithURL:[NSURL URLWithString:[LPUtility getQiniuImageURLStringWithBaseString:[[User sharedUser] userIcon].imageURL imageSize:CGSizeMake(120, 120)]]];
             userInfoLabel.hidden = YES;
             arrowImageView.hidden = NO;
             break;
         case 1:
+            //昵称
             userIconImageView.hidden = YES;
             userInfoLabel.hidden = NO;
             userInfoLabel.text = [[User sharedUser] userName];
             arrowImageView.hidden = NO;
             break;
         case 2:
+            //性别
             userIconImageView.hidden = YES;
             userInfoLabel.hidden = NO;
             userInfoLabel.text = [[User sharedUser] gender];
             arrowImageView.hidden = NO;
             break;
         case 3:
+            //手机号码
             userIconImageView.hidden = YES;
             userInfoLabel.hidden = NO;
             userInfoLabel.text = [[User sharedUser] mobile];
             arrowImageView.hidden = YES;
             break;
         case 4:
+            //修改密码
             userIconImageView.hidden = YES;
             userInfoLabel.hidden = YES;
             arrowImageView.hidden = NO;
