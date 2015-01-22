@@ -8,6 +8,9 @@
 
 #import "BaseViewController.h"
 
-@interface GenderViewController : BaseViewController
+@interface GenderViewController : BaseViewController<UITableViewDataSource, UITableViewDelegate>
+{
+    UITableView     *_tableView;
+}
 
 @end

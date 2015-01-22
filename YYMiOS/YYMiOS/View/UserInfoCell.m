@@ -61,13 +61,13 @@
 }
 
 //标题
-#define cellTextArray @[@"头像",@"昵称",@"性别",@"手机号码",@"修改密码"]
+#define titleStrArray @[@"头像",@"昵称",@"性别",@"手机号码",@"修改密码"]
 
 #pragma mark - 布局
 - (void)layoutCellWithRow:(int)row
 {
     //标题
-    titleLabel.text = [cellTextArray objectAtIndex:row];
+    titleLabel.text = [titleStrArray objectAtIndex:row];
     //控制坐标
     int cellHeight;
     if(row==0){

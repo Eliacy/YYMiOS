@@ -133,6 +133,7 @@
     {
         case 0:
         {
+            //头像
             PhotoSelectView *photoSelectView = [[[PhotoSelectView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)] autorelease];
             photoSelectView.backgroundColor = [UIColor clearColor];
             photoSelectView.delegate = self;
@@ -141,23 +142,27 @@
             break;
         case 1:
         {
+            //昵称
             NicknameViewController *nicknameVC = [[[NicknameViewController alloc] init] autorelease];
             [self.navigationController pushViewController:nicknameVC animated:YES];
         }
             break;
         case 2:
         {
+            //性别
             GenderViewController *genderVC = [[[GenderViewController alloc] init] autorelease];
             [self.navigationController pushViewController:genderVC animated:YES];
         }
             break;
         case 3:
         {
+            //手机号
             
         }
             break;
         case 4:
         {
+            //修改密码
             ModifyPasswordViewController *modifyPasswordVC = [[[ModifyPasswordViewController alloc] init] autorelease];
             [self.navigationController pushViewController:modifyPasswordVC animated:YES];
         }
