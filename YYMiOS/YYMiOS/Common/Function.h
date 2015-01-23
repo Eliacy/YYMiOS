@@ -26,4 +26,20 @@
  */
 + (UIImageView *)createArrowImageViewWithPoint:(CGPoint)point;
 
+/**
+ *  创建textfield背景
+ *
+ *  @param Frame    尺寸
+ */
++ (UIView *)createTextFieldBGWithFrame:(CGRect)frame;
+
+/**
+ *  创建textfield
+ *
+ *  @param Frame    尺寸
+ *  @param Target   代理
+ */
++ (UITextField *)createTextFieldWithFrame:(CGRect)frame Target:(id)target;
+
+
 @end

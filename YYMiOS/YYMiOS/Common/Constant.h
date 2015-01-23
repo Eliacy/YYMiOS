@@ -21,3 +21,8 @@
 
 //用户昵称长度限制
 #define USER_NAME_LENGTH 10
+//用户密码最低位数限制
+#define USER_PWD_MIN_LENGTH 6
+//用户密码最高位数限制
+#define USER_PWD_MAX_LENGTH 30
+

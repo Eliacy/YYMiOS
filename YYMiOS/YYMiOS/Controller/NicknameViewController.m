@@ -85,8 +85,8 @@
         [self.view makeToast:@"昵称长度不应超过10位" duration:TOAST_DURATION position:@"center"];
         return;
     }
-    [self.view makeToastActivity];
     //请求接口
+    [self.view makeToastActivity];
     [User modifyUserInfoWithUserId:[[User sharedUser] userId]
                             iconId:0
                           userName:userNameTextFiled.text
