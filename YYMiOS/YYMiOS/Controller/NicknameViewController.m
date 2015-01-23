@@ -49,7 +49,7 @@
     [_headerView addSubview:saveBtn];
     
     //修改昵称
-    UIView *userNameBG = [[UIView alloc] initWithFrame:CGRectMake(0, 80, self.view.frame.size.width, 40)];
+    UIView *userNameBG = [[UIView alloc] initWithFrame:CGRectMake(0, _adjustView.frame.size.height+20, self.view.frame.size.width, 40)];
     userNameBG.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:userNameBG];
     
