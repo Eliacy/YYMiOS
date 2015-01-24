@@ -68,7 +68,7 @@
 {
     //标题
     titleLabel.text = [titleStrArray objectAtIndex:row];
-    //控制坐标
+    //控制高度
     int cellHeight;
     if(row==0){
         cellHeight = 80;
@@ -77,6 +77,13 @@
     }
     [titleLabel setFrame:CGRectMake(10, (cellHeight-20)/2, 80, 20)];
     [arrowImageView setFrame:CGRectMake(self.frame.size.width-15-arrowImageView.frame.size.width, (cellHeight-arrowImageView.frame.size.height)/2, arrowImageView.frame.size.width, arrowImageView.frame.size.height)];
+    
+    //控制手机号cell右对齐
+    if(row==3){
+        [userInfoLabel setFrame:CGRectMake(self.frame.size.width-15-200, (self.frame.size.height-20)/2, 200, 20)];
+    }else{
+        [userInfoLabel setFrame:CGRectMake(self.frame.size.width-35-200, (self.frame.size.height-20)/2, 200, 20)];
+    }
     
     //控制显示内容
     switch(row){
