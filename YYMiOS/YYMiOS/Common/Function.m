@@ -7,6 +7,7 @@
 //
 
 #import "Function.h"
+#import "Constant.h"
 
 @implementation Function
 
@@ -50,5 +51,12 @@
     return textField;
 }
 
+#pragma mark - 创建分割线
++ (UIView *)createSeparatorViewWithFrame:(CGRect)frame
+{
+    UIView *bgView = [[UIView alloc] initWithFrame:frame];
+    bgView.backgroundColor = GColor(223, 223, 221);
+    return bgView;
+}
 
 @end

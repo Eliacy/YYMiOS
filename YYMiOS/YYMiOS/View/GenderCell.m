@@ -31,12 +31,15 @@
         //标题
         genderLabel = [Function createLabelWithFrame:CGRectMake(leftX, (self.frame.size.height -20)/2, 80, 20) FontSize:fontSize Text:nil];
         genderLabel.textColor = GColor(129, 129, 129);
-        [self addSubview:genderLabel];
+        [self.contentView addSubview:genderLabel];
         
         //是否选中
         selectedImageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.frame.size.width-22-leftX, (self.frame.size.height-22)/2, 22, 22)];
         selectedImageView.image = [UIImage imageNamed:@"confirm"];
-        [self addSubview:selectedImageView];
+        [self.contentView addSubview:selectedImageView];
+        
+        //线
+        [self.contentView addSubview:[Function createSeparatorViewWithFrame:CGRectMake(0, self.frame.size.height, self.frame.size.width, 1)]];
         
     }
     return self;

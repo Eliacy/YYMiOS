@@ -51,13 +51,12 @@
     [_headerView addSubview:saveBtn];
     
     //列表主视图
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, _adjustView.frame.size.height+15, self.view.frame.size.width, 90) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, _adjustView.frame.size.height+15, self.view.frame.size.width, self.view.frame.size.height - _adjustView.frame.size.height) style:UITableViewStylePlain];
     _tableView.backgroundView = nil;
     _tableView.backgroundColor = [UIColor clearColor];
     _tableView.scrollEnabled = YES;
-    [_tableView setSeparatorInset:UIEdgeInsetsZero];
-    _tableView.separatorColor = GColor(225, 225, 223);
     _tableView.showsVerticalScrollIndicator = NO;
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.dataSource = self;
     _tableView.delegate = self;
     [self.view addSubview:_tableView];

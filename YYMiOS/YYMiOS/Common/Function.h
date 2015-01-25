@@ -41,5 +41,13 @@
  */
 + (UITextField *)createTextFieldWithFrame:(CGRect)frame Target:(id)target;
 
+/**
+ *  创建cell分割线
+ *
+ *  @param Frame    尺寸
+ */
++ (UIView *)createSeparatorViewWithFrame:(CGRect)frame;
+
+
 
 @end
