@@ -54,7 +54,7 @@
     
     //统一标准
     int leftX = 15;
-    int topY = 20;
+    int topY = 15;
     int gapY = 7;
     int height = 40;
     int fontSize = 16;
