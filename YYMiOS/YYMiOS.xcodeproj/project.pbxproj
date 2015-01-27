@@ -270,6 +270,7 @@
 		0E7748B81A6F4B4700831C0E /* Function.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7748B71A6F4B4700831C0E /* Function.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		0E7748BA1A6F848200831C0E /* icon_right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E7748B91A6F848200831C0E /* icon_right@2x.png */; };
 		0E7748BD1A6FC3AE00831C0E /* UserInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7748BC1A6FC3AE00831C0E /* UserInfoCell.m */; };
+		0EB985FB1A772DCF00F1FC2E /* NSBundle+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EB985FA1A772DCF00F1FC2E /* NSBundle+Extensions.m */; };
 		6487403E1A6C96710033BB6F /* rank.png in Resources */ = {isa = PBXBuildFile; fileRef = 6487403C1A6C96710033BB6F /* rank.png */; };
 		6487403F1A6C96710033BB6F /* rank@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6487403D1A6C96710033BB6F /* rank@2x.png */; };
 /* End PBXBuildFile section */
@@ -764,6 +765,8 @@
 		0E7748BB1A6FC3AE00831C0E /* UserInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoCell.h; sourceTree = "<group>"; };
 		0E7748BC1A6FC3AE00831C0E /* UserInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoCell.m; sourceTree = "<group>"; };
 		0EB933D21A6E520F00F5C657 /* Constant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constant.h; sourceTree = "<group>"; };
+		0EB985F91A772DCF00F1FC2E /* NSBundle+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+Extensions.h"; sourceTree = "<group>"; };
+		0EB985FA1A772DCF00F1FC2E /* NSBundle+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+Extensions.m"; sourceTree = "<group>"; };
 		6487403C1A6C96710033BB6F /* rank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rank.png; sourceTree = "<group>"; };
 		6487403D1A6C96710033BB6F /* rank@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rank@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1567,6 +1570,7 @@
 		04B0D04519DA7C3000289F78 /* 3rd */ = {
 			isa = PBXGroup;
 			children = (
+				0EB985F81A772DBB00F1FC2E /* Extensions */,
 				0472CF641A472BC80018093D /* EaseMobSDK */,
 				048AD0001A3E065B00AD670F /* SlimeRefresh */,
 				045EF5411A04CD2D00A85776 /* QiniuSDK */,
@@ -1631,6 +1635,15 @@
 				0E7748B71A6F4B4700831C0E /* Function.m */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		0EB985F81A772DBB00F1FC2E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				0EB985F91A772DCF00F1FC2E /* NSBundle+Extensions.h */,
+				0EB985FA1A772DCF00F1FC2E /* NSBundle+Extensions.m */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1843,6 +1856,7 @@
 				047EB63519E7CEBB00A2E081 /* Reachability.m in Sources */,
 				0498E32B19F509840085E12B /* AFHTTPSessionManager.m in Sources */,
 				044274091A13D65C00DD99CD /* ShopDetailView.m in Sources */,
+				0EB985FB1A772DCF00F1FC2E /* NSBundle+Extensions.m in Sources */,
 				048355A519D31BDB005ECAD6 /* SettingViewController.m in Sources */,
 				04482AA71A17AAC600BC950E /* UserDetailViewController.m in Sources */,
 				045EF5681A04CD2D00A85776 /* QNResponseInfo.m in Sources */,
