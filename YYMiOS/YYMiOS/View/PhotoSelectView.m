@@ -7,6 +7,7 @@
 //
 
 #import "PhotoSelectView.h"
+#import "Constant.h"
 
 @implementation PhotoSelectView
 
@@ -55,33 +56,39 @@
         [oneFingerTap release];
         
         _showView = [[UIView alloc] initWithFrame:CGRectMake(0, _backView.frame.size.height - 200, _backView.frame.size.width, 200)];
-        _showView.backgroundColor = [UIColor whiteColor];
+        _showView.backgroundColor = GColor(246, 246, 246);
         [self addSubview:_showView];
         _showView.transform = CGAffineTransformMake(1, 0, 0, 1, 0, _showView.frame.size.height);
         
         _cameraButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
         _cameraButton.frame = CGRectMake(20, 15, _showView.frame.size.width - 20 * 2, 45);
-        _cameraButton.backgroundColor = [UIColor clearColor];
+        _cameraButton.backgroundColor = [UIColor whiteColor];
         [_cameraButton setTitle:@"拍照上传" forState:UIControlStateNormal];
-        [_cameraButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        [_cameraButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         _cameraButton.layer.borderWidth = 1.0;
-        _cameraButton.layer.borderColor = [[UIColor grayColor] CGColor];
+        _cameraButton.layer.borderColor = [GColor(223, 223, 221) CGColor];
+        _cameraButton.layer.cornerRadius = 5.0;
+        _cameraButton.layer.masksToBounds = YES;
         [_cameraButton addTarget:self action:@selector(clickCameraButton:) forControlEvents:UIControlEventTouchUpInside];
         [_showView addSubview:_cameraButton];
         
         _libraryButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
         _libraryButton.frame = CGRectMake(_cameraButton.frame.origin.x, _cameraButton.frame.origin.y + _cameraButton.frame.size.height + 10, _cameraButton.frame.size.width, _cameraButton.frame.size.height);
-        _libraryButton.backgroundColor = [UIColor clearColor];
+        _libraryButton.backgroundColor = [UIColor whiteColor];
         [_libraryButton setTitle:@"上传手机中的照片" forState:UIControlStateNormal];
-        [_libraryButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        [_libraryButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         _libraryButton.layer.borderWidth = 1.0;
-        _libraryButton.layer.borderColor = [[UIColor grayColor] CGColor];
+        _libraryButton.layer.borderColor = [GColor(223, 223, 221) CGColor];
+        _libraryButton.layer.cornerRadius = 5.0;
+        _libraryButton.layer.masksToBounds = YES;
         [_libraryButton addTarget:self action:@selector(clickLibraryButton:) forControlEvents:UIControlEventTouchUpInside];
         [_showView addSubview:_libraryButton];
         
         _cancelButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
         _cancelButton.frame = CGRectMake(_cameraButton.frame.origin.x, _showView.frame.size.height - _cameraButton.frame.size.height - 15, _cameraButton.frame.size.width, _cameraButton.frame.size.height);
-        _cancelButton.backgroundColor = [UIColor grayColor];
+        _cancelButton.backgroundColor = GColor(149, 153, 160);
+        _cancelButton.layer.cornerRadius = 5.0;
+        _cancelButton.layer.masksToBounds = YES;
         [_cancelButton setTitle:@"取消" forState:UIControlStateNormal];
         [_cancelButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_cancelButton addTarget:self action:@selector(clickCancelButton:) forControlEvents:UIControlEventTouchUpInside];
