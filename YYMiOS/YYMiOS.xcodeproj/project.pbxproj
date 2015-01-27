@@ -124,7 +124,7 @@
 		048355A519D31BDB005ECAD6 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048355A419D31BDB005ECAD6 /* SettingViewController.m */; };
 		048355A819D31F3F005ECAD6 /* NearbyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 048355A719D31F3F005ECAD6 /* NearbyCell.m */; };
 		048355AB19D320C7005ECAD6 /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048355AA19D320C7005ECAD6 /* FeedbackViewController.m */; };
-		048355AE19D320D2005ECAD6 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048355AD19D320D2005ECAD6 /* AboutViewController.m */; };
+		048355AE19D320D2005ECAD6 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048355AD19D320D2005ECAD6 /* AboutViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		048355B119D322DA005ECAD6 /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048355B019D322DA005ECAD6 /* UserInfoViewController.m */; };
 		0486F4641A07F057002E8CFC /* Tip.m in Sources */ = {isa = PBXBuildFile; fileRef = 0486F4631A07F057002E8CFC /* Tip.m */; };
 		048ACFF81A3DF39700AD670F /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 048ACFF71A3DF39700AD670F /* LocationManager.m */; };
@@ -273,6 +273,7 @@
 		0E7748BA1A6F848200831C0E /* icon_right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E7748B91A6F848200831C0E /* icon_right@2x.png */; };
 		0E7748BD1A6FC3AE00831C0E /* UserInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7748BC1A6FC3AE00831C0E /* UserInfoCell.m */; };
 		0EB985FB1A772DCF00F1FC2E /* NSBundle+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EB985FA1A772DCF00F1FC2E /* NSBundle+Extensions.m */; };
+		0EB985FF1A779E4F00F1FC2E /* logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0EB985FE1A779E4F00F1FC2E /* logo@2x.png */; };
 		6487403E1A6C96710033BB6F /* rank.png in Resources */ = {isa = PBXBuildFile; fileRef = 6487403C1A6C96710033BB6F /* rank.png */; };
 		6487403F1A6C96710033BB6F /* rank@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6487403D1A6C96710033BB6F /* rank@2x.png */; };
 		EC853CDC1A7535C1000480E4 /* MineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EC853CDB1A7535C1000480E4 /* MineCell.m */; };
@@ -772,6 +773,7 @@
 		0EB933D21A6E520F00F5C657 /* Constant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constant.h; sourceTree = "<group>"; };
 		0EB985F91A772DCF00F1FC2E /* NSBundle+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+Extensions.h"; sourceTree = "<group>"; };
 		0EB985FA1A772DCF00F1FC2E /* NSBundle+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+Extensions.m"; sourceTree = "<group>"; };
+		0EB985FE1A779E4F00F1FC2E /* logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@2x.png"; sourceTree = "<group>"; };
 		6487403C1A6C96710033BB6F /* rank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rank.png; sourceTree = "<group>"; };
 		6487403D1A6C96710033BB6F /* rank@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rank@2x.png"; sourceTree = "<group>"; };
 		EC853CDA1A7535C1000480E4 /* MineCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineCell.h; sourceTree = "<group>"; };
@@ -919,6 +921,7 @@
 		0435238619D05D0100F67B8E /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				0EB985FE1A779E4F00F1FC2E /* logo@2x.png */,
 				04B1F7D81A6F9C4B00DCD2D5 /* deal_no_image@2x.png */,
 				04B1F7D91A6F9C4B00DCD2D5 /* deal_no_image.png */,
 				0E7748B91A6F848200831C0E /* icon_right@2x.png */,
@@ -1831,6 +1834,7 @@
 				04482ABC1A17AF7E00BC950E /* 6@2x.png in Resources */,
 				04B1C9321A3B893200FD0BC8 /* snow_large@2x.png in Resources */,
 				0472CFCA1A472FFE0018093D /* btn_share_weibo@2x.png in Resources */,
+				0EB985FF1A779E4F00F1FC2E /* logo@2x.png in Resources */,
 				04AFF1AC1A148B4C000CE6FF /* tab_weather_show.png in Resources */,
 				04B1C92C1A3B893200FD0BC8 /* rain_large.png in Resources */,
 				04482AC31A17B4FA00BC950E /* map_location@2x.png in Resources */,
