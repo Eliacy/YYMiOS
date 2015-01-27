@@ -273,6 +273,7 @@
 		0EB985FB1A772DCF00F1FC2E /* NSBundle+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EB985FA1A772DCF00F1FC2E /* NSBundle+Extensions.m */; };
 		6487403E1A6C96710033BB6F /* rank.png in Resources */ = {isa = PBXBuildFile; fileRef = 6487403C1A6C96710033BB6F /* rank.png */; };
 		6487403F1A6C96710033BB6F /* rank@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6487403D1A6C96710033BB6F /* rank@2x.png */; };
+		EC853CDC1A7535C1000480E4 /* MineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EC853CDB1A7535C1000480E4 /* MineCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -769,6 +770,8 @@
 		0EB985FA1A772DCF00F1FC2E /* NSBundle+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+Extensions.m"; sourceTree = "<group>"; };
 		6487403C1A6C96710033BB6F /* rank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rank.png; sourceTree = "<group>"; };
 		6487403D1A6C96710033BB6F /* rank@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rank@2x.png"; sourceTree = "<group>"; };
+		EC853CDA1A7535C1000480E4 /* MineCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineCell.h; sourceTree = "<group>"; };
+		EC853CDB1A7535C1000480E4 /* MineCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -903,6 +906,8 @@
 				0E7748BC1A6FC3AE00831C0E /* UserInfoCell.m */,
 				0E59E1621A70D8B2006EA429 /* GenderCell.h */,
 				0E59E1631A70D8B2006EA429 /* GenderCell.m */,
+				EC853CDA1A7535C1000480E4 /* MineCell.h */,
+				EC853CDB1A7535C1000480E4 /* MineCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1834,6 +1839,7 @@
 			files = (
 				0435236F19D0510400F67B8E /* TabViewController.m in Sources */,
 				047EB62A19E7CE8000A2E081 /* ASIAuthenticationDialog.m in Sources */,
+				EC853CDC1A7535C1000480E4 /* MineCell.m in Sources */,
 				045EF5671A04CD2D00A85776 /* QNHttpManager.m in Sources */,
 				04B0D07A19DD1FAF00289F78 /* ShareKit.m in Sources */,
 				045E4F491A34A2C90091E7F2 /* Forecast.m in Sources */,

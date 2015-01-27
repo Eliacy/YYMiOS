@@ -60,10 +60,12 @@
     
     _titleLabel.text = @"个人信息";
     //列表主视图
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, _adjustView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - _adjustView.frame.size.height) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, _adjustView.frame.size.height+15, self.view.frame.size.width, self.view.frame.size.height - _adjustView.frame.size.height) style:UITableViewStylePlain];
     _tableView.backgroundColor = [UIColor clearColor];
     _tableView.dataSource = self;
     _tableView.delegate = self;
+    [_tableView setSeparatorInset:UIEdgeInsetsZero];
+    _tableView.separatorColor = GColor(225, 225, 223);
     [self.view addSubview:_tableView];
     //列表底视图
     _tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 60)];

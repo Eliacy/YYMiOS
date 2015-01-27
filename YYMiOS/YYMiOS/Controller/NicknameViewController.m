@@ -32,13 +32,17 @@
 - (void)loadView
 {
     [super loadView];
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
+    
+    _titleLabel.text = @"名字";
+    
+    //点击背景隐藏键盘
+    UIButton *hideBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    hideBtn.frame = self.view.frame;
+    hideBtn.backgroundColor = [UIColor clearColor];
+    [hideBtn addTarget:self action:@selector(hideKeyboard) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:hideBtn];
     
     //导航栏
-    _titleLabel.text = @"名字";
     UIButton *saveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     saveBtn.frame = CGRectMake(_headerView.frame.size.width - 2 - 40, 2, 40, 40);
     saveBtn.backgroundColor = [UIColor clearColor];
@@ -49,7 +53,7 @@
     [_headerView addSubview:saveBtn];
     
     //修改昵称
-    UIView *userNameBG = [[UIView alloc] initWithFrame:CGRectMake(0, _adjustView.frame.size.height+20, self.view.frame.size.width, 40)];
+    UIView *userNameBG = [[UIView alloc] initWithFrame:CGRectMake(0, _adjustView.frame.size.height+15, self.view.frame.size.width, 40)];
     userNameBG.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:userNameBG];
     
@@ -62,8 +66,16 @@
     userNameTextFiled.clearButtonMode = UITextFieldViewModeWhileEditing; //编辑时会出现个修改X
     userNameTextFiled.delegate = self;
     userNameTextFiled.text = [[User sharedUser] userName];
+    userNameTextFiled.placeholder = @"请输入昵称";
     [userNameBG addSubview:userNameTextFiled];
     [userNameTextFiled becomeFirstResponder];
+
+    
+    
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
     
 }
 
@@ -72,9 +84,17 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - 隐藏键盘
+- (void)hideKeyboard
+{
+    [userNameTextFiled resignFirstResponder];
+}
+
 #pragma mark - 保存用户昵称
 - (void)saveUserName
 {
+    //隐藏键盘
+    [self hideKeyboard];
     //检测是否为空
     if(userNameTextFiled.text.length==0){
         [self.view makeToast:@"请输入昵称" duration:TOAST_DURATION position:@"center"];

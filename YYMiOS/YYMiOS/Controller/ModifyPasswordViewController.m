@@ -54,7 +54,7 @@
     
     //统一标准
     int leftX = 15;
-    int topY = 20;
+    int topY = 15;
     int gapY = 7;
     int height = 40;
     int fontSize = 16;
@@ -66,6 +66,8 @@
     [oldPwdView addSubview:oldPwdLabel];
     oldPwdTextField = [Function createTextFieldWithFrame:CGRectMake(90, 0, 180, height) Target:self];
     oldPwdTextField.secureTextEntry = YES;
+    oldPwdTextField.placeholder = @"请输入原密码";
+    oldPwdTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
     [oldPwdView addSubview:oldPwdTextField];
     
     //新密码
@@ -75,6 +77,8 @@
     [newPwdView addSubview:newPwdLabel];
     newPwdTextField = [Function createTextFieldWithFrame:CGRectMake(90, 0, 180, height) Target:self];
     newPwdTextField.secureTextEntry = YES;
+    newPwdTextField.placeholder = @"请输入新密码";
+    newPwdTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
     [newPwdView addSubview:newPwdTextField];
     
     //确认密码
@@ -84,7 +88,9 @@
     [confirmPwdView addSubview:confirmPwdLabel];
     confirmPwdTextField = [Function createTextFieldWithFrame:CGRectMake(90, 0, 180, height) Target:self];
     confirmPwdTextField.secureTextEntry = YES;
-    [newPwdView addSubview:confirmPwdTextField];
+    confirmPwdTextField.placeholder = @"请再次输入新密码";
+    confirmPwdTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    [confirmPwdView addSubview:confirmPwdTextField];
     
 }
 
