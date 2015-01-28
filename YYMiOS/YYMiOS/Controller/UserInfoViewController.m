@@ -247,6 +247,8 @@
                                                                      {
                                                                          [LPUtility archiveData:array IntoCache:@"LoginUser"];
                                                                      }
+                                                                     //刷新头像
+                                                                     [_tableView reloadData];
                                                                      
                                                                  } failure:^(NSError *error) {
                                                                      

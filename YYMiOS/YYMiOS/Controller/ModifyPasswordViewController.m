@@ -109,11 +109,8 @@
 {
     //隐藏键盘
     [self hideKeyboard];
+    
     //检测
-    if(oldPwdTextField.text.length<USER_PWD_MIN_LENGTH||oldPwdTextField.text.length>USER_PWD_MAX_LENGTH){
-        [self.view makeToast:@"原密码长度应在6-30位之间" duration:TOAST_DURATION position:@"center"];
-        return;
-    }
     if(newPwdTextField.text.length<USER_PWD_MIN_LENGTH||newPwdTextField.text.length>USER_PWD_MAX_LENGTH){
         [self.view makeToast:@"新密码长度应在6-30位之间" duration:TOAST_DURATION position:@"center"];
         return;
