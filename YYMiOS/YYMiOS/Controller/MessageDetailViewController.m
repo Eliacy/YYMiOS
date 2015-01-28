@@ -140,6 +140,9 @@
 {
     [super loadView];
     
+    //标题为当前聊天对象昵称
+    _titleLabel.text = _user.userName;
+    
     _footerView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 49, self.view.frame.size.width, 49)];
     _footerView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_footerView];

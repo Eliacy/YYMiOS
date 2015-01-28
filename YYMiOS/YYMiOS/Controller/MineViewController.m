@@ -18,6 +18,7 @@
 #import "FollowingViewController.h"
 #import "UserDetailViewController.h"
 #import "MineCell.h"
+#import "MessageDetailViewController.h"
 
 #define kBadgesImageViewTag 18926
 
@@ -95,6 +96,36 @@
     userDetailVC.detailType = DetailCollect;
     [self.tabVC.navigationController pushViewController:userDetailVC animated:YES];
 }
+
+#pragma mark - 打开与指定用户的聊天界面
+- (void)pushFeedbackViewByUserId:(NSInteger)userId
+{
+    [self.view makeToastActivity];
+    [User getUserInfoWithUserId:userId
+                         offset:0
+                          limit:0
+                       followId:0
+                          fanId:0
+                        success:^(NSArray *array) {
+                            
+                            if([array count] > 0)
+                            {
+                                //获取数据成功后打开页面
+                                MessageDetailViewController *messageDetailVC = [[[MessageDetailViewController alloc] init] autorelease];
+                                messageDetailVC.user = [array objectAtIndex:0];
+                                [self.tabVC.navigationController pushViewController:messageDetailVC animated:YES];
+                                [self.view hideToastActivity];
+                            }else{
+                                [self.view hideToastActivity];
+                                [self.view makeToast:@"未获取到产品经理信息" duration:TOAST_DURATION position:@"center"];
+                            }
+                            
+                        } failure:^(NSError *error) {
+                            [self.view makeToast:@"网络异常" duration:TOAST_DURATION position:@"center"];
+                            [self.view hideToastActivity];
+                        }];
+}
+
 
 #pragma mark - super
 
@@ -545,14 +576,16 @@
             switch (indexPath.row) {
                 case 0:
                 {
-                    //意见反馈
-                    FeedbackViewController *feedbackVC = [[[FeedbackViewController alloc] init] autorelease];
-                    [self.tabVC.navigationController pushViewController:feedbackVC animated:YES];
+                    //打开与产品经理一对一的环信聊天界面
+                    [self pushFeedbackViewByUserId:PM_ID];
                 }
                     break;
                 case 1:
                 {
                     //跳转app store 需知道appid;
+//                    NSString *url = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id%d",APP_ID];
+//                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+                    
                     [self.view makeToast:@"敬请期待" duration:TOAST_DURATION position:@"center"];
                 }
                     break;
