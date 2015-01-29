@@ -295,7 +295,8 @@ static id APIClient = nil;
                 }
                 else
                 {
-                    failureBlock(nil);
+                    //修改个人信息 添加参数错误的回调结果
+                    failureBlock([NSError errorWithDomain:[respondObject objectForKey:@"message"] code:[[respondObject objectForKey:@"status"] integerValue] userInfo:nil]);
                 }
             }
             else
@@ -895,6 +896,7 @@ static id APIClient = nil;
 - (void)modifyUserInfoWithUserId:(NSInteger)userId
                           iconId:(NSInteger)iconId
                         userName:(NSString *)userName
+                     oldPassword:(NSString *)oldPassword
                         password:(NSString *)password
                           gender:(NSString *)gender
                          success:(LPAPISuccessBlock)successBlock
@@ -907,6 +909,10 @@ static id APIClient = nil;
     if(userName && ![userName isEqualToString:@""])
     {
         [params setObject:userName forKey:@"name"];
+    }
+    if(oldPassword && ![oldPassword isEqualToString:@""])
+    {
+        [params setObject:oldPassword forKey:@"old_password"];
     }
     if(password && ![password isEqualToString:@""])
     {

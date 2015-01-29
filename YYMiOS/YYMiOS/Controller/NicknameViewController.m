@@ -110,6 +110,7 @@
     [User modifyUserInfoWithUserId:[[User sharedUser] userId]
                             iconId:0
                           userName:userNameTextFiled.text
+                       oldPassword:nil
                           password:nil
                             gender:nil
                            success:^(NSArray *array) {

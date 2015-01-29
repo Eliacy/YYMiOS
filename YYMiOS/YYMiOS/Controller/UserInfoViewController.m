@@ -237,6 +237,7 @@
                                           [User modifyUserInfoWithUserId:[[User sharedUser] userId]
                                                                   iconId:[[[resp objectForKey:@"data"] objectForKey:@"id"] integerValue]
                                                                 userName:nil
+                                                             oldPassword:nil
                                                                 password:nil
                                                                   gender:nil
                                                                  success:^(NSArray *array) {

@@ -211,6 +211,7 @@ typedef void (^LPAPIFailureBlock)(NSError *error);
 - (void)modifyUserInfoWithUserId:(NSInteger)userId
                           iconId:(NSInteger)iconId
                         userName:(NSString *)userName
+                     oldPassword:(NSString *)oldPassword
                         password:(NSString *)password
                           gender:(NSString *)gender
                          success:(LPAPISuccessBlock)successBlock

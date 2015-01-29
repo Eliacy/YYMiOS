@@ -125,22 +125,28 @@
     [User modifyUserInfoWithUserId:[[User sharedUser] userId]
                             iconId:0
                           userName:nil
+                       oldPassword:oldPwdTextField.text
                           password:newPwdTextField.text
                             gender:nil
                            success:^(NSArray *array) {
+                               [self.view hideToastActivity];
                                //更新用户信息
                                if([array count] > 0)
                                {
                                    [LPUtility archiveData:array IntoCache:@"LoginUser"];
+                                   //修改成功直接返回用户信息设置页面
+                                   [self.navigationController popViewControllerAnimated:YES];
+                                   [self.view.window makeToast:@"密码修改成功" duration:TOAST_DURATION position:@"center"];
                                }
-                               [self.view hideToastActivity];
-                               //修改成功直接返回用户信息设置页面
-                               [self.navigationController popViewControllerAnimated:YES];
-                               [self.view.window makeToast:@"密码修改成功" duration:TOAST_DURATION position:@"center"];
                                
                            } failure:^(NSError *error) {
                                [self.view hideToastActivity];
-                               [self.view makeToast:@"网络异常" duration:TOAST_DURATION position:@"center"];
+                               if(error.code==409){
+                                   [self.view.window makeToast:@"原密码错误" duration:TOAST_DURATION position:@"center"];
+                               }else{
+                                   [self.view makeToast:@"网络异常" duration:TOAST_DURATION position:@"center"];
+                               }
+                               
                            }];
      
     
