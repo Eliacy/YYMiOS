@@ -141,11 +141,12 @@
                                
                            } failure:^(NSError *error) {
                                [self.view hideToastActivity];
+                               // 409 原密码错误
                                if(error.code==409){
                                    [self.view.window makeToast:@"原密码错误" duration:TOAST_DURATION position:@"center"];
-                               }else{
-                                   [self.view makeToast:@"网络异常" duration:TOAST_DURATION position:@"center"];
+                                   return;
                                }
+                               [self.view makeToast:@"网络异常" duration:TOAST_DURATION position:@"center"];
                                
                            }];
      

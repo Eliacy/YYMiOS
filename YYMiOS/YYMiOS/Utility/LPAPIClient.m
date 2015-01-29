@@ -295,7 +295,7 @@ static id APIClient = nil;
                 }
                 else
                 {
-                    //修改个人信息 添加参数错误的回调结果
+                    //添加可能因参数导致错误的回调结果
                     failureBlock([NSError errorWithDomain:[respondObject objectForKey:@"message"] code:[[respondObject objectForKey:@"status"] integerValue] userInfo:nil]);
                 }
             }
