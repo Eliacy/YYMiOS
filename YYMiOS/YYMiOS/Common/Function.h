@@ -48,6 +48,14 @@
  */
 + (UIView *)createSeparatorViewWithFrame:(CGRect)frame;
 
-
+/**
+ *  添加一条默认数据
+ *
+ *  @param Sender       发送方
+ *  @param Receiver     接收方
+ *  @param Text         文本
+ *
+ */
++ (EMMessage *)addMessageWithSender:(NSString *)sender Receiver:(NSString *)receiver Text:(NSString *)text;
 
 @end

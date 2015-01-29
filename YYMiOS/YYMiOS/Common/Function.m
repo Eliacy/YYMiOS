@@ -59,4 +59,14 @@
     return bgView;
 }
 
+#pragma mark - 添加一条默认数据
++ (EMMessage *)addMessageWithSender:(NSString *)sender Receiver:(NSString *)receiver Text:(NSString *)text
+{
+    EMChatText *chatText = [[EMChatText alloc] initWithText:text];
+    EMTextMessageBody *messageBody = [[EMTextMessageBody alloc] initWithChatObject:chatText];
+    NSArray *bodies = [[NSArray alloc] initWithObjects:messageBody, nil];
+    EMMessage *message = [[EMMessage alloc] initMessageWithID:nil sender:sender receiver:receiver bodies:bodies];
+    return message;
+}
+
 @end
