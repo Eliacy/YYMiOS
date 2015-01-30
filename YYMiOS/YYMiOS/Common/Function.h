@@ -58,4 +58,11 @@
  */
 + (EMMessage *)addMessageWithSender:(NSString *)sender Receiver:(NSString *)receiver Text:(NSString *)text;
 
+/**
+ *  通过色值创建图片
+ *
+ *  @param Color    色值
+ */
++ (UIImage *)createImageWithColor:(UIColor *)color;
+
 @end

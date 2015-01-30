@@ -14,12 +14,22 @@
 #import "FilterViewController.h"
 #import "NearbyMapViewController.h"
 #import "ShopViewController.h"
+#import "SearchCell.h"
 
 @interface NearbyViewController ()
 
 @end
 
 @implementation NearbyViewController
+{
+    NSArray *data;
+    NSArray *filterData;
+    UISearchBar *searchBar;
+    UITableView *searchTableView;
+    UISearchDisplayController *searchDisplayController;
+    UIButton *cancelBtn;
+    UIButton *searchBtn;
+}
 
 @synthesize tabVC = _tabVC;
 
@@ -48,6 +58,28 @@
     [self.tabVC.navigationController pushViewController:nearbyMapVC animated:YES];
 }
 
+#pragma mark - 取消
+- (void)clickCancelButton:(id)sender
+{
+    searchTableView.hidden = YES;
+    cancelBtn.hidden = YES;
+    searchBtn.hidden = YES;
+    _filterButton.hidden = NO;
+    _mapButton.hidden = NO;
+    [searchBar resignFirstResponder];
+    
+}
+#pragma mark - 搜索
+- (void)clickSearchButton:(id)sender
+{
+    searchTableView.hidden = YES;
+    cancelBtn.hidden = YES;
+    searchBtn.hidden = YES;
+    _filterButton.hidden = NO;
+    _mapButton.hidden = NO;
+    [searchBar resignFirstResponder];
+}
+
 #pragma mark - super
 
 - (id)init
@@ -69,7 +101,7 @@
     _titleLabel.text = @"附近";
     _backButton.hidden = YES;
     
-    _filterButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    _filterButton = [[[UIButton buttonWithType:UIButtonTypeCustom] retain] autorelease];
     _filterButton.frame = CGRectMake(2, 2, 40, 40);
     _filterButton.backgroundColor = [UIColor clearColor];
     [_filterButton setTitle:@"筛选" forState:UIControlStateNormal];
@@ -78,7 +110,7 @@
     [_filterButton addTarget:self action:@selector(clickFilterButton:) forControlEvents:UIControlEventTouchUpInside];
     [_headerView addSubview:_filterButton];
     
-    _mapButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    _mapButton = [[[UIButton buttonWithType:UIButtonTypeCustom] retain] autorelease];
     _mapButton.frame = CGRectMake(_headerView.frame.size.width - 2 - 40, 2, 40, 40);
     _mapButton.backgroundColor = [UIColor clearColor];
     [_mapButton setTitle:@"地图" forState:UIControlStateNormal];
@@ -87,14 +119,15 @@
     [_mapButton addTarget:self action:@selector(clickMapButton:) forControlEvents:UIControlEventTouchUpInside];
     [_headerView addSubview:_mapButton];
     
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, _adjustView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - _adjustView.frame.size.height) style:UITableViewStylePlain];
+    //附近视图
+    _tableView = [[[UITableView alloc] initWithFrame:CGRectMake(0, _adjustView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - _adjustView.frame.size.height) style:UITableViewStylePlain] autorelease];
     _tableView.backgroundColor = [UIColor clearColor];
     _tableView.dataSource = self;
     _tableView.delegate = self;
     _tableView.separatorColor = [UIColor clearColor];
     [self.view addSubview:_tableView];
     
-    _slimeView = [[SRRefreshView alloc] init];
+    _slimeView = [[[SRRefreshView alloc] init] autorelease];
     _slimeView.delegate = self;
     _slimeView.upInset = 0;
     _slimeView.slimeMissWhenGoingBack = YES;
@@ -108,6 +141,64 @@
     UIView *tableHeaderView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 15)] autorelease];
     tableHeaderView.backgroundColor = [UIColor clearColor];
     _tableView.tableHeaderView = tableHeaderView;
+    
+    //搜索取消
+    cancelBtn = [[[UIButton buttonWithType:UIButtonTypeCustom] retain] autorelease];
+    cancelBtn.frame = CGRectMake(2, 2, 40, 40);
+    cancelBtn.backgroundColor = [UIColor clearColor];
+    [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
+    [cancelBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    cancelBtn.titleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
+    [cancelBtn addTarget:self action:@selector(clickCancelButton:) forControlEvents:UIControlEventTouchUpInside];
+    [_headerView addSubview:cancelBtn];
+    cancelBtn.hidden = YES;
+    //搜索确认
+    searchBtn = [[[UIButton buttonWithType:UIButtonTypeCustom] retain] autorelease];
+    searchBtn.frame = CGRectMake(_headerView.frame.size.width - 2 - 40, 2, 40, 40);
+    searchBtn.backgroundColor = [UIColor clearColor];
+    [searchBtn setTitle:@"搜索" forState:UIControlStateNormal];
+    [searchBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    searchBtn.titleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
+    [searchBtn addTarget:self action:@selector(clickSearchButton:) forControlEvents:UIControlEventTouchUpInside];
+    [_headerView addSubview:searchBtn];
+    searchBtn.hidden = YES;
+    //搜索控件
+    searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(68, 0, 185, 28)];
+    searchBar.backgroundColor = [UIColor clearColor];
+    searchBar.placeholder = @"输入店铺名或地点";
+    searchBar.backgroundImage = [Function createImageWithColor:GColor(251, 100, 129)];
+    searchBar.delegate = self;
+    [_headerView addSubview:searchBar];
+    //搜索视图
+    data = [[NSArray alloc] initWithObjects:@"1",@"2",@"333",@"44",@"55",@"6666",@"777",@"8",@"3",@"44",@"1111",@"11",@"111", nil];
+    searchDisplayController = [[[UISearchDisplayController alloc] initWithSearchBar:searchBar contentsController:self] autorelease];
+    searchDisplayController.searchResultsDataSource = self;
+    searchDisplayController.searchResultsDelegate = self;
+    
+    //搜索列表
+    searchTableView = [[[UITableView alloc] initWithFrame:CGRectMake(0, _adjustView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height) style:UITableViewStylePlain] autorelease];
+    searchTableView.dataSource = self;
+    searchTableView.delegate = self;
+    searchTableView.backgroundView = nil;
+    searchTableView.backgroundColor = GColor(246, 246, 246);
+    searchTableView.hidden = YES;
+    [self.view addSubview:searchTableView];
+    
+    UIView *searchHeaderView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, searchTableView.frame.size.width, 150)] autorelease];
+    searchHeaderView.backgroundColor = [UIColor clearColor];
+    searchTableView.tableHeaderView = searchHeaderView;
+    //提示
+    UILabel *promptTitlelabel = [Function createLabelWithFrame:CGRectMake(10, 10, 40, 20) FontSize:16 Text:@"提示:"];
+    [searchHeaderView addSubview:promptTitlelabel];
+    //提示内容
+    UILabel *promptContentlabel = [Function createLabelWithFrame:CGRectMake(30, 30, 240, 85) FontSize:16 Text:@"如果要切换到当前正在搜索的城市，请点击首页功能最上方的城市名进行切换"];
+    promptContentlabel.textColor = GColor(149, 149, 149);
+    promptContentlabel.lineBreakMode = NSLineBreakByWordWrapping;
+    promptContentlabel.numberOfLines = 0;
+    [searchHeaderView addSubview:promptContentlabel];
+    //搜索历史
+    UILabel *historyLabel = [Function createLabelWithFrame:CGRectMake(10, searchHeaderView.frame.size.height-30, 80, 20) FontSize:16 Text:@"搜索历史:"];
+    [searchHeaderView addSubview:historyLabel];
 }
 
 - (void)viewDidLoad {
@@ -176,16 +267,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 #pragma mark - UIScrollViewDelegate
 
@@ -307,34 +388,74 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 155;
+    if(tableView == _tableView){
+        return 155;
+    }else{
+        return 45;
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [_nearbyArray count];
+    if(tableView == _tableView){
+        //主视图
+        return [_nearbyArray count];
+    }else if (tableView == searchTableView){
+        //搜索列表
+        return data.count;
+    }else{
+        //筛选
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self contains [cd] %@",searchDisplayController.searchBar.text];
+        filterData =  [[[NSArray alloc] initWithArray:[data filteredArrayUsingPredicate:predicate]] autorelease];
+        return filterData.count;
+    }
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NearbyCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NearbyViewControllerIdentifier"];
-    if(cell == nil)
-    {
-        cell = [[[NearbyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NearbyViewControllerIdentifier"] autorelease];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    if(tableView == _tableView){
+        //附近主视图
+        NearbyCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NearbyViewControllerIdentifier"];
+        if(cell == nil)
+        {
+            cell = [[[NearbyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NearbyViewControllerIdentifier"] autorelease];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+        
+        cell.poi = [_nearbyArray objectAtIndex:indexPath.row];
+        if(cell.poi.keywordArray && [cell.poi.keywordArray isKindOfClass:[NSArray class]] && [cell.poi.keywordArray count] > 0)
+        {
+            cell.keywordImageView.image = [[UIImage imageNamed:[NSString stringWithFormat:@"%i.png", (int)indexPath.row % 6 + 1]] stretchableImageWithLeftCapWidth:5 topCapHeight:0];
+        }
+        else
+        {
+            cell.keywordImageView.image = nil;
+        }
+        return cell;
+    }else if(tableView == searchTableView){
+        //搜索列表
+        NSString *CellIdentifier = @"SearchCell";
+        SearchCell *cell = (SearchCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [[SearchCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        }
+        [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
+        
+        cell.textLabel.text = data[indexPath.row];
+        return cell;
+    }else{
+        //筛选列表
+        NSString *CellIdentifier = @"SearchCell";
+        SearchCell *cell = (SearchCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [[SearchCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        }
+        [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
+        
+        cell.textLabel.text = filterData[indexPath.row];
+        return cell;
     }
-    
-    cell.poi = [_nearbyArray objectAtIndex:indexPath.row];
-    if(cell.poi.keywordArray && [cell.poi.keywordArray isKindOfClass:[NSArray class]] && [cell.poi.keywordArray count] > 0)
-    {
-        cell.keywordImageView.image = [[UIImage imageNamed:[NSString stringWithFormat:@"%i.png", (int)indexPath.row % 6 + 1]] stretchableImageWithLeftCapWidth:5 topCapHeight:0];
-    }
-    else
-    {
-        cell.keywordImageView.image = nil;
-    }
-    
-    return cell;
 }
 
 #pragma mark - UITableViewDelegate
@@ -347,5 +468,28 @@
     
     return nil;
 }
+
+#pragma mark -
+#pragma mark - UISearchBarDelegate
+- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
+{
+    _filterButton.hidden = YES;
+    _mapButton.hidden = YES;
+    searchTableView.hidden = NO;
+    cancelBtn.hidden = NO;
+    searchBtn.hidden = NO;
+    return YES;
+}
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    //隐藏HeaderView
+//    if(searchTableView.tableHeaderView.hidden == NO){
+//        searchTableView.tableHeaderView.hidden = YES;
+//    }
+    //过滤文字
+    
+    //刷新列表
+}
+
 
 @end

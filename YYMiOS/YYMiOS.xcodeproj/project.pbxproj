@@ -268,6 +268,7 @@
 		04E429231A63D58900DB1F1F /* launch_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 04E429221A63D58900DB1F1F /* launch_image.png */; };
 		04E963731A2C3C350067C6C2 /* FollowingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E963721A2C3C350067C6C2 /* FollowingViewController.m */; };
 		04E963761A2C3C470067C6C2 /* FollowerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E963751A2C3C470067C6C2 /* FollowerViewController.m */; };
+		0E0915021A7B5ACD001BE562 /* SearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0915011A7B5ACD001BE562 /* SearchCell.m */; };
 		0E59E1641A70D8B2006EA429 /* GenderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E59E1631A70D8B2006EA429 /* GenderCell.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		0E7748B81A6F4B4700831C0E /* Function.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7748B71A6F4B4700831C0E /* Function.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		0E7748BA1A6F848200831C0E /* icon_right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E7748B91A6F848200831C0E /* icon_right@2x.png */; };
@@ -763,6 +764,8 @@
 		04E963721A2C3C350067C6C2 /* FollowingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FollowingViewController.m; sourceTree = "<group>"; };
 		04E963741A2C3C470067C6C2 /* FollowerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FollowerViewController.h; sourceTree = "<group>"; };
 		04E963751A2C3C470067C6C2 /* FollowerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FollowerViewController.m; sourceTree = "<group>"; };
+		0E0915001A7B5ACD001BE562 /* SearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchCell.h; sourceTree = "<group>"; };
+		0E0915011A7B5ACD001BE562 /* SearchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchCell.m; sourceTree = "<group>"; };
 		0E59E1621A70D8B2006EA429 /* GenderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenderCell.h; sourceTree = "<group>"; };
 		0E59E1631A70D8B2006EA429 /* GenderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenderCell.m; sourceTree = "<group>"; };
 		0E7748B61A6F4B4700831C0E /* Function.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Function.h; sourceTree = "<group>"; };
@@ -914,6 +917,8 @@
 				0E59E1631A70D8B2006EA429 /* GenderCell.m */,
 				EC853CDA1A7535C1000480E4 /* MineCell.h */,
 				EC853CDB1A7535C1000480E4 /* MineCell.m */,
+				0E0915001A7B5ACD001BE562 /* SearchCell.h */,
+				0E0915011A7B5ACD001BE562 /* SearchCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1975,6 +1980,7 @@
 				04788D7319D80AA500BE283B /* ModifyPasswordViewController.m in Sources */,
 				04A824BA1A0FD2A1000B6AFF /* POIAnnotation.m in Sources */,
 				04B0D07719DA9AB600289F78 /* SettingCell.m in Sources */,
+				0E0915021A7B5ACD001BE562 /* SearchCell.m in Sources */,
 				0475C8A51A19026200958E71 /* ArticlePOIView.m in Sources */,
 				0435239419D0632D00F67B8E /* LoginViewController.m in Sources */,
 			);
