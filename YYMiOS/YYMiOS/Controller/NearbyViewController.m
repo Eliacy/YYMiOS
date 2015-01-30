@@ -163,7 +163,7 @@
     [_headerView addSubview:searchBtn];
     searchBtn.hidden = YES;
     //搜索控件
-    searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(68, 0, 185, 28)];
+    searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(65, 0, 200, 28)];
     searchBar.backgroundColor = [UIColor clearColor];
     searchBar.placeholder = @"输入店铺名或地点";
     searchBar.backgroundImage = [Function createImageWithColor:GColor(251, 100, 129)];
