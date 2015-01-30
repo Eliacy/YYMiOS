@@ -35,8 +35,11 @@
 
 - (void)clickSettingButton:(id)sender
 {
-    SettingViewController *settingVC = [[[SettingViewController alloc] init] autorelease];
-    [self.tabVC.navigationController pushViewController:settingVC animated:YES];
+    // 设置部分暂无可用功能，因而暂时跳转到用户属性修改的界面。
+    UserInfoViewController *userInfoVC = [[[UserInfoViewController alloc] init] autorelease];
+    [self.tabVC.navigationController pushViewController:userInfoVC animated:YES];
+//    SettingViewController *settingVC = [[[SettingViewController alloc] init] autorelease];
+//    [self.tabVC.navigationController pushViewController:settingVC animated:YES];
 }
 
 - (void)clickMessageButton:(id)sender
