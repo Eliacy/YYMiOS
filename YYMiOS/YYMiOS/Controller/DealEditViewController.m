@@ -81,12 +81,25 @@
     }
     _isLoading = YES;
     
+    NSMutableString *imageString = [NSMutableString stringWithCapacity:0];
+    for(NSInteger i = 0; i < [_deal.imageArray count]; i++)
+    {
+        if(i == [_deal.imageArray count] - 1)
+        {
+            [imageString appendFormat:@"%i", [[_deal.imageArray objectAtIndex:i] imageId]];
+        }
+        else
+        {
+            [imageString appendFormat:@"%i ", [[_deal.imageArray objectAtIndex:i] imageId]];
+        }
+    }
+    
     [Deal createDealDetailWithPublished:0
                                  userId:[[User sharedUser] userId]
                                  atList:@""
                                    star:0
                                 content:_deal.content
-                                 images:@""
+                                 images:imageString
                                keywords:@""
                                   total:0
                                currency:@""
@@ -200,6 +213,7 @@
     {
         self.deal = [[Deal alloc] init];
         self.deal.dealKey = [NSString stringWithFormat:@"%i_%i", (int)[[NSDate date] timeIntervalSince1970], arc4random()];
+        self.deal.imageArray = [NSArray array];
     }
     
     [self refreshData];
