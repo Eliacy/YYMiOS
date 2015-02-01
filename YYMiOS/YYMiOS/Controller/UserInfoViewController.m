@@ -26,6 +26,13 @@
 
 - (void)clickLogoutButton:(id)sender
 {
+    if([[User sharedUser] anonymous])
+    {
+        [(AppDelegate *)[[UIApplication sharedApplication] delegate] showRegisterViewController];
+        
+        return;
+    }
+    
     [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:NO] forKey:@"login_flag"];
     [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"user_access_token"];
     [[NSUserDefaults standardUserDefaults] synchronize];

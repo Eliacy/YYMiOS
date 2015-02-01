@@ -12,6 +12,8 @@
 #import "WeiboSDK.h"
 #import "Categories.h"
 #import "WXApi.h"
+#import "CCAnalytic.h"
+#import "RegisterViewController.h"
 
 #define WEIXINKEY   @"wx9ecdcdfe681ca533"   //微信appid
 #define WEIBOKEY    @"2377894405"           //微博appid
@@ -31,6 +33,18 @@
     [WXApi registerApp:WEIXINKEY];
     [WeiboSDK enableDebugMode:YES];
     [WeiboSDK registerApp:WEIBOKEY];
+    
+    //设置设备ID
+    if (![[NSUserDefaults standardUserDefaults] objectForKey:@"AppGuid"] || [@"" isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:@"AppGuid"]]) {
+        CFUUIDRef uuid = CFUUIDCreate(kCFAllocatorDefault);
+        NSString *uuidString = (NSString *)CFUUIDCreateString(kCFAllocatorDefault, uuid);
+        CFRelease(uuid);
+        [[NSUserDefaults standardUserDefaults] setObject:uuidString forKey:@"AppGuid"];
+        [CCAnalytic setUserID:uuidString];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        [uuidString release];
+    }
     
     //生成应用版本号
     NSDictionary *dict = [[NSBundle mainBundle] infoDictionary];
@@ -89,7 +103,49 @@
     }
     else
     {
-        [self lanuchLoginViewController];
+        //anonymous
+        [[LPAPIClient sharedAPIClient] registerWithIconId:0
+                                                 userName:nil
+                                                   mobile:nil
+                                                 password:nil
+                                                   gender:nil
+                                                    token:nil
+                                                   device:[[NSUserDefaults standardUserDefaults] objectForKey:@"AppGuid"]
+                                                  success:^(id respondObject) {
+                                                      
+                                                      if([respondObject objectForKey:@"data"] && ![[respondObject objectForKey:@"data"] isEqual:[NSNull null]])
+                                                      {
+                                                          respondObject = [respondObject objectForKey:@"data"];
+                                                          if([respondObject objectForKey:@"token"] && ![[respondObject objectForKey:@"token"] isEqual:[NSNull null]])
+                                                          {
+                                                              [[NSUserDefaults standardUserDefaults] setObject:[respondObject objectForKey:@"token"] forKey:@"user_access_token"];
+                                                              [[NSUserDefaults standardUserDefaults] synchronize];
+                                                          }
+                                                          
+                                                          if([respondObject objectForKey:@"user"] && ![[respondObject objectForKey:@"user"] isEqual:[NSNull null]])
+                                                          {
+                                                              NSDictionary *userDictionary = [respondObject objectForKey:@"user"];
+                                                              if(userDictionary && [userDictionary isKindOfClass:[NSDictionary class]])
+                                                              {
+                                                                  User *user = [[[User alloc] initWithAttribute:userDictionary] autorelease];
+                                                                  [LPUtility archiveData:[NSArray arrayWithObject:user] IntoCache:@"LoginUser"];
+                                                              }
+                                                          }
+                                                      }
+                                                      
+                                                      [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"login_flag"];
+                                                      [[NSUserDefaults standardUserDefaults] synchronize];
+                                                      [(AppDelegate *)[[UIApplication sharedApplication] delegate] lanuchTabViewContrller];
+                                                      
+                                                      [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:[[User sharedUser] emUsername]
+                                                                                                          password:[[User sharedUser] emPassword]
+                                                                                                        completion:^(NSDictionary *loginInfo, EMError *error) {
+                                                                                                            
+                                                                                                        } onQueue:nil];
+                                                      
+                                                  } failure:^(NSError *error) {
+                                                      
+                                                  }];
     }
     
     [[LocationManager sharedManager] askForLocationPrivacy];
@@ -265,6 +321,15 @@
     UINavigationController *navigationController = [[[UINavigationController alloc] initWithRootViewController:tabVC] autorelease];
     navigationController.navigationBarHidden = YES;
     self.window.rootViewController = navigationController;
+}
+
+- (void)showRegisterViewController
+{
+    RegisterViewController *registerVC = [[[RegisterViewController alloc] init] autorelease];
+    registerVC.token = [[NSUserDefaults standardUserDefaults] objectForKey:@"user_access_token"];
+    [self.window.rootViewController presentViewController:registerVC animated:YES completion:^{
+        
+    }];
 }
 
 #pragma mark - UIAlertViewDelegate

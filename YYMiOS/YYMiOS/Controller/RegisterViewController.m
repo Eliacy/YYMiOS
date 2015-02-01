@@ -14,7 +14,23 @@
 
 @implementation RegisterViewController
 
+@synthesize token = _token;
+
 #pragma mark - private
+
+- (void)clickBackButton:(id)sender
+{
+    if(_token != nil && ![_token isEqualToString:@""])
+    {
+        [self dismissViewControllerAnimated:YES completion:^{
+            
+        }];
+    }
+    else
+    {
+        [super clickBackButton:sender];
+    }
+}
 
 - (void)clickRegisterButton:(id)sender
 {
@@ -23,8 +39,8 @@
                                                mobile:_telephoneTextField.text
                                              password:_passwordTextField.text
                                                gender:nil
-                                                token:nil
-                                               device:@"iOS"
+                                                token:_token
+                                               device:[[NSUserDefaults standardUserDefaults] objectForKey:@"AppGuid"]
                                               success:^(id respondObject) {
                                                   
                                                   if([respondObject objectForKey:@"data"] && ![[respondObject objectForKey:@"data"] isEqual:[NSNull null]])

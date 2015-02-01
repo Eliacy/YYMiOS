@@ -15,5 +15,7 @@
 - (void)lanuchLoginViewController;
 - (void)lanuchTabViewContrller;
 
+- (void)showRegisterViewController;
+
 @end
 

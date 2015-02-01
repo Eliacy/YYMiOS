@@ -158,6 +158,7 @@
 		0498E33119F509840085E12B /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0498E32819F509840085E12B /* AFURLSessionManager.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		049E690D19E13C9500DA984F /* ShopDealCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 049E690C19E13C9500DA984F /* ShopDealCell.m */; };
 		049E691019E13F0400DA984F /* DealDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049E690F19E13F0400DA984F /* DealDetailViewController.m */; };
+		04A38D941A7E75330075F78F /* CCAnalytic.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A38D931A7E75330075F78F /* CCAnalytic.m */; };
 		04A824B41A0FA560000B6AFF /* POIDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A824B31A0FA560000B6AFF /* POIDetail.m */; };
 		04A824B71A0FBA16000B6AFF /* MKMapView+ZoomLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A824B61A0FBA16000B6AFF /* MKMapView+ZoomLevel.m */; };
 		04A824BA1A0FD2A1000B6AFF /* POIAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A824B91A0FD2A1000B6AFF /* POIAnnotation.m */; };
@@ -614,6 +615,8 @@
 		049E690C19E13C9500DA984F /* ShopDealCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopDealCell.m; sourceTree = "<group>"; };
 		049E690E19E13F0400DA984F /* DealDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DealDetailViewController.h; sourceTree = "<group>"; };
 		049E690F19E13F0400DA984F /* DealDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DealDetailViewController.m; sourceTree = "<group>"; };
+		04A38D921A7E75330075F78F /* CCAnalytic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCAnalytic.h; sourceTree = "<group>"; };
+		04A38D931A7E75330075F78F /* CCAnalytic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCAnalytic.m; sourceTree = "<group>"; };
 		04A824B21A0FA560000B6AFF /* POIDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POIDetail.h; sourceTree = "<group>"; };
 		04A824B31A0FA560000B6AFF /* POIDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POIDetail.m; sourceTree = "<group>"; };
 		04A824B51A0FBA16000B6AFF /* MKMapView+ZoomLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKMapView+ZoomLevel.h"; sourceTree = "<group>"; };
@@ -1559,6 +1562,15 @@
 			path = AFNetworking;
 			sourceTree = "<group>";
 		};
+		04A38D911A7E75330075F78F /* Analyze */ = {
+			isa = PBXGroup;
+			children = (
+				04A38D921A7E75330075F78F /* CCAnalytic.h */,
+				04A38D931A7E75330075F78F /* CCAnalytic.m */,
+			);
+			path = Analyze;
+			sourceTree = "<group>";
+		};
 		04B0D04119DA7AA100289F78 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
@@ -1581,6 +1593,7 @@
 		04B0D04519DA7C3000289F78 /* 3rd */ = {
 			isa = PBXGroup;
 			children = (
+				04A38D911A7E75330075F78F /* Analyze */,
 				0EB985F81A772DBB00F1FC2E /* Extensions */,
 				0472CF641A472BC80018093D /* EaseMobSDK */,
 				048AD0001A3E065B00AD670F /* SlimeRefresh */,
@@ -1943,6 +1956,7 @@
 				04B0D06019DA7C3000289F78 /* SDWebImageDecoder.m in Sources */,
 				0435237B19D053D300F67B8E /* MineViewController.m in Sources */,
 				048AD00E1A3E163000AD670F /* Share.m in Sources */,
+				04A38D941A7E75330075F78F /* CCAnalytic.m in Sources */,
 				046BF9F51A0BCC4F003FE419 /* LPUtility.m in Sources */,
 				04B1C94F1A3C23AC00FD0BC8 /* DealDetailExtView.m in Sources */,
 				04E963731A2C3C350067C6C2 /* FollowingViewController.m in Sources */,
