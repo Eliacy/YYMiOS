@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Constant.h"
+#import "Function.h"
 
 @interface BaseViewController : UIViewController
 {

@@ -8,6 +8,6 @@
 
 #import "BaseViewController.h"
 
-@interface ModifyPasswordViewController : BaseViewController
+@interface ModifyPasswordViewController : BaseViewController<UITextFieldDelegate>
 
 @end

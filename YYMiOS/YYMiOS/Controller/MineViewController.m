@@ -11,16 +11,13 @@
 #import "UserInfoViewController.h"
 #import "SettingViewController.h"
 #import "MessageViewController.h"
-
 #import "DraftViewController.h"
-
 #import "FeedbackViewController.h"
 #import "AboutViewController.h"
-
 #import "FollowerViewController.h"
 #import "FollowingViewController.h"
-
 #import "UserDetailViewController.h"
+#import "MineCell.h"
 
 #define kBadgesImageViewTag 18926
 
@@ -150,9 +147,10 @@
     
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, _adjustView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - _adjustView.frame.size.height) style:UITableViewStylePlain];
     _tableView.backgroundColor = [UIColor clearColor];
+    _tableView.backgroundView = nil;
     _tableView.dataSource = self;
     _tableView.delegate = self;
-    _tableView.separatorColor = [UIColor clearColor];
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_tableView];
     
     _tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 150)];
@@ -173,6 +171,7 @@
     
     UITapGestureRecognizer *oneFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAvaterView:)];
     [_avatarImageView addGestureRecognizer:oneFingerTap];
+    [_backView addGestureRecognizer:oneFingerTap];
     [oneFingerTap release];
     
     _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(_avatarImageView.frame.origin.x + _avatarImageView.frame.size.width + 10, _avatarImageView.frame.origin.y, _backView.frame.size.width - 20 * 2 - 10 - _avatarImageView.frame.size.width, 20)];
@@ -420,6 +419,11 @@
     return 0;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 45;
+}
+
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     switch (section) {
@@ -447,12 +451,12 @@
     switch (section) {
         case 0:
         {
-            return 4;
+            return 1;
         }
             break;
         case 1:
         {
-            return 2;
+            return 3;
         }
             break;
         default:
@@ -464,12 +468,12 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MineViewControllerIdentifier"];
-    if(cell == nil)
-    {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"MineViewControllerIdentifier"] autorelease];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    NSString *CellIdentifier = @"MineCell";
+    MineCell *cell = (MineCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[MineCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
+    [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
     
     switch (indexPath.section) {
         case 0:
@@ -478,21 +482,6 @@
                 case 0:
                 {
                     cell.textLabel.text = @"我的草稿";
-                }
-                    break;
-                case 1:
-                {
-                    cell.textLabel.text = @"我的折扣券";
-                }
-                    break;
-                case 2:
-                {
-                    cell.textLabel.text = @"我的小贴士";
-                }
-                    break;
-                case 3:
-                {
-                    cell.textLabel.text = @"我的备忘录";
                 }
                     break;
                 default:
@@ -509,6 +498,11 @@
                 }
                     break;
                 case 1:
+                {
+                    cell.textLabel.text = @"给点鼓励";
+                }
+                    break;
+                case 2:
                 {
                     cell.textLabel.text = @"关于";
                 }
@@ -536,23 +530,9 @@
             switch (indexPath.row) {
                 case 0:
                 {
+                    //我的草稿
                     DraftViewController *draftVC = [[[DraftViewController alloc] init] autorelease];
                     [self.tabVC.navigationController pushViewController:draftVC animated:YES];
-                }
-                    break;
-                case 1:
-                {
-                
-                }
-                    break;
-                case 2:
-                {
-                
-                }
-                    break;
-                case 3:
-                {
-                
                 }
                     break;
                 default:
@@ -565,12 +545,20 @@
             switch (indexPath.row) {
                 case 0:
                 {
+                    //意见反馈
                     FeedbackViewController *feedbackVC = [[[FeedbackViewController alloc] init] autorelease];
                     [self.tabVC.navigationController pushViewController:feedbackVC animated:YES];
                 }
                     break;
                 case 1:
                 {
+                    //跳转app store 需知道appid;
+                    [self.view makeToast:@"敬请期待" duration:TOAST_DURATION position:@"center"];
+                }
+                    break;
+                case 2:
+                {
+                    //关于
                     AboutViewController *aboutVC = [[[AboutViewController alloc] init] autorelease];
                     [self.tabVC.navigationController pushViewController:aboutVC animated:YES];
                 }
@@ -587,8 +575,7 @@
     return nil;
 }
 
-#pragma mark - UIGestureRecognizer
-
+#pragma mark - 跳转个人信息页面
 - (void)tapAvaterView:(UITapGestureRecognizer *)gestureRecognizer
 {
     if(gestureRecognizer.state == UIGestureRecognizerStateEnded)

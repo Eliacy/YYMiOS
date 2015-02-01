@@ -275,7 +275,7 @@ static id APIClient = nil;
         }
         NSString *string = [self stringFromBaseURL:path withParams:params];
         
-        ASIFormDataRequest *request  = [[[ASIFormDataRequest alloc] initWithURL:[NSURL URLWithString:[[kHTTPRequestPrefix stringByAppendingString:string] stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding]]] autorelease];
+        ASIFormDataRequest *request  = [[[ASIFormDataRequest alloc] initWithURL:[NSURL URLWithString:[[kHTTPRequestPrefix stringByAppendingString:string] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]] autorelease];
         
         [request addRequestHeader:@"X-Auth-Signature" value:hashedValue(kAPISecret, string)];
         [request setRequestMethod:@"PUT"];
