@@ -83,4 +83,27 @@
     return theImage;
 }
 
+#pragma mark - 持久化存储
++ (void)setAsynchronousWithObject:(id)object Key:(NSString *)key
+{
+    NSUserDefaults *info = [NSUserDefaults standardUserDefaults];
+    [info setObject:object forKey:key];
+    [info synchronize];
+}
+
+#pragma mark - 清空数据
++ (void)clearAsynchronousWithKey:(NSString *)key
+{
+    NSUserDefaults *info = [NSUserDefaults standardUserDefaults];
+    [info removeObjectForKey:key];
+    [info synchronize];
+}
+
+#pragma mark - 获取保存数据
++ (id)getAsynchronousWithKey:(NSString *)key
+{
+    NSUserDefaults *info = [NSUserDefaults standardUserDefaults];
+    return [info valueForKey:key];
+}
+
 @end

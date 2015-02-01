@@ -22,12 +22,19 @@
 
 @implementation NearbyViewController
 {
-    NSArray *data;
-    NSArray *filterData;
-    UISearchBar *searchBar;
+    //搜索历史
+    NSMutableArray *searchHistoryArray;
+    //过滤后数据
+    NSArray *filterArray;
+    //搜索栏
+    UISearchBar *mySearchBar;
+    //搜索列表
     UITableView *searchTableView;
-    UISearchDisplayController *searchDisplayController;
+    //过滤列表
+    UITableView *filterTableView;
+    //取消
     UIButton *cancelBtn;
+    //搜索
     UIButton *searchBtn;
 }
 
@@ -61,24 +68,79 @@
 #pragma mark - 取消
 - (void)clickCancelButton:(id)sender
 {
-    searchTableView.hidden = YES;
-    cancelBtn.hidden = YES;
-    searchBtn.hidden = YES;
-    _filterButton.hidden = NO;
-    _mapButton.hidden = NO;
-    [searchBar resignFirstResponder];
-    
+    [self searchListHidden];
 }
-#pragma mark - 搜索
+#pragma mark - 搜索按钮
 - (void)clickSearchButton:(id)sender
 {
+    //检测输入合法性
+    if(mySearchBar.text.length==0){
+        [self.view makeToast:@"您未输入内容" duration:TOAST_DURATION position:@"center"];
+        return;
+    }
+    
+    //隐藏搜索列表
+    [self searchListHidden];
+    
+    //保存搜索历史
+    [searchHistoryArray addObject:mySearchBar.text];
+    [Function setAsynchronousWithObject:searchHistoryArray Key:@"搜索历史"];
+    
+    //请求接口并刷新数据
+    [self.view makeToastActivity];
+    [POI getPOIListWithOffset:0
+                        limit:20
+                      keyword:mySearchBar.text
+                         area:_areaId
+                         city:[[[NSUserDefaults standardUserDefaults] objectForKey:@"city_id"] integerValue]
+                        range:-1
+                     category:_categoryId
+                        order:_order
+                    longitude:0
+                     latitude:0
+                      success:^(NSArray *array) {
+                          
+                          [_nearbyArray removeAllObjects];
+                          [_nearbyArray addObjectsFromArray:array];
+                          [_tableView reloadData];
+                          
+                          if([array count] < 20)
+                          {
+                              _isHaveMore = NO;
+                          }
+                          else
+                          {
+                              _isHaveMore = YES;
+                          }
+                          [self.view hideToastActivity];
+                      } failure:^(NSError *error) {
+                          [self.view hideToastActivity];
+                      }];
+    
+}
+
+#pragma mark - 隐藏搜索列表
+- (void)searchListHidden
+{
+    filterTableView.hidden = YES;
     searchTableView.hidden = YES;
     cancelBtn.hidden = YES;
     searchBtn.hidden = YES;
     _filterButton.hidden = NO;
     _mapButton.hidden = NO;
-    [searchBar resignFirstResponder];
+    [mySearchBar resignFirstResponder];
 }
+
+#pragma mark - 显示搜索列表
+- (void)searchListShow
+{
+    _filterButton.hidden = YES;
+    _mapButton.hidden = YES;
+    searchTableView.hidden = NO;
+    cancelBtn.hidden = NO;
+    searchBtn.hidden = NO;
+}
+
 
 #pragma mark - super
 
@@ -98,7 +160,6 @@
     [super loadView];
     
     self.view.frame = CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width, self.view.frame.size.height - 49);
-    _titleLabel.text = @"附近";
     _backButton.hidden = YES;
     
     _filterButton = [[[UIButton buttonWithType:UIButtonTypeCustom] retain] autorelease];
@@ -163,18 +224,14 @@
     [_headerView addSubview:searchBtn];
     searchBtn.hidden = YES;
     //搜索控件
-    searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(65, 0, 200, 28)];
-    searchBar.backgroundColor = [UIColor clearColor];
-    searchBar.placeholder = @"输入店铺名或地点";
-    searchBar.backgroundImage = [Function createImageWithColor:GColor(251, 100, 129)];
-    searchBar.delegate = self;
-    [_headerView addSubview:searchBar];
-    //搜索视图
-    data = [[NSArray alloc] initWithObjects:@"1",@"2",@"333",@"44",@"55",@"6666",@"777",@"8",@"3",@"44",@"1111",@"11",@"111", nil];
-    searchDisplayController = [[[UISearchDisplayController alloc] initWithSearchBar:searchBar contentsController:self] autorelease];
-    searchDisplayController.searchResultsDataSource = self;
-    searchDisplayController.searchResultsDelegate = self;
-    
+    mySearchBar = [[[UISearchBar alloc] initWithFrame:CGRectMake((self.view.frame.size.width-200)/2, 0, 200, _headerView.frame.size.height)] autorelease];
+    mySearchBar.backgroundColor = [UIColor clearColor];
+    mySearchBar.placeholder = @"输入店铺名或地点";
+    mySearchBar.backgroundImage = [Function createImageWithColor:GColor(251, 100, 129)];
+    mySearchBar.delegate = self;
+    [_headerView addSubview:mySearchBar];
+    //搜索历史
+    searchHistoryArray = [[NSMutableArray alloc] initWithArray:[Function getAsynchronousWithKey:@"搜索历史"]];
     //搜索列表
     searchTableView = [[[UITableView alloc] initWithFrame:CGRectMake(0, _adjustView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height) style:UITableViewStylePlain] autorelease];
     searchTableView.dataSource = self;
@@ -182,6 +239,7 @@
     searchTableView.backgroundView = nil;
     searchTableView.backgroundColor = GColor(246, 246, 246);
     searchTableView.hidden = YES;
+    searchTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:searchTableView];
     
     UIView *searchHeaderView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, searchTableView.frame.size.width, 150)] autorelease];
@@ -199,6 +257,17 @@
     //搜索历史
     UILabel *historyLabel = [Function createLabelWithFrame:CGRectMake(10, searchHeaderView.frame.size.height-30, 80, 20) FontSize:16 Text:@"搜索历史:"];
     [searchHeaderView addSubview:historyLabel];
+    [searchHeaderView addSubview:[Function createSeparatorViewWithFrame:CGRectMake(0, searchHeaderView.frame.size.height-1, searchHeaderView.frame.size.width, 1)]];
+    
+    //过滤列表
+    filterTableView = [[[UITableView alloc] initWithFrame:CGRectMake(0, _adjustView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height) style:UITableViewStylePlain] autorelease];
+    filterTableView.dataSource = self;
+    filterTableView.delegate = self;
+    filterTableView.backgroundView = nil;
+    filterTableView.backgroundColor = GColor(246, 246, 246);
+    filterTableView.hidden = YES;
+    filterTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.view addSubview:filterTableView];
 }
 
 - (void)viewDidLoad {
@@ -216,11 +285,13 @@
     }
     _isAppear = YES;
     
+    
     if([_nearbyArray count] == 0 || [[[NSUserDefaults standardUserDefaults] objectForKey:@"refresh_nearby_data"] boolValue] == YES)
     {
         [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:NO] forKey:@"refresh_nearby_data"];
         [[NSUserDefaults standardUserDefaults] synchronize];
-        
+        //请求接口
+        [self.view makeToastActivity];
         [POI getPOIListWithOffset:0
                             limit:20
                           keyword:@""
@@ -245,9 +316,9 @@
                               {
                                   _isHaveMore = YES;
                               }
-                              
+                              [self.view hideToastActivity];
                           } failure:^(NSError *error) {
-                              
+                              [self.view hideToastActivity];
                           }];
     }
 }
@@ -304,6 +375,8 @@
     }
     _isLoading = YES;
     
+    //请求接口
+    [self.view makeToastActivity];
     [POI getPOIListWithOffset:0
                         limit:20
                       keyword:@""
@@ -330,11 +403,11 @@
                           {
                               _isHaveMore = YES;
                           }
-                          
+                          [self.view hideToastActivity];
                       } failure:^(NSError *error) {
                           
                           _isLoading = NO;
-                          
+                          [self.view hideToastActivity];
                       }];
 }
 
@@ -351,6 +424,8 @@
     }
     _isLoading = YES;
     
+    //请求接口
+    [self.view makeToastActivity];
     [POI getPOIListWithOffset:[_nearbyArray count]
                         limit:20
                       keyword:@""
@@ -376,11 +451,11 @@
                           {
                               _isHaveMore = YES;
                           }
-                          
+                          [self.view hideToastActivity];
                       } failure:^(NSError *error) {
                           
                           _isLoading = NO;
-                          
+                          [self.view hideToastActivity];
                       }];
 }
 
@@ -402,12 +477,12 @@
         return [_nearbyArray count];
     }else if (tableView == searchTableView){
         //搜索列表
-        return data.count;
+        return searchHistoryArray.count;
     }else{
         //筛选
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self contains [cd] %@",searchDisplayController.searchBar.text];
-        filterData =  [[[NSArray alloc] initWithArray:[data filteredArrayUsingPredicate:predicate]] autorelease];
-        return filterData.count;
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self contains [cd] %@",mySearchBar.text];
+        filterArray =  [[NSArray alloc] initWithArray:[searchHistoryArray filteredArrayUsingPredicate:predicate]];
+        return filterArray.count;
     }
     
 }
@@ -442,7 +517,7 @@
         }
         [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
         
-        cell.textLabel.text = data[indexPath.row];
+        cell.textLabel.text = searchHistoryArray[indexPath.row];
         return cell;
     }else{
         //筛选列表
@@ -452,8 +527,7 @@
             cell = [[SearchCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         }
         [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
-        
-        cell.textLabel.text = filterData[indexPath.row];
+        cell.textLabel.text = filterArray[indexPath.row];
         return cell;
     }
 }
@@ -473,22 +547,19 @@
 #pragma mark - UISearchBarDelegate
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
 {
-    _filterButton.hidden = YES;
-    _mapButton.hidden = YES;
-    searchTableView.hidden = NO;
-    cancelBtn.hidden = NO;
-    searchBtn.hidden = NO;
+    [self searchListShow];
+    [searchTableView reloadData];
     return YES;
 }
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
-    //隐藏HeaderView
-//    if(searchTableView.tableHeaderView.hidden == NO){
-//        searchTableView.tableHeaderView.hidden = YES;
-//    }
-    //过滤文字
-    
-    //刷新列表
+    //显示filterTableView
+    if(mySearchBar.text.length>0){
+        filterTableView.hidden = NO;
+    }else{
+        filterTableView.hidden = YES;
+    }
+    [filterTableView reloadData];
 }
 
 

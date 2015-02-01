@@ -65,4 +65,26 @@
  */
 + (UIImage *)createImageWithColor:(UIColor *)color;
 
+/**
+ *  持久化存储
+ *
+ *  @param Object    存储内容
+ *  @param Key       存储标示
+ */
++ (void)setAsynchronousWithObject:(id)object Key:(NSString *)key;
+
+/**
+ *  清空存储数据
+ *
+ *  @param Key       存储标示
+ */
++ (void)clearAsynchronousWithKey:(NSString *)key;
+
+/**
+ *  获取本地保存数据
+ *
+ *  @param Key       存储标示
+ */
++ (id)getAsynchronousWithKey:(NSString *)key;
+
 @end
