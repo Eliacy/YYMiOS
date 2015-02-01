@@ -71,9 +71,9 @@
         _areaArray = [[NSMutableArray alloc] initWithCapacity:0];
         _categoryArray = [[NSMutableArray alloc] initWithCapacity:0];
         
-        _scaleExpandFlag = YES;
-        _categoryExpandFlag = YES;
-        _orderExpandFlag = YES;
+        _scaleExpandFlag = NO;
+        _categoryExpandFlag = NO;
+        _orderExpandFlag = NO;
     }
     
     return self;
@@ -104,25 +104,22 @@
     tableFooterView.backgroundColor = [UIColor clearColor];
     _tableView.tableFooterView = tableFooterView;
     
+    //范围
     _scaleButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     _scaleButton.frame = CGRectMake(0, 0, _tableView.frame.size.width, 40);
     _scaleButton.backgroundColor = [UIColor clearColor];
-    [_scaleButton setTitle:@"范围" forState:UIControlStateNormal];
-    [_scaleButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     [_scaleButton addTarget:self action:@selector(clickScaleButton:) forControlEvents:UIControlEventTouchUpInside];
     
+    //分类
     _categoryButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     _categoryButton.frame = CGRectMake(0, 0, _tableView.frame.size.width, 40);
     _categoryButton.backgroundColor = [UIColor clearColor];
-    [_categoryButton setTitle:@"分类" forState:UIControlStateNormal];
-    [_categoryButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     [_categoryButton addTarget:self action:@selector(clickCategoryButton:) forControlEvents:UIControlEventTouchUpInside];
     
+    //排序
     _orderButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     _orderButton.frame = CGRectMake(0, 0, _tableView.frame.size.width, 40);
     _orderButton.backgroundColor = [UIColor clearColor];
-    [_orderButton setTitle:@"排序" forState:UIControlStateNormal];
-    [_orderButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     [_orderButton addTarget:self action:@selector(clickOrderButton:) forControlEvents:UIControlEventTouchUpInside];
 }
 
@@ -191,22 +188,46 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *view = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 40)] autorelease];
-    view.backgroundColor = [UIColor colorWithRed:221.0 / 255.0 green:221.0 / 255.0 blue:221.0 / 255.0 alpha:1.0];
+    view.backgroundColor = GColor(136, 136, 136);
     
     switch (section) {
         case 0:
         {
+            //范围
             [view addSubview:_scaleButton];
+            UILabel *scaleLabel = [Function createLabelWithFrame:view.frame FontSize:16 Text:@"范围"];
+            [view addSubview:scaleLabel];
+            if(_scaleExpandFlag){
+                scaleLabel.textColor = [UIColor whiteColor];
+            }else{
+                scaleLabel.textColor = GColor(191, 191, 191);
+            }
         }
             break;
         case 1:
         {
+            //分类
             [view addSubview:_categoryButton];
+            UILabel *categoryLabel = [Function createLabelWithFrame:view.frame FontSize:16 Text:@"分类"];
+            [view addSubview:categoryLabel];
+            if(_categoryExpandFlag){
+                categoryLabel.textColor = [UIColor whiteColor];
+            }else{
+                categoryLabel.textColor = GColor(191, 191, 191);
+            }
         }
             break;
         case 2:
         {
+            //排序
             [view addSubview:_orderButton];
+            UILabel *orderLabel = [Function createLabelWithFrame:view.frame FontSize:16 Text:@"排序"];
+            [view addSubview:orderLabel];
+            if(_orderExpandFlag){
+                orderLabel.textColor = [UIColor whiteColor];
+            }else{
+                orderLabel.textColor = GColor(191, 191, 191);
+            }
         }
             break;
         default:
