@@ -87,10 +87,17 @@
     [Function setAsynchronousWithObject:searchHistoryArray Key:@"搜索历史"];
     
     //请求接口并刷新数据
+    [self searchWithText:mySearchBar.text];
+    
+}
+
+#pragma mark - 搜索指定内容
+- (void)searchWithText:(NSString *)text
+{
     [self.view makeToastActivity];
     [POI getPOIListWithOffset:0
                         limit:20
-                      keyword:mySearchBar.text
+                      keyword:text
                          area:_areaId
                          city:[[[NSUserDefaults standardUserDefaults] objectForKey:@"city_id"] integerValue]
                         range:-1
@@ -99,24 +106,28 @@
                     longitude:0
                      latitude:0
                       success:^(NSArray *array) {
-                          
-                          [_nearbyArray removeAllObjects];
-                          [_nearbyArray addObjectsFromArray:array];
-                          [_tableView reloadData];
-                          
-                          if([array count] < 20)
-                          {
-                              _isHaveMore = NO;
-                          }
-                          else
-                          {
-                              _isHaveMore = YES;
-                          }
                           [self.view hideToastActivity];
+                          
+                          //如果有数据，刷新列表
+                          if(array.count>0){
+                              [_nearbyArray removeAllObjects];
+                              [_nearbyArray addObjectsFromArray:array];
+                              [_tableView reloadData];
+                              
+                              if([array count] < 20)
+                              {
+                                  _isHaveMore = NO;
+                              }
+                              else
+                              {
+                                  _isHaveMore = YES;
+                              }
+                          }else{
+                              [self.view makeToast:@"未找到相关内容" duration:TOAST_DURATION position:@"center"];
+                          }
                       } failure:^(NSError *error) {
                           [self.view hideToastActivity];
                       }];
-    
 }
 
 #pragma mark - 隐藏搜索列表
@@ -536,9 +547,33 @@
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ShopViewController *shopVC = [[[ShopViewController alloc] init] autorelease];
-    shopVC.poiId = [[_nearbyArray objectAtIndex:indexPath.row] poiId];
-    [self.tabVC.navigationController pushViewController:shopVC animated:YES];
+    if(tableView == _tableView){
+        
+        //主视图
+        ShopViewController *shopVC = [[[ShopViewController alloc] init] autorelease];
+        shopVC.poiId = [[_nearbyArray objectAtIndex:indexPath.row] poiId];
+        [self.tabVC.navigationController pushViewController:shopVC animated:YES];
+    }else if(tableView == searchTableView){
+        
+        //隐藏搜索列表
+        [self searchListHidden];
+        
+        //请求接口并刷新数据
+        [self searchWithText:[searchHistoryArray objectAtIndex:indexPath.row]];
+        
+    }else{
+        
+        //隐藏搜索列表
+        [self searchListHidden];
+        
+        //请求接口并刷新数据
+        [self searchWithText:[filterArray objectAtIndex:indexPath.row]];
+        
+        
+    }
+    
+    
+    
     
     return nil;
 }
