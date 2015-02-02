@@ -8,8 +8,11 @@
 
 #import "BaseViewController.h"
 #import "NearbyViewController.h"
+#import "RATreeView.h"
+#import "RADataObject.h"
+#import "RATableViewCell.h"
 
-@interface FilterViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate>
+@interface FilterViewController : BaseViewController <RATreeViewDelegate, RATreeViewDataSource>
 {
     UIButton        *_searchButton;
     

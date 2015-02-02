@@ -275,6 +275,8 @@
 		0E7748BD1A6FC3AE00831C0E /* UserInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7748BC1A6FC3AE00831C0E /* UserInfoCell.m */; };
 		0EB985FB1A772DCF00F1FC2E /* NSBundle+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EB985FA1A772DCF00F1FC2E /* NSBundle+Extensions.m */; };
 		0EB985FF1A779E4F00F1FC2E /* logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0EB985FE1A779E4F00F1FC2E /* logo@2x.png */; };
+		0EC5143F1A7F60FF00882267 /* RADataObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC5143C1A7F60FF00882267 /* RADataObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		0EC514401A7F60FF00882267 /* RATableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC5143E1A7F60FF00882267 /* RATableViewCell.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		6487403E1A6C96710033BB6F /* rank.png in Resources */ = {isa = PBXBuildFile; fileRef = 6487403C1A6C96710033BB6F /* rank.png */; };
 		6487403F1A6C96710033BB6F /* rank@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6487403D1A6C96710033BB6F /* rank@2x.png */; };
 		EC5B41FE1A7E8CDC00D31AB9 /* RABatchChanges.m in Sources */ = {isa = PBXBuildFile; fileRef = EC5B41E21A7E8CDC00D31AB9 /* RABatchChanges.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -790,6 +792,10 @@
 		0EB985F91A772DCF00F1FC2E /* NSBundle+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+Extensions.h"; sourceTree = "<group>"; };
 		0EB985FA1A772DCF00F1FC2E /* NSBundle+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+Extensions.m"; sourceTree = "<group>"; };
 		0EB985FE1A779E4F00F1FC2E /* logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@2x.png"; sourceTree = "<group>"; };
+		0EC5143B1A7F60FF00882267 /* RADataObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RADataObject.h; sourceTree = "<group>"; };
+		0EC5143C1A7F60FF00882267 /* RADataObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RADataObject.m; sourceTree = "<group>"; };
+		0EC5143D1A7F60FF00882267 /* RATableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RATableViewCell.h; sourceTree = "<group>"; };
+		0EC5143E1A7F60FF00882267 /* RATableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RATableViewCell.m; sourceTree = "<group>"; };
 		6487403C1A6C96710033BB6F /* rank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rank.png; sourceTree = "<group>"; };
 		6487403D1A6C96710033BB6F /* rank@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rank@2x.png"; sourceTree = "<group>"; };
 		EC5B41E11A7E8CDC00D31AB9 /* RABatchChanges.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RABatchChanges.h; sourceTree = "<group>"; };
@@ -1712,6 +1718,10 @@
 			isa = PBXGroup;
 			children = (
 				EC5B41E01A7E8CDC00D31AB9 /* Private Files */,
+				0EC5143B1A7F60FF00882267 /* RADataObject.h */,
+				0EC5143C1A7F60FF00882267 /* RADataObject.m */,
+				0EC5143D1A7F60FF00882267 /* RATableViewCell.h */,
+				0EC5143E1A7F60FF00882267 /* RATableViewCell.m */,
 				EC5B41FC1A7E8CDC00D31AB9 /* RATreeView.h */,
 				EC5B41FD1A7E8CDC00D31AB9 /* RATreeView.m */,
 			);
@@ -2030,7 +2040,9 @@
 				04788D5B19D7FAF000BE283B /* DraftCell.m in Sources */,
 				0435238219D05C6500F67B8E /* TipsViewController.m in Sources */,
 				04788D7019D809AF00BE283B /* GenderViewController.m in Sources */,
+				0EC514401A7F60FF00882267 /* RATableViewCell.m in Sources */,
 				04B0D06119DA7C3000289F78 /* SDWebImageDownloader.m in Sources */,
+				0EC5143F1A7F60FF00882267 /* RADataObject.m in Sources */,
 				04788D6A19D8008E00BE283B /* PhotoSelectView.m in Sources */,
 				EC5B42031A7E8CDC00D31AB9 /* RATreeNodeItem.m in Sources */,
 				0498E33119F509840085E12B /* AFURLSessionManager.m in Sources */,
