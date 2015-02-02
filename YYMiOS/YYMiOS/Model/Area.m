@@ -15,6 +15,7 @@
 @synthesize areaLongitude = _areaLongitude;
 @synthesize areaName = _areaName;
 @synthesize areaOrder = _areaOrder;
+@synthesize areaChildren = _areaChildren;
 
 - (id)initWithAttribute:(NSDictionary *)attribute
 {
@@ -42,6 +43,21 @@
             if([attribute objectForKey:@"order"] && ![[attribute objectForKey:@"order"] isEqual:[NSNull null]])
             {
                 self.areaOrder = [[attribute objectForKey:@"order"] integerValue];
+            }
+            if([attribute objectForKey:@"children"] && ![[attribute objectForKey:@"children"] isEqual:[NSNull null]])
+            {
+                NSArray *array = [attribute objectForKey:@"children"];
+                NSMutableArray *mutableArray = [NSMutableArray arrayWithCapacity:0];
+                if(array && [array isKindOfClass:[NSArray class]] && [array count] > 0)
+                {
+                    for(NSDictionary *dictionary in array)
+                    {
+                        Area *area = [[Area alloc] initWithAttribute:dictionary];
+                        [mutableArray addObject:area];
+                        [area release];
+                    }
+                }
+                self.areaChildren = mutableArray;
             }
         }
     }

@@ -128,10 +128,11 @@
 //    _orderButton.backgroundColor = [UIColor clearColor];
 //    [_orderButton addTarget:self action:@selector(clickOrderButton:) forControlEvents:UIControlEventTouchUpInside];
     
-    filterTreeView = [[[RATreeView alloc] initWithFrame:CGRectMake(0, _adjustView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - _adjustView.frame.size.height)] autorelease];
+    filterTreeView = [[[RATreeView alloc] initWithFrame:CGRectMake(15, _adjustView.frame.size.height, self.view.frame.size.width-30, self.view.frame.size.height - _adjustView.frame.size.height)] autorelease];
+    filterTreeView.backgroundColor = [UIColor whiteColor];
     filterTreeView.delegate = self;
     filterTreeView.dataSource = self;
-    filterTreeView.separatorStyle = RATreeViewCellSeparatorStyleSingleLine;
+    filterTreeView.separatorStyle = RATreeViewCellSeparatorStyleNone;
     [filterTreeView setBackgroundColor:[UIColor colorWithWhite:0.97 alpha:1.0]];
     [filterTreeView registerClass:[RATableViewCell class] forCellReuseIdentifier:NSStringFromClass([RATableViewCell class])];
     [self.view addSubview:filterTreeView];
@@ -148,10 +149,6 @@
                            {
                                [_areaArray removeAllObjects];
                                [_areaArray addObjectsFromArray:[[array objectAtIndex:0] areaArray]];
-//                               [_tableView reloadData];
-                               
-//                               [self loadFilterData];
-//                               [filterTreeView reloadData];
                            }
                             
                         } failure:^(NSError *error) {
@@ -168,33 +165,17 @@
                                           category.categoryName = @"全部分类";
                                           [_categoryArray addObject:category];
                                           [_categoryArray addObjectsFromArray:array];
-//                                          [_tableView reloadData];
-                                          
-//                                          [self loadFilterData];
-//                                          [filterTreeView reloadData];
                                           
                                       } failure:^(NSError *error) {
                                           
                                       }];
     
-    [self performSelector:@selector(filterTreeViewReload) withObject:nil afterDelay:1];
+    [self performSelector:@selector(filterTreeViewReload) withObject:nil afterDelay:2];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 //#pragma mark - UITableViewDataSource
 //
@@ -469,7 +450,7 @@
 
 - (CGFloat)treeView:(RATreeView *)treeView heightForRowForItem:(id)item
 {
-    return 44;
+    return 45;
 }
 
 #pragma mark -
@@ -478,14 +459,11 @@
 - (UITableViewCell *)treeView:(RATreeView *)treeView cellForItem:(id)item
 {
     RADataObject *dataObject = item;
-    
     NSInteger level = [filterTreeView levelForCellForItem:item];
-    
     RATableViewCell *cell = [filterTreeView dequeueReusableCellWithIdentifier:NSStringFromClass([RATableViewCell class])];
     [cell setupWithTitle:dataObject.name level:level];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
-    
     return cell;
 }
 
@@ -503,43 +481,50 @@
 {
     RADataObject *data = item;
     if (item == nil) {
-        GLog(@"filterData.count : %d",filterData.count);
         return [filterData objectAtIndex:index];
     }
     
     return data.children[index];
 }
 
+- (void)treeView:(RATreeView *)treeView didSelectRowForItem:(id)item
+{
+    int level =  [filterTreeView levelForCellForItem:item];
+    GLog(@"level : %d",level);
+}
+
 #pragma mark - 初始化树形结构数据
 - (void)loadFilterData
 {
-//    //范围
-//    NSArray *rangeArray = [NSArray arrayWithObjects:@"智能范围", @"1公里", @"2公里", @"5公里", @"20公里", @"50公里", @"全城", nil];
-//    NSMutableArray *rangeMutableArray = [[[NSMutableArray alloc] init] autorelease];
-//    for(int i=0;i<rangeArray.count;i++){
-//        RADataObject *range = [RADataObject dataObjectWithName:[NSString stringWithFormat:@"%@",[rangeArray objectAtIndex:i]] children:nil];
-//        [rangeMutableArray addObject:range];
-//    }
-//    for(int i=0;i<_areaArray.count;i++){
-//        City *cities = [_areaArray objectAtIndex:i];
-//        RADataObject *city = nil;
-//        
-//        if(cities.areaArray.count>0){
-//            NSMutableArray *tempArray = [[[NSMutableArray alloc] init] autorelease];
-//            for(int i=0;i<cities.areaArray.count;i++){
-//                city = [RADataObject dataObjectWithName:[NSString stringWithFormat:@"%@",[[cities.areaArray objectAtIndex:i] name]] children:nil];
-//                [tempArray addObject:city];
-//            }
-//            RADataObject *arrayList = [RADataObject dataObjectWithName:[NSString stringWithFormat:@"%@",cities.cityName] children:tempArray];
-//            [rangeMutableArray addObject:arrayList];
-//        }else{
-//            city = [RADataObject dataObjectWithName:[NSString stringWithFormat:@"%@",cities.cityName] children:nil];
-//            [rangeMutableArray addObject:city];
-//
-//        }
-//    }
-//    
-//    RADataObject *rangeList = [RADataObject dataObjectWithName:@"范围" children:rangeMutableArray];
+    //范围
+    NSMutableArray *rangeMutableArray = [[[NSMutableArray alloc] init] autorelease];
+    
+    NSArray *rangeArray = [NSArray arrayWithObjects:@"智能范围", @"1公里", @"2公里", @"5公里", @"20公里", @"50公里", @"全城", nil];
+    for(int i=0;i<rangeArray.count;i++){
+        RADataObject *range = [RADataObject dataObjectWithName:[NSString stringWithFormat:@"%@",[rangeArray objectAtIndex:i]] children:nil];
+        [rangeMutableArray addObject:range];
+    }
+    GLog(@"_areaArray.count : %d",_areaArray.count);
+    for(int i=0;i<_areaArray.count;i++){
+        Area *area = [_areaArray objectAtIndex:i];
+        RADataObject *areaData = nil;
+        
+        if(area.areaChildren.count>0){
+            NSMutableArray *tempArray = [[[NSMutableArray alloc] init] autorelease];
+            for(int i=0;i<area.areaChildren.count;i++){
+                areaData = [RADataObject dataObjectWithName:[NSString stringWithFormat:@"%@",[[area.areaChildren objectAtIndex:i] areaName]] children:nil];
+                [tempArray addObject:areaData];
+            }
+            RADataObject *arrayList = [RADataObject dataObjectWithName:[NSString stringWithFormat:@"%@",area.areaName] children:tempArray];
+            [rangeMutableArray addObject:arrayList];
+        }else{
+            areaData = [RADataObject dataObjectWithName:[NSString stringWithFormat:@"%@",area.areaName] children:nil];
+            [rangeMutableArray addObject:areaData];
+
+        }
+    }
+    
+    RADataObject *rangeList = [RADataObject dataObjectWithName:@"范围" children:rangeMutableArray];
     
     //分类
     NSMutableArray *categoryMutableArray = [[[NSMutableArray alloc] init] autorelease];
@@ -573,9 +558,10 @@
     RADataObject *orderList = [RADataObject dataObjectWithName:@"排序" children:orderMutableArray];
     
     //数据汇总
-    [filterData addObjectsFromArray:[NSArray arrayWithObjects:categoryList,orderList, nil]];
+    [filterData addObjectsFromArray:[NSArray arrayWithObjects:rangeList,categoryList,orderList, nil]];
 
 }
+
 
 #pragma mark - 加载树结构数据
 - (void)filterTreeViewReload

@@ -19,8 +19,8 @@
 //
 
 #import "RATableViewCell.h"
-
-#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+#import "Constant.h"
+#import "Function.h"
 
 @interface RATableViewCell ()
 
@@ -38,9 +38,12 @@
         self.selectedBackgroundView = [UIView new];
         self.selectedBackgroundView.backgroundColor = [UIColor clearColor];
         
-        self.customTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320,40)];
+        self.customTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 40)];
         self.customTitleLabel.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:self.customTitleLabel];
+        
+        //线
+        [self.contentView addSubview:[Function createSeparatorViewWithFrame:CGRectMake(0, self.frame.size.height-0.5, self.frame.size.width, 1)]];
         
     }
     return self;
@@ -67,11 +70,11 @@
   }
   
   if (level == 0) {
-    self.backgroundColor = UIColorFromRGB(0xF7F7F7);
+    self.backgroundColor = GColor(136, 136, 136);
   } else if (level == 1) {
-    self.backgroundColor = UIColorFromRGB(0xD1EEFC);
+    self.backgroundColor = GColor(255, 255, 255);
   } else if (level >= 2) {
-    self.backgroundColor = UIColorFromRGB(0xE0F8D8);
+    self.backgroundColor = GColor(248, 248, 248);
   }
   
   CGFloat left = 11 + 20 * level;
