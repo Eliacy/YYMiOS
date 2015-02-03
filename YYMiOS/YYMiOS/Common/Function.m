@@ -68,6 +68,7 @@
     EMTextMessageBody *messageBody = [[EMTextMessageBody alloc] initWithChatObject:chatText];
     NSArray *bodies = [[NSArray alloc] initWithObjects:messageBody, nil];
     EMMessage *message = [[EMMessage alloc] initMessageWithID:nil sender:sender receiver:receiver bodies:bodies];
+    message.timestamp = [[NSDate date] timeIntervalSince1970] * 1000;   // 设置消息发送时间为当前时间。
     return message;
 }
 
