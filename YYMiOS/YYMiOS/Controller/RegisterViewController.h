@@ -20,6 +20,10 @@
     UITextField     *_repasswordTextField;
     
     UIButton        *_registerButton;
+    
+    NSString        *_token;
 }
+
+@property (retain, nonatomic) NSString *token;
 
 @end
