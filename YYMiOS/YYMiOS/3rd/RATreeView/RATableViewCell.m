@@ -24,8 +24,6 @@
 
 @interface RATableViewCell ()
 
-@property (strong, nonatomic) UILabel *customTitleLabel;
-
 @end
 
 @implementation RATableViewCell
@@ -66,7 +64,7 @@
   self.customTitleLabel.text = title;
   
   if (level == 0) {
-    self.detailTextLabel.textColor = [UIColor blackColor];
+    self.detailTextLabel.textColor = GColor(159, 159, 159);
   }
   
   if (level == 0) {

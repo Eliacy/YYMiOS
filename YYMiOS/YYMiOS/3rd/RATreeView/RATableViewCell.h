@@ -22,6 +22,8 @@
 
 @interface RATableViewCell : UITableViewCell
 
+@property (strong, nonatomic) UILabel *customTitleLabel;
+
 - (void)setupWithTitle:(NSString *)title level:(NSInteger)level;
 
 @end

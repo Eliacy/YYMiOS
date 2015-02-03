@@ -44,24 +44,6 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)clickScaleButton:(id)sender
-{
-    _scaleExpandFlag = !_scaleExpandFlag;
-    [_tableView reloadData];
-}
-
-- (void)clickCategoryButton:(id)sender
-{
-    _categoryExpandFlag = !_categoryExpandFlag;
-    [_tableView reloadData];
-}
-
-- (void)clickOrderButton:(id)sender
-{
-    _orderExpandFlag = !_orderExpandFlag;
-    [_tableView reloadData];
-}
-
 #pragma mark - super
 
 - (id)init
@@ -74,10 +56,6 @@
         
         _areaArray = [[NSMutableArray alloc] initWithCapacity:0];
         _categoryArray = [[NSMutableArray alloc] initWithCapacity:0];
-        
-//        _scaleExpandFlag = NO;
-//        _categoryExpandFlag = NO;
-//        _orderExpandFlag = NO;
         
         filterData = [[NSMutableArray alloc] init];
     }
@@ -100,34 +78,7 @@
     [_searchButton addTarget:self action:@selector(clickSearchButton:) forControlEvents:UIControlEventTouchUpInside];
     [_headerView addSubview:_searchButton];
     
-//    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, _adjustView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - _adjustView.frame.size.height) style:UITableViewStylePlain];
-//    _tableView.backgroundColor = [UIColor clearColor];
-//    _tableView.dataSource = self;
-//    _tableView.delegate = self;
-//    [self.view addSubview:_tableView];
-//
-//    UIView *tableFooterView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 1)] autorelease];
-//    tableFooterView.backgroundColor = [UIColor clearColor];
-//    _tableView.tableFooterView = tableFooterView;
-//
-//    //范围
-//    _scaleButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-//    _scaleButton.frame = CGRectMake(0, 0, _tableView.frame.size.width, 40);
-//    _scaleButton.backgroundColor = [UIColor clearColor];
-//    [_scaleButton addTarget:self action:@selector(clickScaleButton:) forControlEvents:UIControlEventTouchUpInside];
-//    
-//    //分类
-//    _categoryButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-//    _categoryButton.frame = CGRectMake(0, 0, _tableView.frame.size.width, 40);
-//    _categoryButton.backgroundColor = [UIColor clearColor];
-//    [_categoryButton addTarget:self action:@selector(clickCategoryButton:) forControlEvents:UIControlEventTouchUpInside];
-//    
-//    //排序
-//    _orderButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-//    _orderButton.frame = CGRectMake(0, 0, _tableView.frame.size.width, 40);
-//    _orderButton.backgroundColor = [UIColor clearColor];
-//    [_orderButton addTarget:self action:@selector(clickOrderButton:) forControlEvents:UIControlEventTouchUpInside];
-    
+    //树形结构视图
     filterTreeView = [[[RATreeView alloc] initWithFrame:CGRectMake(15, _adjustView.frame.size.height, self.view.frame.size.width-30, self.view.frame.size.height - _adjustView.frame.size.height)] autorelease];
     filterTreeView.backgroundColor = [UIColor whiteColor];
     filterTreeView.delegate = self;
@@ -142,150 +93,49 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    //请求地区列表
+    [self.view makeToastActivity];
     [City getCityListWithCityId:[[[NSUserDefaults standardUserDefaults] objectForKey:@"city_id"] integerValue]
                         success:^(NSArray *array) {
                             
-                           if([array count] > 0)
-                           {
-                               [_areaArray removeAllObjects];
-                               [_areaArray addObjectsFromArray:[[array objectAtIndex:0] areaArray]];
-                           }
+                            if([array count] > 0)
+                            {
+                                [_areaArray removeAllObjects];
+                                [_areaArray addObjectsFromArray:[[array objectAtIndex:0] areaArray]];
+                            }
+                            
+                            //请求分类列表
+                            [Categories getCategoryListWithCategoryId:0
+                                                              success:^(NSArray *array) {
+                                                                  
+                                                                  [_categoryArray removeAllObjects];
+                                                                  
+                                                                  Categories *category = [[[Categories alloc] init] autorelease];
+                                                                  category.categoryId = 0;
+                                                                  category.categoryName = @"全部分类";
+                                                                  [_categoryArray addObject:category];
+                                                                  [_categoryArray addObjectsFromArray:array];
+                                                                  
+                                                                  //刷新树形结构视图
+                                                                  [self loadFilterData];
+                                                                  [filterTreeView reloadData];
+                                                                  
+                                                                  [self.view hideToastActivity];
+                                                              } failure:^(NSError *error) {
+                                                                  [self.view hideToastActivity];
+                                                              }];
                             
                         } failure:^(NSError *error) {
-                            
+                            [self.view hideToastActivity];
                         }];
     
-    [Categories getCategoryListWithCategoryId:0
-                                      success:^(NSArray *array) {
-                                          
-                                          [_categoryArray removeAllObjects];
-                                          
-                                          Categories *category = [[[Categories alloc] init] autorelease];
-                                          category.categoryId = 0;
-                                          category.categoryName = @"全部分类";
-                                          [_categoryArray addObject:category];
-                                          [_categoryArray addObjectsFromArray:array];
-                                          
-                                      } failure:^(NSError *error) {
-                                          
-                                      }];
     
-    [self performSelector:@selector(filterTreeViewReload) withObject:nil afterDelay:2];
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
-
-//#pragma mark - UITableViewDataSource
-//
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-//{
-//    return 3;
-//}
-//
-//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-//{
-//    return 40;
-//}
-//
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-//{
-//    UIView *view = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 40)] autorelease];
-//    view.backgroundColor = GColor(136, 136, 136);
-//    
-//    switch (section) {
-//        case 0:
-//        {
-//            //范围
-//            [view addSubview:_scaleButton];
-//            UILabel *scaleLabel = [Function createLabelWithFrame:view.frame FontSize:16 Text:@"范围"];
-//            [view addSubview:scaleLabel];
-//            if(_scaleExpandFlag){
-//                scaleLabel.textColor = [UIColor whiteColor];
-//            }else{
-//                scaleLabel.textColor = GColor(191, 191, 191);
-//            }
-//        }
-//            break;
-//        case 1:
-//        {
-//            //分类
-//            [view addSubview:_categoryButton];
-//            UILabel *categoryLabel = [Function createLabelWithFrame:view.frame FontSize:16 Text:@"分类"];
-//            [view addSubview:categoryLabel];
-//            if(_categoryExpandFlag){
-//                categoryLabel.textColor = [UIColor whiteColor];
-//            }else{
-//                categoryLabel.textColor = GColor(191, 191, 191);
-//            }
-//        }
-//            break;
-//        case 2:
-//        {
-//            //排序
-//            [view addSubview:_orderButton];
-//            UILabel *orderLabel = [Function createLabelWithFrame:view.frame FontSize:16 Text:@"排序"];
-//            [view addSubview:orderLabel];
-//            if(_orderExpandFlag){
-//                orderLabel.textColor = [UIColor whiteColor];
-//            }else{
-//                orderLabel.textColor = GColor(191, 191, 191);
-//            }
-//        }
-//            break;
-//        default:
-//            break;
-//    }
-//    
-//    return view;
-//}
-//
-//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-//{
-//    switch (section) {
-//        case 0:
-//        {
-//            if(_scaleExpandFlag)
-//            {
-//                return [_rangeArray count] + [_areaArray count];
-//            }
-//            else
-//            {
-//                return 0;
-//            }
-//        }
-//            break;
-//        case 1:
-//        {
-//            if(_categoryExpandFlag)
-//            {
-//                return [_categoryArray count];
-//            }
-//            else
-//            {
-//                return 0;
-//            }
-//        }
-//            break;
-//        case 2:
-//        {
-//            if(_orderExpandFlag)
-//            {
-//                return 4;
-//            }
-//            else
-//            {
-//                return 0;
-//            }
-//        }
-//            break;
-//        default:
-//            break;
-//    }
-//    
-//    return 0;
-//}
 //
 //- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 //{
@@ -463,7 +313,7 @@
     RATableViewCell *cell = [filterTreeView dequeueReusableCellWithIdentifier:NSStringFromClass([RATableViewCell class])];
     [cell setupWithTitle:dataObject.name level:level];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
+    
     return cell;
 }
 
@@ -483,14 +333,19 @@
     if (item == nil) {
         return [filterData objectAtIndex:index];
     }
-    
     return data.children[index];
 }
+
 
 - (void)treeView:(RATreeView *)treeView didSelectRowForItem:(id)item
 {
     int level =  [filterTreeView levelForCellForItem:item];
     GLog(@"level : %d",level);
+    RADataObject *data = item;
+    GLog(@"data.name : %@",data.name);
+    RATableViewCell *cell = (RATableViewCell *)[filterTreeView cellForItem:item];
+    GLog(@"didSelect cell.name : %@",cell.customTitleLabel.text);
+
 }
 
 #pragma mark - 初始化树形结构数据
@@ -504,7 +359,7 @@
         RADataObject *range = [RADataObject dataObjectWithName:[NSString stringWithFormat:@"%@",[rangeArray objectAtIndex:i]] children:nil];
         [rangeMutableArray addObject:range];
     }
-    GLog(@"_areaArray.count : %d",_areaArray.count);
+    
     for(int i=0;i<_areaArray.count;i++){
         Area *area = [_areaArray objectAtIndex:i];
         RADataObject *areaData = nil;
@@ -562,13 +417,6 @@
 
 }
 
-
-#pragma mark - 加载树结构数据
-- (void)filterTreeViewReload
-{
-    [self loadFilterData];
-    [filterTreeView reloadData];
-}
 
 
 @end
