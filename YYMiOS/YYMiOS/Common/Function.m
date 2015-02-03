@@ -9,6 +9,8 @@
 #import "Function.h"
 #import "Constant.h"
 
+#define kBadgesImageViewTag 18926
+
 @implementation Function
 
 #pragma mark - 创建通用label
@@ -67,6 +69,45 @@
     NSArray *bodies = [[NSArray alloc] initWithObjects:messageBody, nil];
     EMMessage *message = [[EMMessage alloc] initMessageWithID:nil sender:sender receiver:receiver bodies:bodies];
     return message;
+}
+
+#pragma mark - 生成用户勋章标签
++ (NSMutableArray *)addBadgesWithArray:(NSArray *)tagsArray OffsetX:(CGFloat)offsetX OffsetY:(CGFloat)offsetY Width:(CGFloat)width
+{
+    NSMutableArray *badges = [[NSMutableArray alloc] init];
+    
+    for(NSInteger i = 0; i < [tagsArray count]; i++)
+    {
+        NSString *badge = [tagsArray objectAtIndex:i];
+        CGSize badgeSize = [LPUtility getTextHeightWithText:badge
+                                                       font:[UIFont systemFontOfSize:10.0f]
+                                                       size:CGSizeMake(200, 100)];
+        if(offsetX + badgeSize.width + 5 + 10 > width - 15)
+        {
+            // TODO: 这里本来应该把用户的勋章显示全，但由于“个人主页”的“喜欢”按钮那一行没有做位置自适应，因而还没做到。
+            break;
+            //            offsetX = _followingButton.frame.origin.x;
+            //            offsetY += 25;
+        }
+        
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(offsetX, offsetY + 2, badgeSize.width + 5, 14)];
+        imageView.backgroundColor = [UIColor clearColor];
+        imageView.image = [[UIImage imageNamed:[NSString stringWithFormat:@"%i.png", (int)(i % 6 + 1)]] stretchableImageWithLeftCapWidth:5 topCapHeight:0];
+        imageView.tag = kBadgesImageViewTag + i;
+        [badges addObject:imageView];
+        
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 1, imageView.frame.size.width, 12)];
+        label.backgroundColor = [UIColor clearColor];
+        label.textColor = [UIColor whiteColor];
+        label.font = [UIFont systemFontOfSize:10.0f];
+        label.textAlignment = NSTextAlignmentCenter;
+        label.text = badge;
+        [imageView addSubview:label];
+        
+        offsetX += badgeSize.width + 5 + 10;
+    }
+
+    return badges;
 }
 
 @end

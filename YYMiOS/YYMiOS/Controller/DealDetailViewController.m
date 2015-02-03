@@ -254,29 +254,29 @@
     _timeLabel.font = [UIFont systemFontOfSize:14.0f];
     [_tableHeaderView addSubview:_timeLabel];
     
-    _followingButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-    _followingButton.frame = CGRectMake(_timeLabel.frame.origin.x, _timeLabel.frame.origin.y + _timeLabel.frame.size.height + 5, 60, 20);
-    _followingButton.backgroundColor = [UIColor clearColor];
-    [_followingButton setTitleColor:[UIColor colorWithRed:153.0 / 255.0 green:153.0 / 255.0 blue:153.0 / 255.0 alpha:1.0] forState:UIControlStateNormal];
-    _followingButton.titleLabel.font = [UIFont systemFontOfSize:11.0f];
-    _followingButton.layer.borderWidth = 0.5;
-    _followingButton.layer.borderColor = [[UIColor colorWithRed:221.0 / 255.0 green:221.0 / 255.0 blue:221.0 / 255.0 alpha:1.0] CGColor];
-    [_followingButton addTarget:self action:@selector(clickFollowingButton:) forControlEvents:UIControlEventTouchUpInside];
-    _followingButton.layer.cornerRadius = 2.0;
-    _followingButton.layer.masksToBounds = YES;
-    [_tableHeaderView addSubview:_followingButton];
-    
-    _followerButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-    _followerButton.frame = CGRectMake(_followingButton.frame.origin.x + _followingButton.frame.size.width + 5, _followingButton.frame.origin.y, 60, 20);
-    _followerButton.backgroundColor = [UIColor clearColor];
-    [_followerButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-    _followerButton.titleLabel.font = [UIFont systemFontOfSize:11.0f];
-    _followerButton.layer.borderWidth = 0.5;
-    _followerButton.layer.borderColor = [[UIColor colorWithRed:221.0 / 255.0 green:221.0 / 255.0 blue:221.0 / 255.0 alpha:1.0] CGColor];
-    [_followerButton addTarget:self action:@selector(clickFollowerButton:) forControlEvents:UIControlEventTouchUpInside];
-    _followerButton.layer.cornerRadius = 2.0;
-    _followerButton.layer.masksToBounds = YES;
-    [_tableHeaderView addSubview:_followerButton];
+//    _followingButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+//    _followingButton.frame = CGRectMake(_timeLabel.frame.origin.x, _timeLabel.frame.origin.y + _timeLabel.frame.size.height + 5, 60, 20);
+//    _followingButton.backgroundColor = [UIColor clearColor];
+//    [_followingButton setTitleColor:[UIColor colorWithRed:153.0 / 255.0 green:153.0 / 255.0 blue:153.0 / 255.0 alpha:1.0] forState:UIControlStateNormal];
+//    _followingButton.titleLabel.font = [UIFont systemFontOfSize:11.0f];
+//    _followingButton.layer.borderWidth = 0.5;
+//    _followingButton.layer.borderColor = [[UIColor colorWithRed:221.0 / 255.0 green:221.0 / 255.0 blue:221.0 / 255.0 alpha:1.0] CGColor];
+//    [_followingButton addTarget:self action:@selector(clickFollowingButton:) forControlEvents:UIControlEventTouchUpInside];
+//    _followingButton.layer.cornerRadius = 2.0;
+//    _followingButton.layer.masksToBounds = YES;
+//    [_tableHeaderView addSubview:_followingButton];
+//    
+//    _followerButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+//    _followerButton.frame = CGRectMake(_followingButton.frame.origin.x + _followingButton.frame.size.width + 5, _followingButton.frame.origin.y, 60, 20);
+//    _followerButton.backgroundColor = [UIColor clearColor];
+//    [_followerButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+//    _followerButton.titleLabel.font = [UIFont systemFontOfSize:11.0f];
+//    _followerButton.layer.borderWidth = 0.5;
+//    _followerButton.layer.borderColor = [[UIColor colorWithRed:221.0 / 255.0 green:221.0 / 255.0 blue:221.0 / 255.0 alpha:1.0] CGColor];
+//    [_followerButton addTarget:self action:@selector(clickFollowerButton:) forControlEvents:UIControlEventTouchUpInside];
+//    _followerButton.layer.cornerRadius = 2.0;
+//    _followerButton.layer.masksToBounds = YES;
+//    [_tableHeaderView addSubview:_followerButton];
     
     _followButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     _followButton.frame = CGRectMake(_tableHeaderView.frame.size.width - 60 - 15, (_avatarImageView.frame.origin.y + _avatarImageView.frame.size.height) / 2 - 15, 60, 30);
@@ -413,15 +413,25 @@
         [_followButton setTitle:@"关注" forState:UIControlStateNormal];
     }
     
-    NSString *followingString = [NSString stringWithFormat:@"关注:%i", deal.user.followCount];
-    CGSize followingSize = [LPUtility getTextHeightWithText:followingString font:[UIFont systemFontOfSize:11.0f] size:CGSizeMake(200, 100)];
-    _followingButton.frame = CGRectMake(_followingButton.frame.origin.x, _followingButton.frame.origin.y, followingSize.width + 20, _followingButton.frame.size.height);
-    [_followingButton setTitle:followingString forState:UIControlStateNormal];
+//    NSString *followingString = [NSString stringWithFormat:@"关注:%i", deal.user.followCount];
+//    CGSize followingSize = [LPUtility getTextHeightWithText:followingString font:[UIFont systemFontOfSize:11.0f] size:CGSizeMake(200, 100)];
+//    _followingButton.frame = CGRectMake(_followingButton.frame.origin.x, _followingButton.frame.origin.y, followingSize.width + 20, _followingButton.frame.size.height);
+//    [_followingButton setTitle:followingString forState:UIControlStateNormal];
+//    
+//    NSString *followerString = [NSString stringWithFormat:@"粉丝:%i", deal.user.fanCount];
+//    CGSize followerSize = [LPUtility getTextHeightWithText:followerString font:[UIFont systemFontOfSize:11.0f] size:CGSizeMake(200, 100)];
+//    _followerButton.frame = CGRectMake(_followingButton.frame.origin.x + _followingButton.frame.size.width + 5, _followerButton.frame.origin.y, followerSize.width + 20, _followerButton.frame.size.height);
+//    [_followerButton setTitle:followerString forState:UIControlStateNormal];
     
-    NSString *followerString = [NSString stringWithFormat:@"粉丝:%i", deal.user.fanCount];
-    CGSize followerSize = [LPUtility getTextHeightWithText:followerString font:[UIFont systemFontOfSize:11.0f] size:CGSizeMake(200, 100)];
-    _followerButton.frame = CGRectMake(_followingButton.frame.origin.x + _followingButton.frame.size.width + 5, _followerButton.frame.origin.y, followerSize.width + 20, _followerButton.frame.size.height);
-    [_followerButton setTitle:followerString forState:UIControlStateNormal];
+    NSMutableArray *badges = [Function addBadgesWithArray:deal.user.badges
+                                                  OffsetX:_timeLabel.frame.origin.x
+                                                  OffsetY:_timeLabel.frame.origin.y + _timeLabel.frame.size.height + 5
+                                                    Width:_tableHeaderView.frame.size.width
+                              ];
+    for (UIImageView *badge in badges)
+    {
+        [_tableHeaderView addSubview:badge];
+    }
     
     CGSize contentSize = [LPUtility getTextHeightWithText:deal.content
                                                      font:_contentLabel.font

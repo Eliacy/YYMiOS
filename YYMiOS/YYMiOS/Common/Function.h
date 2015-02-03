@@ -58,4 +58,15 @@
  */
 + (EMMessage *)addMessageWithSender:(NSString *)sender Receiver:(NSString *)receiver Text:(NSString *)text;
 
+/**
+ *  添加一条默认数据
+ *
+ *  @param TagsArray    徽章文本组成的序列
+ *  @param OffsetX      徽章显示起始位置偏移量（横轴）
+ *  @param OffsetY      徽章显示起始位置偏移量（纵轴）
+ *  @param Width        单行允许宽度
+ *
+ */
++ (NSMutableArray *)addBadgesWithArray:(NSArray *)tagsArray OffsetX:(CGFloat)offsetX OffsetY:(CGFloat)offsetY Width:(CGFloat)width;
+
 @end
