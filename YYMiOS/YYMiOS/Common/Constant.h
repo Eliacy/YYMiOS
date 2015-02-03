@@ -21,7 +21,6 @@
 
 //产品经理ID 意见反馈界面用到
 #define PM_ID 322
-#define PM_EM_USERNAME @"crpafxkb8mjjqqzzlskmi4"
 
 //用户昵称长度限制
 #define USER_NAME_LENGTH 10

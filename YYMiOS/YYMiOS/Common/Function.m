@@ -110,4 +110,41 @@
     return badges;
 }
 
+//通过颜色创建图片
++ (UIImage *)createImageWithColor:(UIColor *)color
+{
+    CGRect rect=CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, rect);
+    
+    UIImage *theImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return theImage;
+}
+
+#pragma mark - 持久化存储
++ (void)setAsynchronousWithObject:(id)object Key:(NSString *)key
+{
+    NSUserDefaults *info = [NSUserDefaults standardUserDefaults];
+    [info setObject:object forKey:key];
+    [info synchronize];
+}
+
+#pragma mark - 清空数据
++ (void)clearAsynchronousWithKey:(NSString *)key
+{
+    NSUserDefaults *info = [NSUserDefaults standardUserDefaults];
+    [info removeObjectForKey:key];
+    [info synchronize];
+}
+
+#pragma mark - 获取保存数据
++ (id)getAsynchronousWithKey:(NSString *)key
+{
+    NSUserDefaults *info = [NSUserDefaults standardUserDefaults];
+    return [info valueForKey:key];
+}
+
 @end

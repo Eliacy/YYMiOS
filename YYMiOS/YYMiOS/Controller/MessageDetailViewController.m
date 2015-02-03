@@ -72,7 +72,6 @@
         if ([chats count] > currentCount) {
             [_messageDetailArray removeAllObjects];
             //自定义
-            
             for(NSInteger i = 0; i < [chats count]; i++)
             {
                 EMMessage *message = [chats objectAtIndex:i];
@@ -80,19 +79,22 @@
                 [_messageDetailArray addObject:message];
             }
             dispatch_async(dispatch_get_main_queue(), ^{
-                
-                //如果是产品经理添加一条默认数据
-                if(self.user.userId == PM_ID){
-                    [_messageDetailArray addObject:[Function addMessageWithSender:PM_EM_USERNAME Receiver:[[User sharedUser] emUsername] Text:@"请您将希望反馈的意见、建议发送给我，我会跟进并尽力推动改善。感谢您使用“优游全球”～"]];
-                }
-                
                 //刷新列表
                 [_tableView reloadData];
                 [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[_messageDetailArray count] - currentCount - 1 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
             });
         }
         
-        
+        //如果是产品经理添加一条默认数据
+        if(self.user.userId == PM_ID){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [_messageDetailArray addObject:[Function addMessageWithSender:self.user.emUsername Receiver:[[User sharedUser] emUsername] Text:@"请您将希望反馈的意见、建议发送给我，我会跟进并尽力推动改善。感谢您使用“优游全球”～"]];
+                //刷新列表
+                [_tableView reloadData];
+                [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[_messageDetailArray count] - currentCount - 1 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+            });
+            
+        }
         
     });
 }
