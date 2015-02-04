@@ -24,6 +24,6 @@
 
 @property (strong, nonatomic) UILabel *customTitleLabel;
 
-- (void)setupWithTitle:(NSString *)title level:(NSInteger)level;
+- (void)setupWithTitle:(NSString *)title titleColor:(UIColor *)titleColor level:(NSInteger)level;
 
 @end

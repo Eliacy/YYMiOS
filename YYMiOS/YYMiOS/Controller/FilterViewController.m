@@ -19,6 +19,13 @@
 {
     NSMutableArray *filterData;
     RATreeView *filterTreeView;
+    
+    
+    BOOL isArea,isCategory,isOrder;
+    
+    NSMutableArray *selectedAreaChildArray;
+    NSMutableArray *selectedCategoryChildArray;
+    NSMutableArray *selectedOrderChildArray;
 }
 
 @synthesize areaId = _areaId;
@@ -58,6 +65,10 @@
         _categoryArray = [[NSMutableArray alloc] initWithCapacity:0];
         
         filterData = [[NSMutableArray alloc] init];
+        
+        selectedAreaChildArray = [[NSMutableArray alloc] init];
+        selectedCategoryChildArray = [[NSMutableArray alloc] init];
+        selectedOrderChildArray = [[NSMutableArray alloc] init];
     }
     
     return self;
@@ -309,9 +320,20 @@
 - (UITableViewCell *)treeView:(RATreeView *)treeView cellForItem:(id)item
 {
     RADataObject *dataObject = item;
+    
+    //级数
     NSInteger level = [filterTreeView levelForCellForItem:item];
+    
+    //根据各层菜单中存储数据设置颜色
+    UIColor *titleColor;
+    if([selectedCategoryChildArray containsObject:dataObject.name]||[selectedAreaChildArray containsObject:dataObject.name]||[selectedOrderChildArray containsObject:dataObject.name]){
+        titleColor = [UIColor redColor];
+    }else{
+        titleColor = [UIColor blackColor];
+    }
+    
     RATableViewCell *cell = [filterTreeView dequeueReusableCellWithIdentifier:NSStringFromClass([RATableViewCell class])];
-    [cell setupWithTitle:dataObject.name level:level];
+    [cell setupWithTitle:dataObject.name titleColor:titleColor level:level];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
@@ -323,29 +345,88 @@
         return [filterData count];
     }
     
-    RADataObject *data = item;
-    return [data.children count];
+    RADataObject *dataObject = item;
+    return [dataObject.children count];
 }
 
 - (id)treeView:(RATreeView *)treeView child:(NSInteger)index ofItem:(id)item
 {
-    RADataObject *data = item;
+    RADataObject *dataObject = item;
     if (item == nil) {
         return [filterData objectAtIndex:index];
     }
-    return data.children[index];
+    return dataObject.children[index];
 }
-
 
 - (void)treeView:(RATreeView *)treeView didSelectRowForItem:(id)item
 {
-    int level =  [filterTreeView levelForCellForItem:item];
-    GLog(@"level : %d",level);
-    RADataObject *data = item;
-    GLog(@"data.name : %@",data.name);
-    RATableViewCell *cell = (RATableViewCell *)[filterTreeView cellForItem:item];
-    GLog(@"didSelect cell.name : %@",cell.customTitleLabel.text);
+    //层级
+    int level =  [treeView levelForCellForItem:item];
+    //对象
+    RADataObject *dataObject = item;
+    
+    //0级
+    if(level==0){
+        if([dataObject.name isEqualToString:@"范围"]){
+            isArea = !isArea;
+        }else if([dataObject.name isEqualToString:@"分类"]){
+            isCategory = !isCategory;
+        }else if([dataObject.name isEqualToString:@"排序"]){
+            isOrder = !isOrder;
+        }
+    }
+    
+    //1级
+    if(level==1){
+        if([[[filterData objectAtIndex:0] children] containsObject:dataObject]){
+            if(dataObject.children.count==0){
+                [selectedAreaChildArray removeAllObjects];
+                [selectedAreaChildArray addObject:dataObject.name];
+            }
+        }
+        if([[[filterData objectAtIndex:1] children] containsObject:dataObject]){
+            if(dataObject.children.count==0){
+                [selectedCategoryChildArray removeAllObjects];
+                [selectedCategoryChildArray addObject:dataObject.name];
+            }
+        }
+        if([[[filterData objectAtIndex:2] children] containsObject:dataObject]){
+            if(dataObject.children.count==0){
+                [selectedOrderChildArray removeAllObjects];
+                [selectedOrderChildArray addObject:dataObject.name];
+            }
+        }
+    }
+    
+    //2级
+    if(level==2){
+        NSArray *areaArray = [[filterData objectAtIndex:0] children];
+        for(RADataObject *areaData in areaArray){
+            if([[areaData children] containsObject:dataObject]){
+                [selectedAreaChildArray removeAllObjects];
+                [selectedAreaChildArray addObject:dataObject.name];
+            }
+        }
+        
+        NSArray *categoryArray = [[filterData objectAtIndex:1] children];
+        for(RADataObject *areaData in categoryArray){
+            if([[areaData children] containsObject:dataObject]){
+                [selectedCategoryChildArray removeAllObjects];
+                [selectedCategoryChildArray addObject:dataObject.name];
+            }
+        }
+        
+        NSArray *orderArray = [[filterData objectAtIndex:2] children];
+        for(RADataObject *areaData in orderArray){
+            if([[areaData children] containsObject:dataObject]){
+                [selectedOrderChildArray removeAllObjects];
+                [selectedOrderChildArray addObject:dataObject.name];
+            }
+        }
+    
+    }
 
+    [filterTreeView performSelector:@selector(reloadRows) withObject:nil afterDelay:.2];
 }
 
 #pragma mark - 初始化树形结构数据

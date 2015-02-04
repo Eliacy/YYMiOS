@@ -59,21 +59,19 @@
 }
 
 
-- (void)setupWithTitle:(NSString *)title level:(NSInteger)level
+- (void)setupWithTitle:(NSString *)title titleColor:(UIColor *)titleColor level:(NSInteger)level
 {
-  self.customTitleLabel.text = title;
-  
-  if (level == 0) {
-    self.detailTextLabel.textColor = GColor(159, 159, 159);
-  }
-  
-  if (level == 0) {
-    self.backgroundColor = GColor(136, 136, 136);
-  } else if (level == 1) {
-    self.backgroundColor = GColor(255, 255, 255);
-  } else if (level >= 2) {
-    self.backgroundColor = GColor(248, 248, 248);
-  }
+    self.customTitleLabel.text = title;
+    self.customTitleLabel.textColor = titleColor;
+    
+    
+    if (level == 0) {
+        self.backgroundColor = GColor(136, 136, 136);
+    } else if (level == 1) {
+        self.backgroundColor = GColor(255, 255, 255);
+    } else if (level >= 2) {
+        self.backgroundColor = GColor(248, 248, 248);
+    }
   
   CGFloat left = 11 + 20 * level;
   
