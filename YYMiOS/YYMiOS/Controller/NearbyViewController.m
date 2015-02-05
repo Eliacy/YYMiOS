@@ -586,6 +586,7 @@
     [searchTableView reloadData];
     return YES;
 }
+
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
     //显示filterTableView
@@ -595,6 +596,12 @@
         filterTableView.hidden = YES;
     }
     [filterTableView reloadData];
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    //搜索
+    [self clickSearchButton:nil];
 }
 
 
