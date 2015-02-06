@@ -23,9 +23,6 @@
     NSMutableArray *filterData;
     RATreeView *filterTreeView;
     
-    
-    BOOL isArea,isCategory,isOrder;
-    
     NSMutableArray *selectedAreaChildArray;
     NSMutableArray *selectedCategoryChildArray;
     NSMutableArray *selectedOrderChildArray;
@@ -368,17 +365,7 @@
     //对象
     RADataObject *dataObject = item;
     
-    //0级
-    if(level==0){
-        if([dataObject.name isEqualToString:@"范围"]){
-            isArea = !isArea;
-        }else if([dataObject.name isEqualToString:@"分类"]){
-            isCategory = !isCategory;
-        }else if([dataObject.name isEqualToString:@"排序"]){
-            isOrder = !isOrder;
-        }
-    }
-    
+    /***********************************处理变色*****************************************/
     //1级
     if(level==1){
         //范围
@@ -419,6 +406,8 @@
         }
     }
     
+    /**************************************保存ID**********************************************/
+    
     NSArray *areaArray = [[filterData objectAtIndex:0] children];
     NSArray *categoryArray = [[filterData objectAtIndex:1] children];
     NSArray *orderArray = [[filterData objectAtIndex:2] children];
@@ -439,7 +428,7 @@
                     if(areaObject.children.count==0){
                         //2级
                         if([areaObject.name isEqualToString:[[selectedAreaChildArray objectAtIndex:0] name]]){
-                            _areaId = [[_areaArray objectAtIndex:i] areaId];
+                            _areaId = [[_areaArray objectAtIndex:i-kRangeArray.count] areaId];
                         }
                     }else{
                         //3级
@@ -532,6 +521,10 @@
         
         if(area.areaChildren.count>0){
             NSMutableArray *tempArray = [[[NSMutableArray alloc] init] autorelease];
+            //添加当前父节点到其子类列表中
+            areaData = [RADataObject dataObjectWithName:[NSString stringWithFormat:@"全部%@",area.areaName] children:nil];
+            [tempArray addObject:areaData];
+            //添加其他子节点
             for(int i=0;i<area.areaChildren.count;i++){
                 areaData = [RADataObject dataObjectWithName:[NSString stringWithFormat:@"%@",[[area.areaChildren objectAtIndex:i] areaName]] children:nil];
                 [tempArray addObject:areaData];
@@ -551,19 +544,23 @@
     NSMutableArray *categoryMutableArray = [[[NSMutableArray alloc] init] autorelease];
     for(int i=0;i<_categoryArray.count;i++){
         Categories *categories = [_categoryArray objectAtIndex:i];
-        RADataObject *category = nil;
+        RADataObject *categoryData = nil;
         
         if(categories.subCategoryArray.count>0){
             NSMutableArray *tempArray = [[[NSMutableArray alloc] init] autorelease];
+            //添加当前父节点到其子类列表中
+            categoryData = [RADataObject dataObjectWithName:[NSString stringWithFormat:@"全部%@",categories.categoryName] children:nil];
+            [tempArray addObject:categoryData];
+            //添加其他子节点
             for(int i=0;i<categories.subCategoryArray.count;i++){
-                category = [RADataObject dataObjectWithName:[NSString stringWithFormat:@"%@",[[categories.subCategoryArray objectAtIndex:i] categoryName]] children:nil];
-                [tempArray addObject:category];
+                categoryData = [RADataObject dataObjectWithName:[NSString stringWithFormat:@"%@",[[categories.subCategoryArray objectAtIndex:i] categoryName]] children:nil];
+                [tempArray addObject:categoryData];
             }
             RADataObject *categoryList = [RADataObject dataObjectWithName:[NSString stringWithFormat:@"%@",categories.categoryName] children:tempArray];
             [categoryMutableArray addObject:categoryList];
         }else{
-            category = [RADataObject dataObjectWithName:[NSString stringWithFormat:@"%@",categories.categoryName] children:nil];
-            [categoryMutableArray addObject:category];
+            categoryData = [RADataObject dataObjectWithName:[NSString stringWithFormat:@"%@",categories.categoryName] children:nil];
+            [categoryMutableArray addObject:categoryData];
         }
         
     }
