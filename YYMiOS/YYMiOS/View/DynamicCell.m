@@ -53,6 +53,11 @@
         _backImageView.backgroundColor = [UIColor whiteColor];
         _backImageView.userInteractionEnabled = YES;
         [self.contentView addSubview:_backImageView];
+
+        _backUserView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 90)];
+        _backUserView.backgroundColor = [UIColor clearColor];
+        _backUserView.userInteractionEnabled = YES;
+        [_backImageView addSubview:_backUserView];
         
         _avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 15, 60, 60)];
         _avatarImageView.backgroundColor = [UIColor clearColor];
@@ -60,23 +65,19 @@
         _avatarImageView.layer.masksToBounds = YES;
         _avatarImageView.userInteractionEnabled = YES;
         _avatarImageView.layer.cornerRadius = 30.0;
-        [_backImageView addSubview:_avatarImageView];
-        
-        UITapGestureRecognizer *oneFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAvatarImageView:)];
-        [_avatarImageView addGestureRecognizer:oneFingerTap];
-        [oneFingerTap release];
+        [_backUserView addSubview:_avatarImageView];
         
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(_avatarImageView.frame.origin.x + _avatarImageView.frame.size.width + 10, _avatarImageView.frame.origin.y, 130, 20)];
         _nameLabel.backgroundColor = [UIColor clearColor];
         _nameLabel.textColor = [UIColor darkGrayColor];
         _nameLabel.font = [UIFont systemFontOfSize:16.0f];
-        [_backImageView addSubview:_nameLabel];
+        [_backUserView addSubview:_nameLabel];
         
         _lastTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(_nameLabel.frame.origin.x, _nameLabel.frame.origin.y + _nameLabel.frame.size.height, _nameLabel.frame.size.width, _nameLabel.frame.size.height)];
         _lastTimeLabel.backgroundColor = [UIColor clearColor];
         _lastTimeLabel.textColor = [UIColor grayColor];
         _lastTimeLabel.font = [UIFont systemFontOfSize:13.0f];
-        [_backImageView addSubview:_lastTimeLabel];
+        [_backUserView addSubview:_lastTimeLabel];
         
         _followButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
         _followButton.frame = CGRectMake(320 - 15 - 60, 15, 60, 30);
@@ -87,7 +88,12 @@
         _followButton.layer.borderWidth = 1.0;
         _followButton.layer.borderColor = [[UIColor grayColor] CGColor];
         [_followButton addTarget:self action:@selector(clickFollowButton:) forControlEvents:UIControlEventTouchUpInside];
-        [_backImageView addSubview:_followButton];
+        [_backUserView addSubview:_followButton];
+        
+        UITapGestureRecognizer *oneFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAvatarImageView:)];
+        [_avatarImageView addGestureRecognizer:oneFingerTap];
+        [_backUserView addGestureRecognizer:oneFingerTap];
+        [oneFingerTap release];
         
         _contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, _avatarImageView.frame.origin.y + _avatarImageView.frame.size.height + 5, 290, 35)];
         _contentLabel.backgroundColor = [UIColor clearColor];
@@ -218,7 +224,7 @@
                               ];
     for (UIImageView *badge in badges)
     {
-        [_backImageView addSubview:badge];
+        [_backUserView addSubview:badge];
     }
     
     if(deal.imageArray && [deal.imageArray isKindOfClass:[NSArray class]] && [deal.imageArray count] > 0)

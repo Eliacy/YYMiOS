@@ -17,6 +17,7 @@
     id<DynamicCellDelegate> _delegate;
     
     UIImageView     *_backImageView;
+    UIImageView     *_backUserView;
     
     UIImageView     *_avatarImageView;
     UILabel         *_nameLabel;
