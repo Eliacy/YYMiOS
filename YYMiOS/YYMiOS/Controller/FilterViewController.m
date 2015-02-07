@@ -147,164 +147,6 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
-//
-//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FilterViewControllerIdentifier"];
-//    if(cell == nil)
-//    {
-//        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"FilterViewControllerIdentifier"] autorelease];
-//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//    }
-//    
-//    switch (indexPath.section) {
-//        case 0:
-//        {
-//            if(indexPath.row < [_rangeArray count])
-//            {
-//                cell.textLabel.text = [_rangeArray objectAtIndex:indexPath.row];
-//                if(indexPath.row == [_rangeArray count] - 1)
-//                {
-//                    if(_areaId == 0)
-//                    {
-//                        cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"confirm.png"]] autorelease];
-//                    }
-//                    else
-//                    {
-//                        cell.accessoryView = nil;
-//                    }
-//                }
-//            }
-//            else
-//            {
-//                cell.textLabel.text = [[_areaArray objectAtIndex:(indexPath.row - [_rangeArray count])] areaName];
-//                if(_areaId == [[_areaArray objectAtIndex:(indexPath.row - [_rangeArray count])] areaId])
-//                {
-//                    cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"confirm.png"]] autorelease];
-//                }
-//                else
-//                {
-//                    cell.accessoryView = nil;
-//                }
-//            }
-//        }
-//            break;
-//        case 1:
-//        {
-//            cell.textLabel.text = [[_categoryArray objectAtIndex:indexPath.row] categoryName];
-//            if(_categoryId == [[_categoryArray objectAtIndex:indexPath.row] categoryId])
-//            {
-//                cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"confirm.png"]] autorelease];
-//            }
-//            else
-//            {
-//                cell.accessoryView = nil;
-//            }
-//        }
-//            break;
-//        case 2:
-//        {
-//            switch (indexPath.row) {
-//                case 0:
-//                {
-//                    cell.textLabel.text = @"智能排序";
-//                    if(_order == 0)
-//                    {
-//                        cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"confirm.png"]] autorelease];
-//                    }
-//                    else
-//                    {
-//                        cell.accessoryView = nil;
-//                    }
-//                }
-//                    break;
-//                case 1:
-//                {
-//                    cell.textLabel.text = @"离我最近";
-//                    if(_order == 1)
-//                    {
-//                        cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"confirm.png"]] autorelease];
-//                    }
-//                    else
-//                    {
-//                        cell.accessoryView = nil;
-//                    }
-//                }
-//                    break;
-//                case 2:
-//                {
-//                    cell.textLabel.text = @"人气最高";
-//                    if(_order == 2)
-//                    {
-//                        cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"confirm.png"]] autorelease];
-//                    }
-//                    else
-//                    {
-//                        cell.accessoryView = nil;
-//                    }
-//                }
-//                    break;
-//                case 3:
-//                {
-//                    cell.textLabel.text = @"评价最好";
-//                    if(_order == 3)
-//                    {
-//                        cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"confirm.png"]] autorelease];
-//                    }
-//                    else
-//                    {
-//                        cell.accessoryView = nil;
-//                    }
-//                }
-//                    break;
-//                default:
-//                    break;
-//            }
-//        }
-//            break;
-//        default:
-//            break;
-//    }
-//    
-//    return cell;
-//}
-//
-//#pragma mark - UITableViewDelegate
-//
-//- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    switch (indexPath.section)
-//    {
-//        case 0:
-//        {
-//            if(indexPath.row == [_rangeArray count] - 1)
-//            {
-//                _areaId = 0;
-//            }
-//            else if(indexPath.row >= [_rangeArray count])
-//            {
-//                _areaId = [[_areaArray objectAtIndex:(indexPath.row - [_rangeArray count])] areaId];
-//            }
-//        }
-//            break;
-//        case 1:
-//        {
-//            _categoryId = [[_categoryArray objectAtIndex:indexPath.row] categoryId];
-//        }
-//            break;
-//        case 2:
-//        {
-//            _order = indexPath.row;
-//        }
-//            break;
-//        default:
-//            break;
-//    }
-//    
-//    [_tableView reloadData];
-//    
-//    return nil;
-//}
 
 #pragma mark -
 #pragma mark TreeView Delegate methods
@@ -414,7 +256,7 @@
     
     if(level==1||level==2){
         
-        //范围
+        //范围id
         if(selectedAreaChildArray.count>0){
             if([kRangeArray containsObject:[[selectedAreaChildArray objectAtIndex:0] name]]){
 
@@ -436,7 +278,14 @@
                             RADataObject *subAreaObject = [areaObject.children objectAtIndex:j];
                             if([subAreaObject.name isEqualToString:[[selectedAreaChildArray objectAtIndex:0] name]]){
                                 NSArray *subAreaArray = [[_areaArray objectAtIndex:i-kRangeArray.count] areaChildren];
-                                _areaId = [[subAreaArray objectAtIndex:j] areaId];
+                                if(j!=0){
+                                    //因全部**是再数据初始化时收到添加的 并非服务器返回数据 获取id时需要减去父节点（-1）
+                                    _areaId = [[subAreaArray objectAtIndex:j-1] areaId];
+                                }else{
+                                    //全部**
+                                    _areaId = [[_areaArray objectAtIndex:i-kRangeArray.count] areaId];
+                                }
+
                             }
                         }
                     }
@@ -444,7 +293,7 @@
             }
         }
         
-        //分类
+        //分类id
         if(selectedCategoryChildArray.count>0){
             for(int i=0;i<categoryArray.count;i++){
                 RADataObject *categoryObject = [categoryArray objectAtIndex:i];
@@ -459,14 +308,20 @@
                         RADataObject *subCategoyObject = [categoryObject.children objectAtIndex:j];
                         if([subCategoyObject.name isEqualToString:[[selectedCategoryChildArray objectAtIndex:0] name]]){
                             NSArray *subCategoyArray = [[_categoryArray objectAtIndex:i] subCategoryArray];
-                            _categoryId = [[subCategoyArray objectAtIndex:j] categoryId];
+                            if(j!=0){
+                                //因全部**是再数据初始化时收到添加的 并非服务器返回数据 获取id时需要减去父节点（-1）
+                                _categoryId = [[subCategoyArray objectAtIndex:j-1] categoryId];
+                            }else{
+                                //全部**
+                                _categoryId = [[_categoryArray objectAtIndex:i] categoryId];
+                            }
                         }
                     }
                 }
             }
         }
         
-        //排序
+        //排序id
         if(selectedOrderChildArray.count>0){
             for(int i=0;i<orderArray.count;i++){
                 RADataObject *orderObject = [orderArray objectAtIndex:i];
