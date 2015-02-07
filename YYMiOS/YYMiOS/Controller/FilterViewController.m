@@ -58,7 +58,7 @@
     self = [super init];
     if(self != nil)
     {
-        _rangeArray = [[NSMutableArray alloc] initWithCapacity:0];
+        _rangeArray = [[[NSMutableArray alloc] initWithCapacity:0] autorelease];
         [_rangeArray addObjectsFromArray:[NSArray arrayWithObjects:@"智能范围", @"1公里", @"2公里", @"5公里", @"20公里", @"50公里", @"全城", nil]];
         
         _areaArray = [[NSMutableArray alloc] initWithCapacity:0];
@@ -80,7 +80,7 @@
     
     _titleLabel.text = @"筛选";
     
-    _searchButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    _searchButton = [[[UIButton buttonWithType:UIButtonTypeCustom] retain] autorelease];
     _searchButton.frame = CGRectMake(_headerView.frame.size.width - 2 - 40, 2, 40, 40);
     _searchButton.backgroundColor = [UIColor clearColor];
     [_searchButton setTitle:@"搜索" forState:UIControlStateNormal];
@@ -155,9 +155,6 @@
 {
     return 45;
 }
-
-#pragma mark -
-#pragma mark - TreeView Data Source
 
 - (UITableViewCell *)treeView:(RATreeView *)treeView cellForItem:(id)item
 {
@@ -334,6 +331,13 @@
     
     
     [filterTreeView performSelector:@selector(reloadRows) withObject:nil afterDelay:.2];
+}
+
+- (void)treeView:(RATreeView *)treeView didExpandRowForItem:(id)item
+{
+    RADataObject *dataObject = item;
+    GLog(@"已展开 : %@",dataObject.name);
+    GLog(@"当前高度 : %f",filterTreeView.contentSize.height);
 }
 
 #pragma mark - 记录所选范围
