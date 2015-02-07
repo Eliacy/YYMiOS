@@ -197,6 +197,7 @@
     return dataObject.children[index];
 }
 
+
 - (void)treeView:(RATreeView *)treeView didSelectRowForItem:(id)item
 {
     //层级
@@ -330,14 +331,13 @@
     }
     
     
-    [filterTreeView performSelector:@selector(reloadRows) withObject:nil afterDelay:.2];
+    [filterTreeView performSelector:@selector(reloadRows) withObject:nil afterDelay:.3];
 }
 
 - (void)treeView:(RATreeView *)treeView didExpandRowForItem:(id)item
 {
-    RADataObject *dataObject = item;
-    GLog(@"已展开 : %@",dataObject.name);
-    GLog(@"当前高度 : %f",filterTreeView.contentSize.height);
+    //自动滚到到最近打开的cell
+    [filterTreeView scrollToNearestSelectedRowAtScrollPosition:RATreeViewScrollPositionTop animated:YES];
 }
 
 #pragma mark - 记录所选范围
