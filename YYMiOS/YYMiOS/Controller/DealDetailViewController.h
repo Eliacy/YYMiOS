@@ -28,8 +28,8 @@
     UILabel         *_nameLabel;
     UILabel         *_timeLabel;
     UIButton        *_followButton;
-    UIButton        *_followingButton;
-    UIButton        *_followerButton;
+//    UIButton        *_followingButton;
+//    UIButton        *_followerButton;
     UILabel         *_contentLabel;
     
     DealDetailExtView   *_dealDetailExtView;

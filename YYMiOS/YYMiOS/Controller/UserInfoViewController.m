@@ -244,6 +244,7 @@
                                           [User modifyUserInfoWithUserId:[[User sharedUser] userId]
                                                                   iconId:[[[resp objectForKey:@"data"] objectForKey:@"id"] integerValue]
                                                                 userName:nil
+                                                             oldPassword:nil
                                                                 password:nil
                                                                   gender:nil
                                                                  success:^(NSArray *array) {
@@ -254,6 +255,8 @@
                                                                      {
                                                                          [LPUtility archiveData:array IntoCache:@"LoginUser"];
                                                                      }
+                                                                     //刷新头像
+                                                                     [_tableView reloadData];
                                                                      
                                                                  } failure:^(NSError *error) {
                                                                      

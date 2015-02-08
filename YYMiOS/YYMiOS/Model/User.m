@@ -248,6 +248,7 @@ static User *sharedUser = nil;
 + (void)modifyUserInfoWithUserId:(NSInteger)userId
                           iconId:(NSInteger)iconId
                         userName:(NSString *)userName
+                     oldPassword:(NSString *)oldPassword
                         password:(NSString *)password
                           gender:(NSString *)gender
                          success:(LPObjectSuccessBlock)successBlock
@@ -256,6 +257,7 @@ static User *sharedUser = nil;
     [[LPAPIClient sharedAPIClient] modifyUserInfoWithUserId:userId
                                                      iconId:iconId
                                                    userName:userName
+                                                oldPassword:oldPassword
                                                    password:password
                                                      gender:gender
                                                     success:^(id respondObject) {

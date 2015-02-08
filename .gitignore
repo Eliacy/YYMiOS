@@ -11,3 +11,6 @@
 YYMiOS/YYMiOS/Resource/.DS_Store
 YYMiOS/.DS_Store
 
+# Vim temporary files:
+*~
+

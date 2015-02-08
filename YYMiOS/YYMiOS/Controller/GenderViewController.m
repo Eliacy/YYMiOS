@@ -125,6 +125,7 @@
         [User modifyUserInfoWithUserId:[[User sharedUser] userId]
                                 iconId:0
                               userName:nil
+                           oldPassword:nil
                               password:nil
                                 gender:genderStateStr
                                success:^(NSArray *array) {

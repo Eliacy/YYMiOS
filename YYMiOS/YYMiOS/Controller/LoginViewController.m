@@ -35,6 +35,21 @@
 
 - (void)clickLoginButton:(id)sender
 {
+    //检测输入是否合法
+    if(_telephoneTextField.text.length==0){
+        [self.view makeToast:@"请输入手机号" duration:TOAST_DURATION position:@"center"];
+        return;
+    }
+// 公司内部人员使用的运营账号通常用户名不是手机号，因而暂时不能做这个检查。
+//    if(_telephoneTextField.text.length!=11){
+//        [self.view makeToast:@"请输入正确的手机号" duration:TOAST_DURATION position:@"center"];
+//        return;
+//    }
+    if(_passwordTextField.text.length==0){
+        [self.view makeToast:@"请输入密码" duration:TOAST_DURATION position:@"center"];
+        return;
+    }
+    
     [[LPAPIClient sharedAPIClient] loginWithUserName:_telephoneTextField.text
                                             password:_passwordTextField.text
                                                token:nil

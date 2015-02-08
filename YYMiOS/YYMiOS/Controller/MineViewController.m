@@ -18,8 +18,7 @@
 #import "FollowingViewController.h"
 #import "UserDetailViewController.h"
 #import "MineCell.h"
-
-#define kBadgesImageViewTag 18926
+#import "MessageDetailViewController.h"
 
 @interface MineViewController ()
 
@@ -34,8 +33,11 @@
 
 - (void)clickSettingButton:(id)sender
 {
-    SettingViewController *settingVC = [[[SettingViewController alloc] init] autorelease];
-    [self.tabVC.navigationController pushViewController:settingVC animated:YES];
+    // 设置部分暂无可用功能，因而暂时跳转到用户属性修改的界面。
+    UserInfoViewController *userInfoVC = [[[UserInfoViewController alloc] init] autorelease];
+    [self.tabVC.navigationController pushViewController:userInfoVC animated:YES];
+//    SettingViewController *settingVC = [[[SettingViewController alloc] init] autorelease];
+//    [self.tabVC.navigationController pushViewController:settingVC animated:YES];
 }
 
 - (void)clickMessageButton:(id)sender
@@ -95,6 +97,36 @@
     userDetailVC.detailType = DetailCollect;
     [self.tabVC.navigationController pushViewController:userDetailVC animated:YES];
 }
+
+#pragma mark - 打开与指定用户的聊天界面
+- (void)pushFeedbackViewByUserId:(NSInteger)userId
+{
+    [self.view makeToastActivity];
+    [User getUserInfoWithUserId:userId
+                         offset:0
+                          limit:0
+                       followId:0
+                          fanId:0
+                        success:^(NSArray *array) {
+                            
+                            if([array count] > 0)
+                            {
+                                //获取数据成功后打开页面
+                                MessageDetailViewController *messageDetailVC = [[[MessageDetailViewController alloc] init] autorelease];
+                                messageDetailVC.user = [array objectAtIndex:0];
+                                [self.tabVC.navigationController pushViewController:messageDetailVC animated:YES];
+                                [self.view hideToastActivity];
+                            }else{
+                                [self.view hideToastActivity];
+                                [self.view makeToast:@"未获取到产品经理信息" duration:TOAST_DURATION position:@"center"];
+                            }
+                            
+                        } failure:^(NSError *error) {
+                            [self.view makeToast:@"网络异常" duration:TOAST_DURATION position:@"center"];
+                            [self.view hideToastActivity];
+                        }];
+}
+
 
 #pragma mark - super
 
@@ -357,38 +389,14 @@
     [_commentButton setTitle:[NSString stringWithFormat:@"评论\n%i", user.reviewCount] forState:UIControlStateNormal];
     [_favouriteButton setTitle:[NSString stringWithFormat:@"收藏\n%i", user.favouriteCount] forState:UIControlStateNormal];
     
-    CGFloat offsetX = _followingButton.frame.origin.x;
-    CGFloat offsetY = _followingButton.frame.origin.y + _followingButton.frame.size.height + 5;
-    
-    for(NSInteger i = 0; i < [user.badges count]; i++)
+    NSMutableArray *badges = [Function addBadgesWithArray:user.badges
+                                                  OffsetX:_followingButton.frame.origin.x
+                                                  OffsetY:_followingButton.frame.origin.y + _followingButton.frame.size.height + 5
+                                                    Width:_backView.frame.size.width
+                              ];
+    for (UIImageView *badge in badges)
     {
-        NSString *badge = [user.badges objectAtIndex:i];
-        CGSize badgeSize = [LPUtility getTextHeightWithText:badge
-                                                       font:[UIFont systemFontOfSize:10.0f]
-                                                       size:CGSizeMake(200, 100)];
-        if(offsetX + badgeSize.width + 5 + 10 > _backView.frame.size.width - 15)
-        {
-            // TODO: 这里本来应该把用户的勋章显示全，但由于“个人主页”的“喜欢”按钮那一行没有做位置自适应，因而还没做到。
-            break;
-//            offsetX = _followingButton.frame.origin.x;
-//            offsetY += 25;
-        }
-        
-        UIImageView *imageView = [[[UIImageView alloc] initWithFrame:CGRectMake(offsetX, offsetY + 2, badgeSize.width + 5, 14)] autorelease];
-        imageView.backgroundColor = [UIColor clearColor];
-        imageView.image = [[UIImage imageNamed:[NSString stringWithFormat:@"%i.png", (int)(i % 6 + 1)]] stretchableImageWithLeftCapWidth:5 topCapHeight:0];
-        imageView.tag = kBadgesImageViewTag + i;
-        [_backView addSubview:imageView];
-        
-        UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(0, 1, imageView.frame.size.width, 12)] autorelease];
-        label.backgroundColor = [UIColor clearColor];
-        label.textColor = [UIColor whiteColor];
-        label.font = [UIFont systemFontOfSize:10.0f];
-        label.textAlignment = NSTextAlignmentCenter;
-        label.text = badge;
-        [imageView addSubview:label];
-        
-        offsetX += badgeSize.width + 5 + 10;
+        [_backView addSubview:badge];
     }
 }
 
@@ -545,14 +553,16 @@
             switch (indexPath.row) {
                 case 0:
                 {
-                    //意见反馈
-                    FeedbackViewController *feedbackVC = [[[FeedbackViewController alloc] init] autorelease];
-                    [self.tabVC.navigationController pushViewController:feedbackVC animated:YES];
+                    //打开与产品经理一对一的环信聊天界面
+                    [self pushFeedbackViewByUserId:PM_ID];
                 }
                     break;
                 case 1:
                 {
                     //跳转app store 需知道appid;
+//                    NSString *url = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id%d",APP_ID];
+//                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+                    
                     [self.view makeToast:@"敬请期待" duration:TOAST_DURATION position:@"center"];
                 }
                     break;

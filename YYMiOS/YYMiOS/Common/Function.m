@@ -9,6 +9,8 @@
 #import "Function.h"
 #import "Constant.h"
 
+#define kBadgesImageViewTag 18926
+
 @implementation Function
 
 #pragma mark - 创建通用label
@@ -57,6 +59,93 @@
     UIView *bgView = [[UIView alloc] initWithFrame:frame];
     bgView.backgroundColor = GColor(223, 223, 221);
     return bgView;
+}
+
+#pragma mark - 添加一条默认数据
++ (EMMessage *)addMessageWithSender:(NSString *)sender Receiver:(NSString *)receiver Text:(NSString *)text
+{
+    EMChatText *chatText = [[EMChatText alloc] initWithText:text];
+    EMTextMessageBody *messageBody = [[EMTextMessageBody alloc] initWithChatObject:chatText];
+    NSArray *bodies = [[NSArray alloc] initWithObjects:messageBody, nil];
+    EMMessage *message = [[EMMessage alloc] initMessageWithID:nil sender:sender receiver:receiver bodies:bodies];
+    message.timestamp = [[NSDate date] timeIntervalSince1970] * 1000;   // 设置消息发送时间为当前时间。
+    return message;
+}
+
+#pragma mark - 生成用户勋章标签
++ (NSMutableArray *)addBadgesWithArray:(NSArray *)tagsArray OffsetX:(CGFloat)offsetX OffsetY:(CGFloat)offsetY Width:(CGFloat)width
+{
+    NSMutableArray *badges = [[NSMutableArray alloc] init];
+    
+    for(NSInteger i = 0; i < [tagsArray count]; i++)
+    {
+        NSString *badge = [tagsArray objectAtIndex:i];
+        CGSize badgeSize = [LPUtility getTextHeightWithText:badge
+                                                       font:[UIFont systemFontOfSize:10.0f]
+                                                       size:CGSizeMake(200, 100)];
+        if(offsetX + badgeSize.width + 5 + 10 > width - 15)
+        {
+            // TODO: 这里本来应该把用户的勋章显示全，但由于“个人主页”的“喜欢”按钮那一行没有做位置自适应，因而还没做到。
+            break;
+            //            offsetX = _followingButton.frame.origin.x;
+            //            offsetY += 25;
+        }
+        
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(offsetX, offsetY + 2, badgeSize.width + 5, 14)];
+        imageView.backgroundColor = [UIColor clearColor];
+        imageView.image = [[UIImage imageNamed:[NSString stringWithFormat:@"%i.png", (int)(i % 6 + 1)]] stretchableImageWithLeftCapWidth:5 topCapHeight:0];
+        imageView.tag = kBadgesImageViewTag + i;
+        [badges addObject:imageView];
+        
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 1, imageView.frame.size.width, 12)];
+        label.backgroundColor = [UIColor clearColor];
+        label.textColor = [UIColor whiteColor];
+        label.font = [UIFont systemFontOfSize:10.0f];
+        label.textAlignment = NSTextAlignmentCenter;
+        label.text = badge;
+        [imageView addSubview:label];
+        
+        offsetX += badgeSize.width + 5 + 10;
+    }
+
+    return badges;
+}
+
+//通过颜色创建图片
++ (UIImage *)createImageWithColor:(UIColor *)color
+{
+    CGRect rect=CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, rect);
+    
+    UIImage *theImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return theImage;
+}
+
+#pragma mark - 持久化存储
++ (void)setAsynchronousWithObject:(id)object Key:(NSString *)key
+{
+    NSUserDefaults *info = [NSUserDefaults standardUserDefaults];
+    [info setObject:object forKey:key];
+    [info synchronize];
+}
+
+#pragma mark - 清空数据
++ (void)clearAsynchronousWithKey:(NSString *)key
+{
+    NSUserDefaults *info = [NSUserDefaults standardUserDefaults];
+    [info removeObjectForKey:key];
+    [info synchronize];
+}
+
+#pragma mark - 获取保存数据
++ (id)getAsynchronousWithKey:(NSString *)key
+{
+    NSUserDefaults *info = [NSUserDefaults standardUserDefaults];
+    return [info valueForKey:key];
 }
 
 @end

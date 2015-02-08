@@ -19,6 +19,9 @@
 //提示语显示时间
 #define TOAST_DURATION 1.5
 
+//产品经理ID 意见反馈界面用到
+#define PM_ID 322
+
 //用户昵称长度限制
 #define USER_NAME_LENGTH 10
 //用户密码最低位数限制

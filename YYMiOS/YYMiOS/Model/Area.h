@@ -15,6 +15,7 @@
     CGFloat         _areaLongitude;
     NSString        *_areaName;
     NSInteger       _areaOrder;
+    NSArray         *_areaChildren;
 }
 
 @property (assign, nonatomic) NSInteger areaId;
@@ -22,6 +23,7 @@
 @property (assign, nonatomic) CGFloat areaLongitude;
 @property (retain, nonatomic) NSString *areaName;
 @property (assign, nonatomic) NSInteger areaOrder;
+@property (retain, nonatomic) NSArray *areaChildren;
 
 - (id)initWithAttribute:(NSDictionary *)attribute;
 

@@ -48,6 +48,54 @@
  */
 + (UIView *)createSeparatorViewWithFrame:(CGRect)frame;
 
+/**
+ *  添加一条默认数据
+ *
+ *  @param Sender       发送方
+ *  @param Receiver     接收方
+ *  @param Text         文本
+ *
+ */
++ (EMMessage *)addMessageWithSender:(NSString *)sender Receiver:(NSString *)receiver Text:(NSString *)text;
 
+/**
+ *  添加一条默认数据
+ *
+ *  @param TagsArray    徽章文本组成的序列
+ *  @param OffsetX      徽章显示起始位置偏移量（横轴）
+ *  @param OffsetY      徽章显示起始位置偏移量（纵轴）
+ *  @param Width        单行允许宽度
+ *
+ */
++ (NSMutableArray *)addBadgesWithArray:(NSArray *)tagsArray OffsetX:(CGFloat)offsetX OffsetY:(CGFloat)offsetY Width:(CGFloat)width;
+
+/**
+ *  通过色值创建图片
+ *
+ *  @param Color    色值
+ */
++ (UIImage *)createImageWithColor:(UIColor *)color;
+
+/**
+ *  持久化存储
+ *
+ *  @param Object    存储内容
+ *  @param Key       存储标示
+ */
++ (void)setAsynchronousWithObject:(id)object Key:(NSString *)key;
+
+/**
+ *  清空存储数据
+ *
+ *  @param Key       存储标示
+ */
++ (void)clearAsynchronousWithKey:(NSString *)key;
+
+/**
+ *  获取本地保存数据
+ *
+ *  @param Key       存储标示
+ */
++ (id)getAsynchronousWithKey:(NSString *)key;
 
 @end

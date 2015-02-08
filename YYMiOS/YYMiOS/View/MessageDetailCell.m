@@ -81,7 +81,7 @@
     
     CGSize textSize = [LPUtility getTextHeightWithText:[(EMTextMessageBody *)message.messageBodies.lastObject text] font:_contentLabel.font size:CGSizeMake(150, 2000)];
     
-    if(message.from == _user.emUsername)
+    if([message.from isEqualToString:_user.emUsername])
     {
         _otherAvatarImageView.hidden = NO;
         [_otherAvatarImageView setImageWithURL:[NSURL URLWithString:[LPUtility getQiniuImageURLStringWithBaseString:_user.userIcon.imageURL imageSize:CGSizeMake(80, 80)]]];

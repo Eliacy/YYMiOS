@@ -34,6 +34,33 @@
 
 - (void)clickRegisterButton:(id)sender
 {
+    
+    //检测输入是否合法
+    if(_telephoneTextField.text.length==0){
+        [self.view makeToast:@"请输入手机号" duration:TOAST_DURATION position:@"center"];
+        return;
+    }
+    if(_telephoneTextField.text.length!=11){
+        [self.view makeToast:@"请输入正确的手机号" duration:TOAST_DURATION position:@"center"];
+        return;
+    }
+    if(_passwordTextField.text.length==0){
+        [self.view makeToast:@"请输入密码" duration:TOAST_DURATION position:@"center"];
+        return;
+    }
+    if(_passwordTextField.text.length<USER_PWD_MIN_LENGTH||_passwordTextField.text.length>USER_PWD_MAX_LENGTH){
+        [self.view makeToast:@"密码长度应在6-30位之间" duration:TOAST_DURATION position:@"center"];
+        return;
+    }
+    if(_repasswordTextField.text.length==0){
+        [self.view makeToast:@"请再次输入密码" duration:TOAST_DURATION position:@"center"];
+        return;
+    }
+    if(![_passwordTextField.text isEqualToString:_repasswordTextField.text]){
+        [self.view makeToast:@"两次输入的密码不一致" duration:TOAST_DURATION position:@"center"];
+        return;
+    }
+    
     [[LPAPIClient sharedAPIClient] registerWithIconId:0
                                              userName:@""
                                                mobile:_telephoneTextField.text

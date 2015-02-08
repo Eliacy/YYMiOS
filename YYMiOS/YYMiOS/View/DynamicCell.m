@@ -7,6 +7,7 @@
 //
 
 #import "DynamicCell.h"
+#import "Function.h"
 
 @implementation DynamicCell
 
@@ -208,6 +209,16 @@
     else
     {
         [_followButton setTitle:@"关注" forState:UIControlStateNormal];
+    }
+    
+    NSMutableArray *badges = [Function addBadgesWithArray:deal.user.badges
+                                                  OffsetX:_lastTimeLabel.frame.origin.x
+                                                  OffsetY:_lastTimeLabel.frame.origin.y + _lastTimeLabel.frame.size.height + 1
+                                                    Width:_backImageView.frame.size.width
+                              ];
+    for (UIImageView *badge in badges)
+    {
+        [_backImageView addSubview:badge];
     }
     
     if(deal.imageArray && [deal.imageArray isKindOfClass:[NSArray class]] && [deal.imageArray count] > 0)
