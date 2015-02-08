@@ -19,6 +19,10 @@
     
     UIButton        *_loginButton;
     UIButton        *_registerButton;
+    
+    NSString        *_token;
 }
+
+@property (retain, nonatomic) NSString *token;
 
 @end

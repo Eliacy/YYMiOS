@@ -13,6 +13,7 @@
 #import "Categories.h"
 #import "WXApi.h"
 #import "CCAnalytic.h"
+#import "LoginViewController.h"
 #import "RegisterViewController.h"
 
 #define WEIXINKEY   @"wx9ecdcdfe681ca533"   //微信appid
@@ -325,9 +326,14 @@
 
 - (void)showRegisterViewController
 {
-    RegisterViewController *registerVC = [[[RegisterViewController alloc] init] autorelease];
-    registerVC.token = [[NSUserDefaults standardUserDefaults] objectForKey:@"user_access_token"];
-    [self.window.rootViewController presentViewController:registerVC animated:YES completion:^{
+//    RegisterViewController *registerVC = [[[RegisterViewController alloc] init] autorelease];
+//    registerVC.token = [[NSUserDefaults standardUserDefaults] objectForKey:@"user_access_token"];
+//    [self.window.rootViewController presentViewController:registerVC animated:YES completion:^{
+//        
+//    }];
+    LoginViewController *loginVC = [[[LoginViewController alloc] init] autorelease];
+    loginVC.token = [[NSUserDefaults standardUserDefaults] objectForKey:@"user_access_token"];
+    [self.window.rootViewController presentViewController:loginVC animated:YES completion:^{
         
     }];
 }
