@@ -127,6 +127,7 @@
                           }
                       } failure:^(NSError *error) {
                           [self.view hideToastActivity];
+                          [self.view makeToast:@"网络异常" duration:TOAST_DURATION position:@"center"];
                       }];
 }
 
@@ -330,6 +331,7 @@
                               [self.view hideToastActivity];
                           } failure:^(NSError *error) {
                               [self.view hideToastActivity];
+                              [self.view makeToast:@"网络异常" duration:TOAST_DURATION position:@"center"];
                           }];
     }
 }
@@ -419,6 +421,7 @@
                           
                           _isLoading = NO;
                           [self.view hideToastActivity];
+                          [self.view makeToast:@"网络异常" duration:TOAST_DURATION position:@"center"];
                       }];
 }
 
@@ -467,6 +470,7 @@
                           
                           _isLoading = NO;
                           [self.view hideToastActivity];
+                          [self.view makeToast:@"网络异常" duration:TOAST_DURATION position:@"center"];
                       }];
 }
 
@@ -586,6 +590,7 @@
     [searchTableView reloadData];
     return YES;
 }
+
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
     //显示filterTableView
@@ -595,6 +600,12 @@
         filterTableView.hidden = YES;
     }
     [filterTableView reloadData];
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    //搜索
+    [self clickSearchButton:nil];
 }
 
 

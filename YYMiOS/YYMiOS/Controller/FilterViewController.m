@@ -23,9 +23,6 @@
     NSMutableArray *filterData;
     RATreeView *filterTreeView;
     
-    
-    BOOL isArea,isCategory,isOrder;
-    
     NSMutableArray *selectedAreaChildArray;
     NSMutableArray *selectedCategoryChildArray;
     NSMutableArray *selectedOrderChildArray;
@@ -61,7 +58,7 @@
     self = [super init];
     if(self != nil)
     {
-        _rangeArray = [[NSMutableArray alloc] initWithCapacity:0];
+        _rangeArray = [[[NSMutableArray alloc] initWithCapacity:0] autorelease];
         [_rangeArray addObjectsFromArray:[NSArray arrayWithObjects:@"智能范围", @"1公里", @"2公里", @"5公里", @"20公里", @"50公里", @"全城", nil]];
         
         _areaArray = [[NSMutableArray alloc] initWithCapacity:0];
@@ -83,7 +80,7 @@
     
     _titleLabel.text = @"筛选";
     
-    _searchButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    _searchButton = [[[UIButton buttonWithType:UIButtonTypeCustom] retain] autorelease];
     _searchButton.frame = CGRectMake(_headerView.frame.size.width - 2 - 40, 2, 40, 40);
     _searchButton.backgroundColor = [UIColor clearColor];
     [_searchButton setTitle:@"搜索" forState:UIControlStateNormal];
@@ -137,10 +134,12 @@
                                                                   [self.view hideToastActivity];
                                                               } failure:^(NSError *error) {
                                                                   [self.view hideToastActivity];
+                                                                  [self.view makeToast:@"网络异常" duration:TOAST_DURATION position:@"center"];
                                                               }];
                             
                         } failure:^(NSError *error) {
                             [self.view hideToastActivity];
+                            [self.view makeToast:@"网络异常" duration:TOAST_DURATION position:@"center"];
                         }];
     
     
@@ -150,164 +149,6 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
-//
-//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FilterViewControllerIdentifier"];
-//    if(cell == nil)
-//    {
-//        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"FilterViewControllerIdentifier"] autorelease];
-//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//    }
-//    
-//    switch (indexPath.section) {
-//        case 0:
-//        {
-//            if(indexPath.row < [_rangeArray count])
-//            {
-//                cell.textLabel.text = [_rangeArray objectAtIndex:indexPath.row];
-//                if(indexPath.row == [_rangeArray count] - 1)
-//                {
-//                    if(_areaId == 0)
-//                    {
-//                        cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"confirm.png"]] autorelease];
-//                    }
-//                    else
-//                    {
-//                        cell.accessoryView = nil;
-//                    }
-//                }
-//            }
-//            else
-//            {
-//                cell.textLabel.text = [[_areaArray objectAtIndex:(indexPath.row - [_rangeArray count])] areaName];
-//                if(_areaId == [[_areaArray objectAtIndex:(indexPath.row - [_rangeArray count])] areaId])
-//                {
-//                    cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"confirm.png"]] autorelease];
-//                }
-//                else
-//                {
-//                    cell.accessoryView = nil;
-//                }
-//            }
-//        }
-//            break;
-//        case 1:
-//        {
-//            cell.textLabel.text = [[_categoryArray objectAtIndex:indexPath.row] categoryName];
-//            if(_categoryId == [[_categoryArray objectAtIndex:indexPath.row] categoryId])
-//            {
-//                cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"confirm.png"]] autorelease];
-//            }
-//            else
-//            {
-//                cell.accessoryView = nil;
-//            }
-//        }
-//            break;
-//        case 2:
-//        {
-//            switch (indexPath.row) {
-//                case 0:
-//                {
-//                    cell.textLabel.text = @"智能排序";
-//                    if(_order == 0)
-//                    {
-//                        cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"confirm.png"]] autorelease];
-//                    }
-//                    else
-//                    {
-//                        cell.accessoryView = nil;
-//                    }
-//                }
-//                    break;
-//                case 1:
-//                {
-//                    cell.textLabel.text = @"离我最近";
-//                    if(_order == 1)
-//                    {
-//                        cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"confirm.png"]] autorelease];
-//                    }
-//                    else
-//                    {
-//                        cell.accessoryView = nil;
-//                    }
-//                }
-//                    break;
-//                case 2:
-//                {
-//                    cell.textLabel.text = @"人气最高";
-//                    if(_order == 2)
-//                    {
-//                        cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"confirm.png"]] autorelease];
-//                    }
-//                    else
-//                    {
-//                        cell.accessoryView = nil;
-//                    }
-//                }
-//                    break;
-//                case 3:
-//                {
-//                    cell.textLabel.text = @"评价最好";
-//                    if(_order == 3)
-//                    {
-//                        cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"confirm.png"]] autorelease];
-//                    }
-//                    else
-//                    {
-//                        cell.accessoryView = nil;
-//                    }
-//                }
-//                    break;
-//                default:
-//                    break;
-//            }
-//        }
-//            break;
-//        default:
-//            break;
-//    }
-//    
-//    return cell;
-//}
-//
-//#pragma mark - UITableViewDelegate
-//
-//- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    switch (indexPath.section)
-//    {
-//        case 0:
-//        {
-//            if(indexPath.row == [_rangeArray count] - 1)
-//            {
-//                _areaId = 0;
-//            }
-//            else if(indexPath.row >= [_rangeArray count])
-//            {
-//                _areaId = [[_areaArray objectAtIndex:(indexPath.row - [_rangeArray count])] areaId];
-//            }
-//        }
-//            break;
-//        case 1:
-//        {
-//            _categoryId = [[_categoryArray objectAtIndex:indexPath.row] categoryId];
-//        }
-//            break;
-//        case 2:
-//        {
-//            _order = indexPath.row;
-//        }
-//            break;
-//        default:
-//            break;
-//    }
-//    
-//    [_tableView reloadData];
-//    
-//    return nil;
-//}
 
 #pragma mark -
 #pragma mark TreeView Delegate methods
@@ -316,9 +157,6 @@
 {
     return 45;
 }
-
-#pragma mark -
-#pragma mark - TreeView Data Source
 
 - (UITableViewCell *)treeView:(RATreeView *)treeView cellForItem:(id)item
 {
@@ -361,6 +199,7 @@
     return dataObject.children[index];
 }
 
+
 - (void)treeView:(RATreeView *)treeView didSelectRowForItem:(id)item
 {
     //层级
@@ -368,17 +207,7 @@
     //对象
     RADataObject *dataObject = item;
     
-    //0级
-    if(level==0){
-        if([dataObject.name isEqualToString:@"范围"]){
-            isArea = !isArea;
-        }else if([dataObject.name isEqualToString:@"分类"]){
-            isCategory = !isCategory;
-        }else if([dataObject.name isEqualToString:@"排序"]){
-            isOrder = !isOrder;
-        }
-    }
-    
+    /***********************************处理变色*****************************************/
     //1级
     if(level==1){
         //范围
@@ -419,13 +248,15 @@
         }
     }
     
+    /**************************************保存ID**********************************************/
+    
     NSArray *areaArray = [[filterData objectAtIndex:0] children];
     NSArray *categoryArray = [[filterData objectAtIndex:1] children];
     NSArray *orderArray = [[filterData objectAtIndex:2] children];
     
     if(level==1||level==2){
         
-        //范围
+        //范围id
         if(selectedAreaChildArray.count>0){
             if([kRangeArray containsObject:[[selectedAreaChildArray objectAtIndex:0] name]]){
 
@@ -439,7 +270,7 @@
                     if(areaObject.children.count==0){
                         //2级
                         if([areaObject.name isEqualToString:[[selectedAreaChildArray objectAtIndex:0] name]]){
-                            _areaId = [[_areaArray objectAtIndex:i] areaId];
+                            _areaId = [[_areaArray objectAtIndex:i-kRangeArray.count] areaId];
                         }
                     }else{
                         //3级
@@ -447,7 +278,14 @@
                             RADataObject *subAreaObject = [areaObject.children objectAtIndex:j];
                             if([subAreaObject.name isEqualToString:[[selectedAreaChildArray objectAtIndex:0] name]]){
                                 NSArray *subAreaArray = [[_areaArray objectAtIndex:i-kRangeArray.count] areaChildren];
-                                _areaId = [[subAreaArray objectAtIndex:j] areaId];
+                                if(j!=0){
+                                    //因全部**是再数据初始化时收到添加的 并非服务器返回数据 获取id时需要减去父节点（-1）
+                                    _areaId = [[subAreaArray objectAtIndex:j-1] areaId];
+                                }else{
+                                    //全部**
+                                    _areaId = [[_areaArray objectAtIndex:i-kRangeArray.count] areaId];
+                                }
+
                             }
                         }
                     }
@@ -455,7 +293,7 @@
             }
         }
         
-        //分类
+        //分类id
         if(selectedCategoryChildArray.count>0){
             for(int i=0;i<categoryArray.count;i++){
                 RADataObject *categoryObject = [categoryArray objectAtIndex:i];
@@ -470,14 +308,20 @@
                         RADataObject *subCategoyObject = [categoryObject.children objectAtIndex:j];
                         if([subCategoyObject.name isEqualToString:[[selectedCategoryChildArray objectAtIndex:0] name]]){
                             NSArray *subCategoyArray = [[_categoryArray objectAtIndex:i] subCategoryArray];
-                            _categoryId = [[subCategoyArray objectAtIndex:j] categoryId];
+                            if(j!=0){
+                                //因全部**是再数据初始化时收到添加的 并非服务器返回数据 获取id时需要减去父节点（-1）
+                                _categoryId = [[subCategoyArray objectAtIndex:j-1] categoryId];
+                            }else{
+                                //全部**
+                                _categoryId = [[_categoryArray objectAtIndex:i] categoryId];
+                            }
                         }
                     }
                 }
             }
         }
         
-        //排序
+        //排序id
         if(selectedOrderChildArray.count>0){
             for(int i=0;i<orderArray.count;i++){
                 RADataObject *orderObject = [orderArray objectAtIndex:i];
@@ -489,7 +333,13 @@
     }
     
     
-    [filterTreeView performSelector:@selector(reloadRows) withObject:nil afterDelay:.2];
+    [filterTreeView performSelector:@selector(reloadRows) withObject:nil afterDelay:.3];
+}
+
+- (void)treeView:(RATreeView *)treeView didExpandRowForItem:(id)item
+{
+    //自动滚到到最近打开的cell
+    [filterTreeView scrollToNearestSelectedRowAtScrollPosition:RATreeViewScrollPositionTop animated:YES];
 }
 
 #pragma mark - 记录所选范围
@@ -532,6 +382,10 @@
         
         if(area.areaChildren.count>0){
             NSMutableArray *tempArray = [[[NSMutableArray alloc] init] autorelease];
+            //添加当前父节点到其子类列表中
+            areaData = [RADataObject dataObjectWithName:[NSString stringWithFormat:@"全部%@",area.areaName] children:nil];
+            [tempArray addObject:areaData];
+            //添加其他子节点
             for(int i=0;i<area.areaChildren.count;i++){
                 areaData = [RADataObject dataObjectWithName:[NSString stringWithFormat:@"%@",[[area.areaChildren objectAtIndex:i] areaName]] children:nil];
                 [tempArray addObject:areaData];
@@ -551,19 +405,23 @@
     NSMutableArray *categoryMutableArray = [[[NSMutableArray alloc] init] autorelease];
     for(int i=0;i<_categoryArray.count;i++){
         Categories *categories = [_categoryArray objectAtIndex:i];
-        RADataObject *category = nil;
+        RADataObject *categoryData = nil;
         
         if(categories.subCategoryArray.count>0){
             NSMutableArray *tempArray = [[[NSMutableArray alloc] init] autorelease];
+            //添加当前父节点到其子类列表中
+            categoryData = [RADataObject dataObjectWithName:[NSString stringWithFormat:@"全部%@",categories.categoryName] children:nil];
+            [tempArray addObject:categoryData];
+            //添加其他子节点
             for(int i=0;i<categories.subCategoryArray.count;i++){
-                category = [RADataObject dataObjectWithName:[NSString stringWithFormat:@"%@",[[categories.subCategoryArray objectAtIndex:i] categoryName]] children:nil];
-                [tempArray addObject:category];
+                categoryData = [RADataObject dataObjectWithName:[NSString stringWithFormat:@"%@",[[categories.subCategoryArray objectAtIndex:i] categoryName]] children:nil];
+                [tempArray addObject:categoryData];
             }
             RADataObject *categoryList = [RADataObject dataObjectWithName:[NSString stringWithFormat:@"%@",categories.categoryName] children:tempArray];
             [categoryMutableArray addObject:categoryList];
         }else{
-            category = [RADataObject dataObjectWithName:[NSString stringWithFormat:@"%@",categories.categoryName] children:nil];
-            [categoryMutableArray addObject:category];
+            categoryData = [RADataObject dataObjectWithName:[NSString stringWithFormat:@"%@",categories.categoryName] children:nil];
+            [categoryMutableArray addObject:categoryData];
         }
         
     }
