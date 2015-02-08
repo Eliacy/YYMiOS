@@ -26,6 +26,7 @@
     NSMutableArray *selectedAreaChildArray;
     NSMutableArray *selectedCategoryChildArray;
     NSMutableArray *selectedOrderChildArray;
+    
 }
 
 @synthesize areaId = _areaId;
@@ -167,8 +168,9 @@
     
     //根据各层菜单中存储数据设置颜色
     UIColor *titleColor;
-    if([selectedCategoryChildArray containsObject:dataObject]||[selectedAreaChildArray containsObject:dataObject]||[selectedOrderChildArray containsObject:dataObject]){
+    if([selectedAreaChildArray containsObject:dataObject]||[selectedCategoryChildArray containsObject:dataObject]||[selectedOrderChildArray containsObject:dataObject]){
         titleColor = [UIColor redColor];
+        
     }else{
         titleColor = [UIColor blackColor];
     }
@@ -339,8 +341,9 @@
 - (void)treeView:(RATreeView *)treeView didExpandRowForItem:(id)item
 {
     //自动滚到到最近打开的cell
-    [filterTreeView scrollToNearestSelectedRowAtScrollPosition:RATreeViewScrollPositionTop animated:YES];
+    [filterTreeView scrollToRowForItem:item atScrollPosition:RATreeViewScrollPositionTop animated:YES];
 }
+
 
 #pragma mark - 记录所选范围
 - (void)saveAreaStateWithDataObject:(RADataObject *)dataObject
