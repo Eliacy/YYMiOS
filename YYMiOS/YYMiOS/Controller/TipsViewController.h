@@ -8,11 +8,15 @@
 
 #import "BaseViewController.h"
 #import "Tip.h"
+#import "TitleExpandKit.h"
 
 @interface TipsViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate>
 {
+    TitleExpandKit *_expandKit;
     Tip             *_tip;
     NSMutableArray  *_tipArray;
+    
+    UIButton        *_moreButton;
     
     UITableView     *_tableView;
 }

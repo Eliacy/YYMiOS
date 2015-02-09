@@ -8,11 +8,14 @@
 
 #import "BaseViewController.h"
 #import "SRRefreshView.h"
+#import "TitleExpandKit.h"
 
 @class TabViewController;
 
 @interface HomeViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate, SRRefreshDelegate>
 {
+    TitleExpandKit *_expandKit;
+    
     TabViewController   *_tabVC;
     NSMutableArray  *_cityArray;
     

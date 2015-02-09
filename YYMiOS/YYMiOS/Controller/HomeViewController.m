@@ -345,9 +345,13 @@
 {
     if(gestureRecognizer.state == UIGestureRecognizerStateEnded)
     {
-        [[TitleExpandKit sharedKit] setItemArray:_cityArray];
-        [[TitleExpandKit sharedKit] setDelegate:self];
-        [[TitleExpandKit sharedKit] show];
+        if(_expandKit == nil)
+        {
+            _expandKit = [[[TitleExpandKit alloc] init] retain];
+        }
+        [_expandKit setItemArray:_cityArray];
+        [_expandKit setDelegate:self];
+        [_expandKit show];
     }
 }
 
