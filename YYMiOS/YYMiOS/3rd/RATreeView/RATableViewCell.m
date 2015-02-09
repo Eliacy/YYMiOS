@@ -33,12 +33,18 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
-        self.selectedBackgroundView = [UIView new];
-        self.selectedBackgroundView.backgroundColor = [UIColor clearColor];
-        
-        self.customTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 40)];
+        //主标题
+        self.customTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 40)];
         self.customTitleLabel.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:self.customTitleLabel];
+        
+        //副标题
+        self.subtitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 280, 40)];
+        self.subtitleLabel.backgroundColor = [UIColor clearColor];
+        self.subtitleLabel.textAlignment = NSTextAlignmentRight;
+        self.subtitleLabel.text = @"全部";
+        self.subtitleLabel.textColor = GColor(188, 188, 188);
+        [self.contentView addSubview:self.subtitleLabel];
         
         //线
         [self.contentView addSubview:[Function createSeparatorViewWithFrame:CGRectMake(0, self.frame.size.height-0.5, self.frame.size.width, 1)]];
@@ -58,23 +64,72 @@
   [super prepareForReuse];
 }
 
-
-- (void)setupWithTitle:(NSString *)title titleColor:(UIColor *)titleColor level:(NSInteger)level
+#pragma mark - 设置cell样式
+- (void)setupWithTitle:(NSString *)title level:(NSInteger)level
+     selectedAreaArray:(NSArray *)selectedAreaArray selectedCategoryArray:(NSArray *)selectedCategoryArray selectedOrderArray:(NSArray *)selectedOrderArray
 {
+    //文字颜色
+    UIColor *titleColor = [UIColor blackColor];
+    
     //背景色
     if (level == 0) {
+        titleColor = GColor(188, 188, 188);
         self.backgroundColor = GColor(136, 136, 136);
+        //设置副标题
+        self.subtitleLabel.hidden = NO;
+        if([title isEqualToString:@"范围"]){
+            if(selectedAreaArray.count>0){
+                self.subtitleLabel.text = [[selectedAreaArray objectAtIndex:0] name];
+            }else{
+                self.subtitleLabel.text = @"全部";
+            }
+        }
+        if([title isEqualToString:@"分类"]){
+            if(selectedCategoryArray.count>0){
+                self.subtitleLabel.text = [[selectedCategoryArray objectAtIndex:0] name];
+            }else{
+                self.subtitleLabel.text = @"全部";
+            }
+        }
+        if([title isEqualToString:@"排序"]){
+            if(selectedOrderArray.count>0){
+                self.subtitleLabel.text = [[selectedOrderArray objectAtIndex:0] name];
+            }else{
+                self.subtitleLabel.text = @"全部";
+            }
+        }
     } else if (level == 1) {
+        self.subtitleLabel.hidden = YES;
         self.backgroundColor = GColor(255, 255, 255);
     } else if (level >= 2) {
+        self.subtitleLabel.hidden = YES;
         self.backgroundColor = GColor(248, 248, 248);
     }
+    
+    //处理次级标题选中变红
+    if(level!=0){
+        if(selectedAreaArray.count>0){
+            if([title isEqualToString:[[selectedAreaArray objectAtIndex:0] name]]){
+                titleColor = [UIColor redColor];
+            }
+        }
+        if(selectedCategoryArray.count>0){
+            if([title isEqualToString:[[selectedCategoryArray objectAtIndex:0] name]]){
+                titleColor = [UIColor redColor];
+            }
+        }
+        if(selectedOrderArray.count>0){
+            if([title isEqualToString:[[selectedOrderArray objectAtIndex:0] name]]){
+                titleColor = [UIColor redColor];
+            }
+        }
+    }
+    
     //主标题
     self.customTitleLabel.text = title;
     self.customTitleLabel.textColor = titleColor;
-  
+    
     CGFloat left = 11 + 20 * level;
-  
     CGRect titleFrame = self.customTitleLabel.frame;
     titleFrame.origin.x = left;
     self.customTitleLabel.frame = titleFrame;

@@ -44,6 +44,10 @@
         _nearbyVC.areaId = _areaId;
         _nearbyVC.categoryId = _categoryId;
         _nearbyVC.order = _order;
+        _nearbyVC.selectedAreaChildArray = selectedAreaChildArray;
+        _nearbyVC.selectedCategoryChildArray = selectedCategoryChildArray;
+        _nearbyVC.selectedOrderChildArray = selectedOrderChildArray;
+        
     }
     
     [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"refresh_nearby_data"];
@@ -67,9 +71,6 @@
         
         filterData = [[NSMutableArray alloc] init];
         
-        selectedAreaChildArray = [[NSMutableArray alloc] init];
-        selectedCategoryChildArray = [[NSMutableArray alloc] init];
-        selectedOrderChildArray = [[NSMutableArray alloc] init];
     }
     
     return self;
@@ -99,6 +100,23 @@
     [filterTreeView setBackgroundColor:[UIColor colorWithWhite:0.97 alpha:1.0]];
     [filterTreeView registerClass:[RATableViewCell class] forCellReuseIdentifier:NSStringFromClass([RATableViewCell class])];
     [self.view addSubview:filterTreeView];
+    
+    //获取上层界面数据(之前搜索过的筛选条件)
+    if(_nearbyVC.selectedAreaChildArray!=nil){
+        selectedAreaChildArray = [[NSMutableArray alloc] initWithArray:_nearbyVC.selectedAreaChildArray];
+    }else{
+        selectedAreaChildArray = [[NSMutableArray alloc] init];
+    }
+    if(_nearbyVC.selectedCategoryChildArray!=nil){
+        selectedCategoryChildArray = [[NSMutableArray alloc] initWithArray:_nearbyVC.selectedCategoryChildArray];
+    }else{
+        selectedCategoryChildArray = [[NSMutableArray alloc] init];
+    }
+    if(_nearbyVC.selectedOrderChildArray!=nil){
+        selectedOrderChildArray = [[NSMutableArray alloc] initWithArray:_nearbyVC.selectedOrderChildArray];
+    }else{
+        selectedOrderChildArray = [[NSMutableArray alloc] init];
+    }
 }
 
 - (void)viewDidLoad {
@@ -162,21 +180,13 @@
 - (UITableViewCell *)treeView:(RATreeView *)treeView cellForItem:(id)item
 {
     RADataObject *dataObject = item;
+    RATableViewCell *cell = [filterTreeView dequeueReusableCellWithIdentifier:NSStringFromClass([RATableViewCell class])];
     
     //级数
     NSInteger level = [filterTreeView levelForCellForItem:item];
     
-    //根据各层菜单中存储数据设置颜色
-    UIColor *titleColor;
-    if([selectedAreaChildArray containsObject:dataObject]||[selectedCategoryChildArray containsObject:dataObject]||[selectedOrderChildArray containsObject:dataObject]){
-        titleColor = [UIColor redColor];
-        
-    }else{
-        titleColor = [UIColor blackColor];
-    }
-    
-    RATableViewCell *cell = [filterTreeView dequeueReusableCellWithIdentifier:NSStringFromClass([RATableViewCell class])];
-    [cell setupWithTitle:dataObject.name titleColor:titleColor level:level];
+    //设置cell样式
+    [cell setupWithTitle:dataObject.name level:level selectedAreaArray:selectedAreaChildArray selectedCategoryArray:selectedCategoryChildArray selectedOrderArray:selectedOrderChildArray];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
