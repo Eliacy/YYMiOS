@@ -46,7 +46,7 @@
         self.subtitleLabel.textColor = GColor(188, 188, 188);
         [self.contentView addSubview:self.subtitleLabel];
         
-        //线
+        //分割线
         [self.contentView addSubview:[Function createSeparatorViewWithFrame:CGRectMake(0, self.frame.size.height-0.5, self.frame.size.width, 1)]];
         
     }

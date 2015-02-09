@@ -92,7 +92,7 @@
     [_headerView addSubview:_searchButton];
     
     //树形结构视图
-    filterTreeView = [[[RATreeView alloc] initWithFrame:CGRectMake(15, _adjustView.frame.size.height, self.view.frame.size.width-30, self.view.frame.size.height - _adjustView.frame.size.height)] autorelease];
+    filterTreeView = [[[RATreeView alloc] initWithFrame:CGRectMake(15, _adjustView.frame.size.height+15, self.view.frame.size.width-30, self.view.frame.size.height - _adjustView.frame.size.height)] autorelease];
     filterTreeView.backgroundColor = [UIColor whiteColor];
     filterTreeView.delegate = self;
     filterTreeView.dataSource = self;
