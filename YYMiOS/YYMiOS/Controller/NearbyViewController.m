@@ -73,12 +73,6 @@
 #pragma mark - 搜索按钮
 - (void)clickSearchButton:(id)sender
 {
-    //检测输入合法性
-    if(mySearchBar.text.length==0){
-        [self.view makeToast:@"您未输入内容" duration:TOAST_DURATION position:@"center"];
-        return;
-    }
-    
     //隐藏搜索列表
     [self searchListHidden];
     

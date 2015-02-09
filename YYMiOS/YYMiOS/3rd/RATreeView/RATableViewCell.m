@@ -61,10 +61,7 @@
 
 - (void)setupWithTitle:(NSString *)title titleColor:(UIColor *)titleColor level:(NSInteger)level
 {
-    self.customTitleLabel.text = title;
-    self.customTitleLabel.textColor = titleColor;
-    
-    
+    //背景色
     if (level == 0) {
         self.backgroundColor = GColor(136, 136, 136);
     } else if (level == 1) {
@@ -72,12 +69,15 @@
     } else if (level >= 2) {
         self.backgroundColor = GColor(248, 248, 248);
     }
+    //主标题
+    self.customTitleLabel.text = title;
+    self.customTitleLabel.textColor = titleColor;
   
-  CGFloat left = 11 + 20 * level;
+    CGFloat left = 11 + 20 * level;
   
-  CGRect titleFrame = self.customTitleLabel.frame;
-  titleFrame.origin.x = left;
-  self.customTitleLabel.frame = titleFrame;
+    CGRect titleFrame = self.customTitleLabel.frame;
+    titleFrame.origin.x = left;
+    self.customTitleLabel.frame = titleFrame;
   
 }
 @end
