@@ -15,7 +15,23 @@
 
 @implementation LoginViewController
 
+@synthesize token = _token;
+
 #pragma mark - private
+
+- (void)clickBackButton:(id)sender
+{
+    if(_token != nil && ![_token isEqualToString:@""])
+    {
+        [self dismissViewControllerAnimated:YES completion:^{
+            
+        }];
+    }
+    else
+    {
+        
+    }
+}
 
 - (void)clickLoginButton:(id)sender
 {
@@ -105,6 +121,11 @@
     
     _titleLabel.text = @"登录";
     _backButton.hidden = YES;
+    
+    if(_token != nil && ![_token isEqualToString:@""])
+    {
+        _backButton.hidden = NO;
+    }
     
     _backView = [[UIView alloc] initWithFrame:CGRectMake(0, _adjustView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - _adjustView.frame.size.height)];
     _backView.backgroundColor = [UIColor clearColor];

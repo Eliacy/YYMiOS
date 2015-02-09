@@ -14,11 +14,11 @@
     LPImage     *_caption;
     NSInteger   _commentCount;
     NSArray     *_contentArray;
-    NSDate    *_createTime;
+    NSDate      *_createTime;
     NSInteger   _articleId;
     NSArray     *_keywordArray;
     NSString    *_title;
-    NSDate    *_updateTime;
+    NSDate      *_updateTime;
 }
 
 @property (retain, nonatomic) LPImage *caption;
