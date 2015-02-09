@@ -147,6 +147,17 @@
     searchBtn.hidden = NO;
 }
 
+#pragma mark - 清空筛选条件
+- (void)clearSelectedFiltrates
+{
+    _areaId = 0;
+    _categoryId = 0;
+    _order = 0;
+    [_selectedAreaChildArray removeAllObjects];
+    [_selectedCategoryChildArray removeAllObjects];
+    [_selectedOrderChildArray removeAllObjects];
+}
+
 
 #pragma mark - super
 
@@ -291,6 +302,11 @@
     }
     _isAppear = YES;
     
+    //切换城市 则重置筛选条件
+    if([[[NSUserDefaults standardUserDefaults] objectForKey:@"refresh_nearby_data"] boolValue] == YES){
+        //更换地址后 清空筛选条件
+        [self clearSelectedFiltrates];
+    }
     
     if([_nearbyArray count] == 0 || [[[NSUserDefaults standardUserDefaults] objectForKey:@"refresh_nearby_data"] boolValue] == YES)
     {

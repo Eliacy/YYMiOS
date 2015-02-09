@@ -50,8 +50,8 @@
         
     }
     
-    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"refresh_nearby_data"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    //清空数据 以使其刷新
+    [_nearbyVC.nearbyArray removeAllObjects];
     
     [self.navigationController popViewControllerAnimated:YES];
 }
