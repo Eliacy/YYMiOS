@@ -25,4 +25,10 @@
 
 - (id)initWithAttribute:(NSDictionary *)attribute;
 
++ (void)getCountryListWithCountryId:(NSInteger)countryId
+                          longitude:(float)longitude
+                           latitude:(float)latitude
+                              success:(LPObjectSuccessBlock)successBlock
+                              failure:(LPObjectFailureBlock)failureBlock;
+
 @end

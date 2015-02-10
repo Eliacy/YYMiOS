@@ -61,4 +61,67 @@
     return self;
 }
 
++ (NSArray *)parseFromeDictionary:(NSDictionary *)dictionary
+{
+    NSMutableArray *mutableArray = [NSMutableArray arrayWithCapacity:0];
+    
+    if(dictionary && [dictionary isKindOfClass:[NSDictionary class]])
+    {
+        if([dictionary objectForKey:@"data"])
+        {
+            dictionary = [dictionary objectForKey:@"data"];
+        }
+        
+        if([dictionary isKindOfClass:[NSArray class]])
+        {
+            for(NSDictionary *attribute in (NSArray *)dictionary)
+            {
+                Country *country = [[Country alloc] initWithAttribute:attribute];
+                [mutableArray addObject:country];
+                [country release];
+            }
+        }
+        else if([dictionary isKindOfClass:[NSDictionary class]])
+        {
+            Country *country = [[Country alloc] initWithAttribute:dictionary];
+            [mutableArray addObject:country];
+            [country release];
+        }
+    }
+    else if([dictionary isKindOfClass:[NSArray class]])
+    {
+        for(NSDictionary *attribute in (NSArray *)dictionary)
+        {
+            Country *country = [[Country alloc] initWithAttribute:attribute];
+            [mutableArray addObject:country];
+            [country release];
+        }
+    }
+    
+    return mutableArray;
+}
+
++ (void)getCountryListWithCountryId:(NSInteger)countryId
+                          longitude:(float)longitude
+                           latitude:(float)latitude
+                              success:(LPObjectSuccessBlock)successBlock
+                              failure:(LPObjectFailureBlock)failureBlock
+{
+    [[LPAPIClient sharedAPIClient] getCountryListWithCountryId:countryId
+                                                     longitude:longitude
+                                                      latitude:latitude
+                                                         success:^(id respondObject) {
+                                                             if(successBlock)
+                                                             {
+                                                                 successBlock([Country parseFromeDictionary:respondObject]);
+                                                             }
+                                                         } failure:^(NSError *error) {
+                                                             if(failureBlock)
+                                                             {
+                                                                 failureBlock(error);
+                                                             }
+                                                         }];
+}
+
+
 @end
