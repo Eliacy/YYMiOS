@@ -306,6 +306,9 @@
     if([[[NSUserDefaults standardUserDefaults] objectForKey:@"refresh_nearby_data"] boolValue] == YES){
         //更换地址后 清空筛选条件
         [self clearSelectedFiltrates];
+        
+        //如果搜索框内有文本清空文本
+        mySearchBar.text = @"";
     }
     
     if([_nearbyArray count] == 0 || [[[NSUserDefaults standardUserDefaults] objectForKey:@"refresh_nearby_data"] boolValue] == YES)
