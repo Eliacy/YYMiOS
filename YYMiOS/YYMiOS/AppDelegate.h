@@ -13,7 +13,8 @@
 @property (strong, nonatomic) UIWindow *window;
 
 - (void)lanuchLoginViewController;
-- (void)lanuchTabViewContrller;
+- (void)lanuchTabViewController;
+- (void)launchTabViewControllerAndUserInfo;
 
 - (void)showRegisterViewController;
 

@@ -20,24 +20,69 @@
 
 @implementation UserInfoViewController
 {
+    
 }
 
 #pragma mark - private
 
 - (void)clickLogoutButton:(id)sender
 {
-    if([[User sharedUser] anonymous])
-    {
-        [(AppDelegate *)[[UIApplication sharedApplication] delegate] showRegisterViewController];
-        
-        return;
-    }
+//    if([[User sharedUser] anonymous])
+//    {
+//        [(AppDelegate *)[[UIApplication sharedApplication] delegate] showRegisterViewController];
+//        
+//        return;
+//    }
     
     [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:NO] forKey:@"login_flag"];
     [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"user_access_token"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    [(AppDelegate *)[[UIApplication sharedApplication] delegate] lanuchLoginViewController];
+//    [(AppDelegate *)[[UIApplication sharedApplication] delegate] lanuchLoginViewController];
+    
+    //anonymous
+    [[LPAPIClient sharedAPIClient] registerWithIconId:0
+                                             userName:nil
+                                               mobile:nil
+                                             password:nil
+                                               gender:nil
+                                                token:nil
+                                               device:[NSString stringWithFormat:@"%i_%i", (int)[[NSDate date] timeIntervalSince1970], arc4random()]//[[NSUserDefaults standardUserDefaults] objectForKey:@"AppGuid"]
+                                              success:^(id respondObject) {
+                                                  
+                                                  if([respondObject objectForKey:@"data"] && ![[respondObject objectForKey:@"data"] isEqual:[NSNull null]])
+                                                  {
+                                                      respondObject = [respondObject objectForKey:@"data"];
+                                                      if([respondObject objectForKey:@"token"] && ![[respondObject objectForKey:@"token"] isEqual:[NSNull null]])
+                                                      {
+                                                          [[NSUserDefaults standardUserDefaults] setObject:[respondObject objectForKey:@"token"] forKey:@"user_access_token"];
+                                                          [[NSUserDefaults standardUserDefaults] synchronize];
+                                                      }
+                                                      
+                                                      if([respondObject objectForKey:@"user"] && ![[respondObject objectForKey:@"user"] isEqual:[NSNull null]])
+                                                      {
+                                                          NSDictionary *userDictionary = [respondObject objectForKey:@"user"];
+                                                          if(userDictionary && [userDictionary isKindOfClass:[NSDictionary class]])
+                                                          {
+                                                              User *user = [[[User alloc] initWithAttribute:userDictionary] autorelease];
+                                                              [LPUtility archiveData:[NSArray arrayWithObject:user] IntoCache:@"LoginUser"];
+                                                          }
+                                                      }
+                                                  }
+                                                  
+                                                  [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"login_flag"];
+                                                  [[NSUserDefaults standardUserDefaults] synchronize];
+                                                  [(AppDelegate *)[[UIApplication sharedApplication] delegate] lanuchTabViewController];
+                                                  
+                                                  [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:[[User sharedUser] emUsername]
+                                                                                                      password:[[User sharedUser] emPassword]
+                                                                                                    completion:^(NSDictionary *loginInfo, EMError *error) {
+                                                                                                        
+                                                                                                    } onQueue:nil];
+                                                  
+                                              } failure:^(NSError *error) {
+                                                  
+                                              }];
 }
 
 #pragma mark - super
@@ -138,6 +183,13 @@
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if([[User sharedUser] anonymous])
+    {
+        [(AppDelegate *)[[UIApplication sharedApplication] delegate] showRegisterViewController];
+        
+        return nil;
+    }
+    
     switch (indexPath.row)
     {
         case 0:

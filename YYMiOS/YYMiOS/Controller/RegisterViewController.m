@@ -70,6 +70,19 @@
                                                device:[[NSUserDefaults standardUserDefaults] objectForKey:@"AppGuid"]
                                               success:^(id respondObject) {
                                                   
+                                                  if([_telephoneTextField isFirstResponder])
+                                                  {
+                                                      [_telephoneTextField resignFirstResponder];
+                                                  }
+                                                  else if([_passwordTextField isFirstResponder])
+                                                  {
+                                                      [_passwordTextField resignFirstResponder];
+                                                  }
+                                                  else if([_repasswordTextField isFirstResponder])
+                                                  {
+                                                      [_repasswordTextField resignFirstResponder];
+                                                  }
+                                                  
                                                   if([respondObject objectForKey:@"data"] && ![[respondObject objectForKey:@"data"] isEqual:[NSNull null]])
                                                   {
                                                       respondObject = [respondObject objectForKey:@"data"];
@@ -92,7 +105,7 @@
                                                   
                                                   [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"login_flag"];
                                                   [[NSUserDefaults standardUserDefaults] synchronize];
-                                                  [(AppDelegate *)[[UIApplication sharedApplication] delegate] lanuchTabViewContrller];
+                                                  [(AppDelegate *)[[UIApplication sharedApplication] delegate] launchTabViewControllerAndUserInfo];
                                                   
                                                   [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:[[User sharedUser] emUsername]
                                                                                                       password:[[User sharedUser] emPassword]
@@ -203,6 +216,24 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    if([_telephoneTextField isFirstResponder])
+    {
+        [_telephoneTextField resignFirstResponder];
+    }
+    else if([_passwordTextField isFirstResponder])
+    {
+        [_passwordTextField resignFirstResponder];
+    }
+    else if([_repasswordTextField isFirstResponder])
+    {
+        [_repasswordTextField resignFirstResponder];
+    }
 }
 
 /*

@@ -15,6 +15,7 @@
 #import "CCAnalytic.h"
 #import "LoginViewController.h"
 #import "RegisterViewController.h"
+#import "UserInfoViewController.h"
 
 #define WEIXINKEY   @"wx9ecdcdfe681ca533"   //微信appid
 #define WEIBOKEY    @"2377894405"           //微博appid
@@ -100,7 +101,7 @@
     
     if([[NSUserDefaults standardUserDefaults] objectForKey:@"login_flag"] && [[[NSUserDefaults standardUserDefaults] objectForKey:@"login_flag"] boolValue])
     {
-        [self lanuchTabViewContrller];
+        [self lanuchTabViewController];
     }
     else
     {
@@ -111,7 +112,7 @@
                                                  password:nil
                                                    gender:nil
                                                     token:nil
-                                                   device:[[NSUserDefaults standardUserDefaults] objectForKey:@"AppGuid"]
+                                                   device:[NSString stringWithFormat:@"%i_%i", (int)[[NSDate date] timeIntervalSince1970], arc4random()]//[[NSUserDefaults standardUserDefaults] objectForKey:@"AppGuid"]
                                                   success:^(id respondObject) {
                                                       
                                                       if([respondObject objectForKey:@"data"] && ![[respondObject objectForKey:@"data"] isEqual:[NSNull null]])
@@ -136,7 +137,7 @@
                                                       
                                                       [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"login_flag"];
                                                       [[NSUserDefaults standardUserDefaults] synchronize];
-                                                      [(AppDelegate *)[[UIApplication sharedApplication] delegate] lanuchTabViewContrller];
+                                                      [(AppDelegate *)[[UIApplication sharedApplication] delegate] lanuchTabViewController];
                                                       
                                                       [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:[[User sharedUser] emUsername]
                                                                                                           password:[[User sharedUser] emPassword]
@@ -316,10 +317,20 @@
     self.window.rootViewController = navigationController;
 }
 
-- (void)lanuchTabViewContrller
+- (void)lanuchTabViewController
 {
     TabViewController *tabVC = [[[TabViewController alloc] init] autorelease];
     UINavigationController *navigationController = [[[UINavigationController alloc] initWithRootViewController:tabVC] autorelease];
+    navigationController.navigationBarHidden = YES;
+    self.window.rootViewController = navigationController;
+}
+
+- (void)launchTabViewControllerAndUserInfo
+{
+    TabViewController *tabVC = [[[TabViewController alloc] init] autorelease];
+    UserInfoViewController *userInfoVC = [[[UserInfoViewController alloc] init] autorelease];
+    UINavigationController *navigationController = [[[UINavigationController alloc] init] autorelease];//[[[UINavigationController alloc] initWithRootViewController:tabVC] autorelease];
+    [navigationController setViewControllers:[NSArray arrayWithObjects:tabVC, userInfoVC, nil]];
     navigationController.navigationBarHidden = YES;
     self.window.rootViewController = navigationController;
 }
