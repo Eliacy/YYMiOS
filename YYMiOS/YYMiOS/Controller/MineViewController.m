@@ -19,6 +19,7 @@
 #import "UserDetailViewController.h"
 #import "MineCell.h"
 #import "MessageDetailViewController.h"
+#import "LoginViewController.h"
 
 @interface MineViewController ()
 
@@ -33,11 +34,20 @@
 
 - (void)clickSettingButton:(id)sender
 {
-    // 设置部分暂无可用功能，因而暂时跳转到用户属性修改的界面。
-    UserInfoViewController *userInfoVC = [[[UserInfoViewController alloc] init] autorelease];
-    [self.tabVC.navigationController pushViewController:userInfoVC animated:YES];
-//    SettingViewController *settingVC = [[[SettingViewController alloc] init] autorelease];
-//    [self.tabVC.navigationController pushViewController:settingVC animated:YES];
+    // 仅在当前用户不是匿名用户的时候，才允许设置用户属性，否则跳转到登陆/注册界面。。
+    if(_user == nil || _user.anonymous)
+    {
+        LoginViewController *loginVC = [[[LoginViewController alloc] init] autorelease];
+        [self.tabVC.navigationController pushViewController:loginVC animated:YES];
+    }
+    else
+    {
+        // 设置部分暂无可用功能，因而暂时跳转到用户属性修改的界面。
+        UserInfoViewController *userInfoVC = [[[UserInfoViewController alloc] init] autorelease];
+        [self.tabVC.navigationController pushViewController:userInfoVC animated:YES];
+//        SettingViewController *settingVC = [[[SettingViewController alloc] init] autorelease];
+//        [self.tabVC.navigationController pushViewController:settingVC animated:YES];
+    }
 }
 
 - (void)clickMessageButton:(id)sender
@@ -590,8 +600,17 @@
 {
     if(gestureRecognizer.state == UIGestureRecognizerStateEnded)
     {
-        UserInfoViewController *userInfoVC = [[[UserInfoViewController alloc] init] autorelease];
-        [self.tabVC.navigationController pushViewController:userInfoVC animated:YES];
+        // 仅在当前用户不是匿名用户的时候，才允许设置用户属性，否则跳转到登陆/注册界面。。
+        if(_user == nil || _user.anonymous)
+        {
+            LoginViewController *loginVC = [[[LoginViewController alloc] init] autorelease];
+            [self.tabVC.navigationController pushViewController:loginVC animated:YES];
+        }
+        else
+        {
+            UserInfoViewController *userInfoVC = [[[UserInfoViewController alloc] init] autorelease];
+            [self.tabVC.navigationController pushViewController:userInfoVC animated:YES];
+        }
     }
 }
 
