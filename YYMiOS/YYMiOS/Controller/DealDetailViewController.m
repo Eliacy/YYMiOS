@@ -14,6 +14,7 @@
 #import "FollowingViewController.h"
 #import "FollowerViewController.h"
 #import "Share.h"
+#import "UserDetailViewController.h"
 
 #define kImageViewTag 81521
 
@@ -235,24 +236,29 @@
     _tableHeaderView.backgroundColor = [UIColor whiteColor];
     _tableView.tableHeaderView = _tableHeaderView;
     
+    _backUserView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, _tableHeaderView.frame.size.width, 90)];
+    _backUserView.backgroundColor = [UIColor clearColor];
+    _backUserView.userInteractionEnabled = YES;
+    [_tableHeaderView addSubview:_backUserView];
+    
     _avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 15, 60, 60)];
     _avatarImageView.backgroundColor = [UIColor clearColor];
     _avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
     _avatarImageView.layer.masksToBounds = YES;
     _avatarImageView.layer.cornerRadius = 30.0;
-    [_tableHeaderView addSubview:_avatarImageView];
+    [_backUserView addSubview:_avatarImageView];
     
     _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(_avatarImageView.frame.origin.x + _avatarImageView.frame.size.width + 10, _avatarImageView.frame.origin.y, 130, 20)];
     _nameLabel.backgroundColor = [UIColor clearColor];
     _nameLabel.textColor = [UIColor darkGrayColor];
     _nameLabel.font = [UIFont systemFontOfSize:18.0f];
-    [_tableHeaderView addSubview:_nameLabel];
+    [_backUserView addSubview:_nameLabel];
     
     _timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(_nameLabel.frame.origin.x, _nameLabel.frame.origin.y + _nameLabel.frame.size.height + 5, _nameLabel.frame.size.width + 30, 15)];
     _timeLabel.backgroundColor = [UIColor clearColor];
     _timeLabel.textColor = [UIColor grayColor];
     _timeLabel.font = [UIFont systemFontOfSize:14.0f];
-    [_tableHeaderView addSubview:_timeLabel];
+    [_backUserView addSubview:_timeLabel];
     
 //    _followingButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
 //    _followingButton.frame = CGRectMake(_timeLabel.frame.origin.x, _timeLabel.frame.origin.y + _timeLabel.frame.size.height + 5, 60, 20);
@@ -287,7 +293,11 @@
     _followButton.layer.borderWidth = 1.0;
     _followButton.layer.borderColor = [[UIColor grayColor] CGColor];
     [_followButton addTarget:self action:@selector(clickFollowButton:) forControlEvents:UIControlEventTouchUpInside];
-    [_tableHeaderView addSubview:_followButton];
+    [_backUserView addSubview:_followButton];
+    
+    UITapGestureRecognizer *oneFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAvatarImageView:)];
+    [_backUserView addGestureRecognizer:oneFingerTap];
+    [oneFingerTap release];
     
     _contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(_avatarImageView.frame.origin.x, _avatarImageView.frame.origin.y + _avatarImageView.frame.size.height + 10, _tableHeaderView.frame.size.width - 15 * 2, 60)];
     _contentLabel.backgroundColor = [UIColor clearColor];
@@ -430,7 +440,7 @@
                               ];
     for (UIImageView *badge in badges)
     {
-        [_tableHeaderView addSubview:badge];
+        [_backUserView addSubview:badge];
     }
     
     CGSize contentSize = [LPUtility getTextHeightWithText:deal.content
@@ -591,6 +601,18 @@
                                _isLoading = NO;
                                
                            }];
+    }
+}
+
+#pragma mark - UIGestureRecognizer
+
+- (void)tapAvatarImageView:(UITapGestureRecognizer *)gestureRecognizer
+{
+    if(_deal != nil)
+    {
+        UserDetailViewController *userDetailVC = [[[UserDetailViewController alloc] init] autorelease];
+        userDetailVC.userId = _deal.user.userId;
+        [self.navigationController pushViewController:userDetailVC animated:YES];
     }
 }
 

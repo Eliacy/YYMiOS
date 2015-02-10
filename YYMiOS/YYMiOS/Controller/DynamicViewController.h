@@ -8,11 +8,15 @@
 
 #import "BaseViewController.h"
 #import "SRRefreshView.h"
+#import "TitleExpandKit.h"
 
 @class TabViewController;
 
 @interface DynamicViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate, SRRefreshDelegate>
 {
+    TitleExpandKit *_expandKit;
+    NSMutableArray  *_optionsArray;
+    
     TabViewController   *_tabVC;
     
     SRRefreshView   *_slimeView;
@@ -21,6 +25,8 @@
     
     UIButton        *_bestButton;
     UIButton        *_addButton;
+    
+    NSInteger       _selected;
 }
 
 @property (assign, nonatomic) TabViewController *tabVC;

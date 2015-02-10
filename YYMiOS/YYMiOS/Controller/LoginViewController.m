@@ -29,7 +29,7 @@
     }
     else
     {
-        
+        [super clickBackButton:sender];
     }
 }
 
@@ -129,7 +129,7 @@
     [super loadView];
     
     _titleLabel.text = @"登录";
-    _backButton.hidden = YES;
+//    _backButton.hidden = YES;
     
     if(_token != nil && ![_token isEqualToString:@""])
     {

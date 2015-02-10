@@ -8,6 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
+typedef enum
+{
+    YYMExpandAlignLeft,
+    YYMExpandAlignCenter,
+    YYMExpandAlignRight,
+    
+} YYMExpandAlign;
+
 @protocol TitleExpandKitDelegate;
 
 @interface TitleExpandKit : NSObject <UITableViewDataSource, UITableViewDelegate>
@@ -24,10 +32,10 @@
 @property (assign, nonatomic) id<TitleExpandKitDelegate> delegate;
 @property (retain, nonatomic) NSMutableArray *itemArray;
 
-+ (id)sharedKit;
-
 - (void)show;
 - (void)hide;
+- (void)setAlign:(YYMExpandAlign)align;
+- (void)setWidth:(NSInteger)width;
 
 @end
 

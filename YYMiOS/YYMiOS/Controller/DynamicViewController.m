@@ -15,8 +15,9 @@
 #import "ShareKit.h"
 #import "Share.h"
 #import "DealEditViewController.h"
+#import "Tip.h"
 
-@interface DynamicViewController () <DynamicCellDelegate>
+@interface DynamicViewController () <DynamicCellDelegate, TitleExpandKitDelegate>
 
 @end
 
@@ -28,7 +29,15 @@
 
 - (void)clickBestButton:(id)sender
 {
-
+    if(_expandKit == nil)
+    {
+        _expandKit = [[[TitleExpandKit alloc] init] retain];
+    }
+    [_expandKit setItemArray:_optionsArray];
+    [_expandKit setDelegate:self];
+    [_expandKit setAlign:YYMExpandAlignLeft];
+    [_expandKit setWidth:60];
+    [_expandKit show];
 }
 
 - (void)clickAddButton:(id)sender
@@ -45,6 +54,14 @@
     if(self != nil)
     {
         _dynamicArray = [[NSMutableArray alloc] initWithCapacity:0];
+        _selected = 0;
+        _optionsArray = [[NSMutableArray alloc] initWithCapacity:0];
+        Tip *option = [[[Tip alloc] init] autorelease];
+        option.title = @"最新";
+        [_optionsArray addObject:option];
+        option = [[[Tip alloc] init] autorelease];
+        option.title = @"精选";
+        [_optionsArray addObject:option];
     }
     
     return self;
@@ -61,7 +78,7 @@
     _bestButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     _bestButton.frame = CGRectMake(2, 2, 40, 40);
     _bestButton.backgroundColor = [UIColor clearColor];
-    [_bestButton setTitle:@"精选" forState:UIControlStateNormal];
+    [_bestButton setTitle:@"最新" forState:UIControlStateNormal];
     [_bestButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     _bestButton.titleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
     [_bestButton addTarget:self action:@selector(clickBestButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -116,7 +133,7 @@
     
     [Deal getDealDetailListWithDealId:0
                                 brief:1
-                             selected:0
+                             selected:_selected
                             published:0
                                offset:0
                                 limit:20
@@ -207,7 +224,7 @@
     
     [Deal getDealDetailListWithDealId:0
                                 brief:1
-                             selected:0
+                             selected:_selected
                             published:0
                                offset:0
                                 limit:20
@@ -253,7 +270,7 @@
     
     [Deal getDealDetailListWithDealId:0
                                 brief:1
-                             selected:0
+                             selected:_selected
                             published:0
                                offset:[_dynamicArray count]
                                 limit:20
@@ -451,6 +468,34 @@
                                
                            }];
     }
+}
+
+#pragma mark - TitleExpandKitDelegate
+
+- (void)titleExpandKitDidSelectWithIndex:(NSIndexPath *)indexPath
+{
+    [_bestButton setTitle:[[_optionsArray objectAtIndex:indexPath.row] title] forState:UIControlStateNormal];
+    
+    switch (indexPath.row) {
+        case 0:
+            if(_selected != 0)
+            {
+                _selected = 0;
+                [self refreshAfterPull];
+            }
+            break;
+        case 1:
+            if(_selected != 1)
+            {
+                _selected = 1;
+                [self refreshAfterPull];
+            }
+            break;
+            
+        default:
+            break;
+    }
+    
 }
 
 @end

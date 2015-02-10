@@ -20,6 +20,18 @@
 
 @synthesize tip = _tip;
 
+- (void)clickMoreButton:(id)sender
+{
+    if(_expandKit == nil)
+    {
+        _expandKit = [[[TitleExpandKit alloc] init] retain];
+    }
+    [_expandKit setItemArray:_tipArray];
+    [_expandKit setDelegate:self];
+    [_expandKit setAlign:YYMExpandAlignRight];
+    [_expandKit show];
+}
+
 - (id)init
 {
     self = [super init];
@@ -34,6 +46,14 @@
 - (void)loadView
 {
     [super loadView];
+    
+    _moreButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    _moreButton.frame = CGRectMake(_headerView.frame.size.width - 10 - 40, 2, 40, 40);
+    _moreButton.backgroundColor = [UIColor clearColor];
+    [_moreButton setTitle:@"更多" forState:UIControlStateNormal];
+    [_moreButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _moreButton.titleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
+    [_moreButton addTarget:self action:@selector(clickMoreButton:) forControlEvents:UIControlEventTouchUpInside];
     
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, _adjustView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - _adjustView.frame.size.height)];
     _tableView.backgroundColor = [UIColor clearColor];
@@ -66,8 +86,18 @@
                         cityId:[[[NSUserDefaults standardUserDefaults] objectForKey:@"city_id"] integerValue]
                        success:^(NSArray *array) {
                            
+                           if([_tipArray count] > 1)
+                           {
+                               [_moreButton removeFromSuperview];
+                           }
+                           
                            if([array count] > 0)
                            {
+                               if([array count] > 1)
+                               {
+                                   [_headerView addSubview:_moreButton];
+                               }
+                               
                                [_tipArray removeAllObjects];
                                [_tipArray addObjectsFromArray:array];
                                
@@ -293,15 +323,20 @@
     [self.navigationController pushViewController:shopVC animated:YES];
 }
 
-- (void)tapTitleLabel:(UITapGestureRecognizer *)gestureRecognizer
-{
-    if(gestureRecognizer.state == UIGestureRecognizerStateEnded)
-    {
-        [[TitleExpandKit sharedKit] setItemArray:_tipArray];
-        [[TitleExpandKit sharedKit] setDelegate:self];
-        [[TitleExpandKit sharedKit] show];
-    }
-}
+//- (void)tapTitleLabel:(UITapGestureRecognizer *)gestureRecognizer
+//{
+//    if(gestureRecognizer.state == UIGestureRecognizerStateEnded)
+//    {
+//        if(_expandKit == nil)
+//        {
+//            _expandKit = [[[TitleExpandKit alloc] init] retain];
+//        }
+//        [_expandKit setItemArray:_tipArray];
+//        [_expandKit setDelegate:self];
+//        [_expandKit setAlign:YYMExpandAlignRight];
+//        [_expandKit show];
+//    }
+//}
 
 #pragma mark - TitleExpandKitDelegate
 

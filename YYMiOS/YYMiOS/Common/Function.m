@@ -61,6 +61,7 @@
     return bgView;
 }
 
+
 #pragma mark - 添加一条默认数据
 + (EMMessage *)addMessageWithSender:(NSString *)sender Receiver:(NSString *)receiver Text:(NSString *)text
 {

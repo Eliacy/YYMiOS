@@ -121,16 +121,17 @@ static id APIClient = nil;
             [_headDictionary setObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"user_access_token"] forKey:@"token"];
         }
         NSString *string = [self stringFromBaseURL:path withParams:params];
+        NSLog(@"%@", string);
         
-        ASIHTTPRequest *request = [[[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:[[kHTTPRequestPrefix stringByAppendingString:string] stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding]]] autorelease];
+        ASIHTTPRequest *request = [[[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:[[kHTTPRequestPrefix stringByAppendingString:string] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]] autorelease];
         [request addRequestHeader:@"X-Auth-Signature" value:hashedValue(kAPISecret, string)];
         
         [request setCompletionBlock:^{
             
             NSData *data = [request responseData];
             NSDictionary *respondObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-            
-            NSLog(@"%@", respondObject);
+            NSLog(@"%@",[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding]);
+            // NSLog(@"%@", respondObject);
             
             if(respondObject && [respondObject isKindOfClass:[NSDictionary class]])
             {
@@ -153,6 +154,7 @@ static id APIClient = nil;
         [request setFailedBlock:^{
             
             NSError *error = [request error];
+            NSLog(@"%@",[error localizedDescription]);
             failureBlock(error);
             
         }];

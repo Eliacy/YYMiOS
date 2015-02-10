@@ -13,18 +13,6 @@
 @synthesize delegate = _delegate;
 
 #pragma mark - public
-static id sharedKit = nil;
-+ (id)sharedKit
-{
-    @synchronized(sharedKit){
-        if(sharedKit == nil)
-        {
-            sharedKit = [[self alloc] init];
-        }
-    }
-    
-    return sharedKit;
-}
 
 - (id)init
 {
@@ -61,7 +49,32 @@ static id sharedKit = nil;
 
 - (void)hide
 {
+    
     [_backgroundView removeFromSuperview];
+    
+}
+
+- (void)setAlign:(YYMExpandAlign)align
+{
+    switch (align) {
+        case YYMExpandAlignLeft:
+            _tableView.frame = CGRectMake(5, 75, _tableView.frame.size.width, _tableView.frame.size.height);
+            break;
+        case YYMExpandAlignCenter:
+            _tableView.frame = CGRectMake(75, 75, _tableView.frame.size.width, _tableView.frame.size.height);
+            break;
+        case YYMExpandAlignRight:
+            _tableView.frame = CGRectMake(145, 75, _tableView.frame.size.width, _tableView.frame.size.height);
+            break;
+            
+        default:
+            break;
+    }
+}
+
+- (void)setWidth:(NSInteger)width
+{
+    _tableView.frame = CGRectMake(_tableView.frame.origin.x, _tableView.frame.origin.y, width, _tableView.frame.size.height);
 }
 
 - (void)setItemArray:(NSMutableArray *)itemArray
@@ -100,6 +113,19 @@ static id sharedKit = nil;
     
     cell.textLabel.font = [UIFont systemFontOfSize:14.0f];
     cell.textLabel.text = [[_itemArray objectAtIndex:indexPath.row] title];
+    
+    // Remove seperator inset
+    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+        [cell setSeparatorInset:UIEdgeInsetsZero];
+    }
+    // Prevent the cell from inheriting the Table View's margin settings
+    if ([cell respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]) {
+        [cell setPreservesSuperviewLayoutMargins:NO];
+    }
+    // Explictly set your cell's layout margins
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+        [cell setLayoutMargins:UIEdgeInsetsZero];
+    }
     
     return cell;
 }

@@ -21,14 +21,6 @@
     NSMutableArray  *_areaArray;
     NSMutableArray  *_categoryArray;
     
-    UIButton        *_scaleButton;
-    UIButton        *_categoryButton;
-    UIButton        *_orderButton;
-    
-    BOOL            _scaleExpandFlag;
-    BOOL            _categoryExpandFlag;
-    BOOL            _orderExpandFlag;
-    
     NSInteger       _range;
     NSInteger       _areaId;
     NSInteger       _categoryId;

@@ -22,6 +22,26 @@
 
 @interface RATableViewCell : UITableViewCell
 
-- (void)setupWithTitle:(NSString *)title level:(NSInteger)level;
+/**
+ *  主标题
+ */
+@property (strong, nonatomic) UILabel *customTitleLabel;
+
+/**
+ *  副标题
+ */
+@property (strong, nonatomic) UILabel *subtitleLabel;
+
+/**
+ *  设置cell内容
+ *
+ *  @param title                    文本
+ *  @param level                    层级
+ *  @param selectedAreaArray        范围选择情况
+ *  @param selectedCategoryArray    分类选择情况
+ *  @param selectedOrderArray       排序选择情况
+ */
+- (void)setupWithTitle:(NSString *)title level:(NSInteger)level
+    selectedAreaArray:(NSArray *)selectedAreaArray selectedCategoryArray:(NSArray *)selectedCategoryArray selectedOrderArray:(NSArray *)selectedOrderArray;
 
 @end

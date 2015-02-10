@@ -24,6 +24,7 @@
     NSMutableArray  *_commentArray;
     
     UIView          *_tableHeaderView;
+    UIImageView     *_backUserView;
     UIImageView     *_avatarImageView;
     UILabel         *_nameLabel;
     UILabel         *_timeLabel;

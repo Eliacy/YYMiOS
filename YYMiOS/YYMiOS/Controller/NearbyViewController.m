@@ -73,12 +73,6 @@
 #pragma mark - 搜索按钮
 - (void)clickSearchButton:(id)sender
 {
-    //检测输入合法性
-    if(mySearchBar.text.length==0){
-        [self.view makeToast:@"您未输入内容" duration:TOAST_DURATION position:@"center"];
-        return;
-    }
-    
     //隐藏搜索列表
     [self searchListHidden];
     
@@ -127,6 +121,7 @@
                           }
                       } failure:^(NSError *error) {
                           [self.view hideToastActivity];
+                          [self.view makeToast:@"网络异常" duration:TOAST_DURATION position:@"center"];
                       }];
 }
 
@@ -150,6 +145,17 @@
     searchTableView.hidden = NO;
     cancelBtn.hidden = NO;
     searchBtn.hidden = NO;
+}
+
+#pragma mark - 清空筛选条件
+- (void)clearSelectedFiltrates
+{
+    _areaId = 0;
+    _categoryId = 0;
+    _order = 0;
+    [_selectedAreaChildArray removeAllObjects];
+    [_selectedCategoryChildArray removeAllObjects];
+    [_selectedOrderChildArray removeAllObjects];
 }
 
 
@@ -296,6 +302,14 @@
     }
     _isAppear = YES;
     
+    //切换城市 则重置筛选条件
+    if([[[NSUserDefaults standardUserDefaults] objectForKey:@"refresh_nearby_data"] boolValue] == YES){
+        //更换地址后 清空筛选条件
+        [self clearSelectedFiltrates];
+        
+        //如果搜索框内有文本清空文本
+        mySearchBar.text = @"";
+    }
     
     if([_nearbyArray count] == 0 || [[[NSUserDefaults standardUserDefaults] objectForKey:@"refresh_nearby_data"] boolValue] == YES)
     {
@@ -330,6 +344,7 @@
                               [self.view hideToastActivity];
                           } failure:^(NSError *error) {
                               [self.view hideToastActivity];
+                              [self.view makeToast:@"网络异常" duration:TOAST_DURATION position:@"center"];
                           }];
     }
 }
@@ -419,6 +434,7 @@
                           
                           _isLoading = NO;
                           [self.view hideToastActivity];
+                          [self.view makeToast:@"网络异常" duration:TOAST_DURATION position:@"center"];
                       }];
 }
 
@@ -467,6 +483,7 @@
                           
                           _isLoading = NO;
                           [self.view hideToastActivity];
+                          [self.view makeToast:@"网络异常" duration:TOAST_DURATION position:@"center"];
                       }];
 }
 
@@ -586,6 +603,7 @@
     [searchTableView reloadData];
     return YES;
 }
+
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
     //显示filterTableView
@@ -595,6 +613,12 @@
         filterTableView.hidden = YES;
     }
     [filterTableView reloadData];
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    //搜索
+    [self clickSearchButton:nil];
 }
 
 

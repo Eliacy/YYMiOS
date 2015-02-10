@@ -17,7 +17,6 @@
     
     SRRefreshView   *_slimeView;
     UITableView     *_tableView;
-    NSMutableArray  *_nearbyArray;
     
     UIButton        *_filterButton;
     UIButton        *_mapButton;
@@ -26,12 +25,21 @@
     NSInteger       _areaId;
     NSInteger       _categoryId;
     NSInteger       _order;
+    
+    
 }
 
 @property (assign, nonatomic) TabViewController *tabVC;
+@property (assign, nonatomic) NSMutableArray *nearbyArray;
+
 
 @property (assign, nonatomic) NSInteger areaId;
 @property (assign, nonatomic) NSInteger categoryId;
 @property (assign, nonatomic) NSInteger order;
+
+//筛选界面所选数据
+@property (assign, nonatomic) NSMutableArray *selectedAreaChildArray;
+@property (assign, nonatomic) NSMutableArray *selectedCategoryChildArray;
+@property (assign, nonatomic) NSMutableArray *selectedOrderChildArray;
 
 @end
