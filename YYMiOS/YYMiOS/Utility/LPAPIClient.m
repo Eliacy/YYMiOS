@@ -389,6 +389,8 @@ static id APIClient = nil;
  获取国家列表
  */
 - (void)getCountryListWithCountryId:(NSInteger)countryId
+                          longitude:(float)longitude
+                           latitude:(float)latitude
                             success:(LPAPISuccessBlock)successBlock
                             failure:(LPAPIFailureBlock)failureBlock
 {
@@ -397,6 +399,12 @@ static id APIClient = nil;
     if(countryId > 0)
     {
         [params setObject:[NSString stringWithFormat:@"%i", (int)countryId] forKey:@"id"];
+    }
+    if(longitude > 0){
+        [params setObject:[NSNumber numberWithFloat:longitude] forKey:@"longitude"];
+    }
+    if(latitude > 0){
+        [params setObject:[NSNumber numberWithFloat:latitude] forKey:@"latitude"];
     }
     
     [self sendRequestPath:@"/rpc/countries"
