@@ -33,12 +33,19 @@
 #pragma mark - 确认
 - (void)confirmAction
 {
+    
+    if(!selectedCity){
+        [self.view makeToast:@"请选择城市" duration:TOAST_DURATION position:@"center"];
+        return;
+    }
+
     //保存所选城市 id、name
     [Function setAsynchronousWithObject:[NSNumber numberWithInt:selectedCity.cityId] Key:@"city_id"];
     [Function setAsynchronousWithObject:selectedCity.cityName Key:@"city_name"];
     
-    //重置页面刷新条件
+    //选择城市后重置首页、天气、附近三个页面刷新条件
     [Function setAsynchronousWithObject:[NSNumber numberWithBool:YES] Key:@"refresh_home_data"];
+    [Function setAsynchronousWithObject:[NSNumber numberWithBool:YES] Key:@"refresh_weather_data"];
     [Function setAsynchronousWithObject:[NSNumber numberWithBool:YES] Key:@"refresh_nearby_data"];
     
     [self.navigationController popViewControllerAnimated:YES];
@@ -99,9 +106,16 @@
                                longitude:location.coordinate.longitude
                                 latitude:location.coordinate.latitude
                                  success:^(NSArray *array) {
-                                     //获取国家列表
+                                     //获取国家列表 并显示当前选择城市
                                      [countryArray removeAllObjects];
                                      [countryArray addObjectsFromArray:array];
+                                     for(Country *coutry in countryArray){
+                                         for(City *city in coutry.cityArray){
+                                             if([city.cityName isEqualToString:[Function getAsynchronousWithKey:@"city_name"]]){
+                                                 selectedCity = city;
+                                             }
+                                         }
+                                     }
                                      
                                      //根据国家列表 添加相应section判断条件
                                      [isSectionExpandArray removeAllObjects];
@@ -116,9 +130,9 @@
                                          [isSectionExpandArray addObject:[NSNumber numberWithBool:isSectionExpand]];
                                      }
                                      
+                                     [self.view hideToastActivity];
                                      [countryTableView reloadData];
                                      
-                                     [self.view hideToastActivity];
                                  }
                                  failure:^(NSError *error) {
                                      [self.view hideToastActivity];

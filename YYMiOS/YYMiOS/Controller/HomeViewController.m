@@ -129,13 +129,17 @@
                                      success:^(NSArray *array) {
                                          
                                          for(Country *country in array){
-                                             //默认取美国的default_city_id
-                                             if(country.countryId==1){
-                                                 //保存于本地数据库
-                                                 [Function setAsynchronousWithObject:[NSNumber numberWithInt:country.defaultCityId] Key:@"city_id"];
-                                                 [Function setAsynchronousWithObject:country.countryName Key:@"city_name"];
-                                                 //更改标题
-                                                 _titleLabel.text = [[Function getAsynchronousWithKey:@"city_name"] stringByAppendingString:@" ∨"];
+                                             //默认取id与美国的default_city_id一致的城市
+                                             if([country.countryName isEqualToString:@"美国"]){
+                                                 for(City *city in country.cityArray){
+                                                     if(city.cityId==country.defaultCityId){
+                                                         //保存于本地数据库
+                                                         [Function setAsynchronousWithObject:[NSNumber numberWithInt:city.cityId] Key:@"city_id"];
+                                                         [Function setAsynchronousWithObject:city.cityName Key:@"city_name"];
+                                                         //更改标题
+                                                         _titleLabel.text = [[Function getAsynchronousWithKey:@"city_name"] stringByAppendingString:@" ∨"];
+                                                     }
+                                                 }
                                              }
                                          }
                                          

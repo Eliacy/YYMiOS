@@ -70,17 +70,24 @@
     }
     _isAppear = YES;
     
-    [Weather getCityForecastWithCityId:[[[NSUserDefaults standardUserDefaults] objectForKey:@"city_id"] integerValue]
-                               success:^(NSArray *array) {
-                                   
-                                   if([array count] > 0)
-                                   {
-                                       [self setWeather:[array objectAtIndex:0]];
-                                   }
-                                   
-                               } failure:^(NSError *error) {
-                                   
-                               }];
+    if([_weather.forecastArray count]==0||[[Function getAsynchronousWithKey:@"refresh_weather_data"] boolValue]==YES){
+        [Function setAsynchronousWithObject:[NSNumber numberWithBool:NO] Key:@"refresh_weather_data"];
+        
+        [self.view makeToastActivity];
+        [Weather getCityForecastWithCityId:[[[NSUserDefaults standardUserDefaults] objectForKey:@"city_id"] integerValue]
+                                   success:^(NSArray *array) {
+                                       
+                                       if([array count] > 0)
+                                       {
+                                           [self setWeather:[array objectAtIndex:0]];
+                                       }
+                                       
+                                       [self.view hideToastActivity];
+                                   } failure:^(NSError *error) {
+                                       [self.view hideToastActivity];
+                                       [self.view makeToast:@"网络异常" duration:TOAST_DURATION position:@"center"];
+                                   }];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
