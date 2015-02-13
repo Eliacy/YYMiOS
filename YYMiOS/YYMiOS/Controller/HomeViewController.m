@@ -15,13 +15,15 @@
 #import "MessageViewController.h"
 #import "Article.h"
 #import "City.h"
-#import "TitleExpandKit.h"
+#import "Country.h"
+#import "ContrylistViewController.h"
 
-@interface HomeViewController () <TitleExpandKitDelegate>
+@interface HomeViewController ()
 
 @end
 
 @implementation HomeViewController
+
 
 @synthesize tabVC = _tabVC;
 
@@ -39,6 +41,8 @@
     [self.tabVC.navigationController pushViewController:messageVC animated:YES];
 }
 
+
+
 #pragma mark - super
 
 - (id)init
@@ -49,6 +53,7 @@
         _cityArray = [[NSMutableArray alloc] initWithCapacity:0];
         
         _homeArray = [[NSMutableArray alloc] initWithCapacity:0];
+        
     }
     
     return self;
@@ -114,51 +119,62 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
-    [City getCityListWithCityId:0
-                        success:^(NSArray *array) {
-                            
-                            [_cityArray removeAllObjects];
-                            [_cityArray addObjectsFromArray:array];
-                            
-                            if([_cityArray count] > 0)
-                            {
-                                _titleLabel.text = [[[_cityArray objectAtIndex:0] cityName] stringByAppendingString:@" ∨"];
-                                
-                                [[NSUserDefaults standardUserDefaults] setObject:[[_cityArray objectAtIndex:0] cityName] forKey:@"city_name"];
-                                [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:[[_cityArray objectAtIndex:0] cityId]] forKey:@"city_id"];
-                                [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"refresh_nearby_data"];
-                                [[NSUserDefaults standardUserDefaults] synchronize];
-                                
-                                [Article getArticleListWithArticleId:0
-                                                               brief:1
-                                                              offset:0
-                                                               limit:20
-                                                              cityId:[[_cityArray objectAtIndex:0] cityId]
-                                                             success:^(NSArray *array) {
-                                                                 
-                                                                 [_homeArray removeAllObjects];
-                                                                 [_homeArray addObjectsFromArray:array];
-                                                                 [_tableView reloadData];
-                                                                 
-                                                                 if([array count] < 20)
-                                                                 {
-                                                                     _isHaveMore = NO;
-                                                                 }
-                                                                 else
-                                                                 {
-                                                                     _isHaveMore = YES;
-                                                                 }
-                                                                 
-                                                             } failure:^(NSError *error) {
-                                                                 
-                                                             }];
-                            }
-                            
-                        } failure:^(NSError *error) {
-                            
-                        }];
+    //首次进入未选择城市时 填充美国下方默认城市 以请求文章列表
+    if([[Function getAsynchronousWithKey:@"city_name"] length]==0){
+        [self.view makeToastActivity];
+        [Country getCountryListWithCountryId:0
+                                   longitude:0
+                                    latitude:0
+                                     success:^(NSArray *array) {
+                                         
+                                         for(Country *country in array){
+                                             //默认取美国的default_city_id
+                                             if(country.countryId==1){
+                                                 //保存于本地数据库
+                                                 [Function setAsynchronousWithObject:[NSNumber numberWithInt:country.defaultCityId] Key:@"city_id"];
+                                                 [Function setAsynchronousWithObject:country.countryName Key:@"city_name"];
+                                                 //更改标题
+                                                 _titleLabel.text = [[Function getAsynchronousWithKey:@"city_name"] stringByAppendingString:@" ∨"];
+                                             }
+                                         }
+                                         
+                                         //请求文章列表
+                                         [Article getArticleListWithArticleId:0
+                                                                        brief:1
+                                                                       offset:0
+                                                                        limit:20
+                                                                       cityId:[[Function getAsynchronousWithKey:@"city_id"] integerValue]
+                                                                      success:^(NSArray *array) {
+                                                                          
+                                                                          [_homeArray removeAllObjects];
+                                                                          [_homeArray addObjectsFromArray:array];
+                                                                          [_tableView reloadData];
+                                                                          
+                                                                          if([array count] < 20)
+                                                                          {
+                                                                              _isHaveMore = NO;
+                                                                          }
+                                                                          else
+                                                                          {
+                                                                              _isHaveMore = YES;
+                                                                          }
+                                                                          
+                                                                          [self.view hideToastActivity];
+                                                                          
+                                                                      } failure:^(NSError *error) {
+                                                                          [self.view hideToastActivity];
+                                                                          [self.view makeToast:@"网络异常" duration:TOAST_DURATION position:@"center"];
+                                                                      }];
+                                         
+                                         
+                                     }
+                                     failure:^(NSError *error) {
+                                         [self.view hideToastActivity];
+                                         [self.view makeToast:@"网络异常" duration:TOAST_DURATION position:@"center"];
+                                     }];
+    }
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -170,6 +186,40 @@
         return;
     }
     _isAppear = YES;
+    
+    //用户选择城市后返回该页面 应刷新文章列表
+    if([[Function getAsynchronousWithKey:@"refresh_home_data"] boolValue]==YES){
+        
+        [Function setAsynchronousWithObject:[NSNumber numberWithBool:NO] Key:@"refresh_home_data"];
+        
+        [self.view makeToastActivity];
+        [Article getArticleListWithArticleId:0
+                                       brief:1
+                                      offset:0
+                                       limit:20
+                                      cityId:[[Function getAsynchronousWithKey:@"city_id"] integerValue]
+                                     success:^(NSArray *array) {
+                                         
+                                         [_homeArray removeAllObjects];
+                                         [_homeArray addObjectsFromArray:array];
+                                         [_tableView reloadData];
+                                         
+                                         if([array count] < 20)
+                                         {
+                                             _isHaveMore = NO;
+                                         }
+                                         else
+                                         {
+                                             _isHaveMore = YES;
+                                         }
+                                         [self.view hideToastActivity];
+                                     } failure:^(NSError *error) {
+                                         [self.view hideToastActivity];
+                                         [self.view makeToast:@"网络异常" duration:TOAST_DURATION position:@"center"];
+                                     }];
+    }
+    //更改标题
+    _titleLabel.text = [[Function getAsynchronousWithKey:@"city_name"] stringByAppendingString:@" ∨"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -188,15 +238,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 #pragma mark - UIScrollViewDelegate
 
@@ -263,6 +304,7 @@
                                  }];
 }
 
+#pragma mark - 加载更多
 - (void)loadMore
 {
     if(!_isHaveMore)
@@ -345,50 +387,10 @@
 {
     if(gestureRecognizer.state == UIGestureRecognizerStateEnded)
     {
-        if(_expandKit == nil)
-        {
-            _expandKit = [[[TitleExpandKit alloc] init] retain];
-        }
-        [_expandKit setItemArray:_cityArray];
-        [_expandKit setDelegate:self];
-        [_expandKit show];
+        //跳转国家选择页面
+        ContrylistViewController *countryListVC = [[[ContrylistViewController alloc] init] autorelease];
+        [self.tabVC.navigationController pushViewController:countryListVC animated:YES];
     }
-}
-
-#pragma mark - TitleExpandKitDelegate
-
-- (void)titleExpandKitDidSelectWithIndex:(NSIndexPath *)indexPath
-{
-    _titleLabel.text = [[[_cityArray objectAtIndex:indexPath.row] cityName] stringByAppendingString:@" ∨"];
-    
-    [[NSUserDefaults standardUserDefaults] setObject:[[_cityArray objectAtIndex:indexPath.row] cityName] forKey:@"city_name"];
-    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:[[_cityArray objectAtIndex:indexPath.row] cityId]] forKey:@"city_id"];
-    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"refresh_nearby_data"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    [Article getArticleListWithArticleId:0
-                                   brief:1
-                                  offset:0
-                                   limit:20
-                                  cityId:[[_cityArray objectAtIndex:indexPath.row] cityId]
-                                 success:^(NSArray *array) {
-                                     
-                                     [_homeArray removeAllObjects];
-                                     [_homeArray addObjectsFromArray:array];
-                                     [_tableView reloadData];
-                                     
-                                     if([array count] < 20)
-                                     {
-                                         _isHaveMore = NO;
-                                     }
-                                     else
-                                     {
-                                         _isHaveMore = YES;
-                                     }
-                                     
-                                 } failure:^(NSError *error) {
-                                     
-                                 }];
 }
 
 - (void)refreshMessageCount:(NSInteger)count
@@ -407,5 +409,7 @@
         _messageCountLabel.text = string;
     }
 }
+
+
 
 @end

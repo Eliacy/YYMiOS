@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Constant.h"
 #import "Function.h"
+#import "StaticVariable.h"
 
 @interface BaseViewController : UIViewController
 {
