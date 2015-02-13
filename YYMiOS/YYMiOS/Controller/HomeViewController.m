@@ -191,8 +191,8 @@
     }
     _isAppear = YES;
     
-    //用户选择城市后返回该页面 应刷新文章列表
-    if([[Function getAsynchronousWithKey:@"refresh_home_data"] boolValue]==YES){
+    //用户进入应用没有数据时或选择城市后返回该页面 刷新文章列表
+    if([_homeArray count]==0||[[Function getAsynchronousWithKey:@"refresh_home_data"] boolValue]==YES){
         
         [Function setAsynchronousWithObject:[NSNumber numberWithBool:NO] Key:@"refresh_home_data"];
         
@@ -279,6 +279,7 @@
     }
     _isLoading = YES;
     
+    [self.view makeToastActivity];
     [Article getArticleListWithArticleId:0
                                    brief:1
                                   offset:0
@@ -300,11 +301,12 @@
                                      {
                                          _isHaveMore = YES;
                                      }
-                                     
+                                     [self.view hideToastActivity];
                                  } failure:^(NSError *error) {
                                      
                                      _isLoading = NO;
-                                     
+                                     [self.view hideToastActivity];
+                                     [self.view makeToast:@"网络异常" duration:TOAST_DURATION position:@"center"];
                                  }];
 }
 
@@ -322,6 +324,7 @@
     }
     _isLoading = YES;
     
+    [self.view makeToastActivity];
     [Article getArticleListWithArticleId:0
                                    brief:1
                                   offset:[_homeArray count]
@@ -343,10 +346,12 @@
                                          _isHaveMore = YES;
                                      }
                                      
+                                     [self.view hideToastActivity];
                                  } failure:^(NSError *error) {
                                      
                                      _isLoading = NO;
-                                     
+                                     [self.view hideToastActivity];
+                                     [self.view makeToast:@"网络异常" duration:TOAST_DURATION position:@"center"];
                                  }];
 }
 

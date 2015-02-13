@@ -9,6 +9,8 @@
 #import "WeatherViewController.h"
 #import "WeatherCurrentCell.h"
 #import "WeatherForecastCell.h"
+#import "ContrylistViewController.h"
+#import "TabViewController.h"
 
 @interface WeatherViewController ()
 
@@ -35,7 +37,6 @@
     [super loadView];
     
     self.view.frame = CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width, self.view.frame.size.height - 49);
-    _titleLabel.text = @"天气";
     _backButton.hidden = YES;
     
     _backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, _adjustView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - _adjustView.frame.size.height)];
@@ -88,6 +89,7 @@
                                        [self.view makeToast:@"网络异常" duration:TOAST_DURATION position:@"center"];
                                    }];
     }
+    _titleLabel.text = [Function getAsynchronousWithKey:@"city_name"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -324,6 +326,17 @@
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return nil;
+}
+
+#pragma mark - 标题点击事件
+- (void)tapTitleLabel:(UITapGestureRecognizer *)gestureRecognizer
+{
+    if(gestureRecognizer.state == UIGestureRecognizerStateEnded)
+    {
+        //跳转国家选择页面
+        ContrylistViewController *countryListVC = [[[ContrylistViewController alloc] init] autorelease];
+        [self.tabVC.navigationController pushViewController:countryListVC animated:YES];
+    }
 }
 
 @end

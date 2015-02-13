@@ -149,4 +149,10 @@
     return [info valueForKey:key];
 }
 
+#pragma mark - 返回当前时间的毫秒格式
++ (UInt64)getCurrentSysTime
+{
+    return [[NSDate date] timeIntervalSince1970];
+}
+
 @end

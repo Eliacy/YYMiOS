@@ -11,6 +11,9 @@
 #import "City.h"
 #import "CountryCell.h"
 
+//一周的毫秒值 正负一周之内 不在请求国家列表
+#define WEEK_MILLISECOND 604800000
+
 @interface ContrylistViewController ()
 
 @end
@@ -43,8 +46,9 @@
     [Function setAsynchronousWithObject:[NSNumber numberWithInt:selectedCity.cityId] Key:@"city_id"];
     [Function setAsynchronousWithObject:selectedCity.cityName Key:@"city_name"];
     
-    //选择城市后重置首页、天气、附近三个页面刷新条件
+    //选择城市后重置首页、动态、天气、附近三个页面刷新条件
     [Function setAsynchronousWithObject:[NSNumber numberWithBool:YES] Key:@"refresh_home_data"];
+    [Function setAsynchronousWithObject:[NSNumber numberWithBool:YES] Key:@"refresh_dynamic_data"];
     [Function setAsynchronousWithObject:[NSNumber numberWithBool:YES] Key:@"refresh_weather_data"];
     [Function setAsynchronousWithObject:[NSNumber numberWithBool:YES] Key:@"refresh_nearby_data"];
     
@@ -101,6 +105,7 @@
 #pragma mark - 获取国家列表
 - (void)loadCountryList
 {
+    
     [self.view makeToastActivity];
     [Country getCountryListWithCountryId:0
                                longitude:location.coordinate.longitude

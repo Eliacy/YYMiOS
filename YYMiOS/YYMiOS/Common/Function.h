@@ -98,4 +98,10 @@
  */
 + (id)getAsynchronousWithKey:(NSString *)key;
 
+
+/**
+ *  返回当前时间的毫秒格式
+ */
++ (UInt64)getCurrentSysTime;
+
 @end
