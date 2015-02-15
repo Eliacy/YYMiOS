@@ -66,6 +66,97 @@
     [countryTableView reloadSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationFade];
 }
 
+#pragma mark - 获取国家列表
+- (void)loadCountryList
+{
+    
+    [self.view makeToastActivity];
+    [Country getCountryListWithCountryId:0
+                               longitude:location.coordinate.longitude
+                                latitude:location.coordinate.latitude
+                                 success:^(NSArray *array) {
+                                     //获取国家列表 并显示当前选择城市
+                                     [countryArray removeAllObjects];
+                                     [countryArray addObjectsFromArray:array];
+                                     for(Country *country in countryArray){
+                                         
+                                         //每个国家下默认填充一个city实体 代表当前国家供用户选择
+                                         City *defaultCity = [[City alloc] init];
+                                         defaultCity.cityName = [NSString stringWithFormat:@"%@全部",country.countryName];
+                                         defaultCity.cityId = country.countryId;
+                                         [country.cityArray insertObject:defaultCity atIndex:0];
+                                         
+                                         //获取当前选中城市
+                                         for(City *city in country.cityArray){
+                                             if([city.cityName isEqualToString:[Function getAsynchronousWithKey:@"city_name"]]){
+                                                 selectedCity = city;
+                                             }
+                                         }
+                                     }
+                                     //存储国家列表
+                                     [self saveCountryList];
+                                     //记录联网时间
+                                     [Function setAsynchronousWithObject:[NSNumber numberWithLongLong:[Function getCurrentSysTime]] Key:@"load_countryList_time"];
+                                     
+                                     //根据国家列表 添加相应section判断条件
+                                     [isSectionExpandArray removeAllObjects];
+                                     for(int i=0;i<countryArray.count;i++){
+                                         BOOL isSectionExpand;
+                                         //默认展开第一个section
+                                         if(i==0){
+                                             isSectionExpand = YES;
+                                         }else{
+                                             isSectionExpand = NO;
+                                         }
+                                         [isSectionExpandArray addObject:[NSNumber numberWithBool:isSectionExpand]];
+                                     }
+                                     
+                                     [self.view hideToastActivity];
+                                     [countryTableView reloadData];
+                                     
+                                 }
+                                 failure:^(NSError *error) {
+                                     [self.view hideToastActivity];
+                                     [self.view makeToast:@"网络异常" duration:TOAST_DURATION position:@"center"];
+                                 }];
+}
+
+#pragma mark - 存储国家列表
+- (void)saveCountryList
+{
+    //NSUserDefaults 不能存储自定义类型 将countryArray转化成NSData 同时countryArray中保存的对象必须遵守NSCoding协议 （序列化）
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:countryArray];
+    [Function setAsynchronousWithObject:data Key:@"country_list"];
+}
+
+#pragma mark - 从UserDefaults中获取已存储的国家列表
+- (void)getCountryListFromUserDefaults
+{
+    NSData *savedCountryArray = [Function getAsynchronousWithKey:@"country_list"];
+    countryArray = (NSMutableArray *)[NSKeyedUnarchiver unarchiveObjectWithData:savedCountryArray];
+    for(Country *country in countryArray){
+        //获取当前选中城市
+        for(City *city in country.cityArray){
+            if([city.cityName isEqualToString:[Function getAsynchronousWithKey:@"city_name"]]){
+                selectedCity = city;
+            }
+        }
+    }
+    //根据国家列表 添加相应section判断条件
+    [isSectionExpandArray removeAllObjects];
+    for(int i=0;i<countryArray.count;i++){
+        BOOL isSectionExpand;
+        //默认展开第一个section
+        if(i==0){
+            isSectionExpand = YES;
+        }else{
+            isSectionExpand = NO;
+        }
+        [isSectionExpandArray addObject:[NSNumber numberWithBool:isSectionExpand]];
+    }
+    [countryTableView reloadData];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -92,57 +183,23 @@
     countryTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:countryTableView];
     
-    //待获取到位置信息后请求接口，由近到远排序;如果未获取到坐标，只按首字母排序
-    [self performSelector:@selector(loadCountryList) withObject:nil afterDelay:.2];
+    //获取当前时间和上次存储时间作比较
+    UInt64 currentTime = [Function getCurrentSysTime];
+    UInt64 savedTime = [[Function getAsynchronousWithKey:@"load_countryList_time"] longLongValue];
+    
+    //如果当前请求时间-存储的请求时间大于一周,或用户有手动更改日期导致存储时间不准(为避免过久不能请求接口特殊情况), 则请求接口 否则直接从userDefaults读取
+    if(currentTime-savedTime>WEEK_MILLISECOND||currentTime<savedTime){
+        //待获取到位置信息后请求接口，由近到远排序;如果未获取到坐标，只按首字母排序
+        [self performSelector:@selector(loadCountryList) withObject:nil afterDelay:.2];
+    }else{
+        [self getCountryListFromUserDefaults];
+    }
     
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-#pragma mark - 获取国家列表
-- (void)loadCountryList
-{
-    
-    [self.view makeToastActivity];
-    [Country getCountryListWithCountryId:0
-                               longitude:location.coordinate.longitude
-                                latitude:location.coordinate.latitude
-                                 success:^(NSArray *array) {
-                                     //获取国家列表 并显示当前选择城市
-                                     [countryArray removeAllObjects];
-                                     [countryArray addObjectsFromArray:array];
-                                     for(Country *coutry in countryArray){
-                                         for(City *city in coutry.cityArray){
-                                             if([city.cityName isEqualToString:[Function getAsynchronousWithKey:@"city_name"]]){
-                                                 selectedCity = city;
-                                             }
-                                         }
-                                     }
-                                     
-                                     //根据国家列表 添加相应section判断条件
-                                     [isSectionExpandArray removeAllObjects];
-                                     for(int i=0;i<countryArray.count;i++){
-                                         BOOL isSectionExpand;
-                                         //默认展开第一个section
-                                         if(i==0){
-                                             isSectionExpand = YES;
-                                         }else{
-                                             isSectionExpand = NO;
-                                         }
-                                         [isSectionExpandArray addObject:[NSNumber numberWithBool:isSectionExpand]];
-                                     }
-                                     
-                                     [self.view hideToastActivity];
-                                     [countryTableView reloadData];
-                                     
-                                 }
-                                 failure:^(NSError *error) {
-                                     [self.view hideToastActivity];
-                                     [self.view makeToast:@"网络异常" duration:TOAST_DURATION position:@"center"];
-                                 }];
 }
 
 #pragma mark -

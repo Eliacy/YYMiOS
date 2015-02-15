@@ -191,36 +191,39 @@
     }
     _isAppear = YES;
     
-    //用户进入应用没有数据时或选择城市后返回该页面 刷新文章列表
-    if([_homeArray count]==0||[[Function getAsynchronousWithKey:@"refresh_home_data"] boolValue]==YES){
-        
-        [Function setAsynchronousWithObject:[NSNumber numberWithBool:NO] Key:@"refresh_home_data"];
-        
-        [self.view makeToastActivity];
-        [Article getArticleListWithArticleId:0
-                                       brief:1
-                                      offset:0
-                                       limit:20
-                                      cityId:[[Function getAsynchronousWithKey:@"city_id"] integerValue]
-                                     success:^(NSArray *array) {
-                                         
-                                         [_homeArray removeAllObjects];
-                                         [_homeArray addObjectsFromArray:array];
-                                         [_tableView reloadData];
-                                         
-                                         if([array count] < 20)
-                                         {
-                                             _isHaveMore = NO;
-                                         }
-                                         else
-                                         {
-                                             _isHaveMore = YES;
-                                         }
-                                         [self.view hideToastActivity];
-                                     } failure:^(NSError *error) {
-                                         [self.view hideToastActivity];
-                                         [self.view makeToast:@"网络异常" duration:TOAST_DURATION position:@"center"];
-                                     }];
+    //用户首次打开应用 city_name为空 故联网已经在viewDidLoad执行 此处不再请求
+    if([[Function getAsynchronousWithKey:@"city_name"] length]!=0){
+        //用户进入应用没有数据时或选择城市后返回该页面 刷新文章列表
+        if([_homeArray count]==0||[[Function getAsynchronousWithKey:@"refresh_home_data"] boolValue]==YES){
+            
+            [Function setAsynchronousWithObject:[NSNumber numberWithBool:NO] Key:@"refresh_home_data"];
+            
+            [self.view makeToastActivity];
+            [Article getArticleListWithArticleId:0
+                                           brief:1
+                                          offset:0
+                                           limit:20
+                                          cityId:[[Function getAsynchronousWithKey:@"city_id"] integerValue]
+                                         success:^(NSArray *array) {
+                                             
+                                             [_homeArray removeAllObjects];
+                                             [_homeArray addObjectsFromArray:array];
+                                             [_tableView reloadData];
+                                             
+                                             if([array count] < 20)
+                                             {
+                                                 _isHaveMore = NO;
+                                             }
+                                             else
+                                             {
+                                                 _isHaveMore = YES;
+                                             }
+                                             [self.view hideToastActivity];
+                                         } failure:^(NSError *error) {
+                                             [self.view hideToastActivity];
+                                             [self.view makeToast:@"网络异常" duration:TOAST_DURATION position:@"center"];
+                                         }];
+        }
     }
     //更改标题
     _titleLabel.text = [[Function getAsynchronousWithKey:@"city_name"] stringByAppendingString:@" ∨"];
