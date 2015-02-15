@@ -11,8 +11,8 @@
 #import "City.h"
 #import "CountryCell.h"
 
-//一周的毫秒值 正负一周之内 不在请求国家列表
-#define WEEK_MILLISECOND 604800000
+//一周的秒数 一周之内 不在请求国家列表
+#define WEEK_MILLISECOND 604800
 
 @interface ContrylistViewController ()
 
