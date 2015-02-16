@@ -8,6 +8,6 @@
 
 #import "BaseViewController.h"
 
-@interface ContrylistViewController : BaseViewController<CLLocationManagerDelegate,NSFileManagerDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface ContrylistViewController : BaseViewController<LocationManagerDelegate,UITableViewDelegate,UITableViewDataSource>
 
 @end

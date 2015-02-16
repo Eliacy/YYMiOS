@@ -7,6 +7,7 @@
 //
 
 #import "NearbyCell.h"
+#import "Function.h"
 
 @implementation NearbyCell
 
@@ -53,7 +54,7 @@
         [_backView addSubview:_starView];
         
         _reviewButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-        _reviewButton.frame = CGRectMake(_starView.frame.origin.x + _starView.frame.size.width + 10, _starView.frame.origin.y, 100, 12);
+        _reviewButton.frame = CGRectMake(_starView.frame.origin.x + _starView.frame.size.width + 10, _starView.frame.origin.y, 60, 12);
         [_reviewButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
         [_reviewButton setImage:[UIImage imageNamed:@"talk_gray.png"] forState:UIControlStateNormal];
         [_reviewButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 10)];
@@ -66,7 +67,6 @@
         _distanceLabel.textColor = [UIColor lightGrayColor];
         _distanceLabel.font = [UIFont systemFontOfSize:12.0f];
         _distanceLabel.textAlignment = NSTextAlignmentRight;
-        _distanceLabel.text = @"2.5km";
         [_backView addSubview:_distanceLabel];
         
         _locationImageView = [[UIImageView alloc] initWithFrame:CGRectMake(_starView.frame.origin.x, _avatarImageView.frame.origin.y + _avatarImageView.frame.size.height - 12, 8, 12)];
@@ -99,9 +99,6 @@
     return self;
 }
 
-- (void)awakeFromNib {
-    // Initialization code
-}
 
 - (void)setPoi:(POI *)poi
 {
@@ -165,10 +162,18 @@
     }
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+#pragma mark - 计算距离
+- (void)setDistanceLabelWithLocation1Lat:(double)location1Lat Location1Lon:(double)location1Lon Location2Lat:(double)location2Lat Location2Lon:(double)location2Lon
+{
+    if(location1Lat==0){
+        _distanceLabel.text = @"";
+    }else{
+        float distance = [[NSString stringWithFormat:@"%.1f",[Function getDistanceFromLocation1Lat:location1Lat Location1Lon:location1Lon Location2Lat:location2Lat Location2Lon:location2Lon]] floatValue];
+        if(distance>100){
+            _distanceLabel.text = @"100公里以上";
+        }else{
+            _distanceLabel.text = [NSString stringWithFormat:@"%f公里",distance];
+        }
+    }
 }
-
 @end

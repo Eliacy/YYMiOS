@@ -36,6 +36,8 @@
     UIButton *cancelBtn;
     //搜索
     UIButton *searchBtn;
+    //位置服务
+    CLLocation *location;
 }
 
 @synthesize tabVC = _tabVC;
@@ -302,6 +304,10 @@
     }
     _isAppear = YES;
     
+    //开启定位服务
+    [[LocationManager sharedManager] setDelegate:self];
+    [[LocationManager sharedManager] startUpdatingLocation];
+
     //切换城市 则重置筛选条件
     if([[[NSUserDefaults standardUserDefaults] objectForKey:@"refresh_nearby_data"] boolValue] == YES){
         //更换地址后 清空筛选条件
@@ -358,6 +364,10 @@
         return;
     }
     _isAppear = NO;
+    
+    //关闭定位服务
+    [[LocationManager sharedManager] setDelegate:nil];
+    [[LocationManager sharedManager] stopUpdatingLocation];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -535,6 +545,10 @@
         {
             cell.keywordImageView.image = nil;
         }
+        //计算距离
+        POI *poi = [_nearbyArray objectAtIndex:indexPath.row];
+        [cell setDistanceLabelWithLocation1Lat:location.coordinate.latitude Location1Lon:location.coordinate.longitude Location2Lat:[[[NSDecimalNumber alloc] initWithFloat:poi.latitude] doubleValue] Location2Lon:[[[NSDecimalNumber alloc] initWithFloat:poi.longitude] doubleValue]];
+        
         return cell;
     }else if(tableView == searchTableView){
         //搜索列表
@@ -621,5 +635,17 @@
     [self clickSearchButton:nil];
 }
 
+#pragma mark -
+#pragma mark - 位置回调
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    location = [locations objectAtIndex:0];
+    
+    //获取到位置信息后 停止位置更新 刷新列表
+    [[LocationManager sharedManager] setDelegate:nil];
+    [[LocationManager sharedManager] stopUpdatingLocation];
+    [_tableView reloadData];
+    
+}
 
 @end

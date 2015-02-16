@@ -12,7 +12,7 @@
 #import "CountryCell.h"
 
 //一周的秒数 一周之内 不在请求国家列表
-#define WEEK_MILLISECOND 604800
+#define WEEK_MILLISECOND 0
 
 @interface ContrylistViewController ()
 
@@ -195,6 +195,36 @@
         [self getCountryListFromUserDefaults];
     }
     
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    if(_isAppear)
+    {
+        return;
+    }
+    _isAppear = YES;
+    
+    //开启定位服务
+    [[LocationManager sharedManager] setDelegate:self];
+    [[LocationManager sharedManager] startUpdatingLocation];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    if(!_isAppear)
+    {
+        return;
+    }
+    _isAppear = NO;
+    
+    //关闭定位服务
+    [[LocationManager sharedManager] setDelegate:nil];
+    [[LocationManager sharedManager] stopUpdatingLocation];
 }
 
 - (void)didReceiveMemoryWarning {

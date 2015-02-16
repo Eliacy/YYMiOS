@@ -158,8 +158,8 @@
 #pragma mark - 根据两点的经纬度算距离
 + (CLLocationDistance)getDistanceFromLocation1Lat:(double)location1Lat Location1Lon:(double)location1Lon Location2Lat:(double)location2Lat Location2Lon:(double)location2Lon
 {
-    CLLocation  *location1=[[CLLocation alloc] initWithLatitude:location1Lat  longitude:location1Lon];
-    CLLocation  *location2=[[CLLocation alloc] initWithLatitude:location2Lat  longitude:location2Lon];
+    CLLocation  *location1 = [[CLLocation alloc] initWithLatitude:location1Lat longitude:location1Lon];
+    CLLocation  *location2 = [[CLLocation alloc] initWithLatitude:location2Lat longitude:location2Lon];
     return [location1 distanceFromLocation:location2]/1000;
 }
 

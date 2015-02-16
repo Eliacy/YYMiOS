@@ -11,7 +11,7 @@
 
 @class TabViewController;
 
-@interface NearbyViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate, SRRefreshDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
+@interface NearbyViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate, SRRefreshDelegate, UISearchBarDelegate, UISearchDisplayDelegate,LocationManagerDelegate>
 {
     TabViewController   *_tabVC;
     
