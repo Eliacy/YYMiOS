@@ -166,7 +166,8 @@
                                   }];
     }
     
-    _titleLabel.text = [Function getAsynchronousWithKey:@"city_name"];
+    //更改标题
+    _titleLabel.text = [[Function getAsynchronousWithKey:@"city_name"] stringByAppendingString:@" ∨"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

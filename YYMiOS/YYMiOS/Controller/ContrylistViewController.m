@@ -12,7 +12,7 @@
 #import "CountryCell.h"
 
 //一周的秒数 一周之内 不在请求国家列表
-#define WEEK_MILLISECOND 0
+#define WEEK_MILLISECOND 604800
 
 @interface ContrylistViewController ()
 
@@ -69,23 +69,23 @@
 #pragma mark - 获取国家列表
 - (void)loadCountryList
 {
+    //用户不开启位置服务时，经纬度传0
+    float longitude = 0;
+    float latitude = 0;
+    if(location){
+        longitude = location.coordinate.longitude;
+        latitude = location.coordinate.latitude;
+    }
     
     [self.view makeToastActivity];
     [Country getCountryListWithCountryId:0
-                               longitude:location.coordinate.longitude
-                                latitude:location.coordinate.latitude
+                               longitude:longitude
+                                latitude:latitude
                                  success:^(NSArray *array) {
                                      //获取国家列表 并显示当前选择城市
                                      [countryArray removeAllObjects];
                                      [countryArray addObjectsFromArray:array];
                                      for(Country *country in countryArray){
-                                         
-                                         //每个国家下默认填充一个city实体 代表当前国家供用户选择
-                                         City *defaultCity = [[City alloc] init];
-                                         defaultCity.cityName = [NSString stringWithFormat:@"%@全部",country.countryName];
-                                         defaultCity.cityId = country.countryId;
-                                         [country.cityArray insertObject:defaultCity atIndex:0];
-                                         
                                          //获取当前选中城市
                                          for(City *city in country.cityArray){
                                              if([city.cityName isEqualToString:[Function getAsynchronousWithKey:@"city_name"]]){
@@ -236,9 +236,8 @@
 #pragma mark - 位置回调
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
-    location = [locations objectAtIndex:0];
-    GLog(@"纬度： %f",location.coordinate.latitude);
-    GLog(@"经度： %f",location.coordinate.longitude);
+    CLLocation *newLocation = [locations objectAtIndex:0];
+    location = [[CLLocation alloc] initWithLatitude:newLocation.coordinate.latitude longitude:newLocation.coordinate.longitude];
     
     // 停止位置更新
     [[LocationManager sharedManager] setDelegate:nil];

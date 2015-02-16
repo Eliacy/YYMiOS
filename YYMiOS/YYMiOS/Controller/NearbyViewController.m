@@ -169,6 +169,7 @@
     if(self != nil)
     {
         _nearbyArray = [[NSMutableArray alloc] initWithCapacity:0];
+        location = [[CLLocation alloc] init];
     }
     
     return self;
@@ -316,7 +317,6 @@
         //如果搜索框内有文本清空文本
         mySearchBar.text = @"";
     }
-    
     if([_nearbyArray count] == 0 || [[[NSUserDefaults standardUserDefaults] objectForKey:@"refresh_nearby_data"] boolValue] == YES)
     {
         [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:NO] forKey:@"refresh_nearby_data"];
@@ -325,7 +325,7 @@
         [self.view makeToastActivity];
         [POI getPOIListWithOffset:0
                             limit:20
-                          keyword:@""
+                          keyword:mySearchBar.text
                              area:_areaId
                              city:[[[NSUserDefaults standardUserDefaults] objectForKey:@"city_id"] integerValue]
                             range:-1
@@ -415,7 +415,7 @@
     [self.view makeToastActivity];
     [POI getPOIListWithOffset:0
                         limit:20
-                      keyword:@""
+                      keyword:mySearchBar.text
                          area:_areaId
                          city:[[[NSUserDefaults standardUserDefaults] objectForKey:@"city_id"] integerValue]
                         range:-1
@@ -465,7 +465,7 @@
     [self.view makeToastActivity];
     [POI getPOIListWithOffset:[_nearbyArray count]
                         limit:20
-                      keyword:@""
+                      keyword:mySearchBar.text
                          area:_areaId
                          city:[[[NSUserDefaults standardUserDefaults] objectForKey:@"city_id"] integerValue]
                         range:-1
@@ -545,10 +545,13 @@
         {
             cell.keywordImageView.image = nil;
         }
-        //计算距离
-        POI *poi = [_nearbyArray objectAtIndex:indexPath.row];
-        [cell setDistanceLabelWithLocation1Lat:location.coordinate.latitude Location1Lon:location.coordinate.longitude Location2Lat:[[[NSDecimalNumber alloc] initWithFloat:poi.latitude] doubleValue] Location2Lon:[[[NSDecimalNumber alloc] initWithFloat:poi.longitude] doubleValue]];
         
+        //获取到位置信息后才执行
+        if(location){
+            //计算距离
+            POI *poi = [_nearbyArray objectAtIndex:indexPath.row];
+            [cell setDistanceLabelWithLocation1Lat:location.coordinate.latitude Location1Lon:location.coordinate.longitude Location2Lat:[[[NSDecimalNumber alloc] initWithFloat:poi.latitude] doubleValue] Location2Lon:[[[NSDecimalNumber alloc] initWithFloat:poi.longitude] doubleValue]];
+        }
         return cell;
     }else if(tableView == searchTableView){
         //搜索列表
@@ -639,7 +642,8 @@
 #pragma mark - 位置回调
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
-    location = [locations objectAtIndex:0];
+    CLLocation *newLocation = [locations objectAtIndex:0];
+    location = [[CLLocation alloc] initWithLatitude:newLocation.coordinate.latitude longitude:newLocation.coordinate.longitude];
     
     //获取到位置信息后 停止位置更新 刷新列表
     [[LocationManager sharedManager] setDelegate:nil];

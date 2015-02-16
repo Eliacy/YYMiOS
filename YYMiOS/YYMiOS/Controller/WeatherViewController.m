@@ -89,7 +89,8 @@
                                        [self.view makeToast:@"网络异常" duration:TOAST_DURATION position:@"center"];
                                    }];
     }
-    _titleLabel.text = [Function getAsynchronousWithKey:@"city_name"];
+    //更改标题
+    _titleLabel.text = [[Function getAsynchronousWithKey:@"city_name"] stringByAppendingString:@" ∨"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
