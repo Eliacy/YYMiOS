@@ -163,4 +163,13 @@
     return [location1 distanceFromLocation:location2]/1000;
 }
 
+#pragma mark - 布局标题按钮
++ (void)layoutPlayWayBtnWithTitle:(NSString *)title Button:(UIButton *)titleBtn
+{
+    NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:20.0f]};
+    CGSize size = [title sizeWithAttributes:attribute];
+    [titleBtn setTitle:title forState:UIControlStateNormal];
+    [titleBtn setImageEdgeInsets:UIEdgeInsetsMake(2, size.width+5, 0, -size.width-5)];
+}
+
 @end

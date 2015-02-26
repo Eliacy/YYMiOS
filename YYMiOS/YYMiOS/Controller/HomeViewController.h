@@ -22,6 +22,7 @@
     UITableView     *_tableView;
     NSMutableArray  *_homeArray;
     
+    UIButton        *_titleButton;
     UIButton        *_tipsButton;
     UIButton        *_messageButton;
     

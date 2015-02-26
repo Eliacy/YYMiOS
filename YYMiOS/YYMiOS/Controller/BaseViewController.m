@@ -58,6 +58,7 @@
     _headerView.backgroundColor = [UIColor clearColor];
     [_adjustView addSubview:_headerView];
     
+    //标题
     _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 0, _headerView.frame.size.width - 75 * 2, _headerView.frame.size.height)];
     _titleLabel.backgroundColor = [UIColor clearColor];
     _titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -69,7 +70,7 @@
     UITapGestureRecognizer *titleLabelTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapTitleLabel:)];
     [_titleLabel addGestureRecognizer:titleLabelTap];
     [titleLabelTap release];
-    
+
     _backButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     _backButton.frame = CGRectMake(2, 2, 40, 40);
     _backButton.backgroundColor = [UIColor clearColor];

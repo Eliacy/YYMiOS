@@ -115,4 +115,9 @@
  */
 + (CLLocationDistance)getDistanceFromLocation1Lat:(double)location1Lat Location1Lon:(double)location1Lon Location2Lat:(double)location2Lat Location2Lon:(double)location2Lon;
 
+
+/**
+ *  布局标题按钮
+ */
++ (void)layoutPlayWayBtnWithTitle:(NSString *)title Button:(UIButton *)titleBtn;
 @end
