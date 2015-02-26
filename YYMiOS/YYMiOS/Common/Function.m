@@ -172,4 +172,16 @@
     [titleBtn setImageEdgeInsets:UIEdgeInsetsMake(2, size.width+5, 0, -size.width-5)];
 }
 
+#pragma mark - 计算label高度
++ (CGFloat)getLabelHeightWithContent:(NSString *)content BoundingSize:(CGSize)boundingSize Font:(UIFont *)font
+{
+    
+    CGSize labelSize = [content boundingRectWithSize:boundingSize
+                                             options:NSStringDrawingUsesLineFragmentOrigin
+                                          attributes:@{NSFontAttributeName:font}
+                                             context:nil].size;
+    return labelSize.height;
+    
+}
+
 @end

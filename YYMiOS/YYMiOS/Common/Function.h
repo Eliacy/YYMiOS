@@ -104,7 +104,6 @@
  */
 + (UInt64)getCurrentSysTime;
 
-
 /**
  *  根据两点的经纬度算距离
  *
@@ -115,9 +114,17 @@
  */
 + (CLLocationDistance)getDistanceFromLocation1Lat:(double)location1Lat Location1Lon:(double)location1Lon Location2Lat:(double)location2Lat Location2Lon:(double)location2Lon;
 
-
 /**
  *  布局标题按钮
  */
 + (void)layoutPlayWayBtnWithTitle:(NSString *)title Button:(UIButton *)titleBtn;
+
+/**
+ *  计算label高度
+ *
+ *  @param Content          内容
+ *  @param BoundingSize     尺寸
+ *  @param Font             字体
+ */
++ (CGFloat)getLabelHeightWithContent:(NSString *)content BoundingSize:(CGSize)boundingSize Font:(UIFont *)font;
 @end
