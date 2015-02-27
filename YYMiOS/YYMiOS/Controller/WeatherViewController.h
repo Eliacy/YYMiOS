@@ -18,6 +18,8 @@
     
     UIImageView         *_backgroundImageView;
     UITableView         *_tableView;
+    
+    UIButton        *_titleButton;
 }
 
 @property (assign, nonatomic) TabViewController *tabVC;

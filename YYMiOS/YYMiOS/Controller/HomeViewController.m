@@ -29,6 +29,13 @@
 
 #pragma mark - private
 
+- (void)clickTitleButton:(id)sender
+{
+    //跳转国家选择页面
+    ContrylistViewController *countryListVC = [[[ContrylistViewController alloc] init] autorelease];
+    [self.tabVC.navigationController pushViewController:countryListVC animated:YES];
+}
+
 - (void)clickTipsButton:(id)sender
 {
     TipsViewController *tipsVC = [[[TipsViewController alloc] init] autorelease];
@@ -41,7 +48,22 @@
     [self.tabVC.navigationController pushViewController:messageVC animated:YES];
 }
 
-
+- (void)refreshMessageCount:(NSInteger)count
+{
+    if(count == 0)
+    {
+        _messageCountLabel.hidden = YES;
+    }
+    else
+    {
+        _messageCountLabel.hidden = NO;
+        
+        NSString *string = count > 99 ? @"99+" : [NSString stringWithFormat:@"%i", (int)count];
+        CGSize stringSize = [LPUtility getTextHeightWithText:string font:_messageCountLabel.font size:CGSizeMake(100, 100)];
+        _messageCountLabel.frame = CGRectMake(_messageButton.frame.size.width - stringSize.width - 6, 5, stringSize.width + 6, 12);
+        _messageCountLabel.text = string;
+    }
+}
 
 #pragma mark - super
 
@@ -65,6 +87,17 @@
     
     self.view.frame = CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width, self.view.frame.size.height - 49);
     _backButton.hidden = YES;
+    
+    //标题按钮
+    _titleButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_titleButton setImage:[UIImage imageNamed:@"togetBuy_title_triangle"] forState:UIControlStateNormal];
+    _titleButton.frame = CGRectMake(0, 0, _headerView.frame.size.width, 44);
+    [_titleButton setBackgroundColor:[UIColor clearColor]];
+    [_titleButton setTitleEdgeInsets:UIEdgeInsetsMake(0, -13, 0, 13)];
+    [_titleButton.titleLabel setFont:[UIFont fontWithName:@"Arial-BoldMT" size:20]];
+    [_titleButton addTarget:self action:@selector(clickTitleButton:) forControlEvents:UIControlEventTouchUpInside];
+    [_titleButton setTitleColor:GColor(136, 136, 136) forState:UIControlStateHighlighted];
+    [_headerView addSubview:_titleButton];
     
     _tipsButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     _tipsButton.frame = CGRectMake(2, 2, 40, 40);
@@ -137,7 +170,7 @@
                                                          [Function setAsynchronousWithObject:[NSNumber numberWithInt:city.cityId] Key:@"city_id"];
                                                          [Function setAsynchronousWithObject:city.cityName Key:@"city_name"];
                                                          //更改标题
-                                                         _titleLabel.text = [[Function getAsynchronousWithKey:@"city_name"] stringByAppendingString:@" ∨"];
+                                                         [Function layoutPlayWayBtnWithTitle:[Function getAsynchronousWithKey:@"city_name"] Button:_titleButton];
                                                      }
                                                  }
                                              }
@@ -226,7 +259,7 @@
         }
     }
     //更改标题
-    _titleLabel.text = [[Function getAsynchronousWithKey:@"city_name"] stringByAppendingString:@" ∨"];
+    [Function layoutPlayWayBtnWithTitle:[Function getAsynchronousWithKey:@"city_name"] Button:_titleButton];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -394,34 +427,6 @@
     
     return nil;
 }
-
-- (void)tapTitleLabel:(UITapGestureRecognizer *)gestureRecognizer
-{
-    if(gestureRecognizer.state == UIGestureRecognizerStateEnded)
-    {
-        //跳转国家选择页面
-        ContrylistViewController *countryListVC = [[[ContrylistViewController alloc] init] autorelease];
-        [self.tabVC.navigationController pushViewController:countryListVC animated:YES];
-    }
-}
-
-- (void)refreshMessageCount:(NSInteger)count
-{
-    if(count == 0)
-    {
-        _messageCountLabel.hidden = YES;
-    }
-    else
-    {
-        _messageCountLabel.hidden = NO;
-        
-        NSString *string = count > 99 ? @"99+" : [NSString stringWithFormat:@"%i", (int)count];
-        CGSize stringSize = [LPUtility getTextHeightWithText:string font:_messageCountLabel.font size:CGSizeMake(100, 100)];
-        _messageCountLabel.frame = CGRectMake(_messageButton.frame.size.width - stringSize.width - 6, 5, stringSize.width + 6, 12);
-        _messageCountLabel.text = string;
-    }
-}
-
 
 
 @end

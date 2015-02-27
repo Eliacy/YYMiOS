@@ -28,6 +28,13 @@
 
 #pragma mark - private
 
+- (void)clickTitleButton:(id)sender
+{
+    //跳转国家选择页面
+    ContrylistViewController *countryListVC = [[[ContrylistViewController alloc] init] autorelease];
+    [self.tabVC.navigationController pushViewController:countryListVC animated:YES];
+}
+
 - (void)clickBestButton:(id)sender
 {
     if(_expandKit == nil)
@@ -74,6 +81,17 @@
     
     self.view.frame = CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width, self.view.frame.size.height - 49);
     _backButton.hidden = YES;
+    
+    //标题按钮
+    _titleButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_titleButton setImage:[UIImage imageNamed:@"togetBuy_title_triangle"] forState:UIControlStateNormal];
+    _titleButton.frame = CGRectMake(0, 0, _headerView.frame.size.width, 44);
+    [_titleButton setBackgroundColor:[UIColor clearColor]];
+    [_titleButton setTitleEdgeInsets:UIEdgeInsetsMake(0, -13, 0, 13)];
+    [_titleButton.titleLabel setFont:[UIFont fontWithName:@"Arial-BoldMT" size:20]];
+    [_titleButton addTarget:self action:@selector(clickTitleButton:) forControlEvents:UIControlEventTouchUpInside];
+    [_titleButton setTitleColor:GColor(136, 136, 136) forState:UIControlStateHighlighted];
+    [_headerView addSubview:_titleButton];
     
     _bestButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     _bestButton.frame = CGRectMake(2, 2, 40, 40);
@@ -167,7 +185,7 @@
     }
     
     //更改标题
-    _titleLabel.text = [[Function getAsynchronousWithKey:@"city_name"] stringByAppendingString:@" ∨"];
+    [Function layoutPlayWayBtnWithTitle:[Function getAsynchronousWithKey:@"city_name"] Button:_titleButton];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

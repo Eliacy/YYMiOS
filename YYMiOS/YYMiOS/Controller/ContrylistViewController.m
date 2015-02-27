@@ -174,8 +174,7 @@
     
     countryArray = [[NSMutableArray alloc] initWithCapacity:0];
     isSectionExpandArray = [[NSMutableArray alloc] initWithCapacity:0];
-    
-    countryTableView = [[UITableView alloc] initWithFrame:CGRectMake(20, _adjustView.frame.size.height+20, 280, self.view.frame.size.height) style:UITableViewStylePlain];
+    countryTableView = [[UITableView alloc] initWithFrame:CGRectMake(20, _adjustView.frame.size.height+20, 280, self.view.frame.size.height-_adjustView.frame.size.height-20) style:UITableViewStylePlain];
     countryTableView.dataSource = self;
     countryTableView.delegate = self;
     countryTableView.backgroundView = nil;

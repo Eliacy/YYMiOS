@@ -21,6 +21,15 @@
 @synthesize tabVC = _tabVC;
 @synthesize weather = _weather;
 
+#pragma mark - private
+
+- (void)clickTitleButton:(id)sender
+{
+    //跳转国家选择页面
+    ContrylistViewController *countryListVC = [[[ContrylistViewController alloc] init] autorelease];
+    [self.tabVC.navigationController pushViewController:countryListVC animated:YES];
+}
+
 - (id)init
 {
     self = [super init];
@@ -44,6 +53,17 @@
     _backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
     _backgroundImageView.layer.masksToBounds = YES;
     [self.view addSubview:_backgroundImageView];
+    
+    //标题按钮
+    _titleButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_titleButton setImage:[UIImage imageNamed:@"togetBuy_title_triangle"] forState:UIControlStateNormal];
+    _titleButton.frame = CGRectMake(0, 0, _headerView.frame.size.width, 44);
+    [_titleButton setBackgroundColor:[UIColor clearColor]];
+    [_titleButton setTitleEdgeInsets:UIEdgeInsetsMake(0, -13, 0, 13)];
+    [_titleButton.titleLabel setFont:[UIFont fontWithName:@"Arial-BoldMT" size:20]];
+    [_titleButton addTarget:self action:@selector(clickTitleButton:) forControlEvents:UIControlEventTouchUpInside];
+    [_titleButton setTitleColor:GColor(136, 136, 136) forState:UIControlStateHighlighted];
+    [_headerView addSubview:_titleButton];
     
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, _adjustView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - _adjustView.frame.size.height) style:UITableViewStyleGrouped];
     _tableView.backgroundColor = [UIColor clearColor];
@@ -90,7 +110,7 @@
                                    }];
     }
     //更改标题
-    _titleLabel.text = [[Function getAsynchronousWithKey:@"city_name"] stringByAppendingString:@" ∨"];
+    [Function layoutPlayWayBtnWithTitle:[Function getAsynchronousWithKey:@"city_name"] Button:_titleButton];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
