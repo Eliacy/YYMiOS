@@ -22,6 +22,9 @@
 @end
 
 @implementation ShopViewController
+{
+    float showDetailViewHeight;
+}
 
 @synthesize poiId = _poiId;
 @synthesize poiDetail = _poiDetail;
@@ -132,6 +135,61 @@
                      }];
 }
 
+#pragma mark - 刷新当前界面
+- (void) reloadView :(NSNotification *) notification
+{
+    //计算当前高度差
+    float currentHeight = .0;
+    for(NSNumber *height in _shopDetailView.cellCurrentHeightArray){
+        currentHeight += [height floatValue];
+    }
+    
+    GLog(@"showDetailViewHeight : %f",showDetailViewHeight);
+    GLog(@"currentHeight : %f",currentHeight);
+    
+    if(currentHeight!=showDetailViewHeight){
+        
+        GLog(@"_shopDetailView.frame.size.height : %f",_shopDetailView.frame.size.height);
+        
+        //店铺详情
+        _shopDetailView.frame = CGRectMake(_shopDetailView.frame.origin.x, _shopDetailView.frame.origin.y, _shopDetailView.frame.size.width, _shopDetailView.frame.size.height+(currentHeight-showDetailViewHeight));
+        
+        GLog(@"_shopDetailView.frame.size.height : %f",_shopDetailView.frame.size.height);
+        
+        GLog(@"_descriptionBackView.frame.origin.y : %f",_descriptionBackView.frame.origin.y);
+        GLog(@"_descriptionHeaderLabel.frame.size.height : %f",_descriptionHeaderLabel.frame.size.height);
+        //简介
+        _descriptionBackView.frame = CGRectMake(_descriptionBackView.frame.origin.x, _shopDetailView.frame.origin.y + _shopDetailView.frame.size.height + 8, _descriptionBackView.frame.size.width, _descriptionBackView.frame.size.height);
+        _descriptionHeaderLabel.frame = CGRectMake(_descriptionHeaderLabel.frame.origin.x, -10 + _descriptionBackView.frame.origin.y, _descriptionHeaderLabel.frame.size.width, _descriptionHeaderLabel.frame.size.height);
+        GLog(@"_descriptionBackView.frame.origin.y : %f",_descriptionBackView.frame.origin.y);
+        GLog(@"_descriptionHeaderLabel.frame.size.height : %f",_descriptionHeaderLabel.frame.size.height);
+        
+        GLog(@"_tableHeaderView.frame.size.height : %f",_tableHeaderView.frame.size.height);
+        //HeaderView
+        _tableHeaderView.frame = CGRectMake(_tableHeaderView.frame.origin.x, _tableHeaderView.frame.origin.y, _tableHeaderView.frame.size.width, _descriptionBackView.frame.origin.y + _descriptionBackView.frame.size.height + _mapView.frame.size.height + 10 + _keywordView.frame.size.height + _topImageView.frame.size.height);
+        GLog(@"_tableHeaderView.frame.size.height : %f",_tableHeaderView.frame.size.height);
+        GLog(@"_mapView.frame.size.height : %f",_mapView.frame.size.height);
+        //地图
+        _mapView.frame = CGRectMake(_mapView.frame.origin.x, _tableHeaderView.frame.size.height - 140, _mapView.frame.size.width, _mapView.frame.size.height);
+        GLog(@"_mapView.frame.size.height : %f",_mapView.frame.size.height);
+        GLog(@"_keywordView.frame.size.height : %f",_keywordView.frame.size.height);
+        //关键词
+        _keywordView.frame = CGRectMake(_keywordView.frame.origin.x, _mapView.frame.origin.y + _mapView.frame.size.height, _keywordView.frame.size.width, _keywordView.frame.size.height);
+        GLog(@"_keywordView.frame.size.height : %f",_keywordView.frame.size.height);
+        GLog(@"_topImageView.frame.size.height : %f",_topImageView.frame.size.height);
+        //晒单图片
+        _topImageView.frame = CGRectMake(_topImageView.frame.origin.x, _keywordView.frame.origin.y + _keywordView.frame.size.height, _topImageView.frame.size.width, _topImageView.frame.size.height);
+        GLog(@"_topImageView.frame.size.height : %f",_topImageView.frame.size.height);
+        GLog(@"_tableView.frame.size.height : %f",_tableView.frame.size.height);
+        _tableView.frame = CGRectMake(_tableView.frame.origin.x, _tableView.frame.origin.y, _tableView.frame.size.width, _tableView.frame.size.height+(currentHeight-showDetailViewHeight));
+        GLog(@"_tableView.frame.size.height : %f",_tableView.frame.size.height);
+        [_tableView reloadData];
+        
+        showDetailViewHeight = currentHeight;
+    }
+    
+}
+
 #pragma mark - super
 
 - (id)init
@@ -149,6 +207,10 @@
 {
     [super loadView];
     
+    //注册观察者 监听shopDetailView中列表高度变化
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadView:) name:@"reloadShopView" object:nil];
+    
+    //导航栏
     _titleLabel.text = @"详情";
     
     _shareButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
@@ -177,6 +239,7 @@
     line.backgroundColor = [UIColor lightGrayColor];
     [_footerView addSubview:line];
     
+    //底部晒单功能区
     _textBackView = [[UIView alloc] initWithFrame:CGRectMake(15, 10, 240, 30)];
     _textBackView.backgroundColor = [UIColor colorWithRed:245.0 / 255.0 green:245.0 / 255.0 blue:245.0 / 255.0 alpha:1.0];
     _textBackView.layer.borderWidth = 0.5;
@@ -203,43 +266,45 @@
     [_sendButton addTarget:self action:@selector(clickSendButton:) forControlEvents:UIControlEventTouchUpInside];
     [_footerView addSubview:_sendButton];
     
+    //中间视图区
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, _adjustView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - _adjustView.frame.size.height - _footerView.frame.size.height) style:UITableViewStylePlain];
     _tableView.backgroundColor = [UIColor clearColor];
     _tableView.dataSource = self;
     _tableView.delegate = self;
     [self.view addSubview:_tableView];
     
+    //上部视图区
     _tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 500)];
     _tableHeaderView.backgroundColor = [UIColor whiteColor];
     _tableView.tableHeaderView = _tableHeaderView;
-    
+    //缩略图
     _logoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(8, 8, 68, 68)];
     _logoImageView.backgroundColor = [UIColor clearColor];
     _logoImageView.contentMode = UIViewContentModeScaleAspectFill;
     _logoImageView.layer.masksToBounds = YES;
     [_tableHeaderView addSubview:_logoImageView];
-    
+    //名称
     _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(_logoImageView.frame.origin.x + _logoImageView.frame.size.width + 10, _logoImageView.frame.origin.y, 230, 15)];
     _nameLabel.backgroundColor = [UIColor clearColor];
     _nameLabel.textColor = [UIColor darkGrayColor];
     _nameLabel.font = [UIFont systemFontOfSize:15.0f];
     [_tableHeaderView addSubview:_nameLabel];
-    
+    //级别文字A+
     _levelLabel = [[UILabel alloc] initWithFrame:CGRectMake(_tableHeaderView.frame.size.width - 8 - 15, 8, 15, 15)];
     _levelLabel.backgroundColor = [UIColor clearColor];
     _levelLabel.textColor = [UIColor whiteColor];
     _levelLabel.font = [UIFont systemFontOfSize:12.0f];
     _levelLabel.textAlignment = NSTextAlignmentCenter;
-    
+    //级别图标
     _levelImageView = [[UIImageView alloc] initWithFrame:CGRectMake(_levelLabel.frame.origin.x, _levelLabel.frame.origin.y + (_levelLabel.frame.size.height - 15) / 3, _levelLabel.frame.size.width, 15)];
     _levelImageView.backgroundColor = [UIColor clearColor];
     [_tableHeaderView addSubview:_levelImageView];
     [_tableHeaderView addSubview:_levelLabel];
-    
+    //星
     _starView = [[StarView alloc] initWithFrame:CGRectMake(_nameLabel.frame.origin.x, _nameLabel.frame.origin.y + _nameLabel.frame.size.height + 15, 70, 10)];
     _starView.backgroundColor = [UIColor clearColor];
     [_tableHeaderView addSubview:_starView];
-    
+    //回复图标
     _reviewButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     _reviewButton.frame = CGRectMake(_starView.frame.origin.x + _starView.frame.size.width + 10, _starView.frame.origin.y, 100, 12);
     [_reviewButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
@@ -247,11 +312,12 @@
     [_reviewButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 10)];
     _reviewButton.titleLabel.font = [UIFont systemFontOfSize:12.0f];
     [_tableHeaderView addSubview:_reviewButton];
-    
+    //店铺详情
     _shopDetailView = [[ShopDetailView alloc] initWithFrame:CGRectMake(_starView.frame.origin.x, _starView.frame.origin.y + _starView.frame.size.height + 12, _tableHeaderView.frame.size.width - _starView.frame.origin.x - 8, 160)];
     _shopDetailView.backgroundColor = [UIColor clearColor];
     [_tableHeaderView addSubview:_shopDetailView];
     
+    //简介
     _descriptionBackView = [[UIView alloc] initWithFrame:CGRectMake(12, _shopDetailView.frame.origin.y + _shopDetailView.frame.size.height + 8, _tableHeaderView.frame.size.width - 12 * 2, 50)];
     _descriptionBackView.backgroundColor = [UIColor clearColor];
     _descriptionBackView.layer.borderWidth = 0.5;
@@ -273,6 +339,7 @@
     _descriptionLabel.numberOfLines = 0;
     [_descriptionBackView addSubview:_descriptionLabel];
     
+    //地图
     _mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, _tableHeaderView.frame.size.height - 140, _tableHeaderView.frame.size.width, 140)];
     _mapView.delegate = self;
     [_tableHeaderView addSubview:_mapView];
@@ -295,6 +362,7 @@
     [_mapView addGestureRecognizer:mapViewTap];
     [mapViewTap release];
     
+    //关键词
     _keywordView = [[UIView alloc] initWithFrame:CGRectMake(0, _mapView.frame.origin.y + _mapView.frame.size.height, _tableHeaderView.frame.size.width, 20)];
     _keywordView.backgroundColor = [UIColor clearColor];
     [_tableHeaderView addSubview:_keywordView];
@@ -435,9 +503,11 @@
     [_starView setStars:poiDetail.stars];
     [_reviewButton setTitle:[NSString stringWithFormat:@"%i", (int)poiDetail.reviewNum] forState:UIControlStateNormal];
     
-    CGFloat height = [ShopDetailView getShopDetailViewHeightWithPOIDetail:poiDetail];
-    _shopDetailView.frame = CGRectMake(_shopDetailView.frame.origin.x, _shopDetailView.frame.origin.y, _shopDetailView.frame.size.width, height);
+    showDetailViewHeight = [ShopDetailView getShopDetailViewHeightWithPOIDetail:poiDetail];
+    _shopDetailView.frame = CGRectMake(_shopDetailView.frame.origin.x, _shopDetailView.frame.origin.y, _shopDetailView.frame.size.width, showDetailViewHeight);
     [_shopDetailView setPoiDetail:poiDetail];
+    GLog(@"_shopDetailView.frame.size.height : %f",_shopDetailView.frame.size.height);
+    
     
     CGSize descriptionSize = [LPUtility getTextHeightWithText:poiDetail.description
                                                          font:_descriptionLabel.font

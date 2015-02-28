@@ -8,16 +8,112 @@
 
 #import "ShopDetailView.h"
 #import "ShopDetailCell.h"
+#import "Function.h"
 
 @implementation ShopDetailView
 
 @synthesize poiDetail = _poiDetail;
 
+#pragma mark - private
+#pragma mark - 过滤列表中无数据内容
+- (void)cellHeightArrayFilter
+{
+    for(int i=0;i<8;i++){
+        switch (i) {
+            case 0:
+            {
+                if(!_poiDetail.categoryArray || [_poiDetail.categoryArray count] == 0)
+                {
+                    [self.cellCurrentHeightArray replaceObjectAtIndex:i withObject:[NSNumber numberWithFloat:0]];
+                    [self.cellActualHeightArray replaceObjectAtIndex:i withObject:[NSNumber numberWithFloat:0]];
+                }
+            }
+                break;
+            case 1:
+            {
+                if(!_poiDetail.environment || [_poiDetail.environment isEqualToString:@""])
+                {
+                    [self.cellCurrentHeightArray replaceObjectAtIndex:i withObject:[NSNumber numberWithFloat:0]];
+                    [self.cellActualHeightArray replaceObjectAtIndex:i withObject:[NSNumber numberWithFloat:0]];
+                }
+            }
+                break;
+            case 2:
+            {
+                if(!_poiDetail.paymentArray || [_poiDetail.paymentArray count] == 0)
+                {
+                    [self.cellCurrentHeightArray replaceObjectAtIndex:i withObject:[NSNumber numberWithFloat:0]];
+                    [self.cellActualHeightArray replaceObjectAtIndex:i withObject:[NSNumber numberWithFloat:0]];
+                }
+            }
+                break;
+            case 3:
+            {
+                if(!_poiDetail.menu || [_poiDetail.menu isEqualToString:@""])
+                {
+                    [self.cellCurrentHeightArray replaceObjectAtIndex:i withObject:[NSNumber numberWithFloat:0]];
+                    [self.cellActualHeightArray replaceObjectAtIndex:i withObject:[NSNumber numberWithFloat:0]];
+                }
+            }
+                break;
+            case 4:
+            {
+                if(!_poiDetail.ticket || [_poiDetail.ticket isEqualToString:@""])
+                {
+                    [self.cellCurrentHeightArray replaceObjectAtIndex:i withObject:[NSNumber numberWithFloat:0]];
+                    [self.cellActualHeightArray replaceObjectAtIndex:i withObject:[NSNumber numberWithFloat:0]];
+                }
+            }
+                break;
+            case 5:
+            {
+                if(!_poiDetail.booking || [_poiDetail.booking isEqualToString:@""])
+                {
+                    [self.cellCurrentHeightArray replaceObjectAtIndex:i withObject:[NSNumber numberWithFloat:0]];
+                    [self.cellActualHeightArray replaceObjectAtIndex:i withObject:[NSNumber numberWithFloat:0]];
+                }
+            }
+                break;
+            case 6:
+            {
+                if(!_poiDetail.businessHours || [_poiDetail.businessHours isEqualToString:@""])
+                {
+                    [self.cellCurrentHeightArray replaceObjectAtIndex:i withObject:[NSNumber numberWithFloat:0]];
+                    [self.cellActualHeightArray replaceObjectAtIndex:i withObject:[NSNumber numberWithFloat:0]];
+                }
+            }
+                break;
+            case 7:
+            {
+                if(!_poiDetail.phone || [_poiDetail.phone isEqualToString:@""])
+                {
+                    [self.cellCurrentHeightArray replaceObjectAtIndex:i withObject:[NSNumber numberWithFloat:0]];
+                    [self.cellActualHeightArray replaceObjectAtIndex:i withObject:[NSNumber numberWithFloat:0]];
+                }
+            }
+                break;
+            default:
+                break;
+        }
+    }
+    
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code
+        
+        //初始化各cell实际高度20
+        self.cellActualHeightArray = [[[NSMutableArray alloc] init] autorelease];
+        //各cell当前默认高度为20
+        self.cellCurrentHeightArray = [[[NSMutableArray alloc] init] autorelease];
+        
+        for(int i=0;i<8;i++){
+            [self.cellActualHeightArray addObject:[NSNumber numberWithFloat:20]];
+            [self.cellCurrentHeightArray addObject:[NSNumber numberWithFloat:20]];
+        }
+        
         
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height) style:UITableViewStylePlain];
         _tableView.backgroundColor = [UIColor clearColor];
@@ -26,18 +122,13 @@
         _tableView.separatorColor = [UIColor clearColor];
         _tableView.scrollEnabled = NO;
         [self addSubview:_tableView];
+        
+        //过滤列表中无数据内容
+        [self performSelector:@selector(cellHeightArrayFilter) withObject:nil afterDelay:0.5];
+        
     }
     return self;
 }
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
 
 - (void)setPoiDetail:(POIDetail *)poiDetail
 {
@@ -66,7 +157,7 @@
         {
             if(_poiDetail.categoryArray && [_poiDetail.categoryArray count] > 0)
             {
-                return 20;
+                return [[self.cellCurrentHeightArray objectAtIndex:0] floatValue];
             }
         }
             break;
@@ -74,7 +165,7 @@
         {
             if(_poiDetail.environment && ![_poiDetail.environment isEqualToString:@""])
             {
-                return 20;
+                return [[self.cellCurrentHeightArray objectAtIndex:1] floatValue];
             }
         }
             break;
@@ -82,7 +173,7 @@
         {
             if(_poiDetail.paymentArray && [_poiDetail.paymentArray count] > 0)
             {
-                return 20;
+                return [[self.cellCurrentHeightArray objectAtIndex:2] floatValue];
             }
         }
             break;
@@ -90,7 +181,7 @@
         {
             if(_poiDetail.menu && ![_poiDetail.menu isEqualToString:@""])
             {
-                return 20;
+                return [[self.cellCurrentHeightArray objectAtIndex:3] floatValue];
             }
         }
             break;
@@ -98,7 +189,7 @@
         {
             if(_poiDetail.ticket && ![_poiDetail.ticket isEqualToString:@""])
             {
-                return 20;
+                return [[self.cellCurrentHeightArray objectAtIndex:4] floatValue];
             }
         }
             break;
@@ -106,7 +197,7 @@
         {
             if(_poiDetail.booking && ![_poiDetail.booking isEqualToString:@""])
             {
-                return 20;
+                return [[self.cellCurrentHeightArray objectAtIndex:5] floatValue];
             }
         }
             break;
@@ -114,7 +205,7 @@
         {
             if(_poiDetail.businessHours && ![_poiDetail.businessHours isEqualToString:@""])
             {
-                return 20;
+                return [[self.cellCurrentHeightArray objectAtIndex:6] floatValue];
             }
         }
             break;
@@ -122,14 +213,15 @@
         {
             if(_poiDetail.phone && ![_poiDetail.phone isEqualToString:@""])
             {
-                return 20;
+                NSLog(@"[[self.cellCurrentHeightArray objectAtIndex:7] floatValue] : %f",[[self.cellCurrentHeightArray objectAtIndex:7] floatValue]);
+                return [[self.cellCurrentHeightArray objectAtIndex:7] floatValue];
             }
         }
             break;
         default:
             break;
     }
-    
+
     return 0;
 }
 
@@ -150,6 +242,8 @@
         }
     }
     
+    [cell.titleLabel setFrame:CGRectMake(0, 0, 200, 20)];
+    
     switch (indexPath.row) {
         case 0:
         {
@@ -168,6 +262,7 @@
                     }
                 }
                 cell.titleLabel.text = string;
+                
             }
         }
             break;
@@ -238,6 +333,13 @@
             if(_poiDetail.businessHours && ![_poiDetail.businessHours isEqualToString:@""])
             {
                 cell.titleLabel.text = [NSString stringWithFormat:@"营业时间：%@", _poiDetail.businessHours];
+                //cell实际高度
+                CGFloat height = [Function getLabelHeightWithContent:cell.titleLabel.text BoundingSize:CGSizeMake(cell.titleLabel.frame.size.width, 1000) Font:cell.titleLabel.font];
+                [self.cellActualHeightArray replaceObjectAtIndex:indexPath.row withObject:[NSNumber numberWithFloat:height]];
+                
+                CGFloat currentHeight = [[self.cellCurrentHeightArray objectAtIndex:indexPath.row] floatValue];
+                NSLog(@"currentHeight : %f",currentHeight);
+                [cell.titleLabel setFrame:CGRectMake(cell.titleLabel.frame.origin.x, cell.titleLabel.frame.origin.y, cell.titleLabel.frame.size.width, [[self.cellCurrentHeightArray objectAtIndex:indexPath.row] floatValue])];
             }
         }
             break;
@@ -265,9 +367,22 @@
 
 #pragma mark - UITableViewDelegate
 
-- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return nil;
+    
+    
+    //可展开的情况
+    if([[self.cellActualHeightArray objectAtIndex:indexPath.row] floatValue]!=[[self.cellCurrentHeightArray objectAtIndex:indexPath.row] floatValue]){
+        
+        //替换当前cell高度
+        [self.cellCurrentHeightArray replaceObjectAtIndex:indexPath.row withObject:[self.cellActualHeightArray objectAtIndex:indexPath.row]];
+        //因为在首次加载table的0.5秒后已经将列表高度中无数据项进行过滤，所以此时执行刷新数据是正确的
+        [_tableView reloadData];
+        
+        //发送通知 shopView刷新界面
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadShopView" object:nil];
+        
+    }
 }
 
 #pragma mark - public

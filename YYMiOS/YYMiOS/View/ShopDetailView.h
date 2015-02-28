@@ -14,9 +14,16 @@
     POIDetail       *_poiDetail;
     
     UITableView     *_tableView;
+    
 }
 
 @property (retain, nonatomic) POIDetail *poiDetail;
+
+//各cell当期高度
+@property (retain, nonatomic) NSMutableArray *cellCurrentHeightArray;
+//各cell实际高度
+@property (retain, nonatomic) NSMutableArray *cellActualHeightArray;
+
 
 + (CGFloat)getShopDetailViewHeightWithPOIDetail:(POIDetail *)poiDetail;
 

@@ -21,6 +21,9 @@
         _titleLabel.backgroundColor = [UIColor clearColor];
         _titleLabel.textColor = [UIColor darkGrayColor];
         _titleLabel.font = [UIFont systemFontOfSize:12.0f];
+        //自动折行设置
+        _titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        _titleLabel.numberOfLines = 0;
         [self.contentView addSubview:_titleLabel];
     }
     
