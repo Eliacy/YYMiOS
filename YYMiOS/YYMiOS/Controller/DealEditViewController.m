@@ -10,8 +10,11 @@
 #import "POISelectViewController.h"
 #import "UserAtListViewController.h"
 #import "PhotoSelectView.h"
+#import "PicturePreviewViewController.h"
 
-@interface DealEditViewController () <POISelectViewControllerDelegate, UserAtListViewControllerDelegate, UITextViewDelegate, PhotoSelectViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+#define kScrollViewImageViewTag 86351
+
+@interface DealEditViewController () <POISelectViewControllerDelegate, UserAtListViewControllerDelegate, UITextViewDelegate, PhotoSelectViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, PicturePreviewViewControllerDelegate>
 
 @end
 
@@ -275,8 +278,17 @@
     for(NSInteger i = 0; i < _deal.imageArray.count; i++)
     {
         UIImageView *imageView = [[[UIImageView alloc] initWithFrame:CGRectMake(15 + 75 * i, 0, 60, 60)] autorelease];
-        imageView.backgroundColor = [UIColor brownColor];
+        imageView.backgroundColor = [UIColor whiteColor];
         [imageView setImageWithURL:[NSURL URLWithString:[LPUtility getQiniuImageURLStringWithBaseString:[[_deal.imageArray objectAtIndex:i] imageURL] imageSize:CGSizeMake(120, 120)]]];
+        
+        imageView.tag = kScrollViewImageViewTag + i;
+        
+        UITapGestureRecognizer *oneFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapImageView:)];
+        [imageView addGestureRecognizer:oneFingerTap];
+        [oneFingerTap release];
+        
+        imageView.userInteractionEnabled = YES;
+        
         [_scrollView addSubview:imageView];
         
         offsetX = imageView.frame.origin.x + imageView.frame.size.width;
@@ -477,6 +489,29 @@
     [picker dismissViewControllerAnimated:YES completion:^{
         
     }];
+}
+
+#pragma mark - UIGestureRecognizer
+
+- (void)tapImageView:(UITapGestureRecognizer *)gestureRecognizer
+{
+    if(gestureRecognizer.state == UIGestureRecognizerStateEnded)
+    {
+        PicturePreviewViewController *pictureVC = [[[PicturePreviewViewController alloc] init] autorelease];
+        pictureVC.index = gestureRecognizer.view.tag - kScrollViewImageViewTag;
+        pictureVC.pictureArray = [NSMutableArray arrayWithArray:_deal.imageArray];
+        pictureVC.delegate = self;
+        [self presentViewController:pictureVC animated:YES completion:NULL];
+    }
+}
+
+#pragma mark - PicturePreviewViewControllerDelegate
+
+- (void)picturePreviewViewControllerDidDeleteImage:(PicturePreviewViewController *)picturePreviewVC
+{
+    _deal.imageArray = picturePreviewVC.pictureArray;
+    
+    [self refreshImageScrollView];
 }
 
 @end
