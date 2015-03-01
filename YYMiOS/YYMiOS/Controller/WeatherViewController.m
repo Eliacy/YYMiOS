@@ -9,6 +9,8 @@
 #import "WeatherViewController.h"
 #import "WeatherCurrentCell.h"
 #import "WeatherForecastCell.h"
+#import "ContrylistViewController.h"
+#import "TabViewController.h"
 
 @interface WeatherViewController ()
 
@@ -18,6 +20,15 @@
 
 @synthesize tabVC = _tabVC;
 @synthesize weather = _weather;
+
+#pragma mark - private
+
+- (void)clickTitleButton:(id)sender
+{
+    //跳转国家选择页面
+    ContrylistViewController *countryListVC = [[[ContrylistViewController alloc] init] autorelease];
+    [self.tabVC.navigationController pushViewController:countryListVC animated:YES];
+}
 
 - (id)init
 {
@@ -35,7 +46,6 @@
     [super loadView];
     
     self.view.frame = CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width, self.view.frame.size.height - 49);
-    _titleLabel.text = @"天气";
     _backButton.hidden = YES;
     
     _backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, _adjustView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - _adjustView.frame.size.height)];
@@ -43,6 +53,17 @@
     _backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
     _backgroundImageView.layer.masksToBounds = YES;
     [self.view addSubview:_backgroundImageView];
+    
+    //标题按钮
+    _titleButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_titleButton setImage:[UIImage imageNamed:@"togetBuy_title_triangle"] forState:UIControlStateNormal];
+    _titleButton.frame = CGRectMake(0, 0, _headerView.frame.size.width, 44);
+    [_titleButton setBackgroundColor:[UIColor clearColor]];
+    [_titleButton setTitleEdgeInsets:UIEdgeInsetsMake(0, -13, 0, 13)];
+    [_titleButton.titleLabel setFont:[UIFont fontWithName:@"Arial-BoldMT" size:20]];
+    [_titleButton addTarget:self action:@selector(clickTitleButton:) forControlEvents:UIControlEventTouchUpInside];
+    [_titleButton setTitleColor:GColor(136, 136, 136) forState:UIControlStateHighlighted];
+    [_headerView addSubview:_titleButton];
     
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, _adjustView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - _adjustView.frame.size.height) style:UITableViewStyleGrouped];
     _tableView.backgroundColor = [UIColor clearColor];
@@ -70,17 +91,26 @@
     }
     _isAppear = YES;
     
-    [Weather getCityForecastWithCityId:[[[NSUserDefaults standardUserDefaults] objectForKey:@"city_id"] integerValue]
-                               success:^(NSArray *array) {
-                                   
-                                   if([array count] > 0)
-                                   {
-                                       [self setWeather:[array objectAtIndex:0]];
-                                   }
-                                   
-                               } failure:^(NSError *error) {
-                                   
-                               }];
+    if([_weather.forecastArray count]==0||[[Function getAsynchronousWithKey:@"refresh_weather_data"] boolValue]==YES){
+        [Function setAsynchronousWithObject:[NSNumber numberWithBool:NO] Key:@"refresh_weather_data"];
+        
+        [self.view makeToastActivity];
+        [Weather getCityForecastWithCityId:[[[NSUserDefaults standardUserDefaults] objectForKey:@"city_id"] integerValue]
+                                   success:^(NSArray *array) {
+                                       
+                                       if([array count] > 0)
+                                       {
+                                           [self setWeather:[array objectAtIndex:0]];
+                                       }
+                                       
+                                       [self.view hideToastActivity];
+                                   } failure:^(NSError *error) {
+                                       [self.view hideToastActivity];
+                                       [self.view makeToast:@"网络异常" duration:TOAST_DURATION position:@"center"];
+                                   }];
+    }
+    //更改标题
+    [Function layoutPlayWayBtnWithTitle:[Function getAsynchronousWithKey:@"city_name"] Button:_titleButton];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -317,6 +347,17 @@
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return nil;
+}
+
+#pragma mark - 标题点击事件
+- (void)tapTitleLabel:(UITapGestureRecognizer *)gestureRecognizer
+{
+    if(gestureRecognizer.state == UIGestureRecognizerStateEnded)
+    {
+        //跳转国家选择页面
+        ContrylistViewController *countryListVC = [[[ContrylistViewController alloc] init] autorelease];
+        [self.tabVC.navigationController pushViewController:countryListVC animated:YES];
+    }
 }
 
 @end

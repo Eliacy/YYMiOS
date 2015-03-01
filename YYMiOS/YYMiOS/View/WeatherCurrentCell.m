@@ -54,7 +54,7 @@
     }
     _weather = [weather retain];
     
-    _cityLabel.text = weather.city.cityName;
+    _cityLabel.text = @"现在";    // 城市名现在已经在标题栏显示，因此这里不再重复显示。 weather.city.cityName;
     _weatherLabel.text = [NSString stringWithFormat:@"%@ %i˚", weather.currentForecast.condiction, _weather.currentForecast.temp];
     
     switch (weather.currentForecast.typeId) {

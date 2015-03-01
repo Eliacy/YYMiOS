@@ -47,6 +47,8 @@ typedef void (^LPAPIFailureBlock)(NSError *error);
  获取国家列表
  */
 - (void)getCountryListWithCountryId:(NSInteger)countryId
+                          longitude:(float)longitude
+                           latitude:(float)latitude
                             success:(LPAPISuccessBlock)successBlock
                             failure:(LPAPIFailureBlock)failureBlock;
 

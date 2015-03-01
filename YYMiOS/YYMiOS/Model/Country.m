@@ -61,4 +61,88 @@
     return self;
 }
 
++ (NSArray *)parseFromeDictionary:(NSDictionary *)dictionary
+{
+    NSMutableArray *mutableArray = [NSMutableArray arrayWithCapacity:0];
+    
+    if(dictionary && [dictionary isKindOfClass:[NSDictionary class]])
+    {
+        if([dictionary objectForKey:@"data"])
+        {
+            dictionary = [dictionary objectForKey:@"data"];
+        }
+        
+        if([dictionary isKindOfClass:[NSArray class]])
+        {
+            for(NSDictionary *attribute in (NSArray *)dictionary)
+            {
+                Country *country = [[Country alloc] initWithAttribute:attribute];
+                [mutableArray addObject:country];
+                [country release];
+            }
+        }
+        else if([dictionary isKindOfClass:[NSDictionary class]])
+        {
+            Country *country = [[Country alloc] initWithAttribute:dictionary];
+            [mutableArray addObject:country];
+            [country release];
+        }
+    }
+    else if([dictionary isKindOfClass:[NSArray class]])
+    {
+        for(NSDictionary *attribute in (NSArray *)dictionary)
+        {
+            Country *country = [[Country alloc] initWithAttribute:attribute];
+            [mutableArray addObject:country];
+            [country release];
+        }
+    }
+    
+    return mutableArray;
+}
+
++ (void)getCountryListWithCountryId:(NSInteger)countryId
+                          longitude:(float)longitude
+                           latitude:(float)latitude
+                              success:(LPObjectSuccessBlock)successBlock
+                              failure:(LPObjectFailureBlock)failureBlock
+{
+    [[LPAPIClient sharedAPIClient] getCountryListWithCountryId:countryId
+                                                     longitude:longitude
+                                                      latitude:latitude
+                                                         success:^(id respondObject) {
+                                                             if(successBlock)
+                                                             {
+                                                                 successBlock([Country parseFromeDictionary:respondObject]);
+                                                             }
+                                                         } failure:^(NSError *error) {
+                                                             if(failureBlock)
+                                                             {
+                                                                 failureBlock(error);
+                                                             }
+                                                         }];
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    if (self = [super init]) {
+        self.countryId = (NSInteger)[aDecoder decodeObjectForKey:@"countryId"];
+        self.defaultCityId = (NSInteger)[aDecoder decodeObjectForKey:@"defaultCityId"];
+        self.countryName = [aDecoder decodeObjectForKey:@"countryName"];
+        self.countryOrder = (NSInteger)[aDecoder decodeObjectForKey:@"countryOrder"];
+        self.cityArray = (NSMutableArray *)[aDecoder decodeObjectForKey:@"cityArray"];
+    }
+    return  self;
+}
+
+-(void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeObject:[NSNumber numberWithInteger:self.countryId] forKey:@"countryId"];
+    [aCoder encodeObject:[NSNumber numberWithInteger:self.defaultCityId] forKey:@"defaultCityId"];
+    [aCoder encodeObject:self.countryName forKey:@"countryName"];
+    [aCoder encodeObject:[NSNumber numberWithInteger:self.countryOrder] forKey:@"countryOrder"];
+    [aCoder encodeObject:self.cityArray forKey:@"cityArray"];
+}
+
+
 @end

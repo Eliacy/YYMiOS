@@ -16,6 +16,7 @@
 #import "Share.h"
 #import "DealEditViewController.h"
 #import "Tip.h"
+#import "ContrylistViewController.h"
 
 @interface DynamicViewController () <DynamicCellDelegate, TitleExpandKitDelegate>
 
@@ -26,6 +27,13 @@
 @synthesize tabVC = _tabVC;
 
 #pragma mark - private
+
+- (void)clickTitleButton:(id)sender
+{
+    //跳转国家选择页面
+    ContrylistViewController *countryListVC = [[[ContrylistViewController alloc] init] autorelease];
+    [self.tabVC.navigationController pushViewController:countryListVC animated:YES];
+}
 
 - (void)clickBestButton:(id)sender
 {
@@ -72,8 +80,18 @@
     [super loadView];
     
     self.view.frame = CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width, self.view.frame.size.height - 49);
-    _titleLabel.text = @"动态";
     _backButton.hidden = YES;
+    
+    //标题按钮
+    _titleButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_titleButton setImage:[UIImage imageNamed:@"togetBuy_title_triangle"] forState:UIControlStateNormal];
+    _titleButton.frame = CGRectMake(0, 0, _headerView.frame.size.width, 44);
+    [_titleButton setBackgroundColor:[UIColor clearColor]];
+    [_titleButton setTitleEdgeInsets:UIEdgeInsetsMake(0, -13, 0, 13)];
+    [_titleButton.titleLabel setFont:[UIFont fontWithName:@"Arial-BoldMT" size:20]];
+    [_titleButton addTarget:self action:@selector(clickTitleButton:) forControlEvents:UIControlEventTouchUpInside];
+    [_titleButton setTitleColor:GColor(136, 136, 136) forState:UIControlStateHighlighted];
+    [_headerView addSubview:_titleButton];
     
     _bestButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     _bestButton.frame = CGRectMake(2, 2, 40, 40);
@@ -131,33 +149,43 @@
     }
     _isAppear = YES;
     
-    [Deal getDealDetailListWithDealId:0
-                                brief:1
-                             selected:_selected
-                            published:0
-                               offset:0
-                                limit:20
-                                 user:0
-                                 site:0
-                                 city:[[[NSUserDefaults standardUserDefaults] objectForKey:@"city_id"] integerValue]
-                              success:^(NSArray *array) {
-                                  
-                                  [_dynamicArray removeAllObjects];
-                                  [_dynamicArray addObjectsFromArray:array];
-                                  [_tableView reloadData];
-                                  
-                                  if([array count] < 20)
-                                  {
-                                      _isHaveMore = NO;
-                                  }
-                                  else
-                                  {
-                                      _isHaveMore = YES;
-                                  }
-                                  
-                              } failure:^(NSError *error) {
-                                  
-                              }];
+    if([_dynamicArray count]==0||[[Function getAsynchronousWithKey:@"refresh_dynamic_data"] boolValue]==YES){
+        [Function setAsynchronousWithObject:[NSNumber numberWithBool:NO] Key:@"refresh_dynamic_data"];
+        
+        [self.view makeToastActivity];
+        [Deal getDealDetailListWithDealId:0
+                                    brief:1
+                                 selected:_selected
+                                published:0
+                                   offset:0
+                                    limit:20
+                                     user:0
+                                     site:0
+                                     city:[[[NSUserDefaults standardUserDefaults] objectForKey:@"city_id"] integerValue]
+                                  success:^(NSArray *array) {
+                                      
+                                      [_dynamicArray removeAllObjects];
+                                      [_dynamicArray addObjectsFromArray:array];
+                                      [_tableView reloadData];
+                                      
+                                      if([array count] < 20)
+                                      {
+                                          _isHaveMore = NO;
+                                      }
+                                      else
+                                      {
+                                          _isHaveMore = YES;
+                                      }
+                                      
+                                      [self.view hideToastActivity];
+                                  } failure:^(NSError *error) {
+                                      [self.view hideToastActivity];
+                                      [self.view makeToast:@"网络异常" duration:TOAST_DURATION position:@"center"];
+                                  }];
+    }
+    
+    //更改标题
+    [Function layoutPlayWayBtnWithTitle:[Function getAsynchronousWithKey:@"city_name"] Button:_titleButton];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -222,6 +250,7 @@
     }
     _isLoading = YES;
     
+    [self.view makeToastActivity];
     [Deal getDealDetailListWithDealId:0
                                 brief:1
                              selected:_selected
@@ -247,11 +276,12 @@
                                   {
                                       _isHaveMore = YES;
                                   }
-                                  
+                                  [self.view hideToastActivity];
                               } failure:^(NSError *error) {
                                   
                                   _isLoading = NO;
-                                  
+                                  [self.view hideToastActivity];
+                                  [self.view makeToast:@"网络异常" duration:TOAST_DURATION position:@"center"];
                               }];
 }
 
@@ -268,6 +298,7 @@
     }
     _isLoading = YES;
     
+    [self.view makeToastActivity];
     [Deal getDealDetailListWithDealId:0
                                 brief:1
                              selected:_selected
@@ -293,10 +324,12 @@
                                       _isHaveMore = YES;
                                   }
                                   
+                                  [self.view hideToastActivity];
                               } failure:^(NSError *error) {
                                   
                                   _isLoading = NO;
-                                  
+                                  [self.view hideToastActivity];
+                                  [self.view makeToast:@"网络异常" duration:TOAST_DURATION position:@"center"];
                               }];
 }
 
@@ -359,6 +392,7 @@
         }
         _isLoading = YES;
         
+        [self.view makeToastActivity];
         [User unfollowSomeoneWithUserId:deal.user.userId
                              fromUserId:[[User sharedUser] userId]
                                 success:^(NSArray *array) {
@@ -368,10 +402,12 @@
                                     deal.user.followed = !deal.user.followed;
                                     [_tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:[_dynamicArray indexOfObject:deal] inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
                                     
+                                    [self.view hideToastActivity];
                                 } failure:^(NSError *error) {
                                     
                                     _isLoading = NO;
-                                    
+                                    [self.view hideToastActivity];
+                                    [self.view makeToast:@"网络异常" duration:TOAST_DURATION position:@"center"];
                                 }];
     }
     else
@@ -382,6 +418,7 @@
         }
         _isLoading = YES;
         
+        [self.view makeToastActivity];
         [User followSomeoneWithUserId:deal.user.userId
                            fromUserId:[[User sharedUser] userId]
                               success:^(NSArray *array) {
@@ -391,10 +428,12 @@
                                   deal.user.followed = !deal.user.followed;
                                   [_tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:[_dynamicArray indexOfObject:deal] inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
                                   
+                                  [self.view hideToastActivity];
                               } failure:^(NSError *error) {
                                   
                                   _isLoading = NO;
-                                  
+                                  [self.view hideToastActivity];
+                                  [self.view makeToast:@"网络异常" duration:TOAST_DURATION position:@"center"];
                               }];
     }
 }
@@ -428,6 +467,7 @@
         }
         _isLoading = YES;
         
+        [self.view makeToastActivity];
         [Deal unlikeReviewWithUserId:[[User sharedUser] userId]
                             reviewId:dynamicCell.deal.dealId
                              success:^(NSArray *array) {
@@ -438,10 +478,12 @@
                                  dynamicCell.deal.likeCount -= 1;
                                  [_tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[_tableView indexPathForCell:dynamicCell]] withRowAnimation:UITableViewRowAnimationAutomatic];
                                  
+                                 [self.view hideToastActivity];
                              } failure:^(NSError *error) {
                                  
                                  _isLoading = NO;
-                                 
+                                 [self.view hideToastActivity];
+                                 [self.view makeToast:@"网络异常" duration:TOAST_DURATION position:@"center"];
                              }];
     }
     else
@@ -452,6 +494,7 @@
         }
         _isLoading = YES;
         
+        [self.view makeToastActivity];
         [Deal likeReviewWithUserId:[[User sharedUser] userId]
                           reviewId:dynamicCell.deal.dealId
                            success:^(NSArray *array) {
@@ -462,10 +505,12 @@
                                dynamicCell.deal.likeCount += 1;
                                [_tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[_tableView indexPathForCell:dynamicCell]] withRowAnimation:UITableViewRowAnimationAutomatic];
                                
+                               [self.view hideToastActivity];
                            } failure:^(NSError *error) {
                                
                                _isLoading = NO;
-                               
+                               [self.view hideToastActivity];
+                               [self.view makeToast:@"网络异常" duration:TOAST_DURATION position:@"center"];
                            }];
     }
 }
@@ -496,6 +541,17 @@
             break;
     }
     
+}
+
+#pragma mark - 标题点击事件
+- (void)tapTitleLabel:(UITapGestureRecognizer *)gestureRecognizer
+{
+    if(gestureRecognizer.state == UIGestureRecognizerStateEnded)
+    {
+        //跳转国家选择页面
+        ContrylistViewController *countryListVC = [[[ContrylistViewController alloc] init] autorelease];
+        [self.tabVC.navigationController pushViewController:countryListVC animated:YES];
+    }
 }
 
 @end

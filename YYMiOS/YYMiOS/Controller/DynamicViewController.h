@@ -23,6 +23,7 @@
     UITableView     *_tableView;
     NSMutableArray  *_dynamicArray;
     
+    UIButton        *_titleButton;
     UIButton        *_bestButton;
     UIButton        *_addButton;
     

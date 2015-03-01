@@ -12,9 +12,8 @@
 
 @class TabViewController;
 
-@interface HomeViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate, SRRefreshDelegate>
+@interface HomeViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate, SRRefreshDelegate,NSFileManagerDelegate>
 {
-    TitleExpandKit *_expandKit;
     
     TabViewController   *_tabVC;
     NSMutableArray  *_cityArray;
@@ -23,10 +22,12 @@
     UITableView     *_tableView;
     NSMutableArray  *_homeArray;
     
+    UIButton        *_titleButton;
     UIButton        *_tipsButton;
     UIButton        *_messageButton;
     
     UILabel         *_messageCountLabel;
+    
 }
 
 @property (assign, nonatomic) TabViewController *tabVC;

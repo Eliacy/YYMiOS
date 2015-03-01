@@ -98,4 +98,33 @@
  */
 + (id)getAsynchronousWithKey:(NSString *)key;
 
+
+/**
+ *  返回当前时间的毫秒格式
+ */
++ (UInt64)getCurrentSysTime;
+
+/**
+ *  根据两点的经纬度算距离
+ *
+ *  @param Location1Lat    经度1
+ *  @param Location1Lon    纬度1
+ *  @param Location2Lat    经度2
+ *  @param Location2Lon    纬度2
+ */
++ (CLLocationDistance)getDistanceFromLocation1Lat:(double)location1Lat Location1Lon:(double)location1Lon Location2Lat:(double)location2Lat Location2Lon:(double)location2Lon;
+
+/**
+ *  布局标题按钮
+ */
++ (void)layoutPlayWayBtnWithTitle:(NSString *)title Button:(UIButton *)titleBtn;
+
+/**
+ *  计算label高度
+ *
+ *  @param Content          内容
+ *  @param BoundingSize     尺寸
+ *  @param Font             字体
+ */
++ (CGFloat)getLabelHeightWithContent:(NSString *)content BoundingSize:(CGSize)boundingSize Font:(UIFont *)font;
 @end

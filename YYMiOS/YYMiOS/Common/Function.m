@@ -149,4 +149,39 @@
     return [info valueForKey:key];
 }
 
+#pragma mark - 返回当前时间的毫秒格式
++ (UInt64)getCurrentSysTime
+{
+    return [[NSDate date] timeIntervalSince1970];
+}
+
+#pragma mark - 根据两点的经纬度算距离
++ (CLLocationDistance)getDistanceFromLocation1Lat:(double)location1Lat Location1Lon:(double)location1Lon Location2Lat:(double)location2Lat Location2Lon:(double)location2Lon
+{
+    CLLocation  *location1 = [[CLLocation alloc] initWithLatitude:location1Lat longitude:location1Lon];
+    CLLocation  *location2 = [[CLLocation alloc] initWithLatitude:location2Lat longitude:location2Lon];
+    return [location1 distanceFromLocation:location2]/1000;
+}
+
+#pragma mark - 布局标题按钮
++ (void)layoutPlayWayBtnWithTitle:(NSString *)title Button:(UIButton *)titleBtn
+{
+    NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:20.0f]};
+    CGSize size = [title sizeWithAttributes:attribute];
+    [titleBtn setTitle:title forState:UIControlStateNormal];
+    [titleBtn setImageEdgeInsets:UIEdgeInsetsMake(2, size.width+5, 0, -size.width-5)];
+}
+
+#pragma mark - 计算label高度
++ (CGFloat)getLabelHeightWithContent:(NSString *)content BoundingSize:(CGSize)boundingSize Font:(UIFont *)font
+{
+    
+    CGSize labelSize = [content boundingRectWithSize:boundingSize
+                                             options:NSStringDrawingUsesLineFragmentOrigin
+                                          attributes:@{NSFontAttributeName:font}
+                                             context:nil].size;
+    return labelSize.height;
+    
+}
+
 @end
