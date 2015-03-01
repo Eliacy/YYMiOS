@@ -180,7 +180,7 @@
                                              options:NSStringDrawingUsesLineFragmentOrigin
                                           attributes:@{NSFontAttributeName:font}
                                              context:nil].size;
-    return labelSize.height;
+    return labelSize.height+5;
     
 }
 

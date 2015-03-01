@@ -124,7 +124,7 @@
         [self addSubview:_tableView];
         
         //过滤列表中无数据内容
-        [self performSelector:@selector(cellHeightArrayFilter) withObject:nil afterDelay:0.5];
+        [self performSelector:@selector(cellHeightArrayFilter) withObject:nil afterDelay:1];
         
     }
     return self;
@@ -271,6 +271,10 @@
             if(_poiDetail.environment && ![_poiDetail.environment isEqualToString:@""])
             {
                 cell.titleLabel.text = [NSString stringWithFormat:@"环境：%@", _poiDetail.environment];
+                
+                //cell实际高度
+                CGFloat height = [Function getLabelHeightWithContent:cell.titleLabel.text BoundingSize:CGSizeMake(cell.titleLabel.frame.size.width, 1000) Font:cell.titleLabel.font];
+                [self.cellActualHeightArray replaceObjectAtIndex:indexPath.row withObject:[NSNumber numberWithFloat:height]];
             }
         }
             break;
@@ -310,6 +314,10 @@
             if(_poiDetail.menu && ![_poiDetail.menu isEqualToString:@""])
             {
                 cell.titleLabel.text = [NSString stringWithFormat:@"中文菜单：%@", _poiDetail.menu];
+                
+                //cell实际高度
+                CGFloat height = [Function getLabelHeightWithContent:cell.titleLabel.text BoundingSize:CGSizeMake(cell.titleLabel.frame.size.width, 1000) Font:cell.titleLabel.font];
+                [self.cellActualHeightArray replaceObjectAtIndex:indexPath.row withObject:[NSNumber numberWithFloat:height]];
             }
         }
             break;
@@ -317,7 +325,12 @@
         {
             if(_poiDetail.ticket && ![_poiDetail.ticket isEqualToString:@""])
             {
-                cell.titleLabel.text = [NSString stringWithFormat:@"门票：%@", _poiDetail.ticket];            }
+                cell.titleLabel.text = [NSString stringWithFormat:@"门票：%@", _poiDetail.ticket];
+                
+                //cell实际高度
+                CGFloat height = [Function getLabelHeightWithContent:cell.titleLabel.text BoundingSize:CGSizeMake(cell.titleLabel.frame.size.width, 1000) Font:cell.titleLabel.font];
+                [self.cellActualHeightArray replaceObjectAtIndex:indexPath.row withObject:[NSNumber numberWithFloat:height]];
+            }
         }
             break;
         case 5:
@@ -325,6 +338,10 @@
             if(_poiDetail.booking && ![_poiDetail.booking isEqualToString:@""])
             {
                 cell.titleLabel.text = [NSString stringWithFormat:@"提前预定：%@", _poiDetail.booking];
+                
+                //cell实际高度
+                CGFloat height = [Function getLabelHeightWithContent:cell.titleLabel.text BoundingSize:CGSizeMake(cell.titleLabel.frame.size.width, 1000) Font:cell.titleLabel.font];
+                [self.cellActualHeightArray replaceObjectAtIndex:indexPath.row withObject:[NSNumber numberWithFloat:height]];
             }
         }
             break;
@@ -337,8 +354,6 @@
                 CGFloat height = [Function getLabelHeightWithContent:cell.titleLabel.text BoundingSize:CGSizeMake(cell.titleLabel.frame.size.width, 1000) Font:cell.titleLabel.font];
                 [self.cellActualHeightArray replaceObjectAtIndex:indexPath.row withObject:[NSNumber numberWithFloat:height]];
                 
-                CGFloat currentHeight = [[self.cellCurrentHeightArray objectAtIndex:indexPath.row] floatValue];
-                NSLog(@"currentHeight : %f",currentHeight);
                 [cell.titleLabel setFrame:CGRectMake(cell.titleLabel.frame.origin.x, cell.titleLabel.frame.origin.y, cell.titleLabel.frame.size.width, [[self.cellCurrentHeightArray objectAtIndex:indexPath.row] floatValue])];
             }
         }
@@ -355,6 +370,10 @@
                 [string addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:2.0 / 255.0 green:102.0 / 255.0 blue:237.0 / 255.0 alpha:1.0] range:NSMakeRange(string.length - _poiDetail.phone.length, _poiDetail.phone.length)];
                 
                 cell.titleLabel.attributedText = string;
+                
+                //cell实际高度
+                CGFloat height = [Function getLabelHeightWithContent:cell.titleLabel.text BoundingSize:CGSizeMake(cell.titleLabel.frame.size.width, 1000) Font:cell.titleLabel.font];
+                [self.cellActualHeightArray replaceObjectAtIndex:indexPath.row withObject:[NSNumber numberWithFloat:height]];
             }
         }
             break;
@@ -369,10 +388,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    CGFloat acttualHeight = [[self.cellActualHeightArray objectAtIndex:indexPath.row] floatValue];
+    CGFloat currentHeight = [[self.cellCurrentHeightArray objectAtIndex:indexPath.row] floatValue];
     
-    
-    //可展开的情况
-    if([[self.cellActualHeightArray objectAtIndex:indexPath.row] floatValue]!=[[self.cellCurrentHeightArray objectAtIndex:indexPath.row] floatValue]){
+    //实际计算出的高度与默认高度20可能存在小于1的误差 此情况视为正常不做处理 除此之外情况，刷新主视图
+    if(acttualHeight-currentHeight>1||currentHeight-acttualHeight>1){
         
         //替换当前cell高度
         [self.cellCurrentHeightArray replaceObjectAtIndex:indexPath.row withObject:[self.cellActualHeightArray objectAtIndex:indexPath.row]];
@@ -380,8 +400,8 @@
         [_tableView reloadData];
         
         //发送通知 shopView刷新界面
+        _isNotification = YES;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadShopView" object:nil];
-        
     }
 }
 

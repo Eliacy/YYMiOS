@@ -58,6 +58,7 @@
     }
     _isLoading = YES;
     
+    [self.view makeToastActivity];
     if(_poiDetail.favorited)
     {
         [POI cancelCollectPOIWithUserId:[[User sharedUser] userId]
@@ -69,10 +70,12 @@
                                     _poiDetail.favorited = 0;
                                     [_favouriteButton setTitle:@"收藏" forState:UIControlStateNormal];
                                     
+                                    [self.view hideToastActivity];
                                 } failure:^(NSError *error) {
                                    
                                     _isLoading = NO;
-                                    
+                                    [self.view hideToastActivity];
+                                    [self.view makeToast:@"网络异常" duration:TOAST_DURATION position:@"center"];
                                 }];
     }
     else
@@ -86,10 +89,12 @@
                               _poiDetail.favorited = 1;
                               [_favouriteButton setTitle:@"取消" forState:UIControlStateNormal];
                               
+                              [self.view hideToastActivity];
                           } failure:^(NSError *error) {
                               
                               _isLoading = NO;
-                              
+                              [self.view hideToastActivity];
+                              [self.view makeToast:@"网络异常" duration:TOAST_DURATION position:@"center"];
                           }];
     }
 }
@@ -138,56 +143,45 @@
 #pragma mark - 刷新当前界面
 - (void) reloadView :(NSNotification *) notification
 {
+    if(!_shopDetailView.isNotification){
+        return;
+    }
     //计算当前高度差
     float currentHeight = .0;
     for(NSNumber *height in _shopDetailView.cellCurrentHeightArray){
         currentHeight += [height floatValue];
     }
     
-    GLog(@"showDetailViewHeight : %f",showDetailViewHeight);
-    GLog(@"currentHeight : %f",currentHeight);
+    //通过动画显示展开效果
+    [UIView animateWithDuration:0.33
+                     animations:^{
+                         
+                         if(currentHeight!=showDetailViewHeight){
+                             //店铺详情
+                             _shopDetailView.frame = CGRectMake(_shopDetailView.frame.origin.x, _shopDetailView.frame.origin.y, _shopDetailView.frame.size.width, _shopDetailView.frame.size.height+(currentHeight-showDetailViewHeight));
+                             _shopDetailView.tableView.frame = CGRectMake(_shopDetailView.tableView.frame.origin.x, _shopDetailView.tableView.frame.origin.y, _shopDetailView.tableView.frame.size.width, _shopDetailView.tableView.frame.size.height+(currentHeight-showDetailViewHeight));
+                             
+                             //简介
+                             _descriptionBackView.frame = CGRectMake(_descriptionBackView.frame.origin.x, _shopDetailView.frame.origin.y + _shopDetailView.frame.size.height + 8, _descriptionBackView.frame.size.width, _descriptionBackView.frame.size.height);
+                             _descriptionHeaderLabel.frame = CGRectMake(_descriptionHeaderLabel.frame.origin.x, -10 + _descriptionBackView.frame.origin.y, _descriptionHeaderLabel.frame.size.width, _descriptionHeaderLabel.frame.size.height);
+                             
+                             //地图
+                             _mapView.frame = CGRectMake(_mapView.frame.origin.x, _descriptionBackView.frame.origin.y + _descriptionBackView.frame.size.height + 10, _mapView.frame.size.width, _mapView.frame.size.height);
+                             //关键词
+                             _keywordView.frame = CGRectMake(_keywordView.frame.origin.x, _mapView.frame.origin.y + _mapView.frame.size.height, _keywordView.frame.size.width, _keywordView.frame.size.height);
+                             
+                             //晒单图片
+                             _topImageView.frame = CGRectMake(_topImageView.frame.origin.x, _keywordView.frame.origin.y + _keywordView.frame.size.height, _topImageView.frame.size.width, _topImageView.frame.size.height);
+                             
+                             //TableView
+                             _tableHeaderView.frame = CGRectMake(_tableHeaderView.frame.origin.x, _tableHeaderView.frame.origin.y, _tableHeaderView.frame.size.width, _descriptionBackView.frame.origin.y + _descriptionBackView.frame.size.height + _mapView.frame.size.height + 10 + _keywordView.frame.size.height + _topImageView.frame.size.height);
+                             _tableView.tableHeaderView = _tableHeaderView;
+                             
+                             showDetailViewHeight = currentHeight;
+                         }
+                     }];
     
-    if(currentHeight!=showDetailViewHeight){
-        
-        GLog(@"_shopDetailView.frame.size.height : %f",_shopDetailView.frame.size.height);
-        
-        //店铺详情
-        _shopDetailView.frame = CGRectMake(_shopDetailView.frame.origin.x, _shopDetailView.frame.origin.y, _shopDetailView.frame.size.width, _shopDetailView.frame.size.height+(currentHeight-showDetailViewHeight));
-        
-        GLog(@"_shopDetailView.frame.size.height : %f",_shopDetailView.frame.size.height);
-        
-        GLog(@"_descriptionBackView.frame.origin.y : %f",_descriptionBackView.frame.origin.y);
-        GLog(@"_descriptionHeaderLabel.frame.size.height : %f",_descriptionHeaderLabel.frame.size.height);
-        //简介
-        _descriptionBackView.frame = CGRectMake(_descriptionBackView.frame.origin.x, _shopDetailView.frame.origin.y + _shopDetailView.frame.size.height + 8, _descriptionBackView.frame.size.width, _descriptionBackView.frame.size.height);
-        _descriptionHeaderLabel.frame = CGRectMake(_descriptionHeaderLabel.frame.origin.x, -10 + _descriptionBackView.frame.origin.y, _descriptionHeaderLabel.frame.size.width, _descriptionHeaderLabel.frame.size.height);
-        GLog(@"_descriptionBackView.frame.origin.y : %f",_descriptionBackView.frame.origin.y);
-        GLog(@"_descriptionHeaderLabel.frame.size.height : %f",_descriptionHeaderLabel.frame.size.height);
-        
-        GLog(@"_tableHeaderView.frame.size.height : %f",_tableHeaderView.frame.size.height);
-        //HeaderView
-        _tableHeaderView.frame = CGRectMake(_tableHeaderView.frame.origin.x, _tableHeaderView.frame.origin.y, _tableHeaderView.frame.size.width, _descriptionBackView.frame.origin.y + _descriptionBackView.frame.size.height + _mapView.frame.size.height + 10 + _keywordView.frame.size.height + _topImageView.frame.size.height);
-        GLog(@"_tableHeaderView.frame.size.height : %f",_tableHeaderView.frame.size.height);
-        GLog(@"_mapView.frame.size.height : %f",_mapView.frame.size.height);
-        //地图
-        _mapView.frame = CGRectMake(_mapView.frame.origin.x, _tableHeaderView.frame.size.height - 140, _mapView.frame.size.width, _mapView.frame.size.height);
-        GLog(@"_mapView.frame.size.height : %f",_mapView.frame.size.height);
-        GLog(@"_keywordView.frame.size.height : %f",_keywordView.frame.size.height);
-        //关键词
-        _keywordView.frame = CGRectMake(_keywordView.frame.origin.x, _mapView.frame.origin.y + _mapView.frame.size.height, _keywordView.frame.size.width, _keywordView.frame.size.height);
-        GLog(@"_keywordView.frame.size.height : %f",_keywordView.frame.size.height);
-        GLog(@"_topImageView.frame.size.height : %f",_topImageView.frame.size.height);
-        //晒单图片
-        _topImageView.frame = CGRectMake(_topImageView.frame.origin.x, _keywordView.frame.origin.y + _keywordView.frame.size.height, _topImageView.frame.size.width, _topImageView.frame.size.height);
-        GLog(@"_topImageView.frame.size.height : %f",_topImageView.frame.size.height);
-        GLog(@"_tableView.frame.size.height : %f",_tableView.frame.size.height);
-        _tableView.frame = CGRectMake(_tableView.frame.origin.x, _tableView.frame.origin.y, _tableView.frame.size.width, _tableView.frame.size.height+(currentHeight-showDetailViewHeight));
-        GLog(@"_tableView.frame.size.height : %f",_tableView.frame.size.height);
-        [_tableView reloadData];
-        
-        showDetailViewHeight = currentHeight;
-    }
-    
+    _shopDetailView.isNotification = NO;
 }
 
 #pragma mark - super
@@ -266,7 +260,7 @@
     [_sendButton addTarget:self action:@selector(clickSendButton:) forControlEvents:UIControlEventTouchUpInside];
     [_footerView addSubview:_sendButton];
     
-    //中间视图区
+    //整体视图区
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, _adjustView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - _adjustView.frame.size.height - _footerView.frame.size.height) style:UITableViewStylePlain];
     _tableView.backgroundColor = [UIColor clearColor];
     _tableView.dataSource = self;
@@ -340,7 +334,7 @@
     [_descriptionBackView addSubview:_descriptionLabel];
     
     //地图
-    _mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, _tableHeaderView.frame.size.height - 140, _tableHeaderView.frame.size.width, 140)];
+    _mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0,_descriptionBackView.frame.origin.y + _descriptionBackView.frame.size.height + 10, _tableHeaderView.frame.size.width, 140)];
     _mapView.delegate = self;
     [_tableHeaderView addSubview:_mapView];
     
@@ -382,8 +376,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
+    
+    //请求POI列表
+    [self.view makeToastActivity];
     [POIDetail getPOIListWithPOIId:_poiId
                              brief:0
                             offset:0
@@ -403,28 +399,34 @@
                                    self.poiDetail = [array objectAtIndex:0];
                                }
                                
-                           } failure:^(NSError *error) {
+                               //请求晒单列表
+                               [Deal getDealDetailListWithDealId:0
+                                                           brief:1
+                                                        selected:0
+                                                       published:0
+                                                          offset:0
+                                                           limit:20
+                                                            user:0
+                                                            site:_poiId
+                                                            city:0
+                                                         success:^(NSArray *array) {
+                                                             
+                                                             [_dealArray removeAllObjects];
+                                                             [_dealArray addObjectsFromArray:array];
+                                                             [_tableView reloadData];
+                                                             
+                                                             [self.view hideToastActivity];
+                                                         } failure:^(NSError *error) {
+                                                             [self.view hideToastActivity];
+                                                             [self.view makeToast:@"网络异常" duration:TOAST_DURATION position:@"center"];
+                                                         }];
                                
+                           } failure:^(NSError *error) {
+                               [self.view hideToastActivity];
+                               [self.view makeToast:@"网络异常" duration:TOAST_DURATION position:@"center"];
                            }];
     
-    [Deal getDealDetailListWithDealId:0
-                                brief:1
-                             selected:0
-                            published:0
-                               offset:0
-                                limit:20
-                                 user:0
-                                 site:_poiId
-                                 city:0
-                              success:^(NSArray *array) {
-                                  
-                                  [_dealArray removeAllObjects];
-                                  [_dealArray addObjectsFromArray:array];
-                                  [_tableView reloadData];
-                                  
-                              } failure:^(NSError *error) {
-                                  
-                              }];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -506,8 +508,6 @@
     showDetailViewHeight = [ShopDetailView getShopDetailViewHeightWithPOIDetail:poiDetail];
     _shopDetailView.frame = CGRectMake(_shopDetailView.frame.origin.x, _shopDetailView.frame.origin.y, _shopDetailView.frame.size.width, showDetailViewHeight);
     [_shopDetailView setPoiDetail:poiDetail];
-    GLog(@"_shopDetailView.frame.size.height : %f",_shopDetailView.frame.size.height);
-    
     
     CGSize descriptionSize = [LPUtility getTextHeightWithText:poiDetail.description
                                                          font:_descriptionLabel.font
