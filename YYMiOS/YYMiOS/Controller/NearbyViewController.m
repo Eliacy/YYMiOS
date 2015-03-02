@@ -595,6 +595,8 @@
         //请求接口并刷新数据
         [self searchWithText:[searchHistoryArray objectAtIndex:indexPath.row]];
         
+        //mySearchBar上显示选中内容
+        mySearchBar.text = [searchHistoryArray objectAtIndex:indexPath.row];
     }else{
         
         //隐藏搜索列表
@@ -602,12 +604,7 @@
         
         //请求接口并刷新数据
         [self searchWithText:[filterArray objectAtIndex:indexPath.row]];
-        
-        
     }
-    
-    
-    
     
     return nil;
 }
