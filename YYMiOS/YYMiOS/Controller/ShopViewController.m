@@ -17,13 +17,20 @@
 #import "ShareKit.h"
 #import "Share.h"
 
+
+#define kDescriptionDefaultHeight 80
+
 @interface ShopViewController () <UITextFieldDelegate>
 
 @end
 
 @implementation ShopViewController
 {
+    //详情高度
     float showDetailViewHeight;
+    
+    //简介真实的高度（默认最多显示5行 但这里记录实际高度 以便展开显示）
+    float descriptionActualHeight;
 }
 
 @synthesize poiId = _poiId;
@@ -140,7 +147,7 @@
                      }];
 }
 
-#pragma mark - 刷新当前界面
+#pragma mark - 刷新店铺详情列表
 - (void) reloadView :(NSNotification *) notification
 {
     if(!_shopDetailView.isNotification){
@@ -183,6 +190,40 @@
     
     _shopDetailView.isNotification = NO;
 }
+
+#pragma mark - 刷新简介
+- (void)reloadDescriptionView
+{
+    GLog(@"reloadDescriptionView");
+    
+    //不足默认高度时 避免不必要的界面刷新操作
+    if(descriptionActualHeight < kDescriptionDefaultHeight){
+        return;
+    }
+    //通过动画显示展开效果
+    [UIView animateWithDuration:0.33
+                     animations:^{
+                         
+                         //简介
+                         _descriptionBackView.frame = CGRectMake(_descriptionBackView.frame.origin.x, _shopDetailView.frame.origin.y + _shopDetailView.frame.size.height + 8, _descriptionBackView.frame.size.width, descriptionActualHeight + 12 * 2);
+                         _descriptionHeaderLabel.frame = CGRectMake(12 + _descriptionBackView.frame.origin.x, -10 + _descriptionBackView.frame.origin.y, 45, 20);
+                         _descriptionLabel.frame = CGRectMake(_descriptionLabel.frame.origin.x, _descriptionLabel.frame.origin.y, _descriptionLabel.frame.size.width, descriptionActualHeight);
+                         
+                         //地图
+                         _mapView.frame = CGRectMake(_mapView.frame.origin.x, _descriptionBackView.frame.origin.y + _descriptionBackView.frame.size.height + 10, _mapView.frame.size.width, _mapView.frame.size.height);
+                         //关键词
+                         _keywordView.frame = CGRectMake(_keywordView.frame.origin.x, _mapView.frame.origin.y + _mapView.frame.size.height, _keywordView.frame.size.width, _keywordView.frame.size.height);
+                         
+                         //晒单图片
+                         _topImageView.frame = CGRectMake(_topImageView.frame.origin.x, _keywordView.frame.origin.y + _keywordView.frame.size.height, _topImageView.frame.size.width, _topImageView.frame.size.height);
+                         
+                         //TableView
+                         _tableHeaderView.frame = CGRectMake(_tableHeaderView.frame.origin.x, _tableHeaderView.frame.origin.y, _tableHeaderView.frame.size.width, _descriptionBackView.frame.origin.y + _descriptionBackView.frame.size.height + _mapView.frame.size.height + 10 + _keywordView.frame.size.height + _topImageView.frame.size.height);
+                         _tableView.tableHeaderView = _tableHeaderView;
+                         
+                     }];
+}
+
 
 #pragma mark - super
 
@@ -333,6 +374,10 @@
     _descriptionLabel.numberOfLines = 0;
     [_descriptionBackView addSubview:_descriptionLabel];
     
+    UITapGestureRecognizer *descriptionViewTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(reloadDescriptionView)];
+    [_descriptionBackView addGestureRecognizer:descriptionViewTap];
+    [descriptionViewTap release];
+    
     //地图
     _mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0,_descriptionBackView.frame.origin.y + _descriptionBackView.frame.size.height + 10, _tableHeaderView.frame.size.width, 140)];
     _mapView.delegate = self;
@@ -457,15 +502,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 - (void)setPoiDetail:(POIDetail *)poiDetail
 {
@@ -475,6 +511,7 @@
     }
     _poiDetail = [poiDetail retain];
     
+    //收藏
     if(poiDetail.favorited)
     {
         [_favouriteButton setTitle:@"取消" forState:UIControlStateNormal];
@@ -484,9 +521,11 @@
         [_favouriteButton setTitle:@"收藏" forState:UIControlStateNormal];
     }
     
+    //logo
     [_logoImageView setImageWithURL:[NSURL URLWithString:[LPUtility getQiniuImageURLStringWithBaseString:poiDetail.logo.imageURL imageSize:CGSizeMake(100, 100)]]];
     _nameLabel.text = poiDetail.name;
     
+    //级别
     if(poiDetail.level)
     {
         CGSize size = [LPUtility getTextHeightWithText:poiDetail.level font:_levelLabel.font size:CGSizeMake(200, 20)];
@@ -500,23 +539,35 @@
         _levelLabel.text = @"";
     }
     
+    //店铺名
     _nameLabel.frame = CGRectMake(_nameLabel.frame.origin.x, _nameLabel.frame.origin.y, _tableHeaderView.frame.size.width - _logoImageView.frame.origin.x - _logoImageView.frame.size.width - 15 - _levelImageView.frame.size.width, _nameLabel.frame.size.height);
     
+    //星
     [_starView setStars:poiDetail.stars];
+    
+    //评论
     [_reviewButton setTitle:[NSString stringWithFormat:@"%i", (int)poiDetail.reviewNum] forState:UIControlStateNormal];
     
+    //店铺详情
     showDetailViewHeight = [ShopDetailView getShopDetailViewHeightWithPOIDetail:poiDetail];
     _shopDetailView.frame = CGRectMake(_shopDetailView.frame.origin.x, _shopDetailView.frame.origin.y, _shopDetailView.frame.size.width, showDetailViewHeight);
     [_shopDetailView setPoiDetail:poiDetail];
     
+    //简介
     CGSize descriptionSize = [LPUtility getTextHeightWithText:poiDetail.description
                                                          font:_descriptionLabel.font
                                                          size:CGSizeMake(_descriptionLabel.frame.size.width, 2000)];
-    _descriptionBackView.frame = CGRectMake(_descriptionBackView.frame.origin.x, _shopDetailView.frame.origin.y + _shopDetailView.frame.size.height + 8, _descriptionBackView.frame.size.width, descriptionSize.height + 12 * 2);
+    //默认最多展示5行
+    float descriptionHeight = descriptionActualHeight = descriptionSize.height;
+    if(descriptionHeight > kDescriptionDefaultHeight){
+        descriptionHeight = kDescriptionDefaultHeight;
+    }
+    _descriptionBackView.frame = CGRectMake(_descriptionBackView.frame.origin.x, _shopDetailView.frame.origin.y + _shopDetailView.frame.size.height + 8, _descriptionBackView.frame.size.width, descriptionHeight + 12 * 2);
     _descriptionHeaderLabel.frame = CGRectMake(12 + _descriptionBackView.frame.origin.x, -10 + _descriptionBackView.frame.origin.y, 45, 20);
-    _descriptionLabel.frame = CGRectMake(_descriptionLabel.frame.origin.x, _descriptionLabel.frame.origin.y, _descriptionLabel.frame.size.width, descriptionSize.height);
+    _descriptionLabel.frame = CGRectMake(_descriptionLabel.frame.origin.x, _descriptionLabel.frame.origin.y, _descriptionLabel.frame.size.width, descriptionHeight);
     _descriptionLabel.text = poiDetail.description;
     
+    //地图
     _mapView.frame = CGRectMake(_mapView.frame.origin.x, _descriptionBackView.frame.origin.y + _descriptionBackView.frame.size.height + 10, _mapView.frame.size.width, _mapView.frame.size.height);
     [_mapView setCenterCoordinate:CLLocationCoordinate2DMake(poiDetail.latitude, poiDetail.longitude) zoomLevel:13 animated:YES];
     
@@ -528,6 +579,7 @@
     [_mapView addAnnotation:annotation];
     _mapLabel.text = poiDetail.address;
     
+    //大家觉得（关键词）
     for(UIView *view in _keywordView.subviews)
     {
         [view removeFromSuperview];
@@ -583,6 +635,7 @@
         _keywordView.frame = CGRectMake(_keywordView.frame.origin.x, _mapView.frame.origin.y + _mapView.frame.size.height, _keywordView.frame.size.width, 0);
     }
     
+    //缩略图
     for(UIView *view in _topImageView.subviews)
     {
         [view removeFromSuperview];
