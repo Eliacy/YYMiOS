@@ -123,9 +123,6 @@
         _tableView.scrollEnabled = NO;
         [self addSubview:_tableView];
         
-        //过滤列表中无数据内容
-        [self performSelector:@selector(cellHeightArrayFilter) withObject:nil afterDelay:1];
-        
     }
     return self;
 }
@@ -138,6 +135,10 @@
     }
     _poiDetail = [poiDetail retain];
     
+    //过滤列表中无数据内容 必须在获得poiDetail数据后执行
+    [self cellHeightArrayFilter];
+    
+    //刷新列表
     CGFloat height = [ShopDetailView getShopDetailViewHeightWithPOIDetail:poiDetail];
     _tableView.frame = CGRectMake(0, 0, _tableView.frame.size.width, height);
     [_tableView reloadData];
@@ -147,6 +148,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    NSLog(@"_cellCurrentHeightArray.count : %d",_cellCurrentHeightArray.count);
     return 8;
 }
 
@@ -213,7 +215,6 @@
         {
             if(_poiDetail.phone && ![_poiDetail.phone isEqualToString:@""])
             {
-                NSLog(@"[[self.cellCurrentHeightArray objectAtIndex:7] floatValue] : %f",[[self.cellCurrentHeightArray objectAtIndex:7] floatValue]);
                 return [[self.cellCurrentHeightArray objectAtIndex:7] floatValue];
             }
         }
