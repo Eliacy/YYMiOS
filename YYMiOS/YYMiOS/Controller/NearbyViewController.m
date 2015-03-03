@@ -319,8 +319,6 @@
     }
     if([_nearbyArray count] == 0 || [[[NSUserDefaults standardUserDefaults] objectForKey:@"refresh_nearby_data"] boolValue] == YES)
     {
-        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:NO] forKey:@"refresh_nearby_data"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
         //请求接口
         [self.view makeToastActivity];
         [POI getPOIListWithOffset:0
@@ -334,6 +332,9 @@
                         longitude:0
                          latitude:0
                           success:^(NSArray *array) {
+                              //如果请求不成功，则应保留要求 refresh_nearby_data 的标记状态：
+                              [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:NO] forKey:@"refresh_nearby_data"];
+                              [[NSUserDefaults standardUserDefaults] synchronize];
                               
                               [_nearbyArray removeAllObjects];
                               [_nearbyArray addObjectsFromArray:array];
