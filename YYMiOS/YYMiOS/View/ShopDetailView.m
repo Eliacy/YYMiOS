@@ -10,6 +10,9 @@
 #import "ShopDetailCell.h"
 #import "Function.h"
 
+//cell初始默认高度
+#define kCellDefaultHeight 20
+
 @implementation ShopDetailView
 
 @synthesize poiDetail = _poiDetail;
@@ -110,8 +113,8 @@
         self.cellCurrentHeightArray = [[[NSMutableArray alloc] init] autorelease];
         
         for(int i=0;i<8;i++){
-            [self.cellActualHeightArray addObject:[NSNumber numberWithFloat:20]];
-            [self.cellCurrentHeightArray addObject:[NSNumber numberWithFloat:20]];
+            [self.cellActualHeightArray addObject:[NSNumber numberWithFloat:kCellDefaultHeight]];
+            [self.cellCurrentHeightArray addObject:[NSNumber numberWithFloat:kCellDefaultHeight]];
         }
         
         
@@ -417,35 +420,35 @@
     
     if(poiDetail.categoryArray && [poiDetail.categoryArray count] > 0)
     {
-        height += 20;
+        height += kCellDefaultHeight;
     }
     if(poiDetail.environment && ![poiDetail.environment isEqualToString:@""])
     {
-        height += 20;
+        height += kCellDefaultHeight;
     }
     if(poiDetail.paymentArray && [poiDetail.paymentArray count] > 0)
     {
-        height += 20;
+        height += kCellDefaultHeight;
     }
     if(poiDetail.menu && ![poiDetail.menu isEqualToString:@""])
     {
-        height += 20;
+        height += kCellDefaultHeight;
     }
     if(poiDetail.ticket && ![poiDetail.ticket isEqualToString:@""])
     {
-        height += 20;
+        height += kCellDefaultHeight;
     }
     if(poiDetail.booking && ![poiDetail.booking isEqualToString:@""])
     {
-        height += 20;
+        height += kCellDefaultHeight;
     }
     if(poiDetail.businessHours && ![poiDetail.businessHours isEqualToString:@""])
     {
-        height += 20;
+        height += kCellDefaultHeight;
     }
     if(poiDetail.phone && ![poiDetail.phone isEqualToString:@""])
     {
-        height += 20;
+        height += kCellDefaultHeight;
     }
     
     return height;

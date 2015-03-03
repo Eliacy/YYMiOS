@@ -123,6 +123,8 @@
         return;
     }
     
+    //发送晒单评论
+    [self.view makeToastActivity];
     [Comment createCommentWithDealId:_dealId
                            articleId:0
                               userId:[[User sharedUser] userId]
@@ -130,11 +132,22 @@
                              content:_textField.text
                              success:^(NSArray *array) {
                                  
+                                 Comment *comment = [[[Comment alloc] init] autorelease];
+                                 User *user = [[[User alloc] init] autorelease];
+                                 user.userId = [[User sharedUser] userId];
+                                 comment.user = user;
+                                 comment.content = _textField.text;
+                                 [_commentArray insertObject:comment atIndex:0];
+                                 [_tableView reloadData];
+                                 
                                  _textField.text = @"";
                                  
+                                [self.view hideToastActivity];
                              } failure:^(NSError *error) {
-                                 
+                                 [self.view hideToastActivity];
+                                 [self.view makeToast:@"网络异常" duration:TOAST_DURATION position:@"center"];
                              }];
+    
 }
 
 - (void)keyboardWillShown:(NSNotification *)notification
@@ -328,6 +341,14 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    if(_isLoading)
+    {
+        return;
+    }
+    _isLoading = YES;
+    
+    //请求晒单详情接口
+    [self.view makeToastActivity];
     [Deal getDealDetailListWithDealId:_dealId
                                 brief:0
                              selected:0
@@ -344,24 +365,43 @@
                                       self.deal = [array objectAtIndex:0];
                                   }
                                   
-                              } failure:^(NSError *error) {
+                                  //请求子评论接口
+                                  [Comment getCommentListWithCommentId:0
+                                                                offset:0
+                                                                 limit:20
+                                                             articleId:0
+                                                              reviewId:_dealId
+                                                               success:^(NSArray *array) {
+                                                                   
+                                                                   _isLoading = NO;
+                                                                   
+                                                                   [_commentArray removeAllObjects];
+                                                                   [_commentArray addObjectsFromArray:array];
+                                                                   [_tableView reloadData];
+                                                                   
+                                                                   if([array count] < 20)
+                                                                   {
+                                                                       _isHaveMore = NO;
+                                                                   }
+                                                                   else
+                                                                   {
+                                                                       _isHaveMore = YES;
+                                                                   }
+                                                                   
+                                                                   [self.view hideToastActivity];
+                                                               } failure:^(NSError *error) {
+                                                                   _isLoading = NO;
+                                                                   [self.view hideToastActivity];
+                                                                   [self.view makeToast:@"网络异常" duration:TOAST_DURATION position:@"center"];
+                                                               }];
                                   
+                              } failure:^(NSError *error) {
+                                  _isLoading = NO;
+                                  [self.view hideToastActivity];
+                                  [self.view makeToast:@"网络异常" duration:TOAST_DURATION position:@"center"];
                               }];
     
-    [Comment getCommentListWithCommentId:0
-                                  offset:0
-                                   limit:20
-                               articleId:0
-                                reviewId:_dealId
-                                 success:^(NSArray *array) {
-                                     
-                                     [_commentArray removeAllObjects];
-                                     [_commentArray addObjectsFromArray:array];
-                                     [_tableView reloadData];
-                                     
-                                 } failure:^(NSError *error) {
-                                     
-                                 }];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -479,6 +519,52 @@
     _tableView.tableHeaderView = _tableHeaderView;
 }
 
+#pragma mark - SlimeRefreshDelegate
+
+- (void)loadMore
+{
+    if(!_isHaveMore)
+    {
+        return;
+    }
+    
+    if(_isLoading)
+    {
+        return;
+    }
+    _isLoading = YES;
+    
+    //获取子评论
+    [self.view makeToastActivity];
+    [Comment getCommentListWithCommentId:0
+                                  offset:[_commentArray count]
+                                   limit:20
+                               articleId:0
+                                reviewId:_dealId
+                                 success:^(NSArray *array) {
+                                     
+                                     _isLoading = NO;
+                                     
+                                     [_commentArray addObjectsFromArray:array];
+                                     [_tableView reloadData];
+                                     
+                                     if([array count] < 20)
+                                     {
+                                         _isHaveMore = NO;
+                                     }
+                                     else
+                                     {
+                                         _isHaveMore = YES;
+                                     }
+                                     
+                                     [self.view hideToastActivity];
+                                 } failure:^(NSError *error) {
+                                     _isLoading = NO;
+                                     [self.view hideToastActivity];
+                                     [self.view makeToast:@"网络异常" duration:TOAST_DURATION position:@"center"];
+                                 }];
+}
+
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
@@ -486,6 +572,14 @@
     if([_textField isFirstResponder])
     {
         [_textField resignFirstResponder];
+    }
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if(_tableView.contentOffset.y + _tableView.frame.size.height > _tableView.contentSize.height - 500 && _tableView.contentSize.height > _tableView.frame.size.height)
+    {
+        [self loadMore];
     }
 }
 
