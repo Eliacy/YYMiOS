@@ -276,6 +276,7 @@
                 //cell实际高度
                 CGFloat height = [Function getLabelHeightWithContent:cell.titleLabel.text BoundingSize:CGSizeMake(cell.titleLabel.frame.size.width, 1000) Font:cell.titleLabel.font];
                 [self.cellActualHeightArray replaceObjectAtIndex:indexPath.row withObject:[NSNumber numberWithFloat:height]];
+                [cell.titleLabel setFrame:CGRectMake(cell.titleLabel.frame.origin.x, cell.titleLabel.frame.origin.y, cell.titleLabel.frame.size.width, [[self.cellCurrentHeightArray objectAtIndex:indexPath.row] floatValue])];
             }
         }
             break;
@@ -319,6 +320,7 @@
                 //cell实际高度
                 CGFloat height = [Function getLabelHeightWithContent:cell.titleLabel.text BoundingSize:CGSizeMake(cell.titleLabel.frame.size.width, 1000) Font:cell.titleLabel.font];
                 [self.cellActualHeightArray replaceObjectAtIndex:indexPath.row withObject:[NSNumber numberWithFloat:height]];
+                [cell.titleLabel setFrame:CGRectMake(cell.titleLabel.frame.origin.x, cell.titleLabel.frame.origin.y, cell.titleLabel.frame.size.width, [[self.cellCurrentHeightArray objectAtIndex:indexPath.row] floatValue])];
             }
         }
             break;
@@ -327,10 +329,10 @@
             if(_poiDetail.ticket && ![_poiDetail.ticket isEqualToString:@""])
             {
                 cell.titleLabel.text = [NSString stringWithFormat:@"门票：%@", _poiDetail.ticket];
-                
                 //cell实际高度
                 CGFloat height = [Function getLabelHeightWithContent:cell.titleLabel.text BoundingSize:CGSizeMake(cell.titleLabel.frame.size.width, 1000) Font:cell.titleLabel.font];
                 [self.cellActualHeightArray replaceObjectAtIndex:indexPath.row withObject:[NSNumber numberWithFloat:height]];
+                [cell.titleLabel setFrame:CGRectMake(cell.titleLabel.frame.origin.x, cell.titleLabel.frame.origin.y, cell.titleLabel.frame.size.width, [[self.cellCurrentHeightArray objectAtIndex:indexPath.row] floatValue])];
             }
         }
             break;
@@ -343,6 +345,7 @@
                 //cell实际高度
                 CGFloat height = [Function getLabelHeightWithContent:cell.titleLabel.text BoundingSize:CGSizeMake(cell.titleLabel.frame.size.width, 1000) Font:cell.titleLabel.font];
                 [self.cellActualHeightArray replaceObjectAtIndex:indexPath.row withObject:[NSNumber numberWithFloat:height]];
+                [cell.titleLabel setFrame:CGRectMake(cell.titleLabel.frame.origin.x, cell.titleLabel.frame.origin.y, cell.titleLabel.frame.size.width, [[self.cellCurrentHeightArray objectAtIndex:indexPath.row] floatValue])];
             }
         }
             break;
@@ -354,7 +357,6 @@
                 //cell实际高度
                 CGFloat height = [Function getLabelHeightWithContent:cell.titleLabel.text BoundingSize:CGSizeMake(cell.titleLabel.frame.size.width, 1000) Font:cell.titleLabel.font];
                 [self.cellActualHeightArray replaceObjectAtIndex:indexPath.row withObject:[NSNumber numberWithFloat:height]];
-                
                 [cell.titleLabel setFrame:CGRectMake(cell.titleLabel.frame.origin.x, cell.titleLabel.frame.origin.y, cell.titleLabel.frame.size.width, [[self.cellCurrentHeightArray objectAtIndex:indexPath.row] floatValue])];
             }
         }
@@ -373,8 +375,9 @@
                 cell.titleLabel.attributedText = string;
                 
                 //cell实际高度
-                CGFloat height = [Function getLabelHeightWithContent:cell.titleLabel.text BoundingSize:CGSizeMake(cell.titleLabel.frame.size.width, 1000) Font:cell.titleLabel.font];
+                CGFloat height = [Function getLabelHeightWithContent:origin BoundingSize:CGSizeMake(cell.titleLabel.frame.size.width, 1000) Font:cell.titleLabel.font];
                 [self.cellActualHeightArray replaceObjectAtIndex:indexPath.row withObject:[NSNumber numberWithFloat:height]];
+                [cell.titleLabel setFrame:CGRectMake(cell.titleLabel.frame.origin.x, cell.titleLabel.frame.origin.y, cell.titleLabel.frame.size.width, [[self.cellCurrentHeightArray objectAtIndex:indexPath.row] floatValue])];
             }
         }
             break;

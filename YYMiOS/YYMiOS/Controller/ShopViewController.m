@@ -19,6 +19,7 @@
 
 
 #define kDescriptionDefaultHeight 80
+#define kMapLabelMaxHeight 40
 
 @interface ShopViewController () <UITextFieldDelegate>
 
@@ -391,6 +392,8 @@
     _mapLabel.backgroundColor = [UIColor clearColor];
     _mapLabel.textColor = [UIColor blackColor];
     _mapLabel.font = [UIFont systemFontOfSize:14.0f];
+    //自动折行设置
+    _mapLabel.numberOfLines = 0;
     [_floatView addSubview:_mapLabel];
     
     _mapTapView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _mapView.frame.size.width, _mapView.frame.size.height)];
@@ -577,6 +580,16 @@
     annotation.subtitle = poiDetail.addressOrigin;
     
     [_mapView addAnnotation:annotation];
+    
+    //地图上店铺名
+    CGSize mapLabelSize = [LPUtility getTextHeightWithText:poiDetail.address
+                                                         font:_mapLabel.font
+                                                         size:CGSizeMake(_mapLabel.frame.size.width, 2000)];
+    float mapLabelHeight = mapLabelSize.height;
+    if(mapLabelHeight > kMapLabelMaxHeight){
+        mapLabelHeight = kMapLabelMaxHeight;
+    }
+    _mapLabel.frame = CGRectMake(_mapLabel.frame.origin.x, _mapLabel.frame.origin.y, _mapLabel.frame.size.width, mapLabelHeight);
     _mapLabel.text = poiDetail.address;
     
     //大家觉得（关键词）
