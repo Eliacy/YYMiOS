@@ -14,6 +14,7 @@
 #import "ArticlePOIView.h"
 #import "ShopViewController.h"
 #import "Share.h"
+#import "UserDetailViewController.h"
 
 @interface ArticleViewController () <UITextFieldDelegate, ArticlePOIViewDelegate, CommentCellDelegate>
 
@@ -601,6 +602,13 @@
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    //点击评论 跳转到个人主页
+    if(indexPath.section == 1){
+        UserDetailViewController *userDetailVC = [[[UserDetailViewController alloc] init] autorelease];
+        Comment *comment = [_commentArray objectAtIndex:indexPath.row];
+        userDetailVC.userId = comment.user.userId;
+        [self.navigationController pushViewController:userDetailVC animated:YES];
+    }
     return nil;
 }
 
