@@ -416,7 +416,6 @@
                 default:
                     break;
             }
-            
             return height;
         }
             break;
@@ -429,7 +428,6 @@
             CGSize commentSize = [LPUtility getTextHeightWithText:[[_commentArray objectAtIndex:indexPath.row] content]
                                                              font:[UIFont systemFontOfSize:13.0f]
                                                              size:CGSizeMake(290, 2000)];
-            
             return height + commentSize.height;
         }
         default:
@@ -584,11 +582,11 @@
     }
     else
     {
-        CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ArticleViewControllerCommentIdentifier"];
-        if(cell == nil)
-        {
-            cell = [[[CommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ArticleViewControllerCommentIdentifier"] autorelease];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        NSString *CellIdentifier = @"CommentCell";
+        CommentCell *cell = (CommentCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [[[CommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+            cell.selectionStyle = UITableViewCellSelectionStyleGray;
         }
         
         cell.comment = [_commentArray objectAtIndex:indexPath.row];

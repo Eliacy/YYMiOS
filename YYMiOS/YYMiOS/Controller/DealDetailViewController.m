@@ -243,6 +243,7 @@
     _tableView.backgroundColor = [UIColor clearColor];
     _tableView.dataSource = self;
     _tableView.delegate = self;
+    _tableView.separatorColor = [UIColor clearColor];
     [self.view addSubview:_tableView];
     
     _tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 300)];
@@ -609,7 +610,7 @@
     if(cell == nil)
     {
         cell = [[[CommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"DealDetailViewControllerIdentifier"] autorelease];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.selectionStyle = UITableViewCellSelectionStyleGray;
     }
     
     cell.comment = [_commentArray objectAtIndex:indexPath.row];

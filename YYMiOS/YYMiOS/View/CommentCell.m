@@ -7,6 +7,7 @@
 //
 
 #import "CommentCell.h"
+#import "Function.h"
 
 @implementation CommentCell
 
@@ -30,6 +31,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if(self != nil)
     {
+        
         self.contentView.backgroundColor = [UIColor whiteColor];
         
         _avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 15, 50, 50)];
@@ -65,6 +67,10 @@
         _contentLabel.font = [UIFont systemFontOfSize:13.0f];
         _contentLabel.numberOfLines = 0;
         [self.contentView addSubview:_contentLabel];
+        
+        
+        //线
+        [self.contentView addSubview:[Function createSeparatorViewWithFrame:CGRectMake(0, 90, self.contentView.frame.size.width, 1)]];
     }
     
     return self;
