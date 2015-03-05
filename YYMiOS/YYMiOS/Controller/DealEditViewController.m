@@ -175,7 +175,9 @@
     _tableView.delegate = self;
     [self.view addSubview:_tableView];
     
-    _tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 200)];
+    UIView *tableHeaderView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 15)] autorelease];
+    
+    _tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 350)];
     _tableFooterView.backgroundColor = [UIColor clearColor];
     _tableView.tableFooterView = _tableFooterView;
     
@@ -187,15 +189,36 @@
     [tapView addGestureRecognizer:oneFingerTap];
     [oneFingerTap release];
     
-    _textView = [[UITextView alloc] initWithFrame:CGRectMake(15, 15, _tableFooterView.frame.size.width - 15 * 2, 70)];
+    _rankLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 15, _tableFooterView.frame.size.width - 15 * 2, 15)];
+    _rankLabel.backgroundColor = [UIColor clearColor];
+    _rankLabel.textColor = [UIColor colorWithRed:102.0 / 255.0 green:102.0 / 255.0 blue:102.0 / 255.0 alpha:1.0];
+    _rankLabel.font = [UIFont systemFontOfSize:18.0f];
+    _rankLabel.text = @"评分";
+    [_tableFooterView addSubview:_rankLabel];
+    
+    _priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, _rankLabel.frame.origin.y + _rankLabel.frame.size.height + 15, _rankLabel.frame.size.width, _rankLabel.frame.size.height)];
+    _priceLabel.backgroundColor = [UIColor clearColor];
+    _priceLabel.textColor = [UIColor colorWithRed:102.0 / 255.0 green:102.0 / 255.0 blue:102.0 / 255.0 alpha:1.0];
+    _priceLabel.font = [UIFont systemFontOfSize:18.0f];
+    _priceLabel.text = @"总价";
+    [_tableFooterView addSubview:_priceLabel];
+    
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, _priceLabel.frame.origin.y + _priceLabel.frame.size.height + 20, _tableFooterView.frame.size.width, 60)];
+    _scrollView.backgroundColor = [UIColor clearColor];
+    [_tableFooterView addSubview:_scrollView];
+    
+    _keywordLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, _scrollView.frame.origin.y + _scrollView.frame.size.height + 20, _tableFooterView.frame.size.width - 15 * 2, 15)];
+    _keywordLabel.backgroundColor = [UIColor clearColor];
+    _keywordLabel.textColor = [UIColor colorWithRed:102.0 / 255.0 green:102.0 / 255.0 blue:102.0 / 255.0 alpha:1.0];
+    _keywordLabel.font = [UIFont systemFontOfSize:18.0f];
+    _keywordLabel.text = @"关键词";
+    [_tableFooterView addSubview:_keywordLabel];
+    
+    _textView = [[UITextView alloc] initWithFrame:CGRectMake(15, _keywordLabel.frame.origin.y + _keywordLabel.frame.size.height + 20, _tableFooterView.frame.size.width - 15 * 2, 70)];
     _textView.backgroundColor = [UIColor whiteColor];
     _textView.textColor = [UIColor blackColor];
     _textView.delegate = self;
     [_tableFooterView addSubview:_textView];
-    
-    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, _textView.frame.origin.y + _textView.frame.size.height + 10, _tableFooterView.frame.size.width, 60)];
-    _scrollView.backgroundColor = [UIColor clearColor];
-    [_tableFooterView addSubview:_scrollView];
     
     _addPhotoButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     _addPhotoButton.frame = CGRectMake(15, 0, 60, 60);
@@ -205,8 +228,10 @@
     [_scrollView addSubview:_addPhotoButton];
     
     _publishButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-    _publishButton.frame = CGRectMake(40, _tableFooterView.frame.size.height - 40, _tableFooterView.frame.size.width - 40 * 2, 40);
-    _publishButton.backgroundColor = [UIColor redColor];
+    _publishButton.frame = CGRectMake(20, _textView.frame.origin.y + _textView.frame.size.height + 15, _tableFooterView.frame.size.width - 20 * 2, 40);
+    _publishButton.backgroundColor = GColor(251, 100, 129);
+    _publishButton.layer.cornerRadius = 5.0;
+    _publishButton.layer.masksToBounds = YES;
     [_publishButton setTitle:@"发布评论" forState:UIControlStateNormal];
     [_publishButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_publishButton addTarget:self action:@selector(clickPublishButton:) forControlEvents:UIControlEventTouchUpInside];
