@@ -685,6 +685,8 @@
     self.atListString = [NSString stringWithFormat:@"%i", commentCell.comment.user.userId];
     //变更输入框提示语
     _textField.placeholder = [NSString stringWithFormat:@"@%@：", commentCell.comment.user.userName];
+    //获得焦点 弹出键盘
+    [_textField becomeFirstResponder];
 }
 
 #pragma mark - 点击@用户
