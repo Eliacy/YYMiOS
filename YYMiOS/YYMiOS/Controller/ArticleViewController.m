@@ -64,6 +64,12 @@
         return;
     }
     
+    if(_isLoading)
+    {
+        return;
+    }
+    _isLoading = YES;
+    
     //发送评论
     [self.view makeToastActivity];
     [Comment createCommentWithDealId:0
@@ -73,22 +79,47 @@
                              content:_textField.text
                              success:^(NSArray *array) {
                                  
-                                 Comment *comment = [[[Comment alloc] init] autorelease];
-                                 User *user = [[[User alloc] init] autorelease];
-                                 user.userId = [[User sharedUser] userId];
-                                 comment.user = user;
-                                 comment.content = _textField.text;
-                                 [_commentArray insertObject:comment atIndex:0];
-                                 [_tableView reloadData];
-                                 
                                  _textField.text = @"";
                                  
-                                 [self.view hideToastActivity];
+                                 //发送成功后 刷新评论列表
+                                 [Comment getCommentListWithCommentId:0
+                                                               offset:0
+                                                                limit:20
+                                                            articleId:_articleId
+                                                             reviewId:0
+                                                              success:^(NSArray *array) {
+                                                                  
+                                                                  _isLoading = NO;
+                                                                  
+                                                                  [_commentArray removeAllObjects];
+                                                                  [_commentArray addObjectsFromArray:array];
+                                                                  [_tableView reloadData];
+                                                                  
+                                                                  if([array count] < 20)
+                                                                  {
+                                                                      _isHaveMore = NO;
+                                                                  }
+                                                                  else
+                                                                  {
+                                                                      _isHaveMore = YES;
+                                                                  }
+                                                                  //滚动到新评论添加的位置 (处于视图中间)
+                                                                  [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+                                                                  
+                                                                  [self.view hideToastActivity];
+                                                              } failure:^(NSError *error) {
+                                                                  _isLoading = NO;
+                                                                  [self.view hideToastActivity];
+                                                                  [self.view makeToast:@"网络异常" duration:TOAST_DURATION position:@"center"];
+                                                              }];
+                                 
                              } failure:^(NSError *error) {
+                                 _isLoading = NO;
                                  [self.view hideToastActivity];
                                  [self.view makeToast:@"网络异常" duration:TOAST_DURATION position:@"center"];
                              }];
 }
+
 
 - (void)keyboardWillShown:(NSNotification *)notification
 {
@@ -425,10 +456,24 @@
             
             height += 75;
             
-            CGSize commentSize = [LPUtility getTextHeightWithText:[[_commentArray objectAtIndex:indexPath.row] content]
-                                                             font:[UIFont systemFontOfSize:13.0f]
-                                                             size:CGSizeMake(290, 2000)];
-            return height + commentSize.height;
+            //如果有回复的情况 计算高度时要加上用户名的长度
+            if([[_commentArray objectAtIndex:indexPath.row] atList].count>0){
+                User *user = [[[_commentArray objectAtIndex:indexPath.row] atList] objectAtIndex:0];
+                NSString *placeStr = @"";
+                for(int i=0;i<user.userName.length;i++){
+                    placeStr = [placeStr stringByAppendingString:@"   "];
+                }
+                NSString *allStr = [NSString stringWithFormat:@"%@%@",placeStr,[[_commentArray objectAtIndex:indexPath.row] content]];
+                CGSize commentSize = [LPUtility getTextHeightWithText:allStr
+                                                                 font:[UIFont systemFontOfSize:13.0f]
+                                                                 size:CGSizeMake(290, 2000)];
+                return height + commentSize.height;
+            }else{
+                CGSize commentSize = [LPUtility getTextHeightWithText:[[_commentArray objectAtIndex:indexPath.row] content]
+                                                                 font:[UIFont systemFontOfSize:13.0f]
+                                                                 size:CGSizeMake(290, 2000)];
+                return height + commentSize.height;
+            }
         }
         default:
             break;
@@ -633,12 +678,22 @@
 }
 
 #pragma mark - CommentCellDelegate
-
+#pragma mark - 回复评论
 - (void)commentCellDidClickReplyButton:(CommentCell *)commentCell
 {
+    //要回复的评论的用户id
     self.atListString = [NSString stringWithFormat:@"%i", commentCell.comment.user.userId];
-    
-    _textField.placeholder = [NSString stringWithFormat:@"回复%@：", commentCell.comment.user.userName];
+    //变更输入框提示语
+    _textField.placeholder = [NSString stringWithFormat:@"@%@：", commentCell.comment.user.userName];
+}
+
+#pragma mark - 点击@用户
+- (void)commentCellDidClickAtButton:(CommentCell *)commentCell
+{
+    //跳转到所点击用户的个人主页
+    UserDetailViewController *userDetailVC = [[[UserDetailViewController alloc] init] autorelease];
+    userDetailVC.userId = [[commentCell.comment.atList objectAtIndex:0] userId];
+    [self.navigationController pushViewController:userDetailVC animated:YES];
 }
 
 @end
