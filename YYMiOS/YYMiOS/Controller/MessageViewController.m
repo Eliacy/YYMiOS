@@ -63,6 +63,7 @@
             }
         }
         
+        [self.view makeToastActivity];
         [User getUserListWithEmIds:string
                              brief:1
                            success:^(NSArray *array) {
@@ -90,8 +91,10 @@
                                    [_tableView reloadData];
                                }
                                
+                               [self.view hideToastActivity];
                            } failure:^(NSError *error) {
-                               
+                               [self.view hideToastActivity];
+                               [self.view makeToast:@"网络异常" duration:TOAST_DURATION position:@"center"];
                            }];
     }
 }

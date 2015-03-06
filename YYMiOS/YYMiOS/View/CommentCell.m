@@ -70,7 +70,8 @@
         _replyButton.frame = CGRectMake(320 - 40 - 15, 15, 40, 40);
         _replyButton.backgroundColor = [UIColor clearColor];
         [_replyButton setTitle:@"回复" forState:UIControlStateNormal];
-        [_replyButton setTitleColor:[UIColor purpleColor] forState:UIControlStateNormal];
+        [_replyButton setTitleColor:GColor(251, 94, 128) forState:UIControlStateNormal];
+        [_replyButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
         _replyButton.titleLabel.font = [UIFont systemFontOfSize:16.0f];
         [_replyButton addTarget:self action:@selector(clickReplyButton:) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:_replyButton];

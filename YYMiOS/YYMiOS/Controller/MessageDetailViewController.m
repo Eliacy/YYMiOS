@@ -51,6 +51,11 @@
     _textField.text = @"";
 }
 
+- (void)clickSendImgButton:(id)sender
+{
+    
+}
+
 - (void)loadMoreMessages
 {
     dispatch_async(_messageQueue, ^{
@@ -163,21 +168,35 @@
     line.backgroundColor = [UIColor lightGrayColor];
     [_footerView addSubview:line];
     
-    _textBackView = [[UIView alloc] initWithFrame:CGRectMake(15, 10, 240, 30)];
+    //发送图片按钮
+    _sendImgButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    _sendImgButton.frame = CGRectMake(15, 10, 40, 30);
+    _sendImgButton.backgroundColor = [UIColor colorWithRed:252.0 / 255.0 green:107.0 / 255.0 blue:135.0 / 255.0 alpha:1.0];
+    _sendImgButton.layer.cornerRadius = 3.0;
+    _sendImgButton.layer.masksToBounds = YES;
+    [_sendImgButton setTitle:@"+" forState:UIControlStateNormal];
+    [_sendImgButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _sendImgButton.titleLabel.font = [UIFont systemFontOfSize:13.0f];
+    [_sendImgButton addTarget:self action:@selector(clickSendImgButton:) forControlEvents:UIControlEventTouchUpInside];
+    [_footerView addSubview:_sendImgButton];
+    
+    //输入框背景
+    _textBackView = [[UIView alloc] initWithFrame:CGRectMake(_sendImgButton.frame.size.width+15*2, 10, _footerView.frame.size.width-40*2-15*4, 30)];
     _textBackView.backgroundColor = [UIColor colorWithRed:245.0 / 255.0 green:245.0 / 255.0 blue:245.0 / 255.0 alpha:1.0];
     _textBackView.layer.borderWidth = 0.5;
     _textBackView.layer.borderColor = [UIColor colorWithRed:200.0 / 255.0 green:200.0 / 255.0 blue:200.0 / 255.0 alpha:1.0].CGColor;
     _textBackView.layer.cornerRadius = 3.0;
     _textBackView.layer.masksToBounds = YES;
     [_footerView addSubview:_textBackView];
-    
-    _textField = [[UITextField alloc] initWithFrame:CGRectMake(6, 4, 228, 24)];
+    //输入框
+    _textField = [[UITextField alloc] initWithFrame:CGRectMake(10, 4, _textBackView.frame.size.width-20, 24)];
     _textField.backgroundColor = [UIColor clearColor];
     _textField.placeholder = @"说点啥吧";
     _textField.delegate = self;
     _textField.returnKeyType = UIReturnKeySend;
     [_textBackView addSubview:_textField];
     
+    //发送消息按钮
     _sendButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     _sendButton.frame = CGRectMake(_footerView.frame.size.width - 15 - 40, 10, 40, 30);
     _sendButton.backgroundColor = [UIColor colorWithRed:252.0 / 255.0 green:107.0 / 255.0 blue:135.0 / 255.0 alpha:1.0];
@@ -189,6 +208,7 @@
     [_sendButton addTarget:self action:@selector(clickSendButton:) forControlEvents:UIControlEventTouchUpInside];
     [_footerView addSubview:_sendButton];
     
+    //主视图列表
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, _adjustView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - _adjustView.frame.size.height - _footerView.frame.size.height) style:UITableViewStylePlain];
     _tableView.backgroundColor = [UIColor clearColor];
     _tableView.dataSource = self;
