@@ -421,16 +421,10 @@
     UIView *secondLine = [[[UIView alloc] initWithFrame:CGRectMake(0, _backView.frame.size.height - 1, _backView.frame.size.width, 1)] autorelease];
     secondLine.backgroundColor = [UIColor colorWithRed:221.0 / 255.0 green:221.0 / 255.0 blue:221.0 / 255.0 alpha:1.0];
     [_backView addSubview:secondLine];
+    
+    //无数据时底图
+    [_tableHeaderView addSubview:[Function noneDataImageViewWithPoint:CGPointMake((_tableHeaderView.frame.size.width-kNoneDataImgWidth)/2, _tableHeaderView.frame.origin.y+_tableHeaderView.frame.size.height+(_tableView.frame.size.height-_tableHeaderView.frame.origin.y-_tableHeaderView.frame.size.height-kNoneDataImgHeight)/2)]];
 }
-
-//- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-//{
-//    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-//    if (self) {
-//        // Custom initialization
-//    }
-//    return self;
-//}
 
 - (void)viewDidLoad
 {

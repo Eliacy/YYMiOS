@@ -127,4 +127,15 @@
  *  @param Font             字体
  */
 + (CGFloat)getLabelHeightWithContent:(NSString *)content BoundingSize:(CGSize)boundingSize Font:(UIFont *)font;
+
+/**
+ *  绘制无数据时提示图片
+ *
+ *  @param Point            坐标
+ */
++ (UIImageView *)noneDataImageViewWithPoint:(CGPoint)point;
+#define kNoneDataImgWidth 115
+#define kNoneDataImgHeight 84
+
+
 @end

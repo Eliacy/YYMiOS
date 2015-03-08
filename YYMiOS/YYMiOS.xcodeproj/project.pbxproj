@@ -307,6 +307,7 @@
 		EC5B42091A7E8CDC00D31AB9 /* RATreeView+UIScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = EC5B41FA1A7E8CDC00D31AB9 /* RATreeView+UIScrollView.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		EC5B420A1A7E8CDC00D31AB9 /* RATreeView.m in Sources */ = {isa = PBXBuildFile; fileRef = EC5B41FD1A7E8CDC00D31AB9 /* RATreeView.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		EC853CDC1A7535C1000480E4 /* MineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EC853CDB1A7535C1000480E4 /* MineCell.m */; };
+		EC86713A1AACA6EF0069D012 /* noneData@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC8671391AACA6EF0069D012 /* noneData@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -862,6 +863,7 @@
 		EC5B41FD1A7E8CDC00D31AB9 /* RATreeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RATreeView.m; sourceTree = "<group>"; };
 		EC853CDA1A7535C1000480E4 /* MineCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineCell.h; sourceTree = "<group>"; };
 		EC853CDB1A7535C1000480E4 /* MineCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineCell.m; sourceTree = "<group>"; };
+		EC8671391AACA6EF0069D012 /* noneData@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "noneData@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1009,6 +1011,7 @@
 		0435238619D05D0100F67B8E /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				EC8671391AACA6EF0069D012 /* noneData@2x.png */,
 				04C410661AA35DDB0079A5E7 /* btn_preview_close_highlighted.png */,
 				04C410671AA35DDB0079A5E7 /* btn_preview_close_highlighted@2x.png */,
 				04C410681AA35DDB0079A5E7 /* btn_preview_close.png */,
@@ -1958,6 +1961,7 @@
 				04AFF1A21A148B0F000CE6FF /* tab_news_hide.png in Resources */,
 				04C010951A486F5900D741E5 /* btn_share_weixin.png in Resources */,
 				045E4F511A34B33B0091E7F2 /* weather_day@2x.png in Resources */,
+				EC86713A1AACA6EF0069D012 /* noneData@2x.png in Resources */,
 				04C010981A486F5900D741E5 /* btn_share_weixin@2x.png in Resources */,
 				044274011A13CD2500DD99CD /* talk_gray@2x.png in Resources */,
 				04B1C9461A3BF48D00FD0BC8 /* wind.png in Resources */,

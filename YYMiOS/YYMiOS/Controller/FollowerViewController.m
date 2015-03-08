@@ -35,6 +35,10 @@
     
     _titleLabel.text = @"粉丝列表";
     
+    //无数据时底图
+    [self.view addSubview:[Function noneDataImageViewWithPoint:CGPointMake((self.view.frame.size.width-kNoneDataImgWidth)/2, _headerView.frame.size.height+(self.view.frame.size.height - _adjustView.frame.size.height-kNoneDataImgHeight)/2)]];
+    
+    //主视图
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, _adjustView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - _adjustView.frame.size.height) style:UITableViewStylePlain];
     _tableView.backgroundColor = [UIColor clearColor];
     _tableView.dataSource = self;
