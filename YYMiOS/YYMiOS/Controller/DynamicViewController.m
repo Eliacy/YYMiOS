@@ -44,7 +44,7 @@
     [_expandKit setItemArray:_optionsArray];
     [_expandKit setDelegate:self];
     [_expandKit setAlign:YYMExpandAlignLeft];
-    [_expandKit setWidth:60];
+    [_expandKit setWidth:90];
     [_expandKit show];
 }
 
@@ -62,13 +62,20 @@
     if(self != nil)
     {
         _dynamicArray = [[NSMutableArray alloc] initWithCapacity:0];
-        _selected = 0;
+        _citySelected = 0;
+        _newSelected = 0;
         _optionsArray = [[NSMutableArray alloc] initWithCapacity:0];
         Tip *option = [[[Tip alloc] init] autorelease];
-        option.title = @"最新";
+        option.title = @"全国最新";
         [_optionsArray addObject:option];
         option = [[[Tip alloc] init] autorelease];
-        option.title = @"精选";
+        option.title = @"全国精选";
+        [_optionsArray addObject:option];
+        option = [[[Tip alloc] init] autorelease];
+        option.title = @"本城最新";
+        [_optionsArray addObject:option];
+        option = [[[Tip alloc] init] autorelease];
+        option.title = @"本城精选";
         [_optionsArray addObject:option];
     }
     
@@ -94,9 +101,9 @@
     [_headerView addSubview:_titleButton];
     
     _bestButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-    _bestButton.frame = CGRectMake(2, 2, 40, 40);
+    _bestButton.frame = CGRectMake(2, 2, 90, 40);
     _bestButton.backgroundColor = [UIColor clearColor];
-    [_bestButton setTitle:@"最新" forState:UIControlStateNormal];
+    [_bestButton setTitle:@"全国最新" forState:UIControlStateNormal];
     [_bestButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     _bestButton.titleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
     [_bestButton addTarget:self action:@selector(clickBestButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -159,13 +166,13 @@
         [self.view makeToastActivity];
         [Deal getDealDetailListWithDealId:0
                                     brief:1
-                                 selected:_selected
+                                 selected:_newSelected
                                 published:0
                                    offset:0
                                     limit:20
                                      user:0
                                      site:0
-                                     city:[[[NSUserDefaults standardUserDefaults] objectForKey:@"city_id"] integerValue]
+                                     city:_citySelected==0?[[[NSUserDefaults standardUserDefaults] objectForKey:@"city_id"] integerValue]:0
                                   success:^(NSArray *array) {
                                       
                                       [_dynamicArray removeAllObjects];
@@ -257,13 +264,13 @@
     [self.view makeToastActivity];
     [Deal getDealDetailListWithDealId:0
                                 brief:1
-                             selected:_selected
+                             selected:_newSelected
                             published:0
                                offset:0
                                 limit:20
                                  user:0
                                  site:0
-                                 city:[[[NSUserDefaults standardUserDefaults] objectForKey:@"city_id"] integerValue]
+                                 city:_citySelected==0?[[[NSUserDefaults standardUserDefaults] objectForKey:@"city_id"] integerValue]:0
                               success:^(NSArray *array) {
                                   
                                   _isLoading = NO;
@@ -305,13 +312,13 @@
     [self.view makeToastActivity];
     [Deal getDealDetailListWithDealId:0
                                 brief:1
-                             selected:_selected
+                             selected:_newSelected
                             published:0
                                offset:[_dynamicArray count]
                                 limit:20
                                  user:0
                                  site:0
-                                 city:[[[NSUserDefaults standardUserDefaults] objectForKey:@"city_id"] integerValue]
+                                 city:_citySelected==0?[[[NSUserDefaults standardUserDefaults] objectForKey:@"city_id"] integerValue]:0
                               success:^(NSArray *array) {
                                   
                                   _isLoading = NO;
@@ -527,23 +534,28 @@
     
     switch (indexPath.row) {
         case 0:
-            if(_selected != 0)
-            {
-                _selected = 0;
-                [self refreshAfterPull];
-            }
+            //全国最新
+            _citySelected = 0;
+            _newSelected = 0;
             break;
         case 1:
-            if(_selected != 1)
-            {
-                _selected = 1;
-                [self refreshAfterPull];
-            }
+            //全国精选
+            _citySelected = 0;
+            _newSelected = 1;
             break;
-            
-        default:
+        case 2:
+            //本城最新
+            _citySelected = 1;
+            _newSelected = 0;
+            break;
+        case 3:
+            //本城精选
+            _citySelected = 1;
+            _newSelected = 1;
             break;
     }
+    //请求接口刷新
+    [self refreshAfterPull];
     
 }
 
