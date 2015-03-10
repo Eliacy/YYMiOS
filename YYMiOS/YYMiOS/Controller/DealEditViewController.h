@@ -19,8 +19,11 @@
     UITableView     *_tableView;
     
     UIView          *_tableFooterView;
-    UITextView      *_textView;
+    UILabel         *_rankLabel;
+    UILabel         *_priceLabel;
     UIScrollView    *_scrollView;
+    UILabel         *_keywordLabel;
+    UITextView      *_textView;
     UIButton        *_addPhotoButton;
     UIButton        *_publishButton;
     
