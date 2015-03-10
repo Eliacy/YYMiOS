@@ -172,7 +172,7 @@
                                     limit:20
                                      user:0
                                      site:0
-                                     city:_citySelected==0?[[[NSUserDefaults standardUserDefaults] objectForKey:@"city_id"] integerValue]:0
+                                     city:_citySelected==1?[[[NSUserDefaults standardUserDefaults] objectForKey:@"city_id"] integerValue]:0
                                   success:^(NSArray *array) {
                                       
                                       [_dynamicArray removeAllObjects];
@@ -270,7 +270,7 @@
                                 limit:20
                                  user:0
                                  site:0
-                                 city:_citySelected==0?[[[NSUserDefaults standardUserDefaults] objectForKey:@"city_id"] integerValue]:0
+                                 city:_citySelected==1?[[[NSUserDefaults standardUserDefaults] objectForKey:@"city_id"] integerValue]:0
                               success:^(NSArray *array) {
                                   
                                   _isLoading = NO;
@@ -318,7 +318,7 @@
                                 limit:20
                                  user:0
                                  site:0
-                                 city:_citySelected==0?[[[NSUserDefaults standardUserDefaults] objectForKey:@"city_id"] integerValue]:0
+                                 city:_citySelected==1?[[[NSUserDefaults standardUserDefaults] objectForKey:@"city_id"] integerValue]:0
                               success:^(NSArray *array) {
                                   
                                   _isLoading = NO;
