@@ -19,6 +19,7 @@
     UIImageView     *_messageBackImageView;
     UILabel         *_contentLabel;
     UIImageView     *_selfAvatarImageView;
+    UIImageView     *_contentImageView;
 }
 
 @property (retain, nonatomic) EMMessage *message;

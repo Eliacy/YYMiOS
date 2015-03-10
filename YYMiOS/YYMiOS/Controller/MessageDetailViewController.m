@@ -10,10 +10,11 @@
 #import "ChatSendHelper.h"
 #import "MessageDetailCell.h"
 #import "User.h"
+#import "PhotoSelectView.h"
 
 #define KPageCount 20
 
-@interface MessageDetailViewController () <IChatManagerDelegate, UITextFieldDelegate>
+@interface MessageDetailViewController () <IChatManagerDelegate, UITextFieldDelegate,PhotoSelectViewDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 {
     dispatch_queue_t _messageQueue;
     
@@ -53,7 +54,11 @@
 
 - (void)clickSendImgButton:(id)sender
 {
-    
+    //上传照片
+    PhotoSelectView *photoSelectView = [[[PhotoSelectView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)] autorelease];
+    photoSelectView.backgroundColor = [UIColor clearColor];
+    photoSelectView.delegate = self;
+    [photoSelectView show];
 }
 
 - (void)loadMoreMessages
@@ -283,16 +288,31 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     CGFloat height = 0;
     
     EMMessage *message = [_messageDetailArray objectAtIndex:indexPath.row];
     
-    CGSize textSize = [LPUtility getTextHeightWithText:[(EMTextMessageBody *)message.messageBodies.lastObject text]
-                                                  font:[UIFont systemFontOfSize:14.0f]
-                                                  size:CGSizeMake(150, 2000)];
-    height += textSize.height;
-    height += 45 + 20;
+    //对不同类型信息做判断
+    if([(EMTextMessageBody *)message.messageBodies.lastObject messageBodyType]==eMessageBodyType_Text){
+        
+        //文本
+        CGSize textSize = [LPUtility getTextHeightWithText:[(EMTextMessageBody *)message.messageBodies.lastObject text]
+                                                      font:[UIFont systemFontOfSize:14.0f]
+                                                      size:CGSizeMake(150, 2000)];
+        height += textSize.height;
+        
+    }else if([(EMTextMessageBody *)message.messageBodies.lastObject messageBodyType]==eMessageBodyType_Image){
+        
+        //预览图
+        CGSize imageSize = [(EMImageMessageBody *)message.messageBodies.lastObject thumbnailImage].size;
+        height += imageSize.height;
+    }else{
+        //其他情况
+        
+    }
     
+    height += 45 + 20;
     return height;
 }
 
@@ -350,6 +370,69 @@
     {
         [self addChatDataToMessage:message];
     }
+}
+
+#pragma mark -
+#pragma mark - PhotoSelectViewDelegate
+
+- (void)photoSelectViewDidClickCameraButton:(PhotoSelectView *)photoSelectView
+{
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+    {
+        UIImagePickerController *picker = [[[UIImagePickerController alloc] init] autorelease];
+        picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        picker.delegate = self;
+        picker.allowsEditing = YES;
+        [self presentViewController:picker animated:YES completion:^{
+            
+        }];
+    }
+    else
+    {
+        NSLog(@"不能使用照相机");
+    }
+}
+
+- (void)photoSelectViewDidClickLibraryButton:(PhotoSelectView *)photoSelectView
+{
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary])
+    {
+        UIImagePickerController *picker = [[[UIImagePickerController alloc] init] autorelease];
+        picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        picker.delegate = self;
+        picker.allowsEditing = YES;
+        [self presentViewController:picker animated:YES completion:^{
+            
+        }];
+    }
+    else
+    {
+        NSLog(@"不能访问图片库");
+    }
+}
+
+#pragma mark - UIImagePickerControllerDelegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    
+    //取得压缩后的图片
+    UIImage *image = [LPUtility imageByScalingToMaxSize:[info valueForKey:UIImagePickerControllerEditedImage]];
+    //创建messsage对象 并上传图片
+    EMMessage *tempMessage = [ChatSendHelper sendImageMessageWithImage:image toUsername:_user.emUsername isChatGroup:NO requireEncryption:NO];
+    //发送消息
+    [self addChatDataToMessage:tempMessage];
+    
+    [picker dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [picker dismissViewControllerAnimated:YES completion:^{
+        
+    }];
 }
 
 @end
