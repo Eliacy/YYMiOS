@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		040DC0A71AAF5ED200BC1413 /* RankView.m in Sources */ = {isa = PBXBuildFile; fileRef = 040DC0A61AAF5ED200BC1413 /* RankView.m */; };
 		041EA8DF1A6D6416004175CD /* UserAtListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041EA8DE1A6D6416004175CD /* UserAtListViewController.m */; };
 		041EA8E21A6D72AD004175CD /* add_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 041EA8E01A6D72AD004175CD /* add_image.png */; };
 		041EA8E31A6D72AD004175CD /* add_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 041EA8E11A6D72AD004175CD /* add_image@2x.png */; };
@@ -310,6 +311,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		040DC0A51AAF5ED200BC1413 /* RankView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RankView.h; sourceTree = "<group>"; };
+		040DC0A61AAF5ED200BC1413 /* RankView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankView.m; sourceTree = "<group>"; };
 		041EA8DD1A6D6416004175CD /* UserAtListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserAtListViewController.h; sourceTree = "<group>"; };
 		041EA8DE1A6D6416004175CD /* UserAtListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserAtListViewController.m; sourceTree = "<group>"; };
 		041EA8E01A6D72AD004175CD /* add_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_image.png; sourceTree = "<group>"; };
@@ -1002,6 +1005,8 @@
 				0E0915011A7B5ACD001BE562 /* SearchCell.m */,
 				0E42540A1A8C493F006F46D8 /* CountryCell.h */,
 				0E42540B1A8C493F006F46D8 /* CountryCell.m */,
+				040DC0A51AAF5ED200BC1413 /* RankView.h */,
+				040DC0A61AAF5ED200BC1413 /* RankView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2056,6 +2061,7 @@
 				0EB985FB1A772DCF00F1FC2E /* NSBundle+Extensions.m in Sources */,
 				0E42540C1A8C493F006F46D8 /* CountryCell.m in Sources */,
 				048355A519D31BDB005ECAD6 /* SettingViewController.m in Sources */,
+				040DC0A71AAF5ED200BC1413 /* RankView.m in Sources */,
 				04482AA71A17AAC600BC950E /* UserDetailViewController.m in Sources */,
 				045EF5681A04CD2D00A85776 /* QNResponseInfo.m in Sources */,
 				04B0D05F19DA7C3000289F78 /* SDImageCache.m in Sources */,

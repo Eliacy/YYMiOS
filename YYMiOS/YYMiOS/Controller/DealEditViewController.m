@@ -14,7 +14,7 @@
 
 #define kScrollViewImageViewTag 86351
 
-@interface DealEditViewController () <POISelectViewControllerDelegate, UserAtListViewControllerDelegate, UITextViewDelegate, PhotoSelectViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, PicturePreviewViewControllerDelegate>
+@interface DealEditViewController () <POISelectViewControllerDelegate, UserAtListViewControllerDelegate, UITextViewDelegate, PhotoSelectViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, PicturePreviewViewControllerDelegate, RankViewDelegate>
 
 @end
 
@@ -100,7 +100,7 @@
     [Deal createDealDetailWithPublished:0
                                  userId:[[User sharedUser] userId]
                                  atList:@""
-                                   star:0
+                                   star:_deal.star
                                 content:_deal.content
                                  images:imageString
                                keywords:@""
@@ -176,6 +176,8 @@
     [self.view addSubview:_tableView];
     
     UIView *tableHeaderView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 15)] autorelease];
+    tableHeaderView.backgroundColor = [UIColor clearColor];
+    _tableView.tableHeaderView = tableHeaderView;
     
     _tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 350)];
     _tableFooterView.backgroundColor = [UIColor clearColor];
@@ -196,6 +198,14 @@
     _rankLabel.text = @"评分";
     [_tableFooterView addSubview:_rankLabel];
     
+    CGSize rankSize = [LPUtility getTextHeightWithText:_rankLabel.text
+                                                  font:_rankLabel.font
+                                                  size:CGSizeMake(200, 100)];
+    
+    _rankView = [[RankView alloc] initWithFrame:CGRectMake(_rankLabel.frame.origin.x + rankSize.width + 15, _rankLabel.frame.origin.y - 1, 144, 16)];
+    _rankView.delegate = self;
+    [_tableFooterView addSubview:_rankView];
+    
     _priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, _rankLabel.frame.origin.y + _rankLabel.frame.size.height + 15, _rankLabel.frame.size.width, _rankLabel.frame.size.height)];
     _priceLabel.backgroundColor = [UIColor clearColor];
     _priceLabel.textColor = [UIColor colorWithRed:102.0 / 255.0 green:102.0 / 255.0 blue:102.0 / 255.0 alpha:1.0];
@@ -211,8 +221,12 @@
     _keywordLabel.backgroundColor = [UIColor clearColor];
     _keywordLabel.textColor = [UIColor colorWithRed:102.0 / 255.0 green:102.0 / 255.0 blue:102.0 / 255.0 alpha:1.0];
     _keywordLabel.font = [UIFont systemFontOfSize:18.0f];
-    _keywordLabel.text = @"关键词";
+    _keywordLabel.text = @"关键词:";
     [_tableFooterView addSubview:_keywordLabel];
+    
+    CGSize keywordSize = [LPUtility getTextHeightWithText:_keywordLabel.text
+                                                     font:_keywordLabel.font
+                                                     size:CGSizeMake(200, 100)];
     
     _textView = [[UITextView alloc] initWithFrame:CGRectMake(15, _keywordLabel.frame.origin.y + _keywordLabel.frame.size.height + 20, _tableFooterView.frame.size.width - 15 * 2, 70)];
     _textView.backgroundColor = [UIColor whiteColor];
@@ -242,6 +256,7 @@
         self.deal = [[Deal alloc] init];
         self.deal.dealKey = [NSString stringWithFormat:@"%i_%i", (int)[[NSDate date] timeIntervalSince1970], arc4random()];
         self.deal.imageArray = [NSArray array];
+        self.deal.star = 0;
     }
     
     [self refreshData];
@@ -281,6 +296,7 @@
 
 - (void)refreshData
 {
+    _rankView.starCount = _deal.star;
     _textView.text = _deal.content;
     if(_deal.imageArray == nil)
     {
@@ -537,6 +553,13 @@
     _deal.imageArray = picturePreviewVC.pictureArray;
     
     [self refreshImageScrollView];
+}
+
+#pragma mark - RankViewDelegate
+
+- (void)rankViewDidClickStarButton:(RankView *)rankView
+{
+    _deal.star = rankView.starCount;
 }
 
 @end

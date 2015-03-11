@@ -21,15 +21,16 @@
     NSInteger   _imageCount;
     NSArray     *_keywordArray;
     NSInteger   _likeCount;
-    NSDate    *_publishTime;
+    NSDate      *_publishTime;
     BOOL        _published;
     BOOL        _selected;
     Site        *_site;
     NSInteger   _total;
-    NSDate    *_updateTime;
+    NSDate      *_updateTime;
     User        *_user;
     BOOL        _liked;
     NSString    *_dealKey;
+    NSInteger   _star;
 }
 
 @property (retain, nonatomic) NSArray *atList;
@@ -50,6 +51,7 @@
 @property (retain, nonatomic) User *user;
 @property (assign, nonatomic) BOOL liked;
 @property (retain, nonatomic) NSString *dealKey;
+@property (assign, nonatomic) NSInteger star;
 
 - (id)initWithAttribute:(NSDictionary *)attribute;
 

@@ -29,6 +29,7 @@
 @synthesize user = _user;
 @synthesize liked = _liked;
 @synthesize dealKey = _dealKey;
+@synthesize star = _star;
 
 - (id)initWithAttribute:(NSDictionary *)attribute
 {
