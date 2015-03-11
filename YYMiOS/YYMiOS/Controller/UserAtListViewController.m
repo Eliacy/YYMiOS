@@ -208,6 +208,25 @@
         cell.user = [_followerArray objectAtIndex:indexPath.row];
     }
     
+    BOOL exist = NO;
+    for(User *user in _selectArray)
+    {
+        if(user.userId == cell.user.userId)
+        {
+            exist = YES;
+            break;
+        }
+    }
+    
+    if(exist)
+    {
+        cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_user_selected.png"]] autorelease];
+    }
+    else
+    {
+        cell.accessoryView = nil;
+    }
+    
     return cell;
 }
 
@@ -215,6 +234,53 @@
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if(_type == 0)
+    {
+        BOOL exist = NO;
+        for(User *user in _selectArray)
+        {
+            if(user.userId == [[_followingArray objectAtIndex:indexPath.row] userId])
+            {
+                exist = YES;
+                [_selectArray removeObject:user];
+                break;
+            }
+        }
+        
+        if(exist)
+        {
+//            [_selectArray removeObject:[_followingArray objectAtIndex:indexPath.row]];
+        }
+        else
+        {
+            [_selectArray addObject:[_followingArray objectAtIndex:indexPath.row]];
+        }
+    }
+    else
+    {
+        BOOL exist = NO;
+        for(User *user in _selectArray)
+        {
+            if(user.userId == [[_followerArray objectAtIndex:indexPath.row] userId])
+            {
+                exist = YES;
+                [_selectArray removeObject:user];
+                break;
+            }
+        }
+        
+        if(exist)
+        {
+//            [_selectArray removeObject:[_followerArray objectAtIndex:indexPath.row]];
+        }
+        else
+        {
+            [_selectArray addObject:[_followerArray objectAtIndex:indexPath.row]];
+        }
+    }
+    
+    [_tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    
     return nil;
 }
 

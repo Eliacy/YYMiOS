@@ -31,6 +31,7 @@
     BOOL        _liked;
     NSString    *_dealKey;
     NSInteger   _star;
+    NSString    *_keywordString;
 }
 
 @property (retain, nonatomic) NSArray *atList;
@@ -52,6 +53,7 @@
 @property (assign, nonatomic) BOOL liked;
 @property (retain, nonatomic) NSString *dealKey;
 @property (assign, nonatomic) NSInteger star;
+@property (retain, nonatomic) NSString *keywordString;
 
 - (id)initWithAttribute:(NSDictionary *)attribute;
 
