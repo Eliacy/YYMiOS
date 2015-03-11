@@ -11,6 +11,7 @@
 #import "MessageDetailCell.h"
 #import "User.h"
 #import "PhotoSelectView.h"
+#import "ShopPictureViewController.h"
 
 #define KPageCount 20
 
@@ -340,6 +341,16 @@
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    //如果是图片类型消息 点击后进入大图界面
+    EMMessage *message = [_messageDetailArray objectAtIndex:indexPath.row];
+    if([(EMTextMessageBody *)message.messageBodies.lastObject messageBodyType]==eMessageBodyType_Image){
+        ShopPictureViewController *shopPictureVC = [[[ShopPictureViewController alloc] init] autorelease];
+        shopPictureVC.index = 0;
+        NSMutableArray *imageArray = [[NSMutableArray alloc] initWithObjects:[(EMImageMessageBody *)message.messageBodies.lastObject image], nil];
+        shopPictureVC.pictureArray = [NSMutableArray arrayWithArray:imageArray];
+        [self.navigationController pushViewController:shopPictureVC animated:YES];
+    }
+    
     return nil;
 }
 

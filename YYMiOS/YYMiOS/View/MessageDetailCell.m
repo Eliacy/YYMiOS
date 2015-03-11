@@ -21,7 +21,7 @@
         self.backgroundColor = [UIColor clearColor];
         
         //时间
-        _timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, [UIScreen mainScreen].bounds.size.width - 15 * 2, 20)];
+        _timeLabel = [[[UILabel alloc] initWithFrame:CGRectMake(15, 0, [UIScreen mainScreen].bounds.size.width - 15 * 2, 20)] autorelease];
         _timeLabel.backgroundColor = [UIColor colorWithRed:204.0 / 255.0 green:204.0 / 255.0 blue:204.0 / 255.0 alpha:1.0];
         _timeLabel.layer.cornerRadius = 5.0f;
         _timeLabel.layer.masksToBounds = YES;
@@ -31,26 +31,26 @@
         [self.contentView addSubview:_timeLabel];
         
         //对方头像
-        _otherAvatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 33, 40, 40)];
+        _otherAvatarImageView = [[[UIImageView alloc] initWithFrame:CGRectMake(15, 33, 40, 40)] autorelease];
         _otherAvatarImageView.backgroundColor = [UIColor clearColor];
         _otherAvatarImageView.layer.cornerRadius = 20.0f;
         _otherAvatarImageView.layer.masksToBounds = YES;
         [self.contentView addSubview:_otherAvatarImageView];
         
         //自己头像
-        _selfAvatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width - 15 - 40, 33, 40, 40)];
+        _selfAvatarImageView = [[[UIImageView alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width - 15 - 40, 33, 40, 40)] autorelease];
         _selfAvatarImageView.backgroundColor = [UIColor clearColor];
         _selfAvatarImageView.layer.cornerRadius = 20.0f;
         _selfAvatarImageView.layer.masksToBounds = YES;
         [self.contentView addSubview:_selfAvatarImageView];
         
         //消息背景
-        _messageBackImageView = [[UIImageView alloc] initWithFrame:CGRectMake(_otherAvatarImageView.frame.origin.x + _otherAvatarImageView.frame.size.width + 15, _otherAvatarImageView.frame.origin.y, 170, 40)];
+        _messageBackImageView = [[[UIImageView alloc] initWithFrame:CGRectMake(_otherAvatarImageView.frame.origin.x + _otherAvatarImageView.frame.size.width + 15, _otherAvatarImageView.frame.origin.y, 170, 40)] autorelease];
         _messageBackImageView.backgroundColor = [UIColor whiteColor];
         [self.contentView addSubview:_messageBackImageView];
         
         //消息文字内容
-        _contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, _messageBackImageView.frame.size.width - 10 * 2, _messageBackImageView.frame.size.height - 10 * 2)];
+        _contentLabel = [[[UILabel alloc] initWithFrame:CGRectMake(10, 10, _messageBackImageView.frame.size.width - 10 * 2, _messageBackImageView.frame.size.height - 10 * 2)] autorelease];
         _contentLabel.backgroundColor = [UIColor clearColor];
         _contentLabel.textColor = [UIColor colorWithRed:51.0 / 255.0 green:51.0 / 255.0 blue:51.0 / 255.0 alpha:1.0];
         _contentLabel.font = [UIFont systemFontOfSize:14.0f];
@@ -58,11 +58,8 @@
         [_messageBackImageView addSubview:_contentLabel];
         
         //消息图片内容
-        _contentImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, _messageBackImageView.frame.size.width - 10 * 2, _messageBackImageView.frame.size.height - 10 * 2)];
+        _contentImageView = [[[UIImageView alloc] initWithFrame:CGRectMake(10, 10, _messageBackImageView.frame.size.width - 10 * 2, _messageBackImageView.frame.size.height - 10 * 2)] autorelease];
         [_messageBackImageView addSubview:_contentImageView];
-        
-        //点击图片放大
-        
         
     }
     
@@ -158,5 +155,6 @@
 
     // Configure the view for the selected state
 }
+
 
 @end
