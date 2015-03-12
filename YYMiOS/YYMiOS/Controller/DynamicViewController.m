@@ -123,7 +123,7 @@
     
     //主视图
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, _adjustView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - _adjustView.frame.size.height) style:UITableViewStylePlain];
-    _tableView.backgroundColor = [UIColor clearColor];
+    _tableView.backgroundColor = GColor(238, 238, 238);
     _tableView.dataSource = self;
     _tableView.delegate = self;
     _tableView.separatorColor = [UIColor clearColor];

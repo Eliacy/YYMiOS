@@ -44,6 +44,7 @@
 {
     if(_user.followed)
     {
+        [self.view makeToastActivity];
         [User unfollowSomeoneWithUserId:_user.userId
                              fromUserId:[[User sharedUser] userId]
                                 success:^(NSArray *array) {
@@ -58,12 +59,15 @@
                                         [_followButton setTitle:@"关注" forState:UIControlStateNormal];
                                     }
                                     
+                                    [self.view hideToastActivity];
                                 } failure:^(NSError *error) {
+                                    [self.view hideToastActivity];
                                     
                                 }];
     }
     else
     {
+        [self.view makeToastActivity];
         [User followSomeoneWithUserId:_user.userId
                            fromUserId:[[User sharedUser] userId]
                               success:^(NSArray *array) {
@@ -78,7 +82,9 @@
                                       [_followButton setTitle:@"关注" forState:UIControlStateNormal];
                                   }
                                   
+                                  [self.view hideToastActivity];
                               } failure:^(NSError *error) {
+                                  [self.view hideToastActivity];
                                   
                               }];
     }
@@ -98,6 +104,7 @@
     [self.navigationController pushViewController:followerVC animated:YES];
 }
 
+#pragma mark - 点击喜欢
 - (void)clickLikeButton:(id)sender
 {
     if([_likeButton isSelected])
@@ -105,6 +112,8 @@
         return;
     }
     
+    //初始化状态
+    _noneDataImageView.hidden = NO;
     [_likeButton setSelected:YES];
     [_shareButton setSelected:NO];
     [_commentButton setSelected:NO];
@@ -120,21 +129,32 @@
     
     if([_likeArray count] == 0)
     {
+        [self.view makeToastActivity];
         [Deal getReviewLikeListWithOffset:0
                                     limit:20
                                    userId:_userId
                                   success:^(NSArray *array) {
                                       
+                                      //有数据时隐藏无数据底图
+                                      if(array.count>0){
+                                          _noneDataImageView.hidden = YES;
+                                      }
+                                      
                                       [_likeArray removeAllObjects];
                                       [_likeArray addObjectsFromArray:array];
                                       [_tableView reloadData];
                                       
+                                      [self.view hideToastActivity];
                                   } failure:^(NSError *error) {
-                                      
+                                      [self.view hideToastActivity];
                                   }];
+    }else{
+        //有数据时隐藏无数据底图
+        _noneDataImageView.hidden = YES;
     }
 }
 
+#pragma mark - 点击分享
 - (void)clickShareButton:(id)sender
 {
     if([_shareButton isSelected])
@@ -142,6 +162,8 @@
         return;
     }
     
+    //初始化状态
+    _noneDataImageView.hidden = NO;
     [_shareButton setSelected:YES];
     [_likeButton setSelected:NO];
     [_commentButton setSelected:NO];
@@ -157,21 +179,32 @@
     
     if([_shareArray count] == 0)
     {
+        [self.view makeToastActivity];
         [Share getShareListWithOffset:0
                                 limit:20
                                userId:[[User sharedUser] userId]
                               success:^(NSArray *array) {
                                   
+                                  //有数据时隐藏无数据底图
+                                  if(array.count>0){
+                                      _noneDataImageView.hidden = YES;
+                                  }
+                                  
                                   [_shareArray removeAllObjects];
                                   [_shareArray addObjectsFromArray:array];
                                   [_tableView reloadData];
                                   
+                                  [self.view hideToastActivity];
                               } failure:^(NSError *error) {
-                                  
+                                  [self.view hideToastActivity];
                               }];
+    }else{
+        //有数据时隐藏无数据底图
+        _noneDataImageView.hidden = YES;
     }
 }
 
+#pragma mark - 点击评论
 - (void)clickCommentButton:(id)sender
 {
     if([_commentButton isSelected])
@@ -179,6 +212,8 @@
         return;
     }
     
+    //初始化状态
+    _noneDataImageView.hidden = NO;
     [_commentButton setSelected:YES];
     [_shareButton setSelected:NO];
     [_likeButton setSelected:NO];
@@ -194,6 +229,7 @@
     
     if([_commentArray count] == 0)
     {
+        [self.view makeToastActivity];
         [Deal getDealDetailListWithDealId:0
                                     brief:1
                                  selected:0
@@ -205,16 +241,26 @@
                                      city:0
                                   success:^(NSArray *array) {
                                       
+                                      //有数据时隐藏无数据底图
+                                      if(array.count>0){
+                                          _noneDataImageView.hidden = YES;
+                                      }
+                                      
                                       [_commentArray removeAllObjects];
                                       [_commentArray addObjectsFromArray:array];
                                       [_tableView reloadData];
                                       
+                                      [self.view hideToastActivity];
                                   } failure:^(NSError *error) {
-                                      
+                                      [self.view hideToastActivity];
                                   }];
+    }else{
+        //有数据时隐藏无数据底图
+        _noneDataImageView.hidden = YES;
     }
 }
 
+#pragma mark - 点击收藏
 - (void)clickFavouriteButton:(id)sender
 {
     if([_favouriteButton isSelected])
@@ -222,6 +268,8 @@
         return;
     }
     
+    //初始化状态
+    _noneDataImageView.hidden = NO;
     [_favouriteButton setSelected:YES];
     [_shareButton setSelected:NO];
     [_commentButton setSelected:NO];
@@ -237,18 +285,28 @@
     
     if([_favouriteArray count] == 0)
     {
+        [self.view makeToastActivity];
         [POI getPOIFavouriteListWithOffset:0
                                      limit:20
                                     userId:_userId
                                    success:^(NSArray *array) {
                                        
+                                       //有数据时隐藏无数据底图
+                                       if(array.count>0){
+                                           _noneDataImageView.hidden = YES;
+                                       }
+                                       
                                        [_favouriteArray removeAllObjects];
                                        [_favouriteArray addObjectsFromArray:array];
                                        [_tableView reloadData];
                                        
+                                       [self.view hideToastActivity];
                                    } failure:^(NSError *error) {
-                                       
+                                       [self.view hideToastActivity];
                                    }];
+    }else{
+        //有数据时隐藏无数据底图
+        _noneDataImageView.hidden = YES;
     }
 }
 
@@ -423,7 +481,8 @@
     [_backView addSubview:secondLine];
     
     //无数据时底图
-    [_tableHeaderView addSubview:[Function noneDataImageViewWithPoint:CGPointMake((_tableHeaderView.frame.size.width-kNoneDataImgWidth)/2, _tableHeaderView.frame.origin.y+_tableHeaderView.frame.size.height+(_tableView.frame.size.height-_tableHeaderView.frame.origin.y-_tableHeaderView.frame.size.height-kNoneDataImgHeight)/2)]];
+    _noneDataImageView = [Function noneDataImageViewWithPoint:CGPointMake((_tableHeaderView.frame.size.width-kNoneDataImgWidth)/2, _tableHeaderView.frame.origin.y+_tableHeaderView.frame.size.height+(_tableView.frame.size.height-_tableHeaderView.frame.origin.y-_tableHeaderView.frame.size.height-kNoneDataImgHeight)/2)];
+    [_tableHeaderView addSubview:_noneDataImageView];
 }
 
 - (void)viewDidLoad
@@ -518,26 +577,26 @@
     
     CGSize nameSize = [LPUtility getTextHeightWithText:_nameLabel.text font:_nameLabel.font size:CGSizeMake(300, 100)];
     _levelLabel.frame = CGRectMake(_nameLabel.frame.origin.x + nameSize.width + 5, _levelLabel.frame.origin.y, _levelLabel.frame.size.width, _levelLabel.frame.size.height);
-    _levelLabel.text = [NSString stringWithFormat:@"%i级", user.level];
+    _levelLabel.text = [NSString stringWithFormat:@"%li级", (long)user.level];
     
-    NSString *followingString = [NSString stringWithFormat:@"关注:%i", user.followCount];
+    NSString *followingString = [NSString stringWithFormat:@"关注:%li", (long)user.followCount];
     CGSize followingSize = [LPUtility getTextHeightWithText:followingString font:[UIFont systemFontOfSize:11.0f] size:CGSizeMake(200, 100)];
     _followingButton.frame = CGRectMake(_followingButton.frame.origin.x, _followingButton.frame.origin.y, followingSize.width + 20, _followingButton.frame.size.height);
     [_followingButton setTitle:followingString forState:UIControlStateNormal];
     
-    NSString *followerString = [NSString stringWithFormat:@"粉丝:%i", user.fanCount];
+    NSString *followerString = [NSString stringWithFormat:@"粉丝:%li", (long)user.fanCount];
     CGSize followerSize = [LPUtility getTextHeightWithText:followerString font:[UIFont systemFontOfSize:11.0f] size:CGSizeMake(200, 100)];
     _followerButton.frame = CGRectMake(_followingButton.frame.origin.x + _followingButton.frame.size.width + 5, _followerButton.frame.origin.y, followerSize.width + 20, _followerButton.frame.size.height);
     [_followerButton setTitle:followerString forState:UIControlStateNormal];
     
-    [_likeButton setTitle:[NSString stringWithFormat:@"喜欢\n%i", user.likeCount] forState:UIControlStateNormal];
-    [_shareButton setTitle:[NSString stringWithFormat:@"分享\n%i", user.shareCount] forState:UIControlStateNormal];
-    [_commentButton setTitle:[NSString stringWithFormat:@"评论\n%i", user.reviewCount] forState:UIControlStateNormal];
-    [_favouriteButton setTitle:[NSString stringWithFormat:@"收藏\n%i", user.favouriteCount] forState:UIControlStateNormal];
-    [_likeButton setTitle:[NSString stringWithFormat:@"喜欢\n%i", user.likeCount] forState:UIControlStateSelected];
-    [_shareButton setTitle:[NSString stringWithFormat:@"分享\n%i", user.shareCount] forState:UIControlStateSelected];
-    [_commentButton setTitle:[NSString stringWithFormat:@"评论\n%i", user.reviewCount] forState:UIControlStateSelected];
-    [_favouriteButton setTitle:[NSString stringWithFormat:@"收藏\n%i", user.favouriteCount] forState:UIControlStateSelected];
+    [_likeButton setTitle:[NSString stringWithFormat:@"喜欢\n%li", (long)user.likeCount] forState:UIControlStateNormal];
+    [_shareButton setTitle:[NSString stringWithFormat:@"分享\n%li", (long)user.shareCount] forState:UIControlStateNormal];
+    [_commentButton setTitle:[NSString stringWithFormat:@"评论\n%li", (long)user.reviewCount] forState:UIControlStateNormal];
+    [_favouriteButton setTitle:[NSString stringWithFormat:@"收藏\n%li", (long)user.favouriteCount] forState:UIControlStateNormal];
+    [_likeButton setTitle:[NSString stringWithFormat:@"喜欢\n%li", (long)user.likeCount] forState:UIControlStateSelected];
+    [_shareButton setTitle:[NSString stringWithFormat:@"分享\n%li", (long)user.shareCount] forState:UIControlStateSelected];
+    [_commentButton setTitle:[NSString stringWithFormat:@"评论\n%li", (long)user.reviewCount] forState:UIControlStateSelected];
+    [_favouriteButton setTitle:[NSString stringWithFormat:@"收藏\n%li", (long)user.favouriteCount] forState:UIControlStateSelected];
     
     NSMutableArray *badges = [Function addBadgesWithArray:user.badges
                                                   OffsetX:_followingButton.frame.origin.x

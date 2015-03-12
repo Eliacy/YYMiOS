@@ -48,6 +48,9 @@ typedef enum _detailType
     UIButton        *_messageButton;
     
     DetailType      _detailType;
+    
+    //无数据时底图
+    UIImageView     *_noneDataImageView;
 }
 
 @property (assign, nonatomic) NSInteger userId;
