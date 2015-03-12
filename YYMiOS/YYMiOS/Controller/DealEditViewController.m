@@ -685,13 +685,13 @@
     //得到图片后先压缩
     UIImage *compressImage = [LPUtility imageByScalingToMaxSize:[info valueForKey:UIImagePickerControllerOriginalImage]];
     
-    NSData *data;
+    //转换格式后图片
     UIImage *changeImage;
     
     if (UIImagePNGRepresentation(compressImage) != nil) {
         
         //如果是png格式 转换为jpg格式
-        data = UIImagePNGRepresentation(compressImage);
+        NSData *data = UIImagePNGRepresentation(compressImage);
         changeImage = [UIImage imageWithData:data];
     }else{
         
