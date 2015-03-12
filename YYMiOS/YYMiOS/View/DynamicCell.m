@@ -80,13 +80,13 @@
         [_backUserView addSubview:_lastTimeLabel];
         
         _followButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-        _followButton.frame = CGRectMake(320 - 15 - 60, 15, 60, 30);
-        _followButton.backgroundColor = [UIColor clearColor];
-        [_followButton setTitle:@"关注" forState:UIControlStateNormal];
-        [_followButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        _followButton.frame = CGRectMake(320 - 15 - 60, 15, 60, 22);
+        _followButton.backgroundColor = [UIColor colorWithRed:252.0 / 255.0 green:107.0 / 255.0 blue:135.0 / 255.0 alpha:1.0];
+        _followButton.layer.cornerRadius = 3.0;
+        _followButton.layer.masksToBounds = YES;
+        [_followButton setTitle:@"+关注" forState:UIControlStateNormal];
+        [_followButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _followButton.titleLabel.font = [UIFont systemFontOfSize:13.0f];
-        _followButton.layer.borderWidth = 1.0;
-        _followButton.layer.borderColor = [[UIColor grayColor] CGColor];
         [_followButton addTarget:self action:@selector(clickFollowButton:) forControlEvents:UIControlEventTouchUpInside];
         [_backUserView addSubview:_followButton];
         
@@ -177,13 +177,8 @@
         [_backImageView addSubview:_locationLabel];
         
         _shareButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-        _shareButton.frame = CGRectMake(320 - 15 - 60, _backImageView.frame.size.height - 45, 60, 30);
-        _shareButton.backgroundColor = [UIColor clearColor];
-        [_shareButton setTitle:@"分享" forState:UIControlStateNormal];
-        [_shareButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-        _shareButton.titleLabel.font = [UIFont systemFontOfSize:13.0f];
-        _shareButton.layer.borderWidth = 1.0;
-        _shareButton.layer.borderColor = [[UIColor grayColor] CGColor];
+        _shareButton.frame = CGRectMake(320 - 15 - 60, _backImageView.frame.size.height - 45, 60, 22);
+        [_shareButton setImage:[UIImage imageNamed:@"share"] forState:UIControlStateNormal];
         [_shareButton addTarget:self action:@selector(clickShareButton:) forControlEvents:UIControlEventTouchUpInside];
         [_backImageView addSubview:_shareButton];
     }
@@ -214,7 +209,7 @@
     }
     else
     {
-        [_followButton setTitle:@"关注" forState:UIControlStateNormal];
+        [_followButton setTitle:@"+关注" forState:UIControlStateNormal];
     }
     
     NSMutableArray *badges = [Function addBadgesWithArray:deal.user.badges

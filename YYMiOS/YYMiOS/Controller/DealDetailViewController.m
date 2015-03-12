@@ -78,7 +78,7 @@
                                     }
                                     else
                                     {
-                                        [_followButton setTitle:@"关注" forState:UIControlStateNormal];
+                                        [_followButton setTitle:@"+关注" forState:UIControlStateNormal];
                                     }
                                     
                                 } failure:^(NSError *error) {
@@ -98,7 +98,7 @@
                                   }
                                   else
                                   {
-                                      [_followButton setTitle:@"关注" forState:UIControlStateNormal];
+                                      [_followButton setTitle:@"+关注" forState:UIControlStateNormal];
                                   }
                                   
                               } failure:^(NSError *error) {
@@ -299,13 +299,13 @@
 //    [_tableHeaderView addSubview:_followerButton];
     
     _followButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-    _followButton.frame = CGRectMake(_tableHeaderView.frame.size.width - 60 - 15, (_avatarImageView.frame.origin.y + _avatarImageView.frame.size.height) / 2 - 15, 60, 30);
-    _followButton.backgroundColor = [UIColor clearColor];
-    [_followButton setTitle:@"关注" forState:UIControlStateNormal];
-    [_followButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    _followButton.frame = CGRectMake(_tableHeaderView.frame.size.width - 60 - 15, (_avatarImageView.frame.origin.y + _avatarImageView.frame.size.height) / 2 - 15, 60, 20);
+    _followButton.backgroundColor = [UIColor colorWithRed:252.0 / 255.0 green:107.0 / 255.0 blue:135.0 / 255.0 alpha:1.0];
+    _followButton.layer.cornerRadius = 3.0;
+    _followButton.layer.masksToBounds = YES;
+    [_followButton setTitle:@"+关注" forState:UIControlStateNormal];
+    [_followButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     _followButton.titleLabel.font = [UIFont systemFontOfSize:13.0f];
-    _followButton.layer.borderWidth = 1.0;
-    _followButton.layer.borderColor = [[UIColor grayColor] CGColor];
     [_followButton addTarget:self action:@selector(clickFollowButton:) forControlEvents:UIControlEventTouchUpInside];
     [_backUserView addSubview:_followButton];
     
@@ -461,7 +461,7 @@
     }
     else
     {
-        [_followButton setTitle:@"关注" forState:UIControlStateNormal];
+        [_followButton setTitle:@"+关注" forState:UIControlStateNormal];
     }
     
 //    NSString *followingString = [NSString stringWithFormat:@"关注:%i", deal.user.followCount];
