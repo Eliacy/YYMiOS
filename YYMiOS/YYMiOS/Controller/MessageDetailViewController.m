@@ -39,7 +39,7 @@
 
 - (void)sendMessage
 {
-    if(!_textField.text && [_textField.text isEqualToString:@""])
+    if(_textField.text == nil || [_textField.text isEqualToString:@""])
     {
         return;
     }
