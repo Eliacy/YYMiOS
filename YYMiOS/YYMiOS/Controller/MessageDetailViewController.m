@@ -203,6 +203,8 @@
     UIView *tableFooterView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 1)] autorelease];
     tableFooterView.backgroundColor = [UIColor clearColor];
     _tableView.tableFooterView = tableFooterView;
+    
+    [self.view bringSubviewToFront:_footerView];
 }
 
 - (void)viewDidLoad {
