@@ -426,6 +426,28 @@
     [_scrollView addSubview:_addPhotoButton];
 }
 
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    if([_textView isFirstResponder])
+    {
+        [_textView resignFirstResponder];
+    }
+    else if([_keywordTextField isFirstResponder])
+    {
+        [_keywordTextField resignFirstResponder];
+    }
+    else if([_priceTextField isFirstResponder])
+    {
+        [_priceTextField resignFirstResponder];
+    }
+    
+    [UIView animateWithDuration:0.35 animations:^{
+        self.view.transform = CGAffineTransformIdentity;
+    }];
+}
+
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -552,10 +574,25 @@
         {
             [_keywordTextField resignFirstResponder];
         }
+        else if([_priceTextField isFirstResponder])
+        {
+            [_priceTextField resignFirstResponder];
+        }
+        
+        [UIView animateWithDuration:0.35 animations:^{
+            self.view.transform = CGAffineTransformIdentity;
+        }];
     }
 }
 
 #pragma mark - UITextViewDelegate
+
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+    [UIView animateWithDuration:0.35 animations:^{
+        self.view.transform = CGAffineTransformMake(1, 0, 0, 1, 0, -200);
+    }];
+}
 
 - (void)textViewDidChange:(UITextView *)textView
 {
@@ -563,6 +600,20 @@
 }
 
 #pragma mark - UITextFieldDelegate
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    [UIView animateWithDuration:0.35 animations:^{
+        if(textField == _keywordTextField)
+        {
+            self.view.transform = CGAffineTransformMake(1, 0, 0, 1, 0, -200);
+        }
+        else if(textField == _priceTextField)
+        {
+            self.view.transform = CGAffineTransformIdentity;
+        }
+    }];
+}
 
 - (void)priceTextFieldDidChange:(id)sender
 {
