@@ -428,10 +428,24 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    
     //取得压缩后的图片
-    UIImage *image = [LPUtility imageByScalingToMaxSize:[info valueForKey:UIImagePickerControllerEditedImage]];
-    EMMessage *tempMessage = [ChatSendHelper sendImageMessageWithImage:image toUsername:_user.emUsername isChatGroup:NO requireEncryption:NO];
+    UIImage *compressImage = [LPUtility imageByScalingToMaxSize:[info valueForKey:UIImagePickerControllerEditedImage]];
+    
+    NSData *data;
+    EMMessage *tempMessage;
+    
+    if (UIImagePNGRepresentation(compressImage) != nil) {
+        
+        //如果是png格式 转换为jpg格式 再发送
+        data = UIImagePNGRepresentation(compressImage);
+        UIImage *changeImage = [UIImage imageWithData:data];
+        tempMessage = [ChatSendHelper sendImageMessageWithImage:changeImage toUsername:_user.emUsername isChatGroup:NO requireEncryption:NO];
+    }else{
+        
+        //jpg格式则直接发送
+        tempMessage = [ChatSendHelper sendImageMessageWithImage:compressImage toUsername:_user.emUsername isChatGroup:NO requireEncryption:NO];
+    }
+    
     //发送消息
     [self addChatDataToMessage:tempMessage];
     

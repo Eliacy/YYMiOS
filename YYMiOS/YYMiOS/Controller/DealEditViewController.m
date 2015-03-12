@@ -683,12 +683,25 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     //得到图片后先压缩
-    UIImage *image = [LPUtility imageByScalingToMaxSize:[info valueForKey:UIImagePickerControllerOriginalImage]];
+    UIImage *compressImage = [LPUtility imageByScalingToMaxSize:[info valueForKey:UIImagePickerControllerOriginalImage]];
+    
+    NSData *data;
+    UIImage *changeImage;
+    
+    if (UIImagePNGRepresentation(compressImage) != nil) {
+        
+        //如果是png格式 转换为jpg格式
+        data = UIImagePNGRepresentation(compressImage);
+        changeImage = [UIImage imageWithData:data];
+    }else{
+        
+        changeImage = compressImage;
+    }
     
     [self.view hideToastActivity];
     [self.view makeToastActivity];
     
-    [LPUtility uploadImageToQiniuWithImage:image
+    [LPUtility uploadImageToQiniuWithImage:changeImage
                                    imageId:0
                                       type:3
                                     userId:[[User sharedUser] userId]
