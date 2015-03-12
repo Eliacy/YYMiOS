@@ -170,6 +170,23 @@
 
 - (void)clickAddPhotoButton:(id)sender
 {
+    if([_textView isFirstResponder])
+    {
+        [_textView resignFirstResponder];
+    }
+    else if([_keywordTextField isFirstResponder])
+    {
+        [_keywordTextField resignFirstResponder];
+    }
+    else if([_priceTextField isFirstResponder])
+    {
+        [_priceTextField resignFirstResponder];
+    }
+    
+    [UIView animateWithDuration:0.35 animations:^{
+        self.view.transform = CGAffineTransformIdentity;
+    }];
+    
     PhotoSelectView *photoSelectView = [[[PhotoSelectView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)] autorelease];
     photoSelectView.backgroundColor = [UIColor clearColor];
     photoSelectView.delegate = self;
