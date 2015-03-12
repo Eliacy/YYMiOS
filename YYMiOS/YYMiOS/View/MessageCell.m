@@ -74,7 +74,13 @@
     [dateFormatter setDateFormat:@"MM月dd日 hh:mm"];
     _timeLabel.text = [dateFormatter stringFromDate:date];
     
-    _contentLabel.text = [(EMTextMessageBody *)[[[message.conversation latestMessage] messageBodies] firstObject] text];
+    //显示文本类型消息
+    if([(EMTextMessageBody *)[[[message.conversation latestMessage] messageBodies] firstObject] messageBodyType]==eMessageBodyType_Text)
+    {
+        _contentLabel.text = [(EMTextMessageBody *)[[[message.conversation latestMessage] messageBodies] firstObject] text];
+    }else if([(EMTextMessageBody *)[[[message.conversation latestMessage] messageBodies] firstObject] messageBodyType]==eMessageBodyType_Image){
+        _contentLabel.text = @"[图片]";
+    }
 }
 
 @end
