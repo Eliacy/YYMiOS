@@ -548,6 +548,7 @@
         {
             case 1:
             {
+                //内容
                 CGSize size = [LPUtility getTextHeightWithText:[dictionary objectForKey:@"content"]
                                                           font:[UIFont systemFontOfSize:12.0f]
                                                           size:CGSizeMake(_tableView.frame.size.width - 15 * 2, 2000)];
@@ -562,13 +563,14 @@
                 break;
             case 2:
             {
+                //标题
                 CGSize size = [LPUtility getTextHeightWithText:[dictionary objectForKey:@"content"]
                                                           font:[UIFont systemFontOfSize:14.0f]
                                                           size:CGSizeMake(_tableView.frame.size.width - 15 * 2, 2000)];
                 UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(15, 7.5, _tableView.frame.size.width - 15 * 2, size.height)] autorelease];
                 label.backgroundColor = [UIColor clearColor];
-                label.textColor = [UIColor darkGrayColor];
-                label.font = [UIFont systemFontOfSize:14.0f];
+                label.textColor = GColor(252, 43, 101);
+                label.font = [UIFont boldSystemFontOfSize:16.0f];
                 label.numberOfLines = 0;
                 label.textAlignment = NSTextAlignmentCenter;
                 label.text = [dictionary objectForKey:@"content"];
