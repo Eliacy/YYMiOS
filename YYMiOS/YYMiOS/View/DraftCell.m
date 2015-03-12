@@ -20,7 +20,7 @@
         self.contentView.backgroundColor = [UIColor whiteColor];
         
         _avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 70, 70)];
-        _avatarImageView.backgroundColor = [UIColor brownColor];
+        _avatarImageView.backgroundColor = [UIColor clearColor];
         _avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
         _avatarImageView.layer.masksToBounds = YES;
         [self.contentView addSubview:_avatarImageView];

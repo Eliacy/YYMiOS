@@ -14,7 +14,7 @@
 
 #define kScrollViewImageViewTag 86351
 
-@interface DealEditViewController () <POISelectViewControllerDelegate, UserAtListViewControllerDelegate, UITextViewDelegate, PhotoSelectViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, PicturePreviewViewControllerDelegate>
+@interface DealEditViewController () <POISelectViewControllerDelegate, UserAtListViewControllerDelegate, UITextViewDelegate, PhotoSelectViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, PicturePreviewViewControllerDelegate, RankViewDelegate, UITextFieldDelegate>
 
 @end
 
@@ -97,15 +97,28 @@
         }
     }
     
+    NSMutableString *atString = [NSMutableString stringWithCapacity:0];
+    for(NSInteger i = 0; i < [_deal.atList count]; i++)
+    {
+        if(i == [_deal.atList count] - 1)
+        {
+            [atString appendFormat:@"%i", [[_deal.atList objectAtIndex:i] userId]];
+        }
+        else
+        {
+            [atString appendFormat:@"%i ", [[_deal.atList objectAtIndex:i] userId]];
+        }
+    }
+    
     [Deal createDealDetailWithPublished:0
                                  userId:[[User sharedUser] userId]
-                                 atList:@""
-                                   star:0
+                                 atList:atString
+                                   star:_deal.star
                                 content:_deal.content
                                  images:imageString
-                               keywords:@""
-                                  total:0
-                               currency:@""
+                               keywords:_deal.keywordString
+                                  total:_deal.total
+                               currency:_deal.currency
                                  siteId:_deal.site.siteId
                                 success:^(NSArray *array) {
                                     
@@ -131,6 +144,28 @@
                                     _isLoading = NO;
                                     
                                 }];
+}
+
+- (void)clickCurrencyButton:(id)sender
+{
+    if([_currencyButton.titleLabel.text isEqualToString:@"美元"])
+    {
+        [_currencyButton setTitle:@"人民币" forState:UIControlStateNormal];
+    }
+    else if([_currencyButton.titleLabel.text isEqualToString:@"人民币"])
+    {
+        [_currencyButton setTitle:@"欧元" forState:UIControlStateNormal];
+    }
+    else if([_currencyButton.titleLabel.text isEqualToString:@"欧元"])
+    {
+        [_currencyButton setTitle:@"港币" forState:UIControlStateNormal];
+    }
+    else if([_currencyButton.titleLabel.text isEqualToString:@"港币"])
+    {
+        [_currencyButton setTitle:@"美元" forState:UIControlStateNormal];
+    }
+    
+    _deal.currency = _currencyButton.titleLabel.text;
 }
 
 - (void)clickAddPhotoButton:(id)sender
@@ -176,6 +211,8 @@
     [self.view addSubview:_tableView];
     
     UIView *tableHeaderView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 15)] autorelease];
+    tableHeaderView.backgroundColor = [UIColor clearColor];
+    _tableView.tableHeaderView = tableHeaderView;
     
     _tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 350)];
     _tableFooterView.backgroundColor = [UIColor clearColor];
@@ -196,12 +233,43 @@
     _rankLabel.text = @"评分";
     [_tableFooterView addSubview:_rankLabel];
     
+    CGSize rankSize = [LPUtility getTextHeightWithText:_rankLabel.text
+                                                  font:_rankLabel.font
+                                                  size:CGSizeMake(200, 100)];
+    
+    _rankView = [[RankView alloc] initWithFrame:CGRectMake(_rankLabel.frame.origin.x + rankSize.width + 15, _rankLabel.frame.origin.y - 1, 144, 16)];
+    _rankView.delegate = self;
+    [_tableFooterView addSubview:_rankView];
+    
     _priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, _rankLabel.frame.origin.y + _rankLabel.frame.size.height + 15, _rankLabel.frame.size.width, _rankLabel.frame.size.height)];
     _priceLabel.backgroundColor = [UIColor clearColor];
     _priceLabel.textColor = [UIColor colorWithRed:102.0 / 255.0 green:102.0 / 255.0 blue:102.0 / 255.0 alpha:1.0];
     _priceLabel.font = [UIFont systemFontOfSize:18.0f];
     _priceLabel.text = @"总价";
     [_tableFooterView addSubview:_priceLabel];
+    
+    CGSize priceSize = [LPUtility getTextHeightWithText:_priceLabel.text
+                                                   font:_priceLabel.font
+                                                   size:CGSizeMake(200, 100)];
+    
+    _priceTextField = [[UITextField alloc] initWithFrame:CGRectMake(_priceLabel.frame.origin.x + priceSize.width + 15, _priceLabel.frame.origin.y - 7, 150, 30)];
+    _priceTextField.borderStyle = UITextBorderStyleRoundedRect;
+    _priceTextField.font = [UIFont systemFontOfSize:16.0f];
+    _priceTextField.textColor = [UIColor blackColor];
+    _priceTextField.placeholder = @"输入价格......";
+    _priceTextField.delegate = self;
+    _priceTextField.keyboardType = UIKeyboardTypeNumberPad;
+    [_priceTextField addTarget:self action:@selector(priceTextFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+    [_tableFooterView addSubview:_priceTextField];
+    
+    _currencyButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    _currencyButton.frame = CGRectMake(_priceTextField.frame.origin.x + _priceTextField.frame.size.width + 5, _priceTextField.frame.origin.y, 50, 30);
+    _currencyButton.backgroundColor = [UIColor clearColor];
+    [_currencyButton setTitle:@"美元" forState:UIControlStateNormal];
+    [_currencyButton setTitleColor:[UIColor colorWithRed:102.0 / 255.0 green:102.0 / 255.0 blue:102.0 / 255.0 alpha:1.0] forState:UIControlStateNormal];
+    _currencyButton.titleLabel.font = [UIFont systemFontOfSize:16.0f];
+    [_currencyButton addTarget:self action:@selector(clickCurrencyButton:) forControlEvents:UIControlEventTouchUpInside];
+    [_tableFooterView addSubview:_currencyButton];
     
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, _priceLabel.frame.origin.y + _priceLabel.frame.size.height + 20, _tableFooterView.frame.size.width, 60)];
     _scrollView.backgroundColor = [UIColor clearColor];
@@ -211,13 +279,32 @@
     _keywordLabel.backgroundColor = [UIColor clearColor];
     _keywordLabel.textColor = [UIColor colorWithRed:102.0 / 255.0 green:102.0 / 255.0 blue:102.0 / 255.0 alpha:1.0];
     _keywordLabel.font = [UIFont systemFontOfSize:18.0f];
-    _keywordLabel.text = @"关键词";
+    _keywordLabel.text = @"关键词:";
     [_tableFooterView addSubview:_keywordLabel];
     
-    _textView = [[UITextView alloc] initWithFrame:CGRectMake(15, _keywordLabel.frame.origin.y + _keywordLabel.frame.size.height + 20, _tableFooterView.frame.size.width - 15 * 2, 70)];
+    CGSize keywordSize = [LPUtility getTextHeightWithText:_keywordLabel.text
+                                                     font:_keywordLabel.font
+                                                     size:CGSizeMake(200, 100)];
+    
+    _keywordTextField = [[UITextField alloc] initWithFrame:CGRectMake(_keywordLabel.frame.origin.x + keywordSize.width + 15, _keywordLabel.frame.origin.y - 7, _keywordLabel.frame.size.width - keywordSize.width - 15, 30)];
+    _keywordTextField.borderStyle = UITextBorderStyleRoundedRect;
+    _keywordTextField.font = [UIFont systemFontOfSize:16.0f];
+    _keywordTextField.textColor = [UIColor blackColor];
+    _keywordTextField.placeholder = @"多个关键字用，隔开";
+    _keywordTextField.delegate = self;
+    [_keywordTextField addTarget:self action:@selector(keywordTextFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+    [_tableFooterView addSubview:_keywordTextField];
+    
+    _textView = [[UIPlaceHolderTextView alloc] initWithFrame:CGRectMake(15, _keywordLabel.frame.origin.y + _keywordLabel.frame.size.height + 20, _tableFooterView.frame.size.width - 15 * 2, 70)];
     _textView.backgroundColor = [UIColor whiteColor];
     _textView.textColor = [UIColor blackColor];
+    _textView.font = [UIFont systemFontOfSize:16.0f];
+    _textView.placeholder = @"写点什么吧......";
     _textView.delegate = self;
+    _textView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+    _textView.layer.borderWidth = 0.5;
+    _textView.layer.cornerRadius = 4.0f;
+    _textView.layer.masksToBounds = YES;
     [_tableFooterView addSubview:_textView];
     
     _addPhotoButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
@@ -242,6 +329,8 @@
         self.deal = [[Deal alloc] init];
         self.deal.dealKey = [NSString stringWithFormat:@"%i_%i", (int)[[NSDate date] timeIntervalSince1970], arc4random()];
         self.deal.imageArray = [NSArray array];
+        self.deal.star = 0;
+        self.deal.currency = @"美元";
     }
     
     [self refreshData];
@@ -281,6 +370,20 @@
 
 - (void)refreshData
 {
+    _rankView.starCount = _deal.star;
+    if(_deal.total != 0)
+    {
+        _priceTextField.text = [NSString stringWithFormat:@"%i", (int)_deal.total];
+    }
+    if(_deal.currency && ![_deal.currency isEqualToString:@""])
+    {
+        [_currencyButton setTitle:_deal.currency forState:UIControlStateNormal];
+    }
+    else
+    {
+        [_currencyButton setTitle:@"美元" forState:UIControlStateNormal];
+    }
+    _keywordTextField.text = _deal.keywordString;
     _textView.text = _deal.content;
     if(_deal.imageArray == nil)
     {
@@ -323,6 +426,28 @@
     [_scrollView addSubview:_addPhotoButton];
 }
 
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    if([_textView isFirstResponder])
+    {
+        [_textView resignFirstResponder];
+    }
+    else if([_keywordTextField isFirstResponder])
+    {
+        [_keywordTextField resignFirstResponder];
+    }
+    else if([_priceTextField isFirstResponder])
+    {
+        [_priceTextField resignFirstResponder];
+    }
+    
+    [UIView animateWithDuration:0.35 animations:^{
+        self.view.transform = CGAffineTransformIdentity;
+    }];
+}
+
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -355,7 +480,26 @@
             break;
         case 1:
         {
-            cell.textLabel.text = @"我要@TA";
+            if(_deal.atList && [_deal.atList isKindOfClass:[NSArray class]] && [_deal.atList count] > 0)
+            {
+                NSMutableString *mutableString = [NSMutableString stringWithCapacity:0];
+                for(NSInteger i = 0; i < [_deal.atList count]; i++)
+                {
+                    if(i == [_deal.atList count] - 1)
+                    {
+                        [mutableString appendString:[[_deal.atList objectAtIndex:i] userName]];
+                    }
+                    else
+                    {
+                        [mutableString appendFormat:@"%@,", [[_deal.atList objectAtIndex:i] userName]];
+                    }
+                }
+                cell.textLabel.text = mutableString;
+            }
+            else
+            {
+                cell.textLabel.text = @"我要@TA";
+            }
         }
             break;
         default:
@@ -411,7 +555,9 @@
 
 - (void)userAtListViewControllerDidClickConfirmButton:(UserAtListViewController *)userAtListVC
 {
-
+    _deal.atList = [NSArray arrayWithArray:userAtListVC.selectArray];
+    
+    [_tableView reloadData];
 }
 
 #pragma mark - UIGestureRecognizer
@@ -424,14 +570,59 @@
         {
             [_textView resignFirstResponder];
         }
+        else if([_keywordTextField isFirstResponder])
+        {
+            [_keywordTextField resignFirstResponder];
+        }
+        else if([_priceTextField isFirstResponder])
+        {
+            [_priceTextField resignFirstResponder];
+        }
+        
+        [UIView animateWithDuration:0.35 animations:^{
+            self.view.transform = CGAffineTransformIdentity;
+        }];
     }
 }
 
 #pragma mark - UITextViewDelegate
 
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+    [UIView animateWithDuration:0.35 animations:^{
+        self.view.transform = CGAffineTransformMake(1, 0, 0, 1, 0, -200);
+    }];
+}
+
 - (void)textViewDidChange:(UITextView *)textView
 {
     _deal.content = textView.text;
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    [UIView animateWithDuration:0.35 animations:^{
+        if(textField == _keywordTextField)
+        {
+            self.view.transform = CGAffineTransformMake(1, 0, 0, 1, 0, -200);
+        }
+        else if(textField == _priceTextField)
+        {
+            self.view.transform = CGAffineTransformIdentity;
+        }
+    }];
+}
+
+- (void)priceTextFieldDidChange:(id)sender
+{
+    _deal.total = [_priceTextField.text integerValue];
+}
+
+- (void)keywordTextFieldDidChange:(id)sender
+{
+    _deal.keywordString = _keywordTextField.text;
 }
 
 #pragma mark - PhotoSelectViewDelegate
@@ -537,6 +728,13 @@
     _deal.imageArray = picturePreviewVC.pictureArray;
     
     [self refreshImageScrollView];
+}
+
+#pragma mark - RankViewDelegate
+
+- (void)rankViewDidClickStarButton:(RankView *)rankView
+{
+    _deal.star = rankView.starCount;
 }
 
 @end

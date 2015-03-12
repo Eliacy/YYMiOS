@@ -8,6 +8,8 @@
 
 #import "BaseViewController.h"
 #import "Deal.h"
+#import "RankView.h"
+#import "UIPlaceHolderTextView.h"
 
 @protocol DealEditViewControllerDelegate;
 
@@ -20,10 +22,14 @@
     
     UIView          *_tableFooterView;
     UILabel         *_rankLabel;
+    RankView        *_rankView;
     UILabel         *_priceLabel;
+    UITextField     *_priceTextField;
+    UIButton        *_currencyButton;
     UIScrollView    *_scrollView;
     UILabel         *_keywordLabel;
-    UITextView      *_textView;
+    UITextField     *_keywordTextField;
+    UIPlaceHolderTextView   *_textView;
     UIButton        *_addPhotoButton;
     UIButton        *_publishButton;
     

@@ -29,6 +29,8 @@
 @synthesize user = _user;
 @synthesize liked = _liked;
 @synthesize dealKey = _dealKey;
+@synthesize star = _star;
+@synthesize keywordString = _keywordString;
 
 - (id)initWithAttribute:(NSDictionary *)attribute
 {
