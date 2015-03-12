@@ -89,8 +89,10 @@
     _otherAvatarImageView.hidden = YES;
     _selfAvatarImageView.hidden = YES;
     
-    //需要对图片类型做判断
+    //需要对消息类型进行判断
     if([(EMTextMessageBody *)message.messageBodies.lastObject messageBodyType]==eMessageBodyType_Text){
+        
+        //文本消息
         _contentLabel.hidden = NO;
         _contentImageView.hidden = YES;
         
@@ -114,6 +116,8 @@
         _contentLabel.frame = CGRectMake(10, 10, textSize.width, textSize.height);
         _contentLabel.text = [(EMTextMessageBody *)message.messageBodies.lastObject text];
     }else if([(EMTextMessageBody *)message.messageBodies.lastObject messageBodyType]==eMessageBodyType_Image){
+        
+        //图片消息
         _contentLabel.hidden = YES;
         _contentImageView.hidden = NO;
         

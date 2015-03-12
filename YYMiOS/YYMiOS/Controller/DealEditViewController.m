@@ -682,7 +682,8 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
+    //得到图片后先压缩
+    UIImage *image = [LPUtility imageByScalingToMaxSize:[info valueForKey:UIImagePickerControllerOriginalImage]];
     
     [self.view hideToastActivity];
     [self.view makeToastActivity];

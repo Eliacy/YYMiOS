@@ -45,7 +45,13 @@
 + (NSString *)friendlyStringFromDate:(NSDate *)date;
 
 /**
- *  压缩图片
+ *  压缩图片（最大不超过1000）
  */
 + (UIImage *)imageByScalingToMaxSize:(UIImage *)sourceImage;
+
+/**
+ *  压缩图片到指定尺寸
+ */
++ (UIImage *)imageByScalingAndCroppingForSourceImage:(UIImage *)sourceImage targetSize:(CGSize)targetSize;
+
 @end

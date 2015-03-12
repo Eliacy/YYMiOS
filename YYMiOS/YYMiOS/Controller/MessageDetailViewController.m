@@ -431,7 +431,6 @@
     
     //取得压缩后的图片
     UIImage *image = [LPUtility imageByScalingToMaxSize:[info valueForKey:UIImagePickerControllerEditedImage]];
-    //创建messsage对象 并上传图片
     EMMessage *tempMessage = [ChatSendHelper sendImageMessageWithImage:image toUsername:_user.emUsername isChatGroup:NO requireEncryption:NO];
     //发送消息
     [self addChatDataToMessage:tempMessage];

@@ -132,6 +132,41 @@
     _scrollView.zoomScale = _scrollView.minimumZoomScale;
 }
 
+- (void)setImageView:(UIImageView *)imageView
+{
+    if(_imageView != nil)
+    {
+        LP_SAFE_RELEASE(_imageView);
+    }
+    _imageView = [imageView retain];
+    
+    if(_imageView.image.size.width / _imageView.image.size.height > 320 / _scrollView.frame.size.height)
+    {
+        _scrollView.contentSize = CGSizeMake(_imageView.image.size.width / _imageView.image.size.height * _scrollView.frame.size.height, _scrollView.frame.size.height);
+    }
+    else
+    {
+        _scrollView.contentSize = CGSizeMake(_scrollView.frame.size.width, _imageView.image.size.height / _imageView.image.size.width * _scrollView.frame.size.width);
+    }
+    _imageView.frame = CGRectMake(0, 0, _scrollView.contentSize.width, _scrollView.contentSize.height);
+    _imageView.backgroundColor = [UIColor clearColor];
+    _imageView.contentMode = UIViewContentModeScaleAspectFill;
+    _imageView.layer.masksToBounds = YES;
+    _imageView.userInteractionEnabled = YES;
+    [_scrollView addSubview:_imageView];
+    
+    UITapGestureRecognizer *tapTwice = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapTwice:)];
+    tapTwice.numberOfTapsRequired = 2;
+    [_imageView addGestureRecognizer:tapTwice];
+    [tapTwice release];
+    
+    _scrollView.minimumZoomScale = MIN(_scrollView.frame.size.width / _scrollView.contentSize.width, _scrollView.frame.size.height / _scrollView.contentSize.height);
+    _scrollView.maximumZoomScale = MAX(_imageView.image.size.width / [[UIScreen mainScreen] bounds].size.width / 2 * 1.2, _scrollView.minimumZoomScale * 1.5);
+    _scrollView.zoomScale = _scrollView.minimumZoomScale;
+    
+    
+}
+
 - (void)setImageURL:(NSString *)imageURL
 {
     if(_imageURL != nil)

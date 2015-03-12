@@ -78,14 +78,15 @@
         _rightBrowserView = [[PictureImageView alloc] initWithFrame:CGRectMake(0, 0, _scrollView.frame.size.width, _scrollView.frame.size.height)];
     }
     
-    _middleBrowserView.frame = CGRectMake(_scrollView.frame.size.width * _index, 0, _scrollView.frame.size.width, _scrollView.frame.size.height);
     [_scrollView addSubview:_middleBrowserView];
-    
+    _middleBrowserView.frame = CGRectMake(_scrollView.frame.size.width * _index, 0, _scrollView.frame.size.width, _scrollView.frame.size.height);
     //判断图片类型
     if([[_pictureArray objectAtIndex:_index] isKindOfClass:[EMChatImage class]]){
-        //消息图片为本地路径解析 且数组中只有一个元素
-        _middleBrowserView.imageView.image = [UIImage imageWithContentsOfFile:[[_pictureArray objectAtIndex:_index] localPath]];
+        
+        //消息图片为全路径解析
+        _middleBrowserView.imageView = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:[[_pictureArray objectAtIndex:_index] localPath]]];
     }else{
+        
         //店铺图片为url解析
         _middleBrowserView.imageURL = [LPUtility getQiniuImageURLStringWithBaseString:[[_pictureArray objectAtIndex:_index] imageURL] imageSize:CGSizeMake(self.view.frame.size.width * 2, self.view.frame.size.height * 2)];
     }
