@@ -10,10 +10,12 @@
 #import "ChatSendHelper.h"
 #import "MessageDetailCell.h"
 #import "User.h"
+#import "PhotoSelectView.h"
+#import "ShopPictureViewController.h"
 
 #define KPageCount 20
 
-@interface MessageDetailViewController () <IChatManagerDelegate, UITextFieldDelegate>
+@interface MessageDetailViewController () <IChatManagerDelegate, UITextFieldDelegate,PhotoSelectViewDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 {
     dispatch_queue_t _messageQueue;
     
@@ -49,6 +51,15 @@
     [self addChatDataToMessage:tempMessage];
     
     _textField.text = @"";
+}
+
+- (void)clickSendImgButton:(id)sender
+{
+    //上传照片
+    PhotoSelectView *photoSelectView = [[[PhotoSelectView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)] autorelease];
+    photoSelectView.backgroundColor = [UIColor clearColor];
+    photoSelectView.delegate = self;
+    [photoSelectView show];
 }
 
 - (void)loadMoreMessages
@@ -163,21 +174,35 @@
     line.backgroundColor = [UIColor lightGrayColor];
     [_footerView addSubview:line];
     
-    _textBackView = [[UIView alloc] initWithFrame:CGRectMake(15, 10, 240, 30)];
+    //发送图片按钮
+    _sendImgButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    _sendImgButton.frame = CGRectMake(15, 10, 40, 30);
+    _sendImgButton.backgroundColor = [UIColor colorWithRed:252.0 / 255.0 green:107.0 / 255.0 blue:135.0 / 255.0 alpha:1.0];
+    _sendImgButton.layer.cornerRadius = 3.0;
+    _sendImgButton.layer.masksToBounds = YES;
+    [_sendImgButton setTitle:@"+" forState:UIControlStateNormal];
+    [_sendImgButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _sendImgButton.titleLabel.font = [UIFont systemFontOfSize:13.0f];
+    [_sendImgButton addTarget:self action:@selector(clickSendImgButton:) forControlEvents:UIControlEventTouchUpInside];
+    [_footerView addSubview:_sendImgButton];
+    
+    //输入框背景
+    _textBackView = [[UIView alloc] initWithFrame:CGRectMake(_sendImgButton.frame.size.width+15*2, 10, _footerView.frame.size.width-40*2-15*4, 30)];
     _textBackView.backgroundColor = [UIColor colorWithRed:245.0 / 255.0 green:245.0 / 255.0 blue:245.0 / 255.0 alpha:1.0];
     _textBackView.layer.borderWidth = 0.5;
     _textBackView.layer.borderColor = [UIColor colorWithRed:200.0 / 255.0 green:200.0 / 255.0 blue:200.0 / 255.0 alpha:1.0].CGColor;
     _textBackView.layer.cornerRadius = 3.0;
     _textBackView.layer.masksToBounds = YES;
     [_footerView addSubview:_textBackView];
-    
-    _textField = [[UITextField alloc] initWithFrame:CGRectMake(6, 4, 228, 24)];
+    //输入框
+    _textField = [[UITextField alloc] initWithFrame:CGRectMake(10, 4, _textBackView.frame.size.width-20, 24)];
     _textField.backgroundColor = [UIColor clearColor];
     _textField.placeholder = @"说点啥吧";
     _textField.delegate = self;
     _textField.returnKeyType = UIReturnKeySend;
     [_textBackView addSubview:_textField];
     
+    //发送消息按钮
     _sendButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     _sendButton.frame = CGRectMake(_footerView.frame.size.width - 15 - 40, 10, 40, 30);
     _sendButton.backgroundColor = [UIColor colorWithRed:252.0 / 255.0 green:107.0 / 255.0 blue:135.0 / 255.0 alpha:1.0];
@@ -189,6 +214,7 @@
     [_sendButton addTarget:self action:@selector(clickSendButton:) forControlEvents:UIControlEventTouchUpInside];
     [_footerView addSubview:_sendButton];
     
+    //主视图列表
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, _adjustView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - _adjustView.frame.size.height - _footerView.frame.size.height) style:UITableViewStylePlain];
     _tableView.backgroundColor = [UIColor clearColor];
     _tableView.dataSource = self;
@@ -265,16 +291,31 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     CGFloat height = 0;
     
     EMMessage *message = [_messageDetailArray objectAtIndex:indexPath.row];
     
-    CGSize textSize = [LPUtility getTextHeightWithText:[(EMTextMessageBody *)message.messageBodies.lastObject text]
-                                                  font:[UIFont systemFontOfSize:14.0f]
-                                                  size:CGSizeMake(150, 2000)];
-    height += textSize.height;
-    height += 45 + 20;
+    //对不同类型信息做判断
+    if([(EMTextMessageBody *)message.messageBodies.lastObject messageBodyType]==eMessageBodyType_Text){
+        
+        //文本
+        CGSize textSize = [LPUtility getTextHeightWithText:[(EMTextMessageBody *)message.messageBodies.lastObject text]
+                                                      font:[UIFont systemFontOfSize:14.0f]
+                                                      size:CGSizeMake(150, 2000)];
+        height += textSize.height;
+        
+    }else if([(EMTextMessageBody *)message.messageBodies.lastObject messageBodyType]==eMessageBodyType_Image){
+        
+        //预览图
+        CGSize imageSize = [(EMImageMessageBody *)message.messageBodies.lastObject thumbnailImage].size;
+        height += imageSize.height;
+    }else{
+        //其他情况
+        
+    }
     
+    height += 45 + 20;
     return height;
 }
 
@@ -302,6 +343,16 @@
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    //如果是图片类型消息 点击后进入大图界面
+    EMMessage *message = [_messageDetailArray objectAtIndex:indexPath.row];
+    if([(EMTextMessageBody *)message.messageBodies.lastObject messageBodyType]==eMessageBodyType_Image){
+        ShopPictureViewController *shopPictureVC = [[[ShopPictureViewController alloc] init] autorelease];
+        shopPictureVC.index = 0;
+        NSMutableArray *imageArray = [[NSMutableArray alloc] initWithObjects:[(EMImageMessageBody *)message.messageBodies.lastObject image], nil];
+        shopPictureVC.pictureArray = [NSMutableArray arrayWithArray:imageArray];
+        [self.navigationController pushViewController:shopPictureVC animated:YES];
+    }
+    
     return nil;
 }
 
@@ -332,6 +383,69 @@
     {
         [self addChatDataToMessage:message];
     }
+}
+
+#pragma mark -
+#pragma mark - PhotoSelectViewDelegate
+
+- (void)photoSelectViewDidClickCameraButton:(PhotoSelectView *)photoSelectView
+{
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+    {
+        UIImagePickerController *picker = [[[UIImagePickerController alloc] init] autorelease];
+        picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        picker.delegate = self;
+        picker.allowsEditing = YES;
+        [self presentViewController:picker animated:YES completion:^{
+            
+        }];
+    }
+    else
+    {
+        NSLog(@"不能使用照相机");
+    }
+}
+
+- (void)photoSelectViewDidClickLibraryButton:(PhotoSelectView *)photoSelectView
+{
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary])
+    {
+        UIImagePickerController *picker = [[[UIImagePickerController alloc] init] autorelease];
+        picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        picker.delegate = self;
+        picker.allowsEditing = YES;
+        [self presentViewController:picker animated:YES completion:^{
+            
+        }];
+    }
+    else
+    {
+        NSLog(@"不能访问图片库");
+    }
+}
+
+#pragma mark - UIImagePickerControllerDelegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    
+    //取得压缩后的图片
+    UIImage *image = [LPUtility imageByScalingToMaxSize:[info valueForKey:UIImagePickerControllerEditedImage]];
+    //创建messsage对象 并上传图片
+    EMMessage *tempMessage = [ChatSendHelper sendImageMessageWithImage:image toUsername:_user.emUsername isChatGroup:NO requireEncryption:NO];
+    //发送消息
+    [self addChatDataToMessage:tempMessage];
+    
+    [picker dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [picker dismissViewControllerAnimated:YES completion:^{
+        
+    }];
 }
 
 @end

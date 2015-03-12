@@ -44,14 +44,6 @@
     [self refreshScrollView];
 }
 
-//- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-//{
-//    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-//    if (self) {
-//        // Custom initialization
-//    }
-//    return self;
-//}
 
 - (void)viewDidLoad
 {
@@ -64,17 +56,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 - (void)setPictureArray:(NSMutableArray *)pictureArray
 {
@@ -99,7 +80,16 @@
     
     _middleBrowserView.frame = CGRectMake(_scrollView.frame.size.width * _index, 0, _scrollView.frame.size.width, _scrollView.frame.size.height);
     [_scrollView addSubview:_middleBrowserView];
-    _middleBrowserView.imageURL = [LPUtility getQiniuImageURLStringWithBaseString:[[_pictureArray objectAtIndex:_index] imageURL] imageSize:CGSizeMake(self.view.frame.size.width * 2, self.view.frame.size.height * 2)];
+    
+    //判断图片类型
+    if([[_pictureArray objectAtIndex:_index] isKindOfClass:[EMChatImage class]]){
+        //消息图片为本地路径解析 且数组中只有一个元素
+        _middleBrowserView.imageView.image = [UIImage imageWithContentsOfFile:[[_pictureArray objectAtIndex:_index] localPath]];
+    }else{
+        //店铺图片为url解析
+        _middleBrowserView.imageURL = [LPUtility getQiniuImageURLStringWithBaseString:[[_pictureArray objectAtIndex:_index] imageURL] imageSize:CGSizeMake(self.view.frame.size.width * 2, self.view.frame.size.height * 2)];
+    }
+    
     _leftBrowserView.frame = CGRectMake(_scrollView.frame.size.width * (_index - 1), 0, _scrollView.frame.size.width, _scrollView.frame.size.height);
     [_scrollView addSubview:_leftBrowserView];
     _rightBrowserView.frame = CGRectMake(_scrollView.frame.size.width * (_index + 1), 0, _scrollView.frame.size.width, _scrollView.frame.size.height);

@@ -44,4 +44,8 @@
 //以用户友好的方式输出时间戳：
 + (NSString *)friendlyStringFromDate:(NSDate *)date;
 
+/**
+ *  压缩图片
+ */
++ (UIImage *)imageByScalingToMaxSize:(UIImage *)sourceImage;
 @end

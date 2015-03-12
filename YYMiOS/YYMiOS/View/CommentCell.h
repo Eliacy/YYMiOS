@@ -20,6 +20,7 @@
     UILabel         *_timeLabel;
     UILabel         *_contentLabel;
     UIButton        *_replyButton;
+    UIButton        *_atButton;
     
     id<CommentCellDelegate> _delegate;
 }
@@ -32,5 +33,7 @@
 @protocol CommentCellDelegate <NSObject>
 
 - (void)commentCellDidClickReplyButton:(CommentCell *)commentCell;
+
+- (void)commentCellDidClickAtButton:(CommentCell *)commentCell;
 
 @end

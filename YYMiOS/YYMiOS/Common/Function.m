@@ -184,4 +184,15 @@
     
 }
 
+#pragma mark - 绘制无数据时提示图片
++ (UIImageView *)noneDataImageViewWithPoint:(CGPoint)point
+{
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(point.x, point.y, 115, 84)];
+    imageView.image = [UIImage imageNamed:@"noneData"];
+    return imageView;
+}
+
+
+
+
 @end

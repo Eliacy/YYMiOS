@@ -27,7 +27,11 @@
     UIButton        *_bestButton;
     UIButton        *_addButton;
     
-    NSInteger       _selected;
+    //国家、城市
+    NSInteger       _citySelected;
+    //精选、最新
+    NSInteger       _newSelected;
+    
 }
 
 @property (assign, nonatomic) TabViewController *tabVC;
