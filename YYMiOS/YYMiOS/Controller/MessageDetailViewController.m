@@ -12,6 +12,9 @@
 #import "User.h"
 #import "PhotoSelectView.h"
 #import "ShopPictureViewController.h"
+#import "UserDetailViewController.h"
+#import "ArticleViewController.h"
+#import "DealDetailViewController.h"
 
 #define KPageCount 20
 
@@ -343,14 +346,42 @@
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //如果是图片类型消息 点击后进入大图界面
+    //得到消息实体
     EMMessage *message = [_messageDetailArray objectAtIndex:indexPath.row];
+    
     if([(EMTextMessageBody *)message.messageBodies.lastObject messageBodyType]==eMessageBodyType_Image){
+        
+        //如果是图片类型消息 点击后进入大图界面
         ShopPictureViewController *shopPictureVC = [[[ShopPictureViewController alloc] init] autorelease];
         shopPictureVC.index = 0;
         NSMutableArray *imageArray = [[NSMutableArray alloc] initWithObjects:[(EMImageMessageBody *)message.messageBodies.lastObject image], nil];
         shopPictureVC.pictureArray = [NSMutableArray arrayWithArray:imageArray];
         [self.navigationController pushViewController:shopPictureVC animated:YES];
+    }else if([(EMTextMessageBody *)message.messageBodies.lastObject messageBodyType]==eMessageBodyType_Text){
+        
+        //如果是文本消息 判断是否有ext字段 有的话跳转到相应界面
+        if(message.ext.count!=0){
+            if([message.ext valueForKey:@"user"]){
+                
+                //有人关注自己账号 或对自己评论表示喜欢
+                UserDetailViewController *userDetailVC = [[[UserDetailViewController alloc] init] autorelease];
+                userDetailVC.userId = [[message.ext valueForKey:@"user"] integerValue];
+                [self.navigationController pushViewController:userDetailVC animated:YES];
+            }else if([message.ext valueForKey:@"comment"]){
+                
+                //有人在子评论中@自己
+                ArticleViewController *articleVC = [[[ArticleViewController alloc] init] autorelease];
+                articleVC.articleId = [[message.ext valueForKey:@"article"] integerValue];
+                [self.navigationController pushViewController:articleVC animated:YES];
+            }else if(message.ext.count==1&&[message.ext valueForKey:@"review"]){
+                
+                //发晒单评论时被@
+                DealDetailViewController *dealDetailVC = [[[DealDetailViewController alloc] init] autorelease];
+                dealDetailVC.dealId = [[message.ext valueForKey:@"review"] integerValue];
+                [self.navigationController pushViewController:dealDetailVC animated:YES];
+                
+            }
+        }
     }
     
     return nil;
