@@ -395,7 +395,6 @@
         UIImagePickerController *picker = [[[UIImagePickerController alloc] init] autorelease];
         picker.sourceType = UIImagePickerControllerSourceTypeCamera;
         picker.delegate = self;
-        picker.allowsEditing = YES;
         [self presentViewController:picker animated:YES completion:^{
             
         }];
@@ -413,7 +412,6 @@
         UIImagePickerController *picker = [[[UIImagePickerController alloc] init] autorelease];
         picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
         picker.delegate = self;
-        picker.allowsEditing = YES;
         [self presentViewController:picker animated:YES completion:^{
             
         }];
@@ -429,7 +427,7 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     //取得压缩后的图片
-    UIImage *compressImage = [LPUtility imageByScalingToMaxSize:[info valueForKey:UIImagePickerControllerEditedImage]];
+    UIImage *compressImage = [LPUtility imageByScalingToMaxSize:[info valueForKey:UIImagePickerControllerOriginalImage]];
     
     NSData *data;
     EMMessage *tempMessage;
