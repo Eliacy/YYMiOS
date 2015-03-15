@@ -26,6 +26,8 @@
     NSInteger       _categoryId;
     NSInteger       _order;
     
+    //无数据时底图
+    UIImageView     *_noneDataImageView;
     
 }
 

@@ -32,6 +32,9 @@
     //精选、最新
     NSInteger       _newSelected;
     
+    //无数据时底图
+    UIImageView     *_noneDataImageView;
+    
 }
 
 @property (assign, nonatomic) TabViewController *tabVC;

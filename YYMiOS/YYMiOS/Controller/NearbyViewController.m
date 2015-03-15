@@ -200,12 +200,9 @@
     [_mapButton addTarget:self action:@selector(clickMapButton:) forControlEvents:UIControlEventTouchUpInside];
     [_headerView addSubview:_mapButton];
     
-    //无数据时底图
-    [self.view addSubview:[Function noneDataImageViewWithPoint:CGPointMake((self.view.frame.size.width-kNoneDataImgWidth)/2, _headerView.frame.size.height+(self.view.frame.size.height - _adjustView.frame.size.height-kNoneDataImgHeight)/2)]];
-    
     //附近视图
     _tableView = [[[UITableView alloc] initWithFrame:CGRectMake(0, _adjustView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - _adjustView.frame.size.height) style:UITableViewStylePlain] autorelease];
-    _tableView.backgroundColor = [UIColor clearColor];
+    _tableView.backgroundColor = GColor(238, 238, 238);
     _tableView.dataSource = self;
     _tableView.delegate = self;
     _tableView.separatorColor = [UIColor clearColor];
@@ -291,6 +288,10 @@
     filterTableView.hidden = YES;
     filterTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:filterTableView];
+    
+    //无数据时底图
+    _noneDataImageView = [Function noneDataImageViewWithPoint:CGPointMake((self.view.frame.size.width-kNoneDataImgWidth)/2, _headerView.frame.size.height+(self.view.frame.size.height - _adjustView.frame.size.height-kNoneDataImgHeight)/2)];
+    [self.view addSubview:_noneDataImageView];
 }
 
 - (void)viewDidLoad {
@@ -338,6 +339,14 @@
                               //如果请求不成功，则应保留要求 refresh_nearby_data 的标记状态：
                               [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:NO] forKey:@"refresh_nearby_data"];
                               [[NSUserDefaults standardUserDefaults] synchronize];
+                              
+                              if(array.count>0){
+                                  //有数据时隐藏无数据底图
+                                  _noneDataImageView.hidden = YES;
+                              }else{
+                                  //无数据时显示底图
+                                  _noneDataImageView.hidden = NO;
+                              }
                               
                               [_nearbyArray removeAllObjects];
                               [_nearbyArray addObjectsFromArray:array];
@@ -430,6 +439,14 @@
                       success:^(NSArray *array) {
                           
                           _isLoading = NO;
+                          
+                          if(array.count>0){
+                              //有数据时隐藏无数据底图
+                              _noneDataImageView.hidden = YES;
+                          }else{
+                              //无数据时显示底图
+                              _noneDataImageView.hidden = NO;
+                          }
                           
                           [_nearbyArray removeAllObjects];
                           [_nearbyArray addObjectsFromArray:array];

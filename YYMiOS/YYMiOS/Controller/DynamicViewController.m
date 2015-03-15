@@ -118,9 +118,6 @@
     [_addButton addTarget:self action:@selector(clickAddButton:) forControlEvents:UIControlEventTouchUpInside];
     [_headerView addSubview:_addButton];
     
-    //无数据时底图
-    [self.view addSubview:[Function noneDataImageViewWithPoint:CGPointMake((self.view.frame.size.width-kNoneDataImgWidth)/2, _headerView.frame.size.height+(self.view.frame.size.height - _adjustView.frame.size.height-kNoneDataImgHeight)/2)]];
-    
     //主视图
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, _adjustView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - _adjustView.frame.size.height) style:UITableViewStylePlain];
     _tableView.backgroundColor = GColor(238, 238, 238);
@@ -143,6 +140,10 @@
     UIView *tableHeaderView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 10)] autorelease];
     tableHeaderView.backgroundColor = [UIColor clearColor];
     _tableView.tableHeaderView = tableHeaderView;
+    
+    //无数据时底图
+    _noneDataImageView = [Function noneDataImageViewWithPoint:CGPointMake((self.view.frame.size.width-kNoneDataImgWidth)/2, _headerView.frame.size.height+(self.view.frame.size.height - _adjustView.frame.size.height-kNoneDataImgHeight)/2)];
+    [self.view addSubview:_noneDataImageView];
 }
 
 - (void)viewDidLoad {
@@ -174,6 +175,14 @@
                                      site:0
                                      city:_citySelected==1?[[[NSUserDefaults standardUserDefaults] objectForKey:@"city_id"] integerValue]:0
                                   success:^(NSArray *array) {
+                                      
+                                      if(array.count>0){
+                                          //有数据时隐藏无数据底图
+                                          _noneDataImageView.hidden = YES;
+                                      }else{
+                                          //无数据时显示底图
+                                          _noneDataImageView.hidden = NO;
+                                      }
                                       
                                       [_dynamicArray removeAllObjects];
                                       [_dynamicArray addObjectsFromArray:array];
@@ -274,6 +283,14 @@
                               success:^(NSArray *array) {
                                   
                                   _isLoading = NO;
+                                  
+                                  if(array.count>0){
+                                      //有数据时隐藏无数据底图
+                                      _noneDataImageView.hidden = YES;
+                                  }else{
+                                      //无数据时显示底图
+                                      _noneDataImageView.hidden = NO;
+                                  }
                                   
                                   [_dynamicArray removeAllObjects];
                                   [_dynamicArray addObjectsFromArray:array];

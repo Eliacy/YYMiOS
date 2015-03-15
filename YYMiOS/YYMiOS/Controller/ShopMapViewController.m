@@ -8,6 +8,7 @@
 
 #import "ShopMapViewController.h"
 #import "MKMapView+ZoomLevel.h"
+#import <MapKit/MapKit.h>
 
 @interface ShopMapViewController () <MKMapViewDelegate, LocationManagerDelegate>
 
@@ -18,10 +19,42 @@
 @synthesize poiDetail = _poiDetail;
 
 #pragma mark - private
-
+#pragma mark - 点击导航按钮
 - (void)clickNavigationButton:(id)sender
 {
-
+    //获取当前位置
+    MKMapItem *mylocation = [MKMapItem mapItemForCurrentLocation];
+    
+    //当前经维度
+    float currentLatitude = mylocation.placemark.location.coordinate.latitude;
+    float currentLongitude = mylocation.placemark.location.coordinate.longitude;
+    CLLocationCoordinate2D coords1 = CLLocationCoordinate2DMake(currentLatitude,currentLongitude);
+    
+    //目的地位置
+    CLLocationCoordinate2D coords2 = CLLocationCoordinate2DMake(_poiDetail.latitude,_poiDetail.longitude);
+    
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 6.0){
+        
+        // ios6以下，调用google map
+        NSString *urlString = [[NSString alloc] initWithFormat:@"http://maps.google.com/maps?saddr=%f,%f&daddr=%f,%f&dirfl=d", coords1.latitude,coords1.longitude,coords2.latitude,coords2.longitude];
+        NSURL *aURL = [NSURL URLWithString:urlString];
+        //打开网页google地图
+        [[UIApplication sharedApplication] openURL:aURL];
+        
+    }else{
+        // 直接调用ios自己带的apple map
+        //起点
+        MKMapItem *currentLocation = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithCoordinate:coords1 addressDictionary:nil]];
+        //目的地的位置
+        MKMapItem *toLocation = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithCoordinate:coords2 addressDictionary:nil]];
+        toLocation.name = _poiDetail.addressOrigin;
+        //设置苹果地图相关数据
+        NSArray *items = [NSArray arrayWithObjects:currentLocation, toLocation, nil];
+        NSDictionary *options = @{ MKLaunchOptionsDirectionsModeKey:MKLaunchOptionsDirectionsModeDriving, MKLaunchOptionsMapTypeKey: [NSNumber numberWithInteger:MKMapTypeStandard], MKLaunchOptionsShowsTrafficKey:@YES };
+        //打开苹果自身地图应用，并呈现特定的item
+        [MKMapItem openMapsWithItems:items launchOptions:options];
+    }
+    
 }
 
 - (void)clickLocateButton:(id)sender

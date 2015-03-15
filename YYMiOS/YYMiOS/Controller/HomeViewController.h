@@ -28,6 +28,9 @@
     
     UILabel         *_messageCountLabel;
     
+    //无数据时底图
+    UIImageView     *_noneDataImageView;
+    
 }
 
 @property (assign, nonatomic) TabViewController *tabVC;

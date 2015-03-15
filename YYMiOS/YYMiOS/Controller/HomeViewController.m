@@ -127,9 +127,6 @@
     [_messageButton addSubview:_messageCountLabel];
     _messageCountLabel.hidden = YES;
     
-    //无数据时底图
-    [self.view addSubview:[Function noneDataImageViewWithPoint:CGPointMake((self.view.frame.size.width-kNoneDataImgWidth)/2, _headerView.frame.size.height+(self.view.frame.size.height - _adjustView.frame.size.height-kNoneDataImgHeight)/2)]];
-    
     //主视图
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, _adjustView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - _adjustView.frame.size.height) style:UITableViewStylePlain];
     _tableView.backgroundColor = GColor(238, 238, 238);
@@ -152,6 +149,10 @@
     UIView *tableHeaderView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.frame.size.width, 10)] autorelease];
     tableHeaderView.backgroundColor = [UIColor clearColor];
     _tableView.tableHeaderView = tableHeaderView;
+    
+    //无数据时底图
+    _noneDataImageView = [Function noneDataImageViewWithPoint:CGPointMake((self.view.frame.size.width-kNoneDataImgWidth)/2, _headerView.frame.size.height+(self.view.frame.size.height - _adjustView.frame.size.height-kNoneDataImgHeight)/2)];
+    [self.view addSubview:_noneDataImageView];
 }
 
 - (void)viewDidLoad {
@@ -171,7 +172,7 @@
                                                  for(City *city in country.cityArray){
                                                      if(city.cityId==country.defaultCityId){
                                                          //保存于本地数据库
-                                                         [Function setAsynchronousWithObject:[NSNumber numberWithInt:city.cityId] Key:@"city_id"];
+                                                         [Function setAsynchronousWithObject:[NSNumber numberWithInteger:city.cityId] Key:@"city_id"];
                                                          [Function setAsynchronousWithObject:city.cityName Key:@"city_name"];
                                                          //更改标题
                                                          [Function layoutPlayWayBtnWithTitle:[Function getAsynchronousWithKey:@"city_name"] Button:_titleButton];
@@ -187,6 +188,15 @@
                                                                         limit:20
                                                                        cityId:[[Function getAsynchronousWithKey:@"city_id"] integerValue]
                                                                       success:^(NSArray *array) {
+                                                                          
+                                                                          
+                                                                          if(array.count>0){
+                                                                              //有数据时隐藏无数据底图
+                                                                              _noneDataImageView.hidden = YES;
+                                                                          }else{
+                                                                              //无数据时显示底图
+                                                                              _noneDataImageView.hidden = NO;
+                                                                          }
                                                                           
                                                                           [_homeArray removeAllObjects];
                                                                           [_homeArray addObjectsFromArray:array];
@@ -242,6 +252,14 @@
                                            limit:20
                                           cityId:[[Function getAsynchronousWithKey:@"city_id"] integerValue]
                                          success:^(NSArray *array) {
+                                             
+                                             if(array.count>0){
+                                                 //有数据时隐藏无数据底图
+                                                 _noneDataImageView.hidden = YES;
+                                             }else{
+                                                 //无数据时显示底图
+                                                 _noneDataImageView.hidden = NO;
+                                             }
                                              
                                              [_homeArray removeAllObjects];
                                              [_homeArray addObjectsFromArray:array];
@@ -328,6 +346,14 @@
                                  success:^(NSArray *array) {
                                      
                                      _isLoading = NO;
+                                     
+                                     if(array.count>0){
+                                         //有数据时隐藏无数据底图
+                                         _noneDataImageView.hidden = YES;
+                                     }else{
+                                         //无数据时显示底图
+                                         _noneDataImageView.hidden = NO;
+                                     }
                                      
                                      [_homeArray removeAllObjects];
                                      [_homeArray addObjectsFromArray:array];
